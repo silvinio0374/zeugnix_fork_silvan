@@ -20,7 +20,7 @@ export default async function AppLayout({
     <div className="min-h-screen bg-ink-50/30">
       {/* Top Bar */}
       <header className="border-b border-ink-200 bg-white">
-        <div className="container-zx flex h-14 items-center justify-between">
+        <div className="mx-auto flex h-14 w-full max-w-[1500px] items-center justify-between px-6 sm:px-8 lg:px-12">
           <Link href="/app/dashboard" className="flex items-center gap-2">
             <Logo className="h-6 w-6" />
             <span className="text-[15px] font-medium tracking-tight">
@@ -37,9 +37,9 @@ export default async function AppLayout({
         </div>
       </header>
 
-      <div className="container-zx grid gap-8 py-8 lg:grid-cols-12">
+      <div className="mx-auto grid w-full max-w-[1500px] gap-8 px-6 py-8 sm:px-8 lg:grid-cols-12 lg:px-12">
         {/* Sidebar */}
-        <aside className="lg:col-span-3">
+        <aside className="lg:col-span-2">
           <nav className="space-y-1">
             <NavItem href="/app/dashboard" label="Übersicht" />
             <NavItem href="/app/certificates" label="Zeugnisse" />
@@ -49,7 +49,7 @@ export default async function AppLayout({
         </aside>
 
         {/* Content */}
-        <main className="lg:col-span-9">{children}</main>
+        <main className="lg:col-span-10">{children}</main>
       </div>
     </div>
   );
