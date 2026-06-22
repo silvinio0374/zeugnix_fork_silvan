@@ -37,7 +37,6 @@ export default function AuthCallbackPage() {
 
     const accessToken = hash.get("access_token");
     const refreshToken = hash.get("refresh_token");
-    const code = query.get("code");
     const tokenHash = query.get("token_hash");
     const type = query.get("type") as EmailOtpType | null;
 
@@ -49,19 +48,20 @@ export default function AuthCallbackPage() {
         }
 
         if (accessToken && refreshToken) {
+          // Implicit-Flow (Standard): Tokens kommen im URL-Fragment.
+          // setSession schreibt sie in die SSR-Cookies -> App-weit eingeloggt.
           const { error } = await supabase.auth.setSession({
             access_token: accessToken,
             refresh_token: refreshToken,
           });
           if (error) throw error;
         } else if (tokenHash && type) {
+          // token_hash-Weg (greift, sobald die E-Mail-Vorlage darauf umgestellt
+          // ist, z.B. nach Resend-Einrichtung).
           const { error } = await supabase.auth.verifyOtp({
             token_hash: tokenHash,
             type,
           });
-          if (error) throw error;
-        } else if (code) {
-          const { error } = await supabase.auth.exchangeCodeForSession(code);
           if (error) throw error;
         } else {
           throw new Error("Der Link enthält keine Anmeldedaten.");
