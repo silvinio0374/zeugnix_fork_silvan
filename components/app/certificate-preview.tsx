@@ -68,20 +68,22 @@ export function CertificatePreview({
   const paragraphs = text.split(/\n\n+/).map((p) => p.trim()).filter(Boolean);
 
   return (
-    <div className="overflow-hidden rounded-md border border-ink-200 bg-white shadow-sm">
-      {/* A4-Container, scaled für Bildschirm */}
+    <div className="flex justify-center overflow-auto rounded-md bg-ink-100 p-4 sm:p-8">
+      {/* A4-Blatt auf dezentem Hintergrund – wirkt wie ein aufliegendes Papier */}
       <div
-        className="mx-auto bg-white"
+        className="bg-white"
         style={{
           width: "100%",
           maxWidth: "210mm",
           minHeight: "297mm",
           padding: "20mm 22mm",
           boxSizing: "border-box",
-          fontFamily: "Georgia, 'Times New Roman', serif",
+          fontFamily: "Arial, Helvetica, sans-serif",
           fontSize: "11pt",
           lineHeight: "1.55",
           color: "#1a1d22",
+          boxShadow:
+            "0 1px 2px rgba(14, 16, 20, 0.08), 0 8px 24px rgba(14, 16, 20, 0.12)",
         }}
       >
         {/* Letterhead */}
@@ -144,10 +146,10 @@ export function CertificatePreview({
         {/* Title */}
         <h1
           style={{
-            fontSize: "20pt",
-            fontWeight: 600,
+            fontSize: "18pt",
+            fontWeight: 700,
             textAlign: "center",
-            margin: "0 0 36px 0",
+            margin: "0 0 32px 0",
             letterSpacing: "0.02em",
           }}
         >
