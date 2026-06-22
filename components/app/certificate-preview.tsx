@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import QRCode from "qrcode";
 import { buildVerifyUrl } from "@/lib/hash/canonicalize";
 
@@ -96,28 +96,68 @@ export function CertificatePreview({
     };
   }, [hash]);
 
+  // A4-Blatt proportional auf die verfügbare Spaltenbreite skalieren, damit es
+  // bei jeder Breite das echte DIN-A4-Verhältnis behält (nur kleiner, nie
+  // gequetscht). 210mm ≈ 794px bei 96dpi.
+  const A4_WIDTH = 794;
+  const containerRef = useRef<HTMLDivElement>(null);
+  const sheetRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(1);
+  const [naturalHeight, setNaturalHeight] = useState(1123); // 297mm ≈ 1123px
+
+  useEffect(() => {
+    const container = containerRef.current;
+    const sheet = sheetRef.current;
+    if (!container || !sheet) return;
+    const update = () => {
+      setScale(Math.min(1, container.clientWidth / A4_WIDTH));
+      setNaturalHeight(sheet.offsetHeight);
+    };
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(container);
+    ro.observe(sheet);
+    return () => ro.disconnect();
+  }, [text, hash, qrDataUrl]);
+
   // Text in Absätze splitten
   const paragraphs = text.split(/\n\n+/).map((p) => p.trim()).filter(Boolean);
 
   return (
-    <div className="flex justify-center overflow-auto rounded-md bg-ink-100 p-4 sm:p-8">
-      {/* A4-Blatt auf dezentem Hintergrund – wirkt wie ein aufliegendes Papier */}
+    <div
+      ref={containerRef}
+      className="flex justify-center overflow-hidden rounded-md bg-ink-100 p-4 sm:p-6"
+    >
+      {/* Platzhalter mit skalierter Höhe, damit kein Leerraum entsteht */}
       <div
-        className="bg-white"
         style={{
-          width: "100%",
-          maxWidth: "210mm",
-          minHeight: "297mm",
-          padding: "20mm 22mm",
-          boxSizing: "border-box",
-          fontFamily: "Arial, Helvetica, sans-serif",
-          fontSize: "11pt",
-          lineHeight: "1.55",
-          color: "#1a1d22",
-          boxShadow:
-            "0 1px 2px rgba(14, 16, 20, 0.08), 0 8px 24px rgba(14, 16, 20, 0.12)",
+          width: A4_WIDTH * scale,
+          height: naturalHeight * scale,
+          position: "relative",
         }}
       >
+        {/* A4-Blatt in Originalgröße (210mm), proportional herunterskaliert */}
+        <div
+          ref={sheetRef}
+          className="bg-white"
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "210mm",
+            minHeight: "297mm",
+            padding: "20mm 22mm",
+            boxSizing: "border-box",
+            fontFamily: "Arial, Helvetica, sans-serif",
+            fontSize: "11pt",
+            lineHeight: "1.55",
+            color: "#1a1d22",
+            boxShadow:
+              "0 1px 2px rgba(14, 16, 20, 0.08), 0 8px 24px rgba(14, 16, 20, 0.12)",
+            transform: `scale(${scale})`,
+            transformOrigin: "top left",
+          }}
+        >
         {/* Letterhead */}
         <table style={{ width: "100%", borderBottom: "1px solid #d4d8dd", paddingBottom: "16px", marginBottom: "32px" }}>
           <tbody>
@@ -340,6 +380,7 @@ export function CertificatePreview({
             )}
           </div>
         )}
+        </div>
       </div>
     </div>
   );

@@ -106,9 +106,9 @@ export default async function CertificateDetailPage({ params }: PageProps) {
           <h2 className="mb-3 text-[15px] font-medium tracking-tight">
             Zeugnistext bearbeiten und Vorschau
           </h2>
-          <div className="space-y-8">
-            {/* Editor */}
-            <div className="space-y-3">
+          <div className="grid gap-6 lg:grid-cols-5">
+            {/* Editor – linke, schmalere Spalte */}
+            <div className="space-y-3 lg:col-span-2">
               <div className="text-[11px] font-medium uppercase tracking-wider text-ink-500">
                 Editor
               </div>
@@ -120,8 +120,8 @@ export default async function CertificateDetailPage({ params }: PageProps) {
               />
             </div>
 
-            {/* Preview – volle Breite, damit das Blatt das echte A4-Verhältnis erreicht */}
-            <div className="space-y-3">
+            {/* Vorschau – breitere Spalte; das Blatt skaliert proportional (A4) */}
+            <div className="space-y-3 lg:col-span-3">
               <div className="text-[11px] font-medium uppercase tracking-wider text-ink-500">
                 Vorschau (so wird das PDF aussehen)
               </div>
