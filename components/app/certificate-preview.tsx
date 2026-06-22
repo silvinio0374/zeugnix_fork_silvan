@@ -1,5 +1,9 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import QRCode from "qrcode";
+import { buildVerifyUrl } from "@/lib/hash/canonicalize";
+
 interface Company {
   name?: string;
   address?: string | null;
@@ -63,6 +67,34 @@ export function CertificatePreview({
     month: "2-digit",
     year: "numeric",
   });
+
+  // QR-Code zum Hash erzeugen – identische Verify-URL und Optionen wie im PDF
+  // (lib/pdf/certificate.tsx), damit Vorschau und PDF konsistent sind.
+  const [qrDataUrl, setQrDataUrl] = useState<string>("");
+  useEffect(() => {
+    if (!hash) {
+      setQrDataUrl("");
+      return;
+    }
+    const baseUrl =
+      process.env.NEXT_PUBLIC_SITE_URL ?? "https://zeugnix.ch";
+    const verifyUrl = buildVerifyUrl(baseUrl, hash);
+    let cancelled = false;
+    QRCode.toDataURL(verifyUrl, {
+      margin: 0,
+      width: 200,
+      color: { dark: "#0f7a6b", light: "#ffffff" },
+    })
+      .then((url) => {
+        if (!cancelled) setQrDataUrl(url);
+      })
+      .catch(() => {
+        if (!cancelled) setQrDataUrl("");
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [hash]);
 
   // Text in Absätze splitten
   const paragraphs = text.split(/\n\n+/).map((p) => p.trim()).filter(Boolean);
@@ -245,47 +277,67 @@ export function CertificatePreview({
           </div>
         )}
 
-        {/* Hash-Block (nur bei finalisierten Zeugnissen) */}
+        {/* Hash-Block (nur bei finalisierten Zeugnissen) – zweispaltig:
+            Hash-Text links, QR-Code rechts (konsistent zum PDF) */}
         {hash && (
           <div
             style={{
               marginTop: "48px",
               paddingTop: "14px",
               borderTop: "0.5px solid #d4d8dd",
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "flex-start",
+              gap: "16px",
               fontSize: "8pt",
               color: "#6b7178",
               lineHeight: "1.5",
             }}
           >
-            <div
-              style={{
-                fontSize: "7.5pt",
-                fontWeight: 600,
-                color: "#0f7a6b",
-                textTransform: "uppercase",
-                letterSpacing: "0.06em",
-                marginBottom: "4px",
-              }}
-            >
-              Echtheitsnachweis (SHA-256)
+            <div style={{ flex: 1 }}>
+              <div
+                style={{
+                  fontSize: "7.5pt",
+                  fontWeight: 600,
+                  color: "#0f7a6b",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.06em",
+                  marginBottom: "4px",
+                }}
+              >
+                Echtheitsnachweis (SHA-256)
+              </div>
+              <div
+                style={{
+                  fontFamily: "Menlo, Consolas, monospace",
+                  fontSize: "7.5pt",
+                  color: "#1a1d22",
+                  wordBreak: "break-all",
+                  marginBottom: "6px",
+                }}
+              >
+                {hash}
+              </div>
+              <div>
+                Dieses Arbeitszeugnis wurde mit zeugnix.ch erstellt und mit
+                einem kryptografischen Echtheitsnachweis versehen. Jede
+                nachträgliche Veränderung führt zu einem abweichenden Hash.
+                Echtheit prüfen: zeugnix.ch/verify
+              </div>
             </div>
-            <div
-              style={{
-                fontFamily: "Menlo, Consolas, monospace",
-                fontSize: "7.5pt",
-                color: "#1a1d22",
-                wordBreak: "break-all",
-                marginBottom: "6px",
-              }}
-            >
-              {hash}
-            </div>
-            <div>
-              Dieses Arbeitszeugnis wurde mit zeugnix.ch erstellt und mit
-              einem kryptografischen Echtheitsnachweis versehen. Jede
-              nachträgliche Veränderung führt zu einem abweichenden Hash.
-              Echtheit prüfen: zeugnix.ch/verify
-            </div>
+            {qrDataUrl && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={qrDataUrl}
+                alt="QR-Code zur Echtheitsprüfung"
+                style={{
+                  width: "72px",
+                  height: "72px",
+                  flexShrink: 0,
+                  display: "block",
+                }}
+              />
+            )}
           </div>
         )}
       </div>
