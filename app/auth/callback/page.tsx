@@ -1,40 +1,58 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import type { EmailOtpType } from "@supabase/supabase-js";
 import { createClient } from "@/lib/db/supabase-client";
 
 /**
  * /auth/callback (Client Component)
  *
- * Verarbeitet den Magic-Link-Rücksprung von Supabase im BROWSER. Bewusst
- * clientseitig: Der PKCE-„code verifier" liegt als Cookie im Browser. Bei der
- * Magic-Link-Weiterleitung (Mail -> supabase.co -> zurück auf unsere Domain)
- * wird dieser Cookie bei einer Server-Route nicht zuverlässig mitgeschickt
- * (Cross-Site-Redirect) -> „PKCE code verifier not found in storage".
+ * Verarbeitet den Magic-Link-Rücksprung von Supabase im BROWSER. Unterstützt
+ * mehrere Varianten – in dieser Reihenfolge:
  *
- * Der Browser-Client liest den Verifier dagegen direkt aus seinem eigenen
- * Storage und kann den Code zuverlässig einlösen. Unterstützt beide Varianten:
- *   - PKCE:        ?code=...                  -> exchangeCodeForSession
- *   - OTP-Verify:  ?token_hash=...&type=...   -> verifyOtp
+ *   1. Implicit-Flow:  #access_token=...&refresh_token=...  -> setSession
+ *      (Standard bei uns – Tokens kommen direkt im URL-Fragment, kein
+ *       PKCE-Verifier nötig, robust gegen Domain-/Geräte-Wechsel.)
+ *   2. OTP-Verify:     ?token_hash=...&type=...             -> verifyOtp
+ *   3. PKCE:           ?code=...                            -> exchangeCodeForSession
+ *
+ * Nach Erfolg: harter Reload auf das Ziel, damit die Middleware die frisch
+ * gesetzten Session-Cookies sofort sieht.
  */
 export default function AuthCallbackPage() {
-  const router = useRouter();
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const supabase = createClient();
-    const params = new URL(window.location.href).searchParams;
-    const next = params.get("next") ?? "/app/dashboard";
-    const code = params.get("code");
-    const tokenHash = params.get("token_hash");
-    const type = params.get("type") as EmailOtpType | null;
+    const url = new URL(window.location.href);
+    const query = url.searchParams;
+    const hash = new URLSearchParams(url.hash.replace(/^#/, ""));
+    const next = query.get("next") ?? "/app/dashboard";
+
+    // Fehler kann in Query ODER Fragment stehen (z.B. abgelaufener Link)
+    const urlError =
+      query.get("error_description") ||
+      query.get("error") ||
+      hash.get("error_description") ||
+      hash.get("error");
+
+    const accessToken = hash.get("access_token");
+    const refreshToken = hash.get("refresh_token");
+    const code = query.get("code");
+    const tokenHash = query.get("token_hash");
+    const type = query.get("type") as EmailOtpType | null;
 
     (async () => {
+      const supabase = createClient();
       try {
-        if (code) {
-          const { error } = await supabase.auth.exchangeCodeForSession(code);
+        if (urlError) {
+          throw new Error(decodeURIComponent(urlError));
+        }
+
+        if (accessToken && refreshToken) {
+          const { error } = await supabase.auth.setSession({
+            access_token: accessToken,
+            refresh_token: refreshToken,
+          });
           if (error) throw error;
         } else if (tokenHash && type) {
           const { error } = await supabase.auth.verifyOtp({
@@ -42,11 +60,13 @@ export default function AuthCallbackPage() {
             type,
           });
           if (error) throw error;
+        } else if (code) {
+          const { error } = await supabase.auth.exchangeCodeForSession(code);
+          if (error) throw error;
         } else {
           throw new Error("Der Link enthält keine Anmeldedaten.");
         }
-        // Harter Reload statt router.replace: stellt sicher, dass die
-        // Middleware die frisch gesetzten Session-Cookies sieht.
+
         window.location.assign(next);
       } catch (e: unknown) {
         const msg =
@@ -72,7 +92,7 @@ export default function AuthCallbackPage() {
               href="/login"
               className="mt-4 inline-block text-[13px] text-petrol-700 underline hover:text-petrol-800"
             >
-              Zurück zum Login
+              Neuen Link anfordern
             </a>
           </>
         ) : (

@@ -11,11 +11,14 @@ export function createClient() {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       auth: {
-        // Den Magic-Link-Callback lösen wir explizit in
-        // app/auth/callback/page.tsx ein. Automatisches Parsen der URL
-        // würde den Code doppelt einlösen (Race mit unserem Aufruf).
+        // Implicit-Flow: Der Magic-Link bringt die Tokens direkt im
+        // URL-Fragment zurück – kein PKCE-Verifier nötig, der im Browser
+        // gespeichert sein müsste. Damit ist die Anmeldung immun gegen
+        // Domain-Wechsel (Vercel-Preview/Site-URL), andere Geräte und
+        // Link-Scanner. Den Callback verarbeiten wir explizit in
+        // app/auth/callback/page.tsx, deshalb kein Auto-Parsing.
         detectSessionInUrl: false,
-        flowType: "pkce",
+        flowType: "implicit",
       },
     },
   );
