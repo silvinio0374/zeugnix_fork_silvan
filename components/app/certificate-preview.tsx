@@ -1,5 +1,9 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
+import QRCode from "qrcode";
+import { buildVerifyUrl } from "@/lib/hash/canonicalize";
+
 interface Company {
   name?: string;
   address?: string | null;
@@ -64,26 +68,96 @@ export function CertificatePreview({
     year: "numeric",
   });
 
+  // QR-Code zum Hash erzeugen – identische Verify-URL und Optionen wie im PDF
+  // (lib/pdf/certificate.tsx), damit Vorschau und PDF konsistent sind.
+  const [qrDataUrl, setQrDataUrl] = useState<string>("");
+  useEffect(() => {
+    if (!hash) {
+      setQrDataUrl("");
+      return;
+    }
+    const baseUrl =
+      process.env.NEXT_PUBLIC_SITE_URL ?? "https://zeugnix.ch";
+    const verifyUrl = buildVerifyUrl(baseUrl, hash);
+    let cancelled = false;
+    QRCode.toDataURL(verifyUrl, {
+      margin: 0,
+      width: 200,
+      color: { dark: "#0f7a6b", light: "#ffffff" },
+    })
+      .then((url) => {
+        if (!cancelled) setQrDataUrl(url);
+      })
+      .catch(() => {
+        if (!cancelled) setQrDataUrl("");
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [hash]);
+
+  // A4-Blatt proportional auf die verfügbare Spaltenbreite skalieren, damit es
+  // bei jeder Breite das echte DIN-A4-Verhältnis behält (nur kleiner, nie
+  // gequetscht). 210mm ≈ 794px bei 96dpi.
+  const A4_WIDTH = 794;
+  const containerRef = useRef<HTMLDivElement>(null);
+  const sheetRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(1);
+  const [naturalHeight, setNaturalHeight] = useState(1123); // 297mm ≈ 1123px
+
+  useEffect(() => {
+    const container = containerRef.current;
+    const sheet = sheetRef.current;
+    if (!container || !sheet) return;
+    const update = () => {
+      setScale(Math.min(1, container.clientWidth / A4_WIDTH));
+      setNaturalHeight(sheet.offsetHeight);
+    };
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(container);
+    ro.observe(sheet);
+    return () => ro.disconnect();
+  }, [text, hash, qrDataUrl]);
+
   // Text in Absätze splitten
   const paragraphs = text.split(/\n\n+/).map((p) => p.trim()).filter(Boolean);
 
   return (
-    <div className="overflow-hidden rounded-md border border-ink-200 bg-white shadow-sm">
-      {/* A4-Container, scaled für Bildschirm */}
+    <div
+      ref={containerRef}
+      className="flex justify-center overflow-hidden rounded-md bg-ink-100 p-4 sm:p-6"
+    >
+      {/* Platzhalter mit skalierter Höhe, damit kein Leerraum entsteht */}
       <div
-        className="mx-auto bg-white"
         style={{
-          width: "100%",
-          maxWidth: "210mm",
-          minHeight: "297mm",
-          padding: "20mm 22mm",
-          boxSizing: "border-box",
-          fontFamily: "Georgia, 'Times New Roman', serif",
-          fontSize: "11pt",
-          lineHeight: "1.55",
-          color: "#1a1d22",
+          width: A4_WIDTH * scale,
+          height: naturalHeight * scale,
+          position: "relative",
         }}
       >
+        {/* A4-Blatt in Originalgröße (210mm), proportional herunterskaliert */}
+        <div
+          ref={sheetRef}
+          className="bg-white"
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "210mm",
+            minHeight: "297mm",
+            padding: "20mm 22mm",
+            boxSizing: "border-box",
+            fontFamily: "Arial, Helvetica, sans-serif",
+            fontSize: "11pt",
+            lineHeight: "1.55",
+            color: "#1a1d22",
+            boxShadow:
+              "0 1px 2px rgba(14, 16, 20, 0.08), 0 8px 24px rgba(14, 16, 20, 0.12)",
+            transform: `scale(${scale})`,
+            transformOrigin: "top left",
+          }}
+        >
         {/* Letterhead */}
         <table style={{ width: "100%", borderBottom: "1px solid #d4d8dd", paddingBottom: "16px", marginBottom: "32px" }}>
           <tbody>
@@ -144,10 +218,10 @@ export function CertificatePreview({
         {/* Title */}
         <h1
           style={{
-            fontSize: "20pt",
-            fontWeight: 600,
+            fontSize: "18pt",
+            fontWeight: 700,
             textAlign: "center",
-            margin: "0 0 36px 0",
+            margin: "0 0 32px 0",
             letterSpacing: "0.02em",
           }}
         >
@@ -243,49 +317,70 @@ export function CertificatePreview({
           </div>
         )}
 
-        {/* Hash-Block (nur bei finalisierten Zeugnissen) */}
+        {/* Hash-Block (nur bei finalisierten Zeugnissen) – zweispaltig:
+            Hash-Text links, QR-Code rechts (konsistent zum PDF) */}
         {hash && (
           <div
             style={{
               marginTop: "48px",
               paddingTop: "14px",
               borderTop: "0.5px solid #d4d8dd",
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "flex-start",
+              gap: "16px",
               fontSize: "8pt",
               color: "#6b7178",
               lineHeight: "1.5",
             }}
           >
-            <div
-              style={{
-                fontSize: "7.5pt",
-                fontWeight: 600,
-                color: "#0f7a6b",
-                textTransform: "uppercase",
-                letterSpacing: "0.06em",
-                marginBottom: "4px",
-              }}
-            >
-              Echtheitsnachweis (SHA-256)
+            <div style={{ flex: 1 }}>
+              <div
+                style={{
+                  fontSize: "7.5pt",
+                  fontWeight: 600,
+                  color: "#0f7a6b",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.06em",
+                  marginBottom: "4px",
+                }}
+              >
+                Echtheitsnachweis (SHA-256)
+              </div>
+              <div
+                style={{
+                  fontFamily: "Menlo, Consolas, monospace",
+                  fontSize: "7.5pt",
+                  color: "#1a1d22",
+                  wordBreak: "break-all",
+                  marginBottom: "6px",
+                }}
+              >
+                {hash}
+              </div>
+              <div>
+                Dieses Arbeitszeugnis wurde mit zeugnix.ch erstellt und mit
+                einem kryptografischen Echtheitsnachweis versehen. Jede
+                nachträgliche Veränderung führt zu einem abweichenden Hash.
+                Echtheit prüfen: zeugnix.ch/verify
+              </div>
             </div>
-            <div
-              style={{
-                fontFamily: "Menlo, Consolas, monospace",
-                fontSize: "7.5pt",
-                color: "#1a1d22",
-                wordBreak: "break-all",
-                marginBottom: "6px",
-              }}
-            >
-              {hash}
-            </div>
-            <div>
-              Dieses Arbeitszeugnis wurde mit zeugnix.ch erstellt und mit
-              einem kryptografischen Echtheitsnachweis versehen. Jede
-              nachträgliche Veränderung führt zu einem abweichenden Hash.
-              Echtheit prüfen: zeugnix.ch/verify
-            </div>
+            {qrDataUrl && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={qrDataUrl}
+                alt="QR-Code zur Echtheitsprüfung"
+                style={{
+                  width: "72px",
+                  height: "72px",
+                  flexShrink: 0,
+                  display: "block",
+                }}
+              />
+            )}
           </div>
         )}
+        </div>
       </div>
     </div>
   );
