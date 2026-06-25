@@ -43,17 +43,27 @@ export function CompanyForm({ company, compact = false }: Props) {
       setError("Logo darf maximal 2 MB gross sein");
       return;
     }
-    if (!file.type.startsWith("image/")) {
-      setError("Nur Bilddateien (PNG, JPG, SVG) erlaubt");
+    if (!["image/png", "image/jpeg"].includes(file.type)) {
+      setError("Nur PNG oder JPG erlaubt (SVG wird im PDF nicht unterstützt)");
       return;
     }
     setUploadingLogo(true);
     setError("");
 
     const supabase = createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (!user) {
+      setError("Nicht angemeldet");
+      setUploadingLogo(false);
+      return;
+    }
     const ext = file.name.split(".").pop()?.toLowerCase() ?? "png";
     const fileName = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
-    const path = `${company?.id ?? "tmp"}/${fileName}`;
+    // Pfad = <user_id>/<datei> — passt zur RLS-Policy (Migration 007) und
+    // vermeidet den frueheren "tmp/"-Sammelordner.
+    const path = `${user.id}/${fileName}`;
 
     const { error: upErr } = await supabase.storage
       .from("company-logos")
@@ -143,7 +153,7 @@ export function CompanyForm({ company, compact = false }: Props) {
             Firmenlogo
           </div>
           <p className="mt-1 text-[12px] text-ink-500">
-            Erscheint im Briefkopf der Arbeitszeugnisse. PNG, JPG oder SVG, max. 2 MB.
+            Erscheint im Briefkopf der Arbeitszeugnisse. PNG oder JPG, max. 2 MB.
           </p>
           <div className="mt-4 flex items-center gap-4">
             <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-md border border-ink-200 bg-ink-50/50 overflow-hidden">
@@ -162,7 +172,7 @@ export function CompanyForm({ company, compact = false }: Props) {
               <input
                 ref={fileInputRef}
                 type="file"
-                accept="image/*"
+                accept="image/png,image/jpeg"
                 onChange={(e) => {
                   const f = e.target.files?.[0];
                   if (f) uploadLogo(f);
