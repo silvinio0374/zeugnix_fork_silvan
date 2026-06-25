@@ -1,9 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/db/supabase-server";
-import {
-  computeCertificateHash,
-  type CanonicalContent,
-} from "@/lib/hash/canonicalize";
+import { canonicalizeForHash, sha256 } from "@/lib/hash/canonicalize";
 
 export async function POST(
   _req: NextRequest,
@@ -39,30 +36,13 @@ export async function POST(
     );
   }
 
-  // Canonical Content aus den strukturierten Daten erstellen
-  const employee = cert.employees;
-  const company = cert.companies;
-
-  const canonical: CanonicalContent = {
-    type: cert.type,
-    company: { name: company.name, address: company.address },
-    employee: {
-      firstName: employee.first_name,
-      lastName: employee.last_name,
-      gender: employee.gender,
-      functionTitle: employee.function_title,
-      entryDate: employee.entry_date,
-      exitDate: employee.exit_date,
-    },
-    body: cert.generated_text, // vereinfacht: ganzer Text
-    closing: "", // ist in body enthalten
-    date: new Date().toISOString().split("T")[0],
-    location: company.city ?? "Zürich",
-  };
-
-  const { canonical: canonicalString, hash } = await computeCertificateHash(
-    canonical,
-  );
+  // Hash über den TATSÄCHLICH gedruckten Body bilden – exakt dieselbe Quelle
+  // wie das PDF (app/api/certificates/[id]/pdf/route.ts) und dieselbe
+  // Pipeline wie die Verifikation (canonicalizeForHash). Datum/Ort sind als
+  // letzter Absatz Teil des Body, daher kein separates (flüchtiges) Datum.
+  const bodyText = cert.edited_text || cert.generated_text || "";
+  const canonicalString = canonicalizeForHash(bodyText);
+  const hash = await sha256(canonicalString);
 
   await supabase
     .from("certificates")

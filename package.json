@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "test:hash": "tsx scripts/test-hash.ts"
+    "test:hash": "tsx scripts/test-hash.ts",
+    "backfill:hash": "tsx scripts/backfill-hash.ts"
   },
   "dependencies": {
     "next": "^15.5.0",

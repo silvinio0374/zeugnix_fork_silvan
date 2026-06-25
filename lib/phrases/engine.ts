@@ -10,8 +10,8 @@
  *   - phraseBlocks: Bausteinbibliothek aus DB
  *
  * Ausgabe:
- *   - generierter Volltext
- *   - struktureller CanonicalContent für Hash-Berechnung
+ *   - generierter Volltext (wird gespeichert; Hash entsteht beim Finalisieren
+ *     aus diesem Body, siehe lib/hash/canonicalize.ts)
  *
  * Designentscheidungen:
  *   - Bausteine werden nach Score, Geschlecht und Mitarbeitertyp gefiltert
@@ -20,8 +20,6 @@
  *   - Platzhalter-Substitution mit Schweizer Namensregeln
  *   - Keine plumpen Aneinanderreihungen: Sätze werden mit Übergängen verbunden
  */
-
-import type { CanonicalContent } from "@/lib/hash/canonicalize";
 
 // ============================================================================
 // Typen
@@ -161,7 +159,6 @@ function hashString(s: string): number {
 
 export interface GenerationResult {
   text: string;
-  canonical: CanonicalContent;
   warnings: string[];
 }
 
@@ -274,26 +271,5 @@ export function generateCertificate(
   // ----- Volltext bauen -----
   const fullText = sections.join("\n\n");
 
-  // ----- Canonical Content -----
-  const canonical: CanonicalContent = {
-    type: certificate.type,
-    company: {
-      name: certificate.companyName,
-      address: certificate.companyAddress,
-    },
-    employee: {
-      firstName: employee.firstName,
-      lastName: employee.lastName,
-      gender: employee.gender,
-      functionTitle: employee.functionTitle,
-      entryDate: employee.entryDate,
-      exitDate: employee.exitDate,
-    },
-    body: evalsParagraph.join(" "),
-    closing,
-    date: certificate.date,
-    location: certificate.location,
-  };
-
-  return { text: fullText, canonical, warnings };
+  return { text: fullText, warnings };
 }

@@ -17,6 +17,11 @@ import {
 } from "@react-pdf/renderer";
 import QRCode from "qrcode";
 import React from "react";
+import {
+  BODY_SENTINEL_START,
+  BODY_SENTINEL_END,
+  buildVerifyUrl,
+} from "@/lib/hash/canonicalize";
 
 interface RenderInput {
   companyName: string;
@@ -106,6 +111,8 @@ const styles = StyleSheet.create({
     marginLeft: 14,
     marginBottom: 3,
   },
+  // Unsichtbare Marker (weiss) zum Isolieren des gehashten Body beim Verify
+  sentinel: { fontSize: 6, color: "#ffffff", lineHeight: 1 },
 
   signaturesHeader: {
     fontFamily: "Helvetica-Bold",
@@ -270,13 +277,15 @@ function CertificateDocument(props: DocProps) {
         {/* Title */}
         <Text style={styles.title}>{certificateTitle}</Text>
 
-        {/* Body */}
+        {/* Body – von unsichtbaren Sentinels eingerahmt (für Verify) */}
         <View>
+          <Text style={styles.sentinel}>{BODY_SENTINEL_START}</Text>
           {paragraphs.map((p: string, i: number) => (
             <Text key={"p-" + i} style={styles.bodyParagraph}>
               {p}
             </Text>
           ))}
+          <Text style={styles.sentinel}>{BODY_SENTINEL_END}</Text>
         </View>
 
         {/* Signatures */}
@@ -339,7 +348,7 @@ function CertificateDocument(props: DocProps) {
 }
 
 export async function renderCertificatePdf(input: RenderInput): Promise<Buffer> {
-  const verifyUrl = input.baseUrl + "/verify?hash=" + input.hash;
+  const verifyUrl = buildVerifyUrl(input.baseUrl, input.hash);
   const qrDataUrl = await QRCode.toDataURL(verifyUrl, {
     margin: 0,
     width: 200,

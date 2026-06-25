@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createServiceClient } from "@/lib/db/supabase-server";
 import {
-  canonicalizeRawText,
+  canonicalizeForHash,
+  extractBodyBetweenSentinels,
   sha256,
   type VerifyOutcome,
 } from "@/lib/hash/canonicalize";
@@ -29,10 +30,22 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 1. Kanonisieren
-    const canonical = canonicalizeRawText(text);
+    // 1. Body zwischen den Sentinels isolieren – schliesst Briefkopf,
+    //    Unterschriften und Hash-Block aus dem extrahierten PDF-Text aus.
+    const rawBody = extractBodyBetweenSentinels(text);
+    if (rawBody === null) {
+      return NextResponse.json(
+        {
+          result: "no_sentinel",
+          error:
+            "Dieses PDF enthält keine zeugnix-Echtheitsmarker. Möglicherweise wurde es vor einem Update erstellt oder stammt nicht von zeugnix.ch. Bitte das aktuelle PDF herunterladen und erneut prüfen.",
+        },
+        { status: 200 },
+      );
+    }
 
-    // 2. SHA-256 berechnen
+    // 2. Kanonisieren (identische Pipeline wie beim Finalisieren) + SHA-256
+    const canonical = canonicalizeForHash(rawBody);
     const calculatedHash = await sha256(canonical);
 
     // 3. In DB suchen

@@ -2,135 +2,84 @@
  * zeugnix.ch – Hash-Engine
  * ----------------------------------------------------------------------------
  * Berechnet einen deterministischen SHA-256-Hash über den kanonisierten
- * Zeugnisinhalt. Jede inhaltliche Veränderung führt zu einem abweichenden
- * Hash, während Layout, Metadaten und Hash-Block-Position keinen Einfluss
- * haben.
+ * Zeugnis-Body. Finalisierung UND Verifikation nutzen exakt dieselbe
+ * Pipeline (canonicalizeForHash), damit ein echtes zeugnix-PDF nach der
+ * PDF-Textextraktion wieder denselben Hash ergibt.
+ *
+ * Gehasht wird ausschliesslich der sichtbare Fliesstext (Body). Im PDF wird
+ * der Body von zwei (unsichtbar gerenderten) Sentinels eingerahmt, damit er
+ * aus dem extrahierten Gesamttext (Briefkopf, Unterschriften, Hash-Block)
+ * sauber isoliert werden kann.
  *
  * Designprinzipien:
  * - Reine Funktionen, keine Seiteneffekte
- * - Deterministische Reihenfolge der Felder
- * - Whitespace- und Sonderzeichen-Normalisierung
- * - Hash-Block und QR-Code werden vor Hashing entfernt
- * - Verwendung von Web Crypto API (Node 20+ und Browser kompatibel)
+ * - Layout-/Whitespace-unabhängig: ALLE Whitespace-Läufe → ein Space
+ *   (pdfjs verliert beim Extrahieren die Absatzstruktur)
+ * - Sonderzeichen-Normalisierung (typografische Zeichen → ASCII, NFC)
+ * - Web Crypto API (Node 20+ und Browser kompatibel)
  *
  * Disclaimer: Der Hash bestätigt Identität des Inhalts, nicht dessen
  * materielle Richtigkeit.
  */
 
 // ============================================================================
-// Typen
+// Sentinels – rahmen den Body im PDF ein (siehe lib/pdf/certificate.tsx)
 // ============================================================================
 
-export interface CanonicalContent {
-  type: string; // 'schluss' | 'zwischen' | etc.
-  company: {
-    name: string;
-    address?: string;
-  };
-  employee: {
-    firstName: string;
-    lastName: string;
-    gender: string;
-    functionTitle: string;
-    entryDate: string; // ISO YYYY-MM-DD
-    exitDate?: string;
-  };
-  body: string; // Der eigentliche Zeugnistext (ohne Hash-Block)
-  closing: string; // Schlussformel
-  date: string; // ISO YYYY-MM-DD
-  location: string;
-}
+export const BODY_SENTINEL_START = "[[zeugnix:body-start]]";
+export const BODY_SENTINEL_END = "[[zeugnix:body-end]]";
 
 // ============================================================================
 // Kanonisierung
 // ============================================================================
 
 /**
- * Normalisiert Whitespace: Mehrfach-Leerzeichen → Einfach, Tabs → Space,
- * verschiedene Newline-Varianten vereinheitlichen, Trim.
- */
-export function normalizeWhitespace(text: string): string {
-  return text
-    .replace(/\r\n/g, "\n")
-    .replace(/\r/g, "\n")
-    .replace(/\t/g, " ")
-    .replace(/[ ]+/g, " ")
-    .replace(/\n{3,}/g, "\n\n")
-    .split("\n")
-    .map((line) => line.trim())
-    .join("\n")
-    .trim();
-}
-
-/**
  * Normalisiert Sonderzeichen: typografische Anführungszeichen → ASCII,
- * verschiedene Bindestriche → Standard-Hyphen, NBSP → Space.
+ * verschiedene Bindestriche → Standard-Hyphen, NBSP → Space, Ellipsis,
+ * Unicode-NFC.
  */
 export function normalizeSpecialChars(text: string): string {
   return text
-    .replace(/[\u00A0\u202F\u2007]/g, " ") // verschiedene Spaces → Space
-    .replace(/[\u2018\u2019\u201A\u201B]/g, "'") // single quotes
-    .replace(/[\u201C\u201D\u201E\u201F]/g, '"') // double quotes
-    .replace(/[\u2013\u2014]/g, "-") // en-dash, em-dash
-    .replace(/[\u2026]/g, "...") // ellipsis
+    .replace(/[   ]/g, " ") // verschiedene Spaces → Space
+    .replace(/[‘’‚‛]/g, "'") // single quotes
+    .replace(/[“”„‟]/g, '"') // double quotes
+    .replace(/[–—]/g, "-") // en-dash, em-dash
+    .replace(/[…]/g, "...") // ellipsis
     .normalize("NFC"); // Unicode-Normalisierung
 }
 
 /**
- * Entfernt Hash-Block aus dem Text. Erkennt sowohl die ausführliche als auch
- * die Kurzversion. Toleriert Whitespace-Variationen.
+ * Einzige Quelle der Wahrheit für den Hash-Input. Plättet ALLE
+ * Whitespace-Läufe (Spaces, Tabs, Zeilenumbrüche) zu EINEM Space, damit der
+ * aus dem PDF extrahierte (umbruchlose) Text denselben Wert ergibt wie der
+ * gespeicherte Quelltext. Wird in Finalisierung UND Verifikation verwendet.
  */
-export function stripHashBlock(text: string): string {
-  // Marker, der den Beginn des Hash-Blocks signalisiert
-  const markers = [
-    /Dieses Arbeitszeugnis wurde digital erstellt[\s\S]*?Hash:[\s\S]*$/i,
-    /Dieses Arbeitszeugnis wurde mit zeugnix erstellt[\s\S]*?Hash:[\s\S]*$/i,
-    /SHA-256[\s\-]?Echtheitsnachweis[\s\S]*$/i,
-    /Hash:\s*[a-f0-9]{32,}[\s\S]*$/i,
-  ];
-
-  let result = text;
-  for (const re of markers) {
-    result = result.replace(re, "");
-  }
-  return result.trim();
+export function canonicalizeForHash(text: string): string {
+  return normalizeSpecialChars(text)
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 /**
- * Erstellt aus einem strukturierten CanonicalContent-Objekt einen
- * stabilen, deterministischen String. Reihenfolge der Felder ist fix.
+ * Schneidet aus rohem (z.B. aus PDF extrahiertem) Text den Body zwischen den
+ * beiden Sentinels heraus – exklusiv der Marker selbst. Tolerant gegenüber
+ * Whitespace innerhalb der Klammern (pdfjs kann Text-Items verkleben). Nimmt
+ * das erste Start- und das erste darauf folgende End-Vorkommen. Gibt null
+ * zurück, wenn ein Marker fehlt (z.B. Alt-PDF ohne Sentinels).
  */
-export function buildCanonicalString(content: CanonicalContent): string {
-  const parts: string[] = [];
+export function extractBodyBetweenSentinels(raw: string): string | null {
+  const startRe = /\[\[\s*zeugnix\s*:\s*body-start\s*\]\]/i;
+  const endRe = /\[\[\s*zeugnix\s*:\s*body-end\s*\]\]/i;
 
-  parts.push("ZEUGNIX-CANONICAL-v1");
-  parts.push(`type:${content.type}`);
-  parts.push(`company:${normalizeSpecialChars(content.company.name)}`);
-  parts.push(`employee:${normalizeSpecialChars(content.employee.firstName)} ${normalizeSpecialChars(content.employee.lastName)}`);
-  parts.push(`gender:${content.employee.gender}`);
-  parts.push(`function:${normalizeSpecialChars(content.employee.functionTitle)}`);
-  parts.push(`entry:${content.employee.entryDate}`);
-  if (content.employee.exitDate) parts.push(`exit:${content.employee.exitDate}`);
-  parts.push(`location:${normalizeSpecialChars(content.location)}`);
-  parts.push(`date:${content.date}`);
-  parts.push("---BODY---");
-  parts.push(normalizeWhitespace(normalizeSpecialChars(content.body)));
-  parts.push("---CLOSING---");
-  parts.push(normalizeWhitespace(normalizeSpecialChars(content.closing)));
+  const startMatch = raw.match(startRe);
+  if (!startMatch || startMatch.index === undefined) return null;
+  const afterStart = startMatch.index + startMatch[0].length;
 
-  return parts.join("\n");
-}
+  const tail = raw.slice(afterStart);
+  const endMatch = tail.match(endRe);
+  if (!endMatch || endMatch.index === undefined) return null;
 
-/**
- * Vollständiger Kanonisierungs-Pipeline: aus rohem Zeugnis-Text
- * (z.B. aus PDF extrahiert) einen kanonischen String erzeugen.
- */
-export function canonicalizeRawText(raw: string): string {
-  let text = raw;
-  text = stripHashBlock(text);
-  text = normalizeSpecialChars(text);
-  text = normalizeWhitespace(text);
-  return text;
+  return tail.slice(0, endMatch.index);
 }
 
 // ============================================================================
@@ -148,61 +97,25 @@ export async function sha256(input: string): Promise<string> {
   return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
 }
 
-/**
- * Hauptfunktion: aus strukturiertem Inhalt berechnet kanonischen String
- * und Hash. Gibt beides zurück, weil canonical_content separat in der
- * Datenbank gespeichert wird (für Re-Verifikation).
- */
-export async function computeCertificateHash(
-  content: CanonicalContent,
-): Promise<{ canonical: string; hash: string }> {
-  const canonical = buildCanonicalString(content);
-  const hash = await sha256(canonical);
-  return { canonical, hash };
-}
+// ============================================================================
+// Verifikations-Ergebnistyp
+// ============================================================================
 
-/**
- * Vergleichsfunktion für die Verifikation. Vergleicht zwei Hashes
- * case-insensitive und whitespace-tolerant.
- */
-export function hashesMatch(a: string, b: string): boolean {
-  if (!a || !b) return false;
-  return a.trim().toLowerCase() === b.trim().toLowerCase();
-}
-
-/**
- * Verifikations-Ergebnistyp
- */
 export type VerifyOutcome =
   | { result: "verified"; matchedHash: string; matchedCertificateId: string }
-  | { result: "mismatch"; calculatedHash: string }
-  | { result: "unknown"; calculatedHash: string };
+  | { result: "unknown"; calculatedHash: string }
+  | { result: "no_sentinel" };
 
 // ============================================================================
-// Hilfsfunktionen für QR-Code-URL und Hash-Block-Text
+// Verify-URL (QR-Code / Link)
 // ============================================================================
 
 /**
- * Erzeugt die URL, die im QR-Code des PDFs verschlüsselt wird.
+ * Erzeugt die URL, die im QR-Code des PDFs kodiert wird und auf die
+ * Verifikationsseite mit vorausgefülltem Hash zeigt.
  */
 export function buildVerifyUrl(baseUrl: string, hash: string): string {
   const u = new URL("/verify", baseUrl);
   u.searchParams.set("hash", hash);
   return u.toString();
-}
-
-/**
- * Standard-Hash-Block-Text für PDFs.
- */
-export function buildHashBlockText(hash: string, baseUrl: string): string {
-  return [
-    "Dieses Arbeitszeugnis wurde mit zeugnix.ch erstellt und mit einem",
-    "kryptografischen Echtheitsnachweis versehen. Der nachstehende Hash",
-    "bezieht sich auf den finalen Zeugnisinhalt. Jede nachträgliche",
-    "Veränderung des Inhalts führt zu einem abweichenden Hash.",
-    "",
-    `Hash: ${hash}`,
-    "",
-    `Echtheit prüfen: ${baseUrl}/verify`,
-  ].join("\n");
 }
