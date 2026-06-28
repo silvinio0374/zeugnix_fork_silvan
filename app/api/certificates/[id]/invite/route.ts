@@ -35,6 +35,15 @@ export async function POST(
 
   const employee: any = cert.employees;
   const company: any = cert.companies;
+  if (!employee || !company) {
+    return NextResponse.json(
+      {
+        error:
+          "Zeugnis ist nicht vollständig verknüpft (Mitarbeitende oder Firma fehlt).",
+      },
+      { status: 400 },
+    );
+  }
   const employeeName = `${employee.first_name} ${employee.last_name}`;
   const companyName = company.name;
 
@@ -52,11 +61,16 @@ export async function POST(
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 
-  // Status auf pending_manager setzen
-  await supabase
+  // Status auf pending_manager setzen. Die Einladung wurde bereits gespeichert
+  // und die E-Mail ist das eigentliche Ergebnis – ein Fehler hier ist nicht
+  // fatal, wird aber protokolliert (sonst stiller Status-Verlust).
+  const { error: statusErr } = await supabase
     .from("certificates")
     .update({ status: "pending_manager" })
     .eq("id", id);
+  if (statusErr) {
+    console.warn("[invite] Status-Update fehlgeschlagen:", statusErr.message);
+  }
 
   // Profil des HR-Senders laden für persönliche Anrede in der Mail
   const { data: hrProfile } = await supabase

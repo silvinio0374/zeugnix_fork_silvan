@@ -45,8 +45,18 @@ export async function POST(
     );
 
   // Bestehende Evaluations zu diesem Zeugnis löschen (idempotent: erneute
-  // Selbst-Beurteilung überschreibt vorherige)
-  await supabase.from("evaluations").delete().eq("certificate_id", id);
+  // Selbst-Beurteilung überschreibt vorherige). Fehler hier ist kritisch:
+  // sonst würden neue Beurteilungen zu den alten addiert (Duplikate).
+  const { error: delErr } = await supabase
+    .from("evaluations")
+    .delete()
+    .eq("certificate_id", id);
+  if (delErr) {
+    return NextResponse.json(
+      { error: `Vorherige Beurteilungen konnten nicht ersetzt werden: ${delErr.message}` },
+      { status: 500 },
+    );
+  }
 
   // Neue Evaluations einfügen, mit User-E-Mail als Beurteiler
   const userEmail = user.email ?? "self";
@@ -66,10 +76,16 @@ export async function POST(
   }
 
   // Status auf manager_submitted setzen, damit der Generieren-Schritt freigeschaltet ist
-  await supabase
+  const { error: statusErr } = await supabase
     .from("certificates")
     .update({ status: "manager_submitted" })
     .eq("id", id);
+  if (statusErr) {
+    return NextResponse.json(
+      { error: `Status konnte nicht aktualisiert werden: ${statusErr.message}` },
+      { status: 500 },
+    );
+  }
 
   return NextResponse.json({ ok: true });
 }

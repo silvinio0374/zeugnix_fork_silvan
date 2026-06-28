@@ -33,6 +33,16 @@ export async function POST(
   const company = cert.companies;
   const evals: any[] = cert.evaluations ?? [];
 
+  if (!employee || !company) {
+    return NextResponse.json(
+      {
+        error:
+          "Zeugnis ist nicht vollständig verknüpft (Mitarbeitende oder Firma fehlt).",
+      },
+      { status: 400 },
+    );
+  }
+
   if (evals.length === 0) {
     return NextResponse.json(
       {
@@ -86,14 +96,22 @@ export async function POST(
     (phraseBlocks ?? []) as PhraseBlock[],
   );
 
-  // 4. Speichern
-  await supabase
+  // 4. Speichern – Schreibfehler auswerten, sonst ginge der generierte Text
+  // verloren, während die UI "generiert" meldet.
+  const { error: saveErr } = await supabase
     .from("certificates")
     .update({
       generated_text: result.text,
       status: "manager_submitted",
     })
     .eq("id", id);
+
+  if (saveErr) {
+    return NextResponse.json(
+      { error: `Zeugnistext konnte nicht gespeichert werden: ${saveErr.message}` },
+      { status: 500 },
+    );
+  }
 
   return NextResponse.json({ ok: true, text: result.text, warnings: result.warnings });
 }

@@ -44,7 +44,9 @@ export async function POST(
   const canonicalString = canonicalizeForHash(bodyText);
   const hash = await sha256(canonicalString);
 
-  await supabase
+  // Kritischer Schreibvorgang: schlägt er fehl, darf NICHT ok:true zurück –
+  // sonst meldet die UI "finalisiert", obwohl Hash/Status nicht gespeichert sind.
+  const { error: finalizeErr } = await supabase
     .from("certificates")
     .update({
       hash,
@@ -54,19 +56,35 @@ export async function POST(
     })
     .eq("id", id);
 
-  // Optional: Employer-Badge aktivieren, wenn das die erste Finalisierung ist
-  await supabase
-    .from("companies")
-    .update({ has_employer_badge: true })
-    .eq("id", cert.company_id);
-
-  // Idempotent insert in employer_badges
-  await supabase
-    .from("employer_badges")
-    .upsert(
-      { company_id: cert.company_id, badge_type: "verified_certificate_employer", active: true },
-      { onConflict: "company_id,badge_type", ignoreDuplicates: true },
+  if (finalizeErr) {
+    return NextResponse.json(
+      { error: `Finalisierung konnte nicht gespeichert werden: ${finalizeErr.message}` },
+      { status: 500 },
     );
+  }
+
+  // Employer-Badge ist sekundär (kosmetisch): Fehler hier dürfen die bereits
+  // erfolgreiche Finalisierung nicht zunichtemachen – nur protokollieren.
+  if (cert.company_id) {
+    const { error: badgeUpdateErr } = await supabase
+      .from("companies")
+      .update({ has_employer_badge: true })
+      .eq("id", cert.company_id);
+    if (badgeUpdateErr) {
+      console.warn("[finalize] Employer-Badge-Update fehlgeschlagen:", badgeUpdateErr.message);
+    }
+
+    // Idempotent insert in employer_badges
+    const { error: badgeUpsertErr } = await supabase
+      .from("employer_badges")
+      .upsert(
+        { company_id: cert.company_id, badge_type: "verified_certificate_employer", active: true },
+        { onConflict: "company_id,badge_type", ignoreDuplicates: true },
+      );
+    if (badgeUpsertErr) {
+      console.warn("[finalize] Employer-Badge-Upsert fehlgeschlagen:", badgeUpsertErr.message);
+    }
+  }
 
   return NextResponse.json({ ok: true, hash });
 }

@@ -40,8 +40,18 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Bestehende Evaluations zu diesem Zeugnis löschen (idempotent)
-    await supabase.from("evaluations").delete().eq("certificate_id", inv.certificate_id);
+    // Bestehende Evaluations zu diesem Zeugnis löschen (idempotent). Fehler hier
+    // ist kritisch, sonst würden neue Beurteilungen zu den alten addiert.
+    const { error: delErr } = await supabase
+      .from("evaluations")
+      .delete()
+      .eq("certificate_id", inv.certificate_id);
+    if (delErr) {
+      return NextResponse.json(
+        { error: `Vorherige Beurteilungen konnten nicht ersetzt werden: ${delErr.message}` },
+        { status: 500 },
+      );
+    }
 
     // Neue Evaluations einfügen
     const rows = evaluations.map((e: any) => ({
@@ -59,16 +69,27 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: insErr.message }, { status: 500 });
     }
 
-    // Invitation als submitted markieren, Status auf manager_submitted
-    await supabase
+    // Invitation als submitted markieren (verhindert Doppel-Abgabe) – Fehler
+    // kritisch, da die Beurteilung sonst erneut eingereicht werden könnte. Der
+    // erneute Versuch ist dank delete-then-insert idempotent.
+    const { error: invUpdErr } = await supabase
       .from("manager_invitations")
       .update({ status: "submitted", submitted_at: new Date().toISOString() })
       .eq("id", inv.id);
+    if (invUpdErr) {
+      return NextResponse.json(
+        { error: `Einladung konnte nicht abgeschlossen werden: ${invUpdErr.message}` },
+        { status: 500 },
+      );
+    }
 
-    await supabase
+    const { error: certUpdErr } = await supabase
       .from("certificates")
       .update({ status: "manager_submitted" })
       .eq("id", inv.certificate_id);
+    if (certUpdErr) {
+      console.warn("[evaluations/submit] Zeugnis-Status-Update fehlgeschlagen:", certUpdErr.message);
+    }
 
     // HR per Mail benachrichtigen, dass Beurteilung eingegangen ist
     try {

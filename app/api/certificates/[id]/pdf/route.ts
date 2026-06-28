@@ -63,6 +63,16 @@ export async function GET(
   const company = cert.companies;
   const employee = cert.employees;
 
+  if (!company || !employee) {
+    return NextResponse.json(
+      {
+        error:
+          "Zeugnis ist nicht vollständig verknüpft (Mitarbeitende oder Firma fehlt).",
+      },
+      { status: 400 },
+    );
+  }
+
   // Logo als Data-URL laden, falls Logo-URL vorhanden
   let logoDataUrl: string | undefined;
   if (company.logo_url) {

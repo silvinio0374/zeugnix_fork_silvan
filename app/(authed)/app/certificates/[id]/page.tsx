@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { CertificateActions } from "@/components/app/certificate-actions";
 import { CertificateEditor } from "@/components/app/certificate-editor";
 import { CertificatePreview } from "@/components/app/certificate-preview";
+import { CertificateWorkspace } from "@/components/app/certificate-workspace";
 import Link from "next/link";
 
 interface PageProps {
@@ -31,6 +32,32 @@ export default async function CertificateDetailPage({ params }: PageProps) {
 
   const employee = cert.employees;
   const company = cert.companies;
+
+  // Pflicht-Joins: ohne Mitarbeitende oder Firma ist das Zeugnis nicht
+  // darstellbar (Datensatz inkonsistent) – freundliche Fehlerseite statt Crash.
+  if (!employee || !company) {
+    return (
+      <div className="card border-amber-200 bg-amber-50/40 p-6">
+        <h1 className="text-[16px] font-medium text-amber-900">
+          Zeugnis unvollständig
+        </h1>
+        <p className="mt-2 text-[13.5px] text-amber-800">
+          Zu diesem Zeugnis fehlen verknüpfte Stammdaten
+          {!employee ? " (Mitarbeitende)" : ""}
+          {!employee && !company ? " und" : ""}
+          {!company ? " (Firma)" : ""}. Bitte prüfen Sie die Mitarbeitenden- und
+          Firmendaten oder legen Sie das Zeugnis neu an.
+        </p>
+        <Link
+          href="/app/certificates"
+          className="mt-4 inline-block text-[13px] font-medium text-petrol-700 underline"
+        >
+          Zurück zur Übersicht
+        </Link>
+      </div>
+    );
+  }
+
   const evaluations = cert.evaluations ?? [];
   const invitations = cert.manager_invitations ?? [];
 
@@ -93,6 +120,9 @@ export default async function CertificateDetailPage({ params }: PageProps) {
         </div>
       </div>
 
+      {/* Aktionen + Editor teilen sich einen Workspace, damit Finalisieren den
+          ausstehenden Auto-Save des Editors flushen kann. */}
+      <CertificateWorkspace>
       {/* Aktionen */}
       <CertificateActions
         certificate={cert}
@@ -102,7 +132,7 @@ export default async function CertificateDetailPage({ params }: PageProps) {
 
       {/* Editor + Preview Split-View */}
       {hasText && (
-        <div>
+        <div className="mt-6">
           <h2 className="mb-3 text-[15px] font-medium tracking-tight">
             Zeugnistext bearbeiten und Vorschau
           </h2>
@@ -176,6 +206,7 @@ export default async function CertificateDetailPage({ params }: PageProps) {
           )}
         </div>
       )}
+      </CertificateWorkspace>
     </div>
   );
 }
