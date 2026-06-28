@@ -13,6 +13,7 @@ import {
   View,
   Image,
   StyleSheet,
+  Font,
   renderToBuffer,
 } from "@react-pdf/renderer";
 import QRCode from "qrcode";
@@ -22,6 +23,13 @@ import {
   BODY_SENTINEL_END,
   buildVerifyUrl,
 } from "@/lib/hash/canonicalize";
+
+// Auto-Silbentrennung abschalten: @react-pdf würde lange Wörter am Zeilenende
+// mit eingefügtem Bindestrich umbrechen ("Resultate" -> "Re-" + "sultate").
+// Beim Auslesen des PDFs landen diese Trennstriche im Text und brechen den
+// Echtheits-Hash. Wir geben jedes Wort ungeteilt zurück → Umbruch nur an
+// Leerzeichen, extrahierter Text == Quelltext.
+Font.registerHyphenationCallback((word) => [word]);
 
 interface RenderInput {
   companyName: string;

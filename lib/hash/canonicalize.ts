@@ -57,6 +57,11 @@ export function normalizeSpecialChars(text: string): string {
 export function canonicalizeForHash(text: string): string {
   return normalizeSpecialChars(text)
     .replace(/\s+/g, " ")
+    // Zeilenumbruch-Trennstriche neutralisieren: ein Bindestrich gefolgt von
+    // Whitespace ("Re- sultate") entsteht durch PDF-Silbentrennung und steht
+    // nicht im Quelltext. Wird symmetrisch auf beiden Seiten angewandt; echte
+    // Bindestriche ohne Folge-Space (Cold-Outreach) bleiben unberührt.
+    .replace(/-\s/g, "")
     .trim();
 }
 

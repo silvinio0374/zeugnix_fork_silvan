@@ -133,6 +133,23 @@ async function run() {
     finalizeHash !== (await sha256(canonicalizeForHash(body + " zusätzlich"))),
   );
 
+  // ----- Silbentrennung (Regression: "Re- sultate") -----
+  console.log("\nSilbentrennung (PDF-Hyphenation):");
+  assert(
+    "Zeilenumbruch-Trennstrich wird neutralisiert",
+    canonicalizeForHash("durchdachte Re- sultate.") === "durchdachte Resultate.",
+  );
+  assert(
+    "Echter Bindestrich ohne Folge-Space bleibt erhalten",
+    canonicalizeForHash("Cold-Outreach via Linked-In") ===
+      "Cold-Outreach via Linked-In",
+  );
+  assert(
+    "Quelle == silbengetrenntes PDF-Extrakt (gleicher Hash)",
+    (await sha256(canonicalizeForHash("Er lieferte präzise Resultate."))) ===
+      (await sha256(canonicalizeForHash("Er lieferte präzise Re- sultate."))),
+  );
+
   // ----- Zusammenfassung -----
   console.log(`\n=== ${passed} passed, ${failed} failed ===\n`);
   if (failed > 0) process.exit(1);
