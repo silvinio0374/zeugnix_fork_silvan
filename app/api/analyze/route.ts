@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createServiceClient } from "@/lib/db/supabase-server";
+import { getClientIp, rateLimit, tooManyRequests } from "@/lib/rate-limit";
 import { analyzeText } from "@/lib/phrases/analyze";
+
+// Öffentlicher, Service-Role-gestützter Endpunkt → Rate-Limit gegen DoS/Abuse.
+const ANALYZE_LIMIT = 10;
+const ANALYZE_WINDOW_MS = 60 * 1000;
 
 /**
  * POST /api/analyze
@@ -15,6 +20,13 @@ import { analyzeText } from "@/lib/phrases/analyze";
  */
 export async function POST(req: NextRequest) {
   try {
+    const limited = rateLimit(
+      `analyze:${getClientIp(req)}`,
+      ANALYZE_LIMIT,
+      ANALYZE_WINDOW_MS,
+    );
+    if (!limited.ok) return tooManyRequests(limited.retryAfter);
+
     const { text, userEmail } = await req.json();
 
     if (!text || text.length < 50) {

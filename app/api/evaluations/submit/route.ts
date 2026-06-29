@@ -1,10 +1,23 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createServiceClient } from "@/lib/db/supabase-server";
+import { getClientIp, rateLimit, tooManyRequests } from "@/lib/rate-limit";
 import { sendEmail } from "@/lib/email/send";
 import { buildEvaluationSubmittedEmail } from "@/lib/email/templates";
 
+// Öffentlicher (token-basierter) Endpunkt → Rate-Limit gegen Token-Bruteforce
+// und Spam. Doppel-Submit ist zusätzlich DB-seitig abgesichert.
+const SUBMIT_LIMIT = 20;
+const SUBMIT_WINDOW_MS = 60 * 60 * 1000;
+
 export async function POST(req: NextRequest) {
   try {
+    const limited = rateLimit(
+      `eval-submit:${getClientIp(req)}`,
+      SUBMIT_LIMIT,
+      SUBMIT_WINDOW_MS,
+    );
+    if (!limited.ok) return tooManyRequests(limited.retryAfter);
+
     const { token, evaluations } = await req.json();
 
     if (!token || !Array.isArray(evaluations)) {

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/db/supabase-server";
+import { userIsCompanyMember } from "@/lib/auth/ownership";
 
 /**
  * PUT /api/certificates/[id]/text
@@ -25,7 +26,7 @@ export async function PUT(
 
   const { data: cert } = await supabase
     .from("certificates")
-    .select("id, status")
+    .select("id, status, company_id")
     .eq("id", id)
     .single();
   if (!cert)
@@ -33,6 +34,9 @@ export async function PUT(
       { error: "Zeugnis nicht gefunden" },
       { status: 404 },
     );
+
+  if (!(await userIsCompanyMember(supabase, cert.company_id, user.id)))
+    return NextResponse.json({ error: "Kein Zugriff" }, { status: 403 });
 
   if (cert.status === "final") {
     return NextResponse.json(

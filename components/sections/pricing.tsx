@@ -1,11 +1,19 @@
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
+// Während der Beta ist die Echtheitsprüfung faktisch kostenlos (Stripe ist noch
+// ein Stub); der reguläre Preis bleibt durchgestrichen als Anker sichtbar.
+// Die Klartext-Analyse ist noch nicht verdrahtet → `comingSoon:true` ("kommt
+// bald"), damit kein nicht-vorhandenes Feature als verfügbar beworben wird.
+// `beta:false` ohne comingSoon = dauerhaft gratis.
 const tiers = [
   {
     name: "Erstellen",
     price: "CHF 0",
+    regularPrice: null as string | null,
     sub: "Unbegrenzt kostenlos",
+    beta: false,
+    comingSoon: false,
     cta: "Kostenlos starten",
     href: "/app/certificates/new",
     features: [
@@ -16,11 +24,15 @@ const tiers = [
       "Verifikation jederzeit möglich",
     ],
     featured: false,
+    badge: null as string | null,
   },
   {
     name: "Echtheit prüfen",
     price: "CHF 19.90",
+    regularPrice: "CHF 19.90" as string | null,
     sub: "Pro Prüfung",
+    beta: true,
+    comingSoon: false,
     cta: "Echtheit prüfen",
     href: "/verify",
     features: [
@@ -29,14 +41,18 @@ const tiers = [
       "Manipulation erkennen",
       "Verifikationsbericht als PDF",
     ],
-    featured: false,
+    featured: true,
+    badge: "Jetzt verfügbar" as string | null,
   },
   {
     name: "Premium-Prüfung",
     price: "CHF 39.90",
+    regularPrice: "CHF 39.90" as string | null,
     sub: "Echtheit + Analyse",
-    cta: "Premium starten",
-    href: "/verify?tier=premium",
+    beta: false,
+    comingSoon: true,
+    cta: "Mehr erfahren",
+    href: "/verify",
     features: [
       "Vollständige Echtheitsprüfung",
       "Klartext-Zeugnisanalyse",
@@ -44,15 +60,18 @@ const tiers = [
       "Schlussformel-Analyse",
       "Kombinierter PDF-Bericht",
     ],
-    featured: true,
-    badge: "Empfohlen für Bewerbungen",
+    featured: false,
+    badge: null as string | null,
   },
   {
     name: "Zeugnisanalyse",
     price: "CHF 29.90",
+    regularPrice: "CHF 29.90" as string | null,
     sub: "Pro Zeugnis",
-    cta: "Zeugnis analysieren",
-    href: "/verify?tier=analyse",
+    beta: false,
+    comingSoon: true,
+    cta: "Mehr erfahren",
+    href: "/verify",
     features: [
       "Formulierungen auswerten",
       "Gesamturteil und Vertrauensniveau",
@@ -61,6 +80,7 @@ const tiers = [
       "Analysebericht als PDF",
     ],
     featured: false,
+    badge: null as string | null,
   },
 ];
 
@@ -79,8 +99,12 @@ export function PricingSection() {
             </h2>
           </div>
           <p className="text-[15px] leading-relaxed text-ink-600 sm:text-right">
-            Die Erstellung ist kostenlos und bleibt es. Bezahlt wird nur, wer
-            ein eingereichtes Zeugnis prüfen oder analysieren möchte.
+            Die Erstellung ist kostenlos und bleibt es. Die Echtheitsprüfung ist
+            <strong className="font-medium text-ink-800">
+              {" "}
+              während der Beta ebenfalls kostenlos
+            </strong>{" "}
+            – die Klartext-Analyse folgt in Kürze.
           </p>
         </div>
 
@@ -102,13 +126,50 @@ export function PricingSection() {
               )}
 
               <div>
-                <h3 className="text-[14px] font-medium tracking-tight text-ink-900">
-                  {tier.name}
-                </h3>
-                <div className="mt-3 font-display text-[28px] font-light leading-none tracking-tight text-ink-900">
-                  {tier.price}
+                <div className="flex items-center gap-2">
+                  <h3 className="text-[14px] font-medium tracking-tight text-ink-900">
+                    {tier.name}
+                  </h3>
+                  {tier.beta && (
+                    <span className="rounded-full bg-petrol-50 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-petrol-700 ring-1 ring-inset ring-petrol-600/20">
+                      Beta
+                    </span>
+                  )}
+                  {tier.comingSoon && (
+                    <span className="rounded-full bg-ink-100 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-ink-500 ring-1 ring-inset ring-ink-300/40">
+                      Bald
+                    </span>
+                  )}
                 </div>
-                <p className="mt-1 text-[12px] text-ink-500">{tier.sub}</p>
+                {tier.comingSoon ? (
+                  <>
+                    <div className="mt-3 font-display text-[24px] font-light leading-none tracking-tight text-ink-400">
+                      Kommt bald
+                    </div>
+                    <p className="mt-1 text-[12px] text-ink-500">
+                      In Vorbereitung · regulär {tier.regularPrice}
+                    </p>
+                  </>
+                ) : tier.beta ? (
+                  <>
+                    <div className="mt-3 font-display text-[28px] font-light leading-none tracking-tight text-ink-900">
+                      Kostenlos
+                    </div>
+                    <p className="mt-1 text-[12px] text-ink-500">
+                      <span className="line-through">
+                        statt {tier.regularPrice}
+                      </span>{" "}
+                      · während der Beta
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <div className="mt-3 font-display text-[28px] font-light leading-none tracking-tight text-ink-900">
+                      {tier.price}
+                    </div>
+                    <p className="mt-1 text-[12px] text-ink-500">{tier.sub}</p>
+                  </>
+                )}
               </div>
 
               <ul className="mt-6 flex-1 space-y-2.5">
@@ -141,7 +202,9 @@ export function PricingSection() {
                   "mt-6 inline-flex items-center justify-center rounded-md px-4 py-2.5 text-[13px] font-medium transition-all active:scale-[0.985]",
                   tier.featured
                     ? "bg-petrol-700 text-white hover:bg-petrol-800"
-                    : "border border-ink-200 bg-white text-ink-800 hover:border-ink-300 hover:bg-ink-50",
+                    : tier.comingSoon
+                      ? "border border-ink-200 bg-white text-ink-500 hover:border-ink-300 hover:bg-ink-50"
+                      : "border border-ink-200 bg-white text-ink-800 hover:border-ink-300 hover:bg-ink-50",
                 )}
               >
                 {tier.cta}
@@ -169,8 +232,12 @@ export function PricingSection() {
               </svg>
             </div>
             <div>
-              <div className="text-[14px] font-medium tracking-tight text-ink-900">
-                Firmenpaket – ab CHF 49 pro Monat
+              <div className="flex flex-wrap items-baseline gap-x-2 text-[14px] font-medium tracking-tight text-ink-900">
+                Firmenpaket
+                <span className="text-[12px] font-normal text-ink-500">
+                  <span className="line-through">ab CHF 49/Monat</span> ·
+                  während der Beta kostenlos
+                </span>
               </div>
               <div className="mt-0.5 text-[12.5px] text-ink-600">
                 Mehrere Prüfungen · Recruiter-Zugang · Verifikationshistorie ·

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/db/supabase-server";
+import { userIsCompanyMember } from "@/lib/auth/ownership";
 
 /**
  * DELETE /api/certificates/[id]
@@ -22,12 +23,15 @@ export async function DELETE(
 
   const { data: cert } = await supabase
     .from("certificates")
-    .select("id, status")
+    .select("id, status, company_id")
     .eq("id", id)
     .single();
 
   if (!cert)
     return NextResponse.json({ error: "Zeugnis nicht gefunden" }, { status: 404 });
+
+  if (!(await userIsCompanyMember(supabase, cert.company_id, user.id)))
+    return NextResponse.json({ error: "Kein Zugriff" }, { status: 403 });
 
   if (cert.status === "final") {
     return NextResponse.json(
@@ -72,6 +76,18 @@ export async function PATCH(
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  const { data: cert } = await supabase
+    .from("certificates")
+    .select("id, company_id")
+    .eq("id", id)
+    .single();
+
+  if (!cert)
+    return NextResponse.json({ error: "Zeugnis nicht gefunden" }, { status: 404 });
+
+  if (!(await userIsCompanyMember(supabase, cert.company_id, user.id)))
+    return NextResponse.json({ error: "Kein Zugriff" }, { status: 403 });
 
   const { error } = await supabase
     .from("certificates")

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/db/supabase-server";
+import { userIsCompanyMember } from "@/lib/auth/ownership";
 import { canonicalizeForHash, sha256 } from "@/lib/hash/canonicalize";
 
 export async function POST(
@@ -21,6 +22,9 @@ export async function POST(
 
   if (!cert)
     return NextResponse.json({ error: "Zeugnis nicht gefunden" }, { status: 404 });
+
+  if (!(await userIsCompanyMember(supabase, cert.company_id, user.id)))
+    return NextResponse.json({ error: "Kein Zugriff" }, { status: 403 });
 
   if (!cert.generated_text) {
     return NextResponse.json(

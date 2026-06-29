@@ -123,7 +123,7 @@ export function buildManagerInvitationEmail(props: ManagerInvitationProps): {
             <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:28px 0;">
               <tr>
                 <td style="border-radius:6px;background:#0f7a6b;">
-                  <a href="${inviteUrl}" style="display:inline-block;padding:13px 28px;font-size:14px;font-weight:500;color:#ffffff;text-decoration:none;letter-spacing:0.01em;">
+                  <a href="${escapeHtml(inviteUrl)}" style="display:inline-block;padding:13px 28px;font-size:14px;font-weight:500;color:#ffffff;text-decoration:none;letter-spacing:0.01em;">
                     Beurteilung starten →
                   </a>
                 </td>
@@ -265,7 +265,7 @@ export function buildEvaluationSubmittedEmail(props: EvaluationSubmittedProps): 
             <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:28px 0;">
               <tr>
                 <td style="border-radius:6px;background:#0f7a6b;">
-                  <a href="${certificateUrl}" style="display:inline-block;padding:13px 28px;font-size:14px;font-weight:500;color:#ffffff;text-decoration:none;letter-spacing:0.01em;">
+                  <a href="${escapeHtml(certificateUrl)}" style="display:inline-block;padding:13px 28px;font-size:14px;font-weight:500;color:#ffffff;text-decoration:none;letter-spacing:0.01em;">
                     Zum Zeugnis →
                   </a>
                 </td>

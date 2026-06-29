@@ -93,33 +93,43 @@ export function VerifySection() {
                   </p>
                 </div>
 
-                {/* Drei Produkt-Karten */}
+                {/* Drei Produkt-Karten: Echtheit aktiv (Beta gratis),
+                    Analyse-Tiers noch in Vorbereitung. */}
                 <div className="mt-5 grid gap-2 sm:grid-cols-3">
-                  <div className="rounded-md border border-ink-200 p-3">
+                  <div className="relative rounded-md border-2 border-petrol-600 p-3">
+                    <span className="absolute -top-2 left-2 rounded-full bg-petrol-700 px-1.5 py-0.5 text-[8.5px] font-medium text-white">
+                      Jetzt verfügbar
+                    </span>
                     <div className="text-[11px] font-medium text-ink-900">
                       Echtheit prüfen
                     </div>
                     <div className="mt-1 text-[15px] font-medium tracking-tight text-ink-900">
-                      CHF 19.90
+                      Kostenlos
                     </div>
-                  </div>
-                  <div className="relative rounded-md border-2 border-petrol-600 p-3">
-                    <span className="absolute -top-2 left-2 rounded-full bg-petrol-700 px-1.5 py-0.5 text-[8.5px] font-medium text-white">
-                      Empfohlen
-                    </span>
-                    <div className="text-[11px] font-medium text-ink-900">
-                      Premium-Prüfung
-                    </div>
-                    <div className="mt-1 text-[15px] font-medium tracking-tight text-ink-900">
-                      CHF 39.90
+                    <div className="text-[10px] text-ink-500">
+                      <span className="line-through">CHF 19.90</span> · Beta
                     </div>
                   </div>
                   <div className="rounded-md border border-ink-200 p-3">
-                    <div className="text-[11px] font-medium text-ink-900">
+                    <div className="text-[11px] font-medium text-ink-500">
+                      Premium-Prüfung
+                    </div>
+                    <div className="mt-1 text-[15px] font-medium tracking-tight text-ink-400">
+                      Kommt bald
+                    </div>
+                    <div className="text-[10px] text-ink-500">
+                      regulär CHF 39.90
+                    </div>
+                  </div>
+                  <div className="rounded-md border border-ink-200 p-3">
+                    <div className="text-[11px] font-medium text-ink-500">
                       Analyse
                     </div>
-                    <div className="mt-1 text-[15px] font-medium tracking-tight text-ink-900">
-                      CHF 29.90
+                    <div className="mt-1 text-[15px] font-medium tracking-tight text-ink-400">
+                      Kommt bald
+                    </div>
+                    <div className="text-[10px] text-ink-500">
+                      regulär CHF 29.90
                     </div>
                   </div>
                 </div>

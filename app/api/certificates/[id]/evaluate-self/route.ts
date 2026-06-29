@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/db/supabase-server";
+import { userIsCompanyMember } from "@/lib/auth/ownership";
 
 /**
  * POST /api/certificates/[id]/evaluate-self
@@ -35,7 +36,7 @@ export async function POST(
   // aber wir wollen auch sicherstellen, dass die ID gültig ist)
   const { data: cert } = await supabase
     .from("certificates")
-    .select("id, status")
+    .select("id, status, company_id")
     .eq("id", id)
     .single();
   if (!cert)
@@ -43,6 +44,9 @@ export async function POST(
       { error: "Zeugnis nicht gefunden oder kein Zugriff" },
       { status: 404 },
     );
+
+  if (!(await userIsCompanyMember(supabase, cert.company_id, user.id)))
+    return NextResponse.json({ error: "Kein Zugriff" }, { status: 403 });
 
   // Bestehende Evaluations zu diesem Zeugnis löschen (idempotent: erneute
   // Selbst-Beurteilung überschreibt vorherige). Fehler hier ist kritisch:

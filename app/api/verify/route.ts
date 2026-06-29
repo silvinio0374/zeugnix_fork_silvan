@@ -1,11 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createServiceClient } from "@/lib/db/supabase-server";
+import { getClientIp, rateLimit, tooManyRequests } from "@/lib/rate-limit";
 import {
   canonicalizeForHash,
   extractBodyBetweenSentinels,
   sha256,
   type VerifyOutcome,
 } from "@/lib/hash/canonicalize";
+
+// Öffentlicher, Service-Role-gestützter Endpunkt → Rate-Limit gegen DoS/Abuse.
+const VERIFY_LIMIT = 20;
+const VERIFY_WINDOW_MS = 60 * 1000;
 
 /**
  * POST /api/verify
@@ -20,6 +25,13 @@ import {
  */
 export async function POST(req: NextRequest) {
   try {
+    const limited = rateLimit(
+      `verify:${getClientIp(req)}`,
+      VERIFY_LIMIT,
+      VERIFY_WINDOW_MS,
+    );
+    if (!limited.ok) return tooManyRequests(limited.retryAfter);
+
     const body = await req.json();
     const { text, userEmail } = body as { text?: string; userEmail?: string };
 
