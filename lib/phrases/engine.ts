@@ -21,6 +21,8 @@
  *   - Keine plumpen Aneinanderreihungen: Sätze werden mit Übergängen verbunden
  */
 
+import { SKILLS, type SkillMeta } from "./skills";
+
 // ============================================================================
 // Typen
 // ============================================================================
@@ -77,8 +79,24 @@ export interface Evaluation {
 // Helper: Platzhalter-Substitution
 // ============================================================================
 
+/**
+ * Löst Geschlechter-Tokens der Form {{maskulin|feminin|neutral}} auf.
+ * Die Katalog-Bausteine sind als gender='d' gespeichert und tragen diese Tokens;
+ * die Auswahl erfolgt hier nach dem Geschlecht der Person:
+ *   m → 1. Wert, f → 2. Wert, d → 3. Wert (Beidnennung mit Schrägstrich).
+ * Fehlt ein Wert (unvollständiges Token), wird der maskuline Wert als Fallback
+ * genommen, damit nie eine leere Stelle entsteht.
+ */
+function resolveGenderTokens(text: string, gender: "m" | "f" | "d"): string {
+  const idx = gender === "m" ? 0 : gender === "f" ? 1 : 2;
+  return text.replace(/\{\{([^{}]*)\}\}/g, (_match, inner: string) => {
+    const parts = inner.split("|");
+    return (parts[idx] ?? parts[0] ?? "").trim();
+  });
+}
+
 function substitute(template: string, employee: EmployeeData): string {
-  return template
+  return resolveGenderTokens(template, employee.gender)
     .replace(/\{vorname\}/g, employee.firstName)
     .replace(/\{nachname\}/g, employee.lastName)
     .replace(/\{funktion\}/g, employee.functionTitle)
@@ -89,6 +107,9 @@ function substitute(template: string, employee: EmployeeData): string {
       employee.dateOfBirth ? formatDate(employee.dateOfBirth) : "",
     );
 }
+
+// Skill-Metadaten (Reihenfolge + Thema) für die themengruppierte Generierung.
+const SKILL_BY_KEY = new Map<string, SkillMeta>(SKILLS.map((s) => [s.key, s]));
 
 function formatDate(iso: string): string {
   const [y, m, d] = iso.split("-");
@@ -201,37 +222,51 @@ export function generateCertificate(
     sections.push(certificate.tasks.map((t) => `• ${t}`).join("\n"));
   }
 
-  // ----- Beurteilungs-Sektionen -----
-  // Geordnete Reihenfolge: fachliche_leistung → arbeitsweise → arbeitsqualitaet
-  // → zielerreichung → fuehrungsverhalten (falls Manager) → verhalten
-  const orderedCategories = [
-    "fachliche_leistung",
-    "arbeitsweise",
-    "arbeitsqualitaet",
-    "zielerreichung",
-    ...(employee.isManager ? ["fuehrungsverhalten"] : []),
-    "verhalten",
-  ];
+  // ----- Beurteilungs-Sektionen (themengruppiert nach Skill-Katalog) -----
+  // Nur die tatsächlich bewerteten Skills aus dem Katalog, sortiert nach der
+  // Katalog-Reihenfolge (Thema → Skill) und je Thema zu einem Absatz
+  // zusammengefasst. Kategorien ausserhalb des Katalogs (z. B. Bausteine aus
+  // dem alten Schema) werden übersprungen und gewarnt.
+  const ratedSkills = evaluations
+    .map((ev) => ({ ev, meta: SKILL_BY_KEY.get(ev.category) }))
+    .filter(
+      (x): x is { ev: Evaluation; meta: SkillMeta } => x.meta !== undefined,
+    )
+    .sort((a, b) => a.meta.order - b.meta.order);
 
-  const evalsParagraph: string[] = [];
-  for (const cat of orderedCategories) {
-    const ev = evaluations.find((e) => e.category === cat);
-    if (!ev) {
-      warnings.push(`Keine Beurteilung für Kategorie '${cat}'`);
-      continue;
-    }
-    const phrase = findPhrase(phraseBlocks, cat, ev.rating, employee);
-    if (phrase) {
-      let text = substitute(phrase.text, employee);
-      if (ev.freeText) {
-        text += " " + ev.freeText.trim();
-      }
-      evalsParagraph.push(text);
-    } else {
-      warnings.push(`Kein Baustein für ${cat} / ${ev.rating} / ${employee.gender}`);
+  for (const e of evaluations) {
+    if (!SKILL_BY_KEY.has(e.category)) {
+      warnings.push(`Unbekannte Beurteilungs-Kategorie '${e.category}' übersprungen`);
     }
   }
-  sections.push(evalsParagraph.join(" "));
+  if (ratedSkills.length === 0) {
+    warnings.push("Keine bewerteten Skills aus dem Katalog vorhanden.");
+  }
+
+  // Je Thema einen eigenen Absatz bilden (Reihenfolge folgt aus 'order').
+  let currentTheme: string | null = null;
+  let themeBuffer: string[] = [];
+  const flushTheme = () => {
+    if (themeBuffer.length > 0) {
+      sections.push(themeBuffer.join(" "));
+      themeBuffer = [];
+    }
+  };
+  for (const { ev, meta } of ratedSkills) {
+    if (meta.theme !== currentTheme) {
+      flushTheme();
+      currentTheme = meta.theme;
+    }
+    const phrase = findPhrase(phraseBlocks, meta.key, ev.rating, employee, meta.theme);
+    if (phrase) {
+      let text = substitute(phrase.text, employee);
+      if (ev.freeText) text += " " + ev.freeText.trim();
+      themeBuffer.push(text);
+    } else {
+      warnings.push(`Kein Baustein für ${meta.key} / ${ev.rating}`);
+    }
+  }
+  flushTheme();
 
   // ----- Schlussformulierung -----
   let closing = "";

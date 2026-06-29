@@ -1,0 +1,1715 @@
+{
+  "verantwortung_uebertragen|ungenuegend|1": {
+    "tokenized": "Wir möchten erwähnen, dass {{er|sie|er/sie}} als {{Vorgesetzter|Vorgesetzte|Vorgesetzter/Vorgesetzte}} Aufgaben in massvollem Umfang delegiert.",
+    "ok": true
+  },
+  "verantwortung_uebertragen|ungenuegend|2": {
+    "tokenized": "Aufgaben delegiert {{er|sie|er/sie}} teilweise.",
+    "ok": true
+  },
+  "verantwortung_uebertragen|ungenuegend|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} delegiert Aufgaben teils undifferenziert.",
+    "ok": true
+  },
+  "verantwortung_uebertragen|genuegend|1": {
+    "tokenized": "Wir schätzen, dass {{er|sie|er/sie}} als {{Vorgesetzter|Vorgesetzte|Vorgesetzter/Vorgesetzte}} Aufgaben in passendem Umfang delegiert.",
+    "ok": true
+  },
+  "verantwortung_uebertragen|genuegend|2": {
+    "tokenized": "Aufgaben delegiert {{er|sie|er/sie}} im richtigen Umfang.",
+    "ok": true
+  },
+  "verantwortung_uebertragen|genuegend|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} delegiert Aufgaben besonnen.",
+    "ok": true
+  },
+  "verantwortung_uebertragen|gut|1": {
+    "tokenized": "Wir schätzen sehr, dass {{er|sie|er/sie}} als {{tüchtiger|tüchtige|tüchtiger/tüchtige}} {{Vorgesetzter|Vorgesetzte|Vorgesetzter/Vorgesetzte}} Aufgaben und Verantwortung in richtigem Umfang delegiert.",
+    "ok": true
+  },
+  "verantwortung_uebertragen|gut|2": {
+    "tokenized": "Aufgaben, Verantwortung und Kompetenzen delegiert {{er|sie|er/sie}} stets klar und im richtigen Umfang.",
+    "ok": true
+  },
+  "verantwortung_uebertragen|gut|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} delegiert Aufgaben mit Sachverstand und Gespür.",
+    "ok": true
+  },
+  "verantwortung_uebertragen|sehr_gut|1": {
+    "tokenized": "Wir schätzen enorm, dass {{er|sie|er/sie}} als {{engagierter|engagierte|engagierter/engagierte}} {{Vorgesetzter|Vorgesetzte|Vorgesetzter/Vorgesetzte}} Aufgaben und Verantwortung vorbildlich und in angemessenem Umfang delegiert.",
+    "ok": true
+  },
+  "verantwortung_uebertragen|sehr_gut|2": {
+    "tokenized": "Aufgaben, Verantwortung und Kompetenzen delegiert {{er|sie|er/sie}} stets klar, ressourcenoptimiert und im richtigen Umfang.",
+    "ok": true
+  },
+  "verantwortung_uebertragen|sehr_gut|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} delegiert Aufgaben mit grossem Sachverstand und Gespür.",
+    "ok": true
+  },
+  "offenheit_vertrauen|ungenuegend|1": {
+    "tokenized": "Durch {{sein|ihr|sein/ihr}} Interesse gegenüber den Anliegen {{seiner|ihrer|seiner/ihrer}} Mitarbeitenden schafft {{er|sie|er/sie}} ein angenehmes Arbeitsklima.",
+    "ok": true
+  },
+  "offenheit_vertrauen|ungenuegend|2": {
+    "tokenized": "Den Anliegen {{seiner|ihrer|seiner/ihrer}} Mitarbeitenden steht {vorname} {nachname} jeweils offen gegenüber.",
+    "ok": true
+  },
+  "offenheit_vertrauen|genuegend|1": {
+    "tokenized": "Durch {{sein|ihr|sein/ihr}} echtes Interesse gegenüber den Anliegen {{seiner|ihrer|seiner/ihrer}} Mitarbeitenden schafft {{er|sie|er/sie}} ein vertrauensvolles Arbeitsklima.",
+    "ok": true
+  },
+  "offenheit_vertrauen|genuegend|2": {
+    "tokenized": "Den Anliegen {{seiner|ihrer|seiner/ihrer}} Mitarbeitenden gegenüber ist {vorname} {nachname} jeweils offen. Durch {{seine|ihre|seine/ihre}} wertschätzende Haltung schafft {{er|sie|er/sie}} ein förderliches Arbeitsklima.",
+    "ok": true
+  },
+  "offenheit_vertrauen|gut|1": {
+    "tokenized": "Durch {{seine|ihre|seine/ihre}} Offenheit und echtes Interesse gegenüber den Anliegen {{seiner|ihrer|seiner/ihrer}} Mitarbeitenden schafft {{er|sie|er/sie}} ein vertrauensvolles und produktives Arbeitsklima.",
+    "ok": true
+  },
+  "offenheit_vertrauen|gut|2": {
+    "tokenized": "Als Führungskraft versteht {vorname} {nachname} es, {{seine|ihre|seine/ihre}} Mitarbeitenden entsprechend einzubeziehen und zielorientiert zu fördern. Durch {{seine|ihre|seine/ihre}} wertschätzende Haltung schafft {{er|sie|er/sie}} eine vertrauensvolle Basis der Zusammenarbeit sowie ein produktives Arbeitsklima. Vorschläge {{seiner|ihrer|seiner/ihrer}} Mitarbeitenden lässt {{er|sie|er/sie}} sinnvoll und angemessen in die Umsetzung {{seiner|ihrer|seiner/ihrer}} Ziele einfliessen.",
+    "ok": true
+  },
+  "offenheit_vertrauen|sehr_gut|1": {
+    "tokenized": "Durch Begeisterungsfähigkeit, Offenheit und echtes Interesse gegenüber den Anliegen {{seiner|ihrer|seiner/ihrer}} Mitarbeitenden schafft {{er|sie|er/sie}} ein vertrauensvolles und produktives Arbeitsklima.",
+    "ok": true
+  },
+  "offenheit_vertrauen|sehr_gut|2": {
+    "tokenized": "Als Führungskraft versteht {vorname} {nachname} es jederzeit bestens, alle Mitarbeitenden {{seines|ihres|seines/ihres}} Teams entsprechend ihrer Persönlichkeiten und Kompetenzen einzubeziehen und zielorientiert zu fördern. Durch {{seine|ihre|seine/ihre}} wertschätzende Haltung schafft {{er|sie|er/sie}} aktiv eine vertrauensvolle Basis der Zusammenarbeit sowie ein produktives Arbeitsklima. Vorschläge {{seiner|ihrer|seiner/ihrer}} Mitarbeitenden lässt {{er|sie|er/sie}} sinnvoll und angemessen in die Umsetzung {{seiner|ihrer|seiner/ihrer}} Ziele einfliessen.",
+    "ok": true
+  },
+  "vorbild|ungenuegend|1": {
+    "tokenized": "{vorname} {nachname} schätzen wir als Führungspersönlichkeit, {{dessen|deren|dessen/deren}} Führungsleistung auf Glaubwürdigkeit basiert.",
+    "ok": true
+  },
+  "vorbild|ungenuegend|2": {
+    "tokenized": "{vorname} {nachname} erleben wir als {{Vorgesetzten|Vorgesetzte|Vorgesetzten/Vorgesetzte}}, {{der|die|der/die}} jeweils mit {{seinem|ihrem|seinem/ihrem}} Team solide Leistungen erbringt.",
+    "ok": true
+  },
+  "vorbild|genuegend|1": {
+    "tokenized": "{vorname} {nachname} schätzen wir als zuverlässige Führungspersönlichkeit, {{dessen|deren|dessen/deren}} Führungsleistung auf Glaubwürdigkeit und Integrität basiert.",
+    "ok": true
+  },
+  "vorbild|genuegend|2": {
+    "tokenized": "{vorname} {nachname} erleben wir als motivierte Führungskraft, die verantwortungsvoll handelt. Entscheidungen trifft {{er|sie|er/sie}} durchdacht, kommuniziert diese klar und nachvollziehbar.",
+    "ok": true
+  },
+  "vorbild|gut|1": {
+    "tokenized": "{vorname} {nachname} schätzen wir als engagierte Führungspersönlichkeit, {{dessen|deren|dessen/deren}} vorbildliche Führungsleistung auf Glaubwürdigkeit und Integrität basiert.",
+    "ok": true
+  },
+  "vorbild|gut|2": {
+    "tokenized": "{vorname} {nachname} schätzen wir als engagierte und integre Führungskraft, die vorausschauend, ziel- und umsetzungsorientiert sowie im Sinne unserer Wertekultur handelt. {{Er|Sie|Er/Sie}} verfügt über Selbstdisziplin und übernimmt stets Verantwortung. Entscheidungen trifft {{er|sie|er/sie}} gut durchdacht, kommuniziert diese zeitgerecht, klar und nachvollziehbar. Zudem überzeugt {{er|sie|er/sie}} durch {{seinen|ihren|seinen/ihren}} kooperativen Führungsstil.",
+    "ok": true
+  },
+  "vorbild|sehr_gut|1": {
+    "tokenized": "{vorname} {nachname} schätzen wir als sehr engagierte Führungspersönlichkeit, {{dessen|deren|dessen/deren}} vorbildliche und beeindruckende Führungsleistung auf Glaubwürdigkeit und Integrität basiert.",
+    "ok": true
+  },
+  "vorbild|sehr_gut|2": {
+    "tokenized": "{vorname} {nachname} schätzen wir als sehr engagierte und integre Führungskraft, die vorausschauend, ziel- und umsetzungsorientiert sowie im Sinne unserer Wertekultur denkt und agiert. {{Er|Sie|Er/Sie}} verfügt über einen hohen Grad an Selbstdisziplin und übernimmt stets Verantwortung. Entscheidungen trifft {{er|sie|er/sie}} bestens durchdacht und kommuniziert diese zeitgerecht, klar und nachvollziehbar. Zudem überzeugt {{er|sie|er/sie}} jederzeit durch {{sein|ihr|sein/ihr}} vorbildliches Engagement sowie durch {{seinen|ihren|seinen/ihren}} kooperativen, sach- und personenbezogenen Führungsstil.",
+    "ok": true
+  },
+  "lenkung_arbeitsleistung|ungenuegend|1": {
+    "tokenized": "{{Er|Sie|Er/Sie}} fördert die Arbeitsleistung {{seiner|ihrer|seiner/ihrer}} Mitarbeitenden. Gleichzeitig unterstützt {{er|sie|er/sie}} durch geeignete Zielsetzungen.",
+    "ok": true
+  },
+  "lenkung_arbeitsleistung|ungenuegend|2": {
+    "tokenized": "Mit Unterstützung gelingt es {{ihm|ihr|ihm/ihr}}, {{seine|ihre|seine/ihre}} Mitarbeitenden zu Leistungen zu motivieren.",
+    "ok": true
+  },
+  "lenkung_arbeitsleistung|ungenuegend|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} kann die Mitarbeitenden teilweise nur schwer motivieren und erteilt manchmal unzureichende Handlungsanweisungen.",
+    "ok": true
+  },
+  "lenkung_arbeitsleistung|genuegend|1": {
+    "tokenized": "{{Er|Sie|Er/Sie}} fördert die Arbeitsleistung {{seiner|ihrer|seiner/ihrer}} Mitarbeitenden bewusst. Gleichzeitig unterstützt {{er|sie|er/sie}} durch erreichbare und messbare Zielsetzungen.",
+    "ok": true
+  },
+  "lenkung_arbeitsleistung|genuegend|2": {
+    "tokenized": "{{Er|Sie|Er/Sie}} kann {{seine|ihre|seine/ihre}} Mitarbeitenden zu guten Leistungen motivieren und erteilt dabei nachvollziehbare Handlungsanweisungen.",
+    "ok": true
+  },
+  "lenkung_arbeitsleistung|genuegend|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} kann die Mitarbeitenden motivieren und erteilt ausreichende Handlungsanweisungen.",
+    "ok": true
+  },
+  "lenkung_arbeitsleistung|gut|1": {
+    "tokenized": "{{Er|Sie|Er/Sie}} fördert die Arbeitsleistung {{seiner|ihrer|seiner/ihrer}} Mitarbeitenden sehr bewusst. Gleichzeitig motiviert {{er|sie|er/sie}} durch anspruchsvolle, erreichbare und messbare Zielsetzungen.",
+    "ok": true
+  },
+  "lenkung_arbeitsleistung|gut|2": {
+    "tokenized": "Anhand klarer und erreichbarer Zielvorgaben motiviert {{er|sie|er/sie}} {{sein|ihr|sein/ihr}} Team stets zu guten Ergebnissen. Darüber hinaus versteht {{er|sie|er/sie}} es, allen Beteiligten nachvollziehbare Handlungsanweisungen zu erteilen.",
+    "ok": true
+  },
+  "lenkung_arbeitsleistung|gut|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} kann die Mitarbeitenden zielbezogen motivieren und erteilt klare Handlungsanweisungen.",
+    "ok": true
+  },
+  "lenkung_arbeitsleistung|sehr_gut|1": {
+    "tokenized": "{{Er|Sie|Er/Sie}} fördert die Arbeitsleistung {{seiner|ihrer|seiner/ihrer}} Mitarbeitenden bemerkenswert. Gleichzeitig motiviert {{er|sie|er/sie}} perfekt und umsichtig durch anspruchsvolle, erreichbare und messbare Zielsetzungen.",
+    "ok": true
+  },
+  "lenkung_arbeitsleistung|sehr_gut|2": {
+    "tokenized": "Anhand klarer und erreichbarer Zielvorgaben motiviert {{er|sie|er/sie}} {{sein|ihr|sein/ihr}} Team zu anhaltend sehr guten Ergebnissen. Darüber hinaus versteht {{er|sie|er/sie}} es bestens, allen Beteiligten nachvollziehbare Handlungsanweisungen zu erteilen.",
+    "ok": true
+  },
+  "lenkung_arbeitsleistung|sehr_gut|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} versteht es, die Mitarbeitenden überzeugend und zielbezogen zu motivieren. {{Er|Sie|Er/Sie}} erteilt präzise, nachvollziehbare Handlungsanweisungen.",
+    "ok": true
+  },
+  "mitarbeiterfoerderung|ungenuegend|1": {
+    "tokenized": "Ausserdem überlegt {{er|sie|er/sie}} sich mögliche Karriereperspektiven.",
+    "ok": true
+  },
+  "mitarbeiterfoerderung|ungenuegend|2": {
+    "tokenized": "{{Er|Sie|Er/Sie}} zeigt {{seinen|ihren|seinen/ihren}} Mitarbeitenden Weiterbildungsmöglichkeiten auf.",
+    "ok": true
+  },
+  "mitarbeiterfoerderung|genuegend|1": {
+    "tokenized": "Ausserdem überlegt {{er|sie|er/sie}} sich Entwicklungsmöglichkeiten und mögliche Karriereperspektiven.",
+    "ok": true
+  },
+  "mitarbeiterfoerderung|genuegend|2": {
+    "tokenized": "{{Er|Sie|Er/Sie}} versteht es, die Mitarbeitenden zu fördern und Weiterbildungsmöglichkeiten aufzuzeigen.",
+    "ok": true
+  },
+  "mitarbeiterfoerderung|gut|1": {
+    "tokenized": "Ausserdem plant {{er|sie|er/sie}} sinnvolle Entwicklungsmöglichkeiten und zeigt mögliche Karriereperspektiven auf.",
+    "ok": true
+  },
+  "mitarbeiterfoerderung|gut|2": {
+    "tokenized": "{{Er|Sie|Er/Sie}} versteht es, die Talente {{seiner|ihrer|seiner/ihrer}} Mitarbeitenden zu erkennen und diese zu fördern. {{Er|Sie|Er/Sie}} ermöglicht auf die Funktion zugeschnittene Weiterbildungsmöglichkeiten und zeigt Entwicklungsperspektiven auf.",
+    "ok": true
+  },
+  "mitarbeiterfoerderung|sehr_gut|1": {
+    "tokenized": "Ausserdem plant {{er|sie|er/sie}} individuell zugeschnittene und sinnvolle Entwicklungsmöglichkeiten und zeigt interessante Karriereperspektiven auf.",
+    "ok": true
+  },
+  "mitarbeiterfoerderung|sehr_gut|2": {
+    "tokenized": "{{Er|Sie|Er/Sie}} versteht es gekonnt, die Talente {{seiner|ihrer|seiner/ihrer}} Mitarbeitenden zu erkennen und diese entsprechend zu fördern. {{Er|Sie|Er/Sie}} ermöglicht auf die Funktion zugeschnittene Weiterbildungsmöglichkeiten und individuell interessante Entwicklungsperspektiven.",
+    "ok": true
+  },
+  "aktives_change_management|ungenuegend|1": {
+    "tokenized": "{{Seine|Ihre|Seine/Ihre}} Mitarbeitenden unterstützt {{er|sie|er/sie}} gewissenhaft, sodass diese auf Veränderungen vorbereitet sind und angemessen damit umgehen können.",
+    "ok": true
+  },
+  "aktives_change_management|ungenuegend|2": {
+    "tokenized": "{{Seine|Ihre|Seine/Ihre}} Mitarbeitenden unterstützt {{er|sie|er/sie}} bei Veränderungsprozessen, sodass diese Neuerungen akzeptieren können.",
+    "ok": true
+  },
+  "aktives_change_management|ungenuegend|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} bevorzugt es meist, am Bestehenden festzuhalten.",
+    "ok": true
+  },
+  "aktives_change_management|genuegend|1": {
+    "tokenized": "{{Seine|Ihre|Seine/Ihre}} Mitarbeitenden unterstützt {{er|sie|er/sie}} aufmerksam, sodass diese auf Veränderungen vorbereitet sind und gut damit umgehen können.",
+    "ok": true
+  },
+  "aktives_change_management|genuegend|2": {
+    "tokenized": "{{Seine|Ihre|Seine/Ihre}} Mitarbeitenden unterstützt {{er|sie|er/sie}}, sodass diese auf Veränderungen vorbereitet sind und angemessen damit umgehen können.",
+    "ok": true
+  },
+  "aktives_change_management|genuegend|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} hat wiederholt gute Ideen.",
+    "ok": true
+  },
+  "aktives_change_management|gut|1": {
+    "tokenized": "{{Seine|Ihre|Seine/Ihre}} Mitarbeitenden unterstützt {{er|sie|er/sie}} aufmerksam und umsichtig, sodass diese rechtzeitig auf Veränderungen vorbereitet sind und mit Akzeptanz damit umgehen können.",
+    "ok": true
+  },
+  "aktives_change_management|gut|2": {
+    "tokenized": "{{Seine|Ihre|Seine/Ihre}} Mitarbeitenden führt und unterstützt {{er|sie|er/sie}} bei Veränderungsprozessen umsichtig, sodass diese rechtzeitig auf Neuerungen vorbereitet sind und mit Akzeptanz damit umgehen können.",
+    "ok": true
+  },
+  "aktives_change_management|gut|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} hat viele konkret umsetzbare Ideen.",
+    "ok": true
+  },
+  "aktives_change_management|sehr_gut|1": {
+    "tokenized": "{{Seine|Ihre|Seine/Ihre}} Mitarbeitenden unterstützt {{er|sie|er/sie}} sehr aufmerksam und klug, sodass diese rechtzeitig auf Veränderungen bestens vorbereitet sind und mit grosser Akzeptanz damit umgehen können.",
+    "ok": true
+  },
+  "aktives_change_management|sehr_gut|2": {
+    "tokenized": "{{Seine|Ihre|Seine/Ihre}} Mitarbeitenden führt und unterstützt {{er|sie|er/sie}} bei Veränderungsprozessen professionell und routiniert, sodass diese die Neuerungen aktiv mitunterstützen.",
+    "ok": true
+  },
+  "aktives_change_management|sehr_gut|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} hat aussergewöhnlich viele erfolgreich umsetzbare Ideen.",
+    "ok": true
+  },
+  "wissensaustausch|ungenuegend|1": {
+    "tokenized": "{{Er|Sie|Er/Sie}} achtet in {{seinem|ihrem|seinem/ihrem}} Arbeitsbereich auf Zusammenarbeit und Informationsaustausch.",
+    "ok": true
+  },
+  "wissensaustausch|ungenuegend|2": {
+    "tokenized": "{{Er|Sie|Er/Sie}} unterstützt in {{seinem|ihrem|seinem/ihrem}} Arbeitsbereich den Informationsaustausch.",
+    "ok": true
+  },
+  "wissensaustausch|ungenuegend|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} achtet zu wenig auf einen ausreichenden Informations- und Wissensaustausch.",
+    "ok": true
+  },
+  "wissensaustausch|genuegend|1": {
+    "tokenized": "{{Er|Sie|Er/Sie}} unterstützt in {{seinem|ihrem|seinem/ihrem}} Arbeitsbereich die Zusammenarbeit und den Informationsaustausch.",
+    "ok": true
+  },
+  "wissensaustausch|genuegend|2": {
+    "tokenized": "{{Er|Sie|Er/Sie}} fördert den Informations- und Wissensaustausch.",
+    "ok": true
+  },
+  "wissensaustausch|genuegend|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} achtet auf einen angemessenen Informations- und Wissensaustausch.",
+    "ok": true
+  },
+  "wissensaustausch|gut|1": {
+    "tokenized": "{{Er|Sie|Er/Sie}} fördert im Unternehmen gezielt die Zusammenarbeit sowie einen wertvollen Informations- und Wissensaustausch.",
+    "ok": true
+  },
+  "wissensaustausch|gut|2": {
+    "tokenized": "{{Er|Sie|Er/Sie}} fördert aktiv das Wissensmanagement durch einen sinnvollen Informations- und Wissensaustausch.",
+    "ok": true
+  },
+  "wissensaustausch|gut|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} fördert einen wertvollen Informations- und Wissensaustausch.",
+    "ok": true
+  },
+  "wissensaustausch|sehr_gut|1": {
+    "tokenized": "{{Er|Sie|Er/Sie}} fördert im Unternehmen gezielt und nachahmenswert die Zusammenarbeit sowie einen sehr wertvollen Informations- und Wissensaustausch.",
+    "ok": true
+  },
+  "wissensaustausch|sehr_gut|2": {
+    "tokenized": "{{Er|Sie|Er/Sie}} fördert aktiv das Wissensmanagement durch einen gezielten und wertvollen Informations- und Wissensaustausch.",
+    "ok": true
+  },
+  "wissensaustausch|sehr_gut|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} fördert gezielt einen sehr wertvollen Informations- und Wissensaustausch.",
+    "ok": true
+  },
+  "initiativ_fleiss|ungenuegend|1": {
+    "tokenized": "{vorname} {nachname} zeigt Initiative und Fleiss in ausreichendem Masse.",
+    "ok": true
+  },
+  "initiativ_fleiss|ungenuegend|2": {
+    "tokenized": "{vorname} {nachname} erledigt die Arbeiten mehrheitlich auftragsgemäss.",
+    "ok": true
+  },
+  "initiativ_fleiss|ungenuegend|3": {
+    "tokenized": "{vorname} {nachname} fällt es teilweise schwer Initiative zu entwickeln und sich für {{seinen|ihren|seinen/ihren}} Aufgabenbereich zu engagieren.",
+    "ok": true
+  },
+  "initiativ_fleiss|genuegend|1": {
+    "tokenized": "{vorname} {nachname} zeigt Initiative und Fleiss.",
+    "ok": true
+  },
+  "initiativ_fleiss|genuegend|2": {
+    "tokenized": "{vorname} {nachname} erledigt die Arbeiten auftragsgemäss im Rahmen {{seines|ihres|seines/ihres}} Aufgabenbereichs.",
+    "ok": true
+  },
+  "initiativ_fleiss|genuegend|3": {
+    "tokenized": "Mit der Initiative von {vorname} {nachname} und dem Engagement in {{seinem|ihrem|seinem/ihrem}} Aufgabenbereich sind wir zufrieden.",
+    "ok": true
+  },
+  "initiativ_fleiss|gut|1": {
+    "tokenized": "{vorname} {nachname} zeigt stets grosse Initiative und Fleiss.",
+    "ok": true
+  },
+  "initiativ_fleiss|gut|2": {
+    "tokenized": "{vorname} {nachname} ist initiativ und setzt sich vollumfänglich für {{seinen|ihren|seinen/ihren}} Aufgabenbereich ein.",
+    "ok": true
+  },
+  "initiativ_fleiss|gut|3": {
+    "tokenized": "{vorname} {nachname} ist initiativ und arbeitet mit Freude und Engagement in {{seinem|ihrem|seinem/ihrem}} Aufgabenbereich.",
+    "ok": true
+  },
+  "initiativ_fleiss|sehr_gut|1": {
+    "tokenized": "{vorname} {nachname} zeigt stets ausserordentliche Initiative und grossen Fleiss.",
+    "ok": true
+  },
+  "initiativ_fleiss|sehr_gut|2": {
+    "tokenized": "{vorname} {nachname} ist sehr initiativ und setzt sich überdurchschnittlich für {{seinen|ihren|seinen/ihren}} Aufgabenbereich ein.",
+    "ok": true
+  },
+  "initiativ_fleiss|sehr_gut|3": {
+    "tokenized": "{vorname} {nachname} ist äusserst initiativ und arbeitet mit viel Freude und grossem Engagement in {{seinem|ihrem|seinem/ihrem}} Aufgabenbereich.",
+    "ok": true
+  },
+  "strategieorientierung|ungenuegend|1": {
+    "tokenized": "Visionen, Strategien und Ziele erläutert {{er|sie|er/sie}} den Vorgaben gemäss. Zudem bezieht {{er|sie|er/sie}} im Team entwickelte Ideen in die Entscheidungsfindung mit ein.",
+    "ok": true
+  },
+  "strategieorientierung|ungenuegend|2": {
+    "tokenized": "Strategien und Ziele erläutert {{er|sie|er/sie}} den Vorgaben gemäss.",
+    "ok": true
+  },
+  "strategieorientierung|genuegend|1": {
+    "tokenized": "Visionen, Strategien und Ziele erläutert {{er|sie|er/sie}} korrekt und schlüssig. Zudem bezieht {{er|sie|er/sie}} im Team entwickelte Ideen passend in die Entscheidungsfindung mit ein.",
+    "ok": true
+  },
+  "strategieorientierung|genuegend|2": {
+    "tokenized": "Strategien und Ziele erläutert {{er|sie|er/sie}} schlüssig und im Team entwickelte Ideen nimmt {{er|sie|er/sie}} in die Entscheidungsfindung mit auf.",
+    "ok": true
+  },
+  "strategieorientierung|gut|1": {
+    "tokenized": "Visionen, Strategien und Ziele erläutert {{er|sie|er/sie}} zuverlässig und umfassend. Zudem bezieht {{er|sie|er/sie}} im Team entwickelte Ideen klug in die Entscheidungsfindung mit ein.",
+    "ok": true
+  },
+  "strategieorientierung|gut|2": {
+    "tokenized": "Zudem denkt und handelt {{er|sie|er/sie}} strategisch, bezieht die jeweiligen Vorgaben mit ein und leitet die notwendigen Massnahmen auf {{seinen|ihren|seinen/ihren}} Verantwortungsbereich ab. Strategien und Ziele vermittelt {{er|sie|er/sie}} jeweils verständlich. Zudem integriert {{er|sie|er/sie}} im Team entwickelte Ideen in die Strategieorientierung.",
+    "ok": true
+  },
+  "strategieorientierung|sehr_gut|1": {
+    "tokenized": "Visionen, Strategien und Ziele erläutert {{er|sie|er/sie}} vortrefflich und umfassend. Zudem bezieht {{er|sie|er/sie}} im Team entwickelte Ideen in hervorragender Weise in die Entscheidungsfindung mit ein.",
+    "ok": true
+  },
+  "strategieorientierung|sehr_gut|2": {
+    "tokenized": "Zudem denkt und handelt {{er|sie|er/sie}} strategisch, bezieht die jeweiligen Vorgaben mit ein und leitet die notwendigen Massnahmen auf {{seinen|ihren|seinen/ihren}} Verantwortungsbereich ab. Strategien und Ziele vermittelt {{er|sie|er/sie}} jeweils vortrefflich. Zudem integriert {{er|sie|er/sie}} im Team entwickelte Ideen in hervorragender Weise in die Strategieorientierung.",
+    "ok": true
+  },
+  "selbstaendigkeit_nach_eintritt|ungenuegend|1": {
+    "tokenized": "Nach einer Einarbeitungszeit arbeitet {{er|sie|er/sie}} selbständig und benötigt selten Unterstützung.",
+    "ok": true
+  },
+  "selbstaendigkeit_nach_eintritt|ungenuegend|2": {
+    "tokenized": "Nach einer Einarbeitungszeit führt {{er|sie|er/sie}} die übertragenen Arbeiten mit fachlicher Unterstützung aus.",
+    "ok": true
+  },
+  "selbstaendigkeit_nach_eintritt|genuegend|1": {
+    "tokenized": "Nach einer Einarbeitungszeit arbeitet {{er|sie|er/sie}} selbständig und findet sich in {{seinem|ihrem|seinem/ihrem}} Arbeitsbereich zurecht.",
+    "ok": true
+  },
+  "selbstaendigkeit_nach_eintritt|genuegend|2": {
+    "tokenized": "Nach einer Einarbeitungszeit führt {{er|sie|er/sie}} die übertragenen Arbeiten pflichtbewusst aus und benötigt selten fachliche Unterstützung.",
+    "ok": true
+  },
+  "selbstaendigkeit_nach_eintritt|gut|1": {
+    "tokenized": "Bereits nach kurzer Einarbeitungszeit arbeitet {{er|sie|er/sie}} sicher und selbständig.",
+    "ok": true
+  },
+  "selbstaendigkeit_nach_eintritt|gut|2": {
+    "tokenized": "Bereits nach kurzer Einarbeitungszeit erledigt {{er|sie|er/sie}} {{seine|ihre|seine/ihre}} Aufgaben selbstständig. Dank {{seiner|ihrer|seiner/ihrer}} schnellen Auffassungsgabe erkennt {{er|sie|er/sie}} Zusammenhänge und kann sich auf neue Situationen einstellen.",
+    "ok": true
+  },
+  "selbstaendigkeit_nach_eintritt|sehr_gut|1": {
+    "tokenized": "Bereits nach sehr kurzer Einarbeitungszeit erledigt {{er|sie|er/sie}} {{seine|ihre|seine/ihre}} Aufgaben vollkommen selbständig.",
+    "ok": true
+  },
+  "selbstaendigkeit_nach_eintritt|sehr_gut|2": {
+    "tokenized": "Bereits nach kurzer Einarbeitungszeit erledigt {{er|sie|er/sie}} sämtliche Aufgaben sehr selbstständig. {{Er|Sie|Er/Sie}} zeichnet sich durch schnelle Auffassungsgabe aus, erkennt relevante Zusammenhänge und kann sich rasch auf neue Situationen einstellen.",
+    "ok": true
+  },
+  "motivation_engagement|ungenuegend|1": {
+    "tokenized": "{{Er|Sie|Er/Sie}} ist genügend motiviert und arbeitet sich erwartungsgemäss in neue Arbeitsgebiete ein.",
+    "ok": true
+  },
+  "motivation_engagement|ungenuegend|2": {
+    "tokenized": "{{Er|Sie|Er/Sie}} erledigt {{seine|ihre|seine/ihre}} Aufgaben erwartungsgemäss.",
+    "ok": true
+  },
+  "motivation_engagement|ungenuegend|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} lässt es teilweise am Engagement für {{sein|ihr|sein/ihr}} Arbeitsgebiet fehlen.",
+    "ok": true
+  },
+  "motivation_engagement|genuegend|1": {
+    "tokenized": "{{Er|Sie|Er/Sie}} ist motiviert und arbeitet sich mit Interesse in neue Arbeitsgebiete ein.",
+    "ok": true
+  },
+  "motivation_engagement|genuegend|2": {
+    "tokenized": "{{Er|Sie|Er/Sie}} setzt sich für {{seinen|ihren|seinen/ihren}} Aufgabenbereich ein und bearbeitet auch neue Arbeitsgebiete.",
+    "ok": true
+  },
+  "motivation_engagement|genuegend|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} engagiert sich für {{sein|ihr|sein/ihr}} Arbeitsgebiet.",
+    "ok": true
+  },
+  "motivation_engagement|gut|1": {
+    "tokenized": "{{Er|Sie|Er/Sie}} ist immer motiviert und arbeitet sich mit Engagement und Erfolg in neue Arbeitsgebiete ein.",
+    "ok": true
+  },
+  "motivation_engagement|gut|2": {
+    "tokenized": "{{Er|Sie|Er/Sie}} ist motiviert und setzt sich stets für {{seinen|ihren|seinen/ihren}} Aufgabenbereich ein. Mit Engagement bearbeitet {{er|sie|er/sie}} erfolgreich neue Arbeitsgebiete.",
+    "ok": true
+  },
+  "motivation_engagement|gut|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} engagiert sich vollumfänglich für {{sein|ihr|sein/ihr}} Arbeitsgebiet.",
+    "ok": true
+  },
+  "motivation_engagement|sehr_gut|1": {
+    "tokenized": "{{Er|Sie|Er/Sie}} ist immer hoch motiviert und arbeitet sich mit grossem Engagement und Erfolg in neue Arbeitsgebiete ein.",
+    "ok": true
+  },
+  "motivation_engagement|sehr_gut|2": {
+    "tokenized": "{{Er|Sie|Er/Sie}} ist hoch motiviert und setzt sich überdurchschnittlich für {{seinen|ihren|seinen/ihren}} Aufgabenbereich ein. Mit grossem Engagement bearbeitet {{er|sie|er/sie}} erfolgreich neue Arbeitsgebiete.",
+    "ok": true
+  },
+  "motivation_engagement|sehr_gut|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} engagiert sich überdurchschnittlich für {{sein|ihr|sein/ihr}} Arbeitsgebiet.",
+    "ok": true
+  },
+  "unternehmensbeitrag|ungenuegend|1": {
+    "tokenized": "Aufgrund {{seiner|ihrer|seiner/ihrer}} Mitarbeit leistet {{er|sie|er/sie}} den erwarteten Beitrag in {{seinem|ihrem|seinem/ihrem}} Team.",
+    "ok": true
+  },
+  "unternehmensbeitrag|ungenuegend|2": {
+    "tokenized": "Mit {{seinem|ihrem|seinem/ihrem}} Einsatz leistet {{er|sie|er/sie}} einen Beitrag im eigenen Verantwortungsbereich.",
+    "ok": true
+  },
+  "unternehmensbeitrag|ungenuegend|3": {
+    "tokenized": "In {{seinem|ihrem|seinem/ihrem}} Denken und Handeln berücksichtigt {vorname} {nachname} übergeordnete Zielsetzungen der gesamten Organisation zu wenig konsequent, was sich auf die Ergebnisse im eigenen Verantwortungsbereich auswirkt.",
+    "ok": true
+  },
+  "unternehmensbeitrag|genuegend|1": {
+    "tokenized": "Aufgrund {{seiner|ihrer|seiner/ihrer}} Mitarbeit leistet {{er|sie|er/sie}} einen angemessenen Beitrag in {{seinem|ihrem|seinem/ihrem}} Team.",
+    "ok": true
+  },
+  "unternehmensbeitrag|genuegend|2": {
+    "tokenized": "Mit {{seinem|ihrem|seinem/ihrem}} Einsatz leistet {{er|sie|er/sie}} einen angemessenen Beitrag im eigenen Verantwortungsbereich.",
+    "ok": true
+  },
+  "unternehmensbeitrag|genuegend|3": {
+    "tokenized": "In {{seinem|ihrem|seinem/ihrem}} Denken und Handeln berücksichtigt {vorname} {nachname} übergeordnete Zielsetzungen der gesamten Organisation und setzt sich für die Umsetzung und die Ergebnisse im eigenen Verantwortungsbereich ein.",
+    "ok": true
+  },
+  "unternehmensbeitrag|gut|1": {
+    "tokenized": "Aufgrund {{seines|ihres|seines/ihres}} persönlichen Einsatzes leistet {{er|sie|er/sie}} einen achtbaren Beitrag zur Entwicklung unseres Unternehmens.",
+    "ok": true
+  },
+  "unternehmensbeitrag|gut|2": {
+    "tokenized": "Aufgrund {{seines|ihres|seines/ihres}} persönlichen Einsatzes leistet {{er|sie|er/sie}} einen massgeblichen Beitrag zur Erfüllung der Aufträge. Dabei verhält {{er|sie|er/sie}} sich unterstützend, loyal und denkt mit.",
+    "ok": true
+  },
+  "unternehmensbeitrag|gut|3": {
+    "tokenized": "{{Sein|Ihr|Sein/Ihr}} Denken und Handeln richtet {vorname} {nachname} auf die Zielsetzungen der gesamten Organisation aus, und {{er|sie|er/sie}} übernimmt die Verantwortung für die Umsetzung und die Ergebnisse im eigenen Verantwortungsbereich.",
+    "ok": true
+  },
+  "unternehmensbeitrag|sehr_gut|1": {
+    "tokenized": "Aufgrund {{seines|ihres|seines/ihres}} hohen persönlichen Einsatzes leistet {{er|sie|er/sie}} einen bedeutenden Beitrag zur Entwicklung unseres Unternehmens.",
+    "ok": true
+  },
+  "unternehmensbeitrag|sehr_gut|2": {
+    "tokenized": "Aufgrund {{seines|ihres|seines/ihres}} hohen persönlichen Einsatzes leistet {{er|sie|er/sie}} einen bedeutenden Beitrag zur Erfüllung der Aufträge. Dabei verhält {{er|sie|er/sie}} sich sehr unterstützend, loyal und verfügt über eine interdisziplinäre Denkweise.",
+    "ok": true
+  },
+  "unternehmensbeitrag|sehr_gut|3": {
+    "tokenized": "{{Sein|Ihr|Sein/Ihr}} Denken und Handeln richtet {vorname} {nachname} konsequent auf die Zielsetzungen der gesamten Organisation aus, und {{er|sie|er/sie}} übernimmt die volle Verantwortung für die Umsetzung und die Ergebnisse im eigenen Verantwortungsbereich.",
+    "ok": true
+  },
+  "fachliche_anforderungen|ungenuegend|1": {
+    "tokenized": "{{Er|Sie|Er/Sie}} wird den fachlichen Anforderungen gerecht.",
+    "ok": true
+  },
+  "fachliche_anforderungen|ungenuegend|2": {
+    "tokenized": "{{Er|Sie|Er/Sie}} verfügt nur teilweise über das erforderliche Fachwissen.",
+    "ok": true
+  },
+  "fachliche_anforderungen|genuegend|1": {
+    "tokenized": "{{Er|Sie|Er/Sie}} stellt an sich selbst fachliche Anforderungen, die {{er|sie|er/sie}} erfüllt.",
+    "ok": true
+  },
+  "fachliche_anforderungen|genuegend|2": {
+    "tokenized": "{{Er|Sie|Er/Sie}} verfügt über ein abgerundetes Fachwissen.",
+    "ok": true
+  },
+  "fachliche_anforderungen|gut|1": {
+    "tokenized": "{{Er|Sie|Er/Sie}} stellt an sich selbst grosse fachliche Anforderungen, die {{er|sie|er/sie}} stets erfüllt.",
+    "ok": true
+  },
+  "fachliche_anforderungen|gut|2": {
+    "tokenized": "{{Er|Sie|Er/Sie}} verfügt über ein fundiertes Fachwissen.",
+    "ok": true
+  },
+  "fachliche_anforderungen|sehr_gut|1": {
+    "tokenized": "{{Er|Sie|Er/Sie}} stellt an sich selbst hohe fachliche Anforderungen, die {{er|sie|er/sie}} stets vollumfänglich erfüllt.",
+    "ok": true
+  },
+  "fachliche_anforderungen|sehr_gut|2": {
+    "tokenized": "{{Er|Sie|Er/Sie}} verfügt über ein hervorragendes, in die Tiefe gehendes Fachwissen.",
+    "ok": true
+  },
+  "berufserfahrung|ungenuegend|1": {
+    "tokenized": "{vorname} {nachname} beherrscht {{sein|ihr|sein/ihr}} Arbeitsgebiet unseren Erwartungen entsprechend.",
+    "ok": true
+  },
+  "berufserfahrung|ungenuegend|2": {
+    "tokenized": "{vorname} {nachname} verfügt über erste Erfahrungen im Arbeitsgebiet.",
+    "ok": true
+  },
+  "berufserfahrung|ungenuegend|3": {
+    "tokenized": "{vorname} {nachname} weist eine begrenzte Erfahrung im Aufgabengebiet auf.",
+    "ok": true
+  },
+  "berufserfahrung|genuegend|1": {
+    "tokenized": "{vorname} {nachname} beherrscht {{sein|ihr|sein/ihr}} Arbeitsgebiet angemessen.",
+    "ok": true
+  },
+  "berufserfahrung|genuegend|2": {
+    "tokenized": "{vorname} {nachname} verfügt über die erforderliche Erfahrung im Arbeitsgebiet.",
+    "ok": true
+  },
+  "berufserfahrung|genuegend|3": {
+    "tokenized": "{vorname} {nachname} hat die nötige Erfahrung im Aufgabengebiet.",
+    "ok": true
+  },
+  "berufserfahrung|gut|1": {
+    "tokenized": "{vorname} {nachname} verfügt über umfassende Berufserfahrung und beherrscht {{seinen|ihren|seinen/ihren}} Arbeitsbereich sicher.",
+    "ok": true
+  },
+  "berufserfahrung|gut|2": {
+    "tokenized": "{vorname} {nachname} verfügt über eine umfangreiche Erfahrung im Aufgabengebiet.",
+    "ok": true
+  },
+  "berufserfahrung|gut|3": {
+    "tokenized": "{vorname} {nachname} hat eine umfangreiche Erfahrung in {{seinem|ihrem|seinem/ihrem}} Aufgabengebiet, vereinzelt auch in angrenzenden Fachbereichen.",
+    "ok": true
+  },
+  "berufserfahrung|sehr_gut|1": {
+    "tokenized": "{vorname} {nachname} verfügt über sehr grosse Berufserfahrung und beherrscht {{seinen|ihren|seinen/ihren}} Arbeitsbereich in jeder Weise umfassend, sicher und vollkommen.",
+    "ok": true
+  },
+  "berufserfahrung|sehr_gut|2": {
+    "tokenized": "{vorname} {nachname} verfügt über eine besonders umfangreiche Erfahrung im Aufgabengebiet sowie in Nachbardisziplinen. {{Er|Sie|Er/Sie}} teilt zudem {{sein|ihr|sein/ihr}} Wissen mit anderen Mitarbeitenden.",
+    "ok": true
+  },
+  "berufserfahrung|sehr_gut|3": {
+    "tokenized": "{vorname} {nachname} hat eine überdurchschnittliche Erfahrung in {{seinem|ihrem|seinem/ihrem}} Aufgabengebiet wie auch in angrenzenden Fachbereichen.",
+    "ok": true
+  },
+  "innovation|ungenuegend|1": {
+    "tokenized": "Ferner überlegt {{er|sie|er/sie}} sich Neuerungen und bringt diese Ideen ein.",
+    "ok": true
+  },
+  "innovation|ungenuegend|2": {
+    "tokenized": "Ferner stützt {{er|sie|er/sie}} sich auf Bestehendes.",
+    "ok": true
+  },
+  "innovation|ungenuegend|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} wirkt an Neuerungen zum Teil nur zögernd mit.",
+    "ok": true
+  },
+  "innovation|genuegend|1": {
+    "tokenized": "Ferner bringt {{er|sie|er/sie}} eigene gute Ideen ein.",
+    "ok": true
+  },
+  "innovation|genuegend|2": {
+    "tokenized": "Ferner bringt {{er|sie|er/sie}} Ideen ein.",
+    "ok": true
+  },
+  "innovation|genuegend|3": {
+    "tokenized": "Ferner ist {{er|sie|er/sie}} interessiert an Neuerungen mitzuwirken.",
+    "ok": true
+  },
+  "innovation|gut|1": {
+    "tokenized": "Ferner bringt {{er|sie|er/sie}} frische und umsetzbare Ideen ein.",
+    "ok": true
+  },
+  "innovation|gut|2": {
+    "tokenized": "Ferner bringt {{er|sie|er/sie}} umsetzbare Ideen ein.",
+    "ok": true
+  },
+  "innovation|gut|3": {
+    "tokenized": "Ferner wirkt {{er|sie|er/sie}} an Neuerungen gestaltend mit.",
+    "ok": true
+  },
+  "innovation|sehr_gut|1": {
+    "tokenized": "Ferner bringt {{er|sie|er/sie}} innovative, zukunftweisende und umsetzbare Ideen ein.",
+    "ok": true
+  },
+  "innovation|sehr_gut|2": {
+    "tokenized": "Ferner wirkt {{er|sie|er/sie}} an Neuerungen tatkräftig und gestaltend mit.",
+    "ok": true
+  },
+  "auffassungsgabe|ungenuegend|1": {
+    "tokenized": "Neues nimmt {{er|sie|er/sie}} auf und versucht es in {{seinem|ihrem|seinem/ihrem}} Aufgabengebiet umzusetzen.",
+    "ok": true
+  },
+  "auffassungsgabe|ungenuegend|2": {
+    "tokenized": "Neues nimmt {{er|sie|er/sie}} auf und kann es unter Anleitung in {{seinem|ihrem|seinem/ihrem}} Aufgabengebiet umsetzen.",
+    "ok": true
+  },
+  "auffassungsgabe|ungenuegend|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} setzt erworbenes Wissen nicht mit dem gewünschten Erfolg in die Praxis um und findet sich in neuen Aufgaben nur mit Unterstützung zurecht.",
+    "ok": true
+  },
+  "auffassungsgabe|genuegend|1": {
+    "tokenized": "Neues nimmt {{er|sie|er/sie}} gut auf und setzt es in {{seinem|ihrem|seinem/ihrem}} Aufgabengebiet um.",
+    "ok": true
+  },
+  "auffassungsgabe|genuegend|2": {
+    "tokenized": "Neues Wissen vermag {{er|sie|er/sie}} gut in {{seinem|ihrem|seinem/ihrem}} Aufgabengebiet umzusetzen.",
+    "ok": true
+  },
+  "auffassungsgabe|genuegend|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} setzt erworbenes Wissen in die Praxis um und findet sich dank {{seiner|ihrer|seiner/ihrer}} Umsicht auch in neuen Aufgaben zurecht.",
+    "ok": true
+  },
+  "auffassungsgabe|gut|1": {
+    "tokenized": "Neues kann {{er|sie|er/sie}} mit vorhandenem Wissen vernetzen, da {{er|sie|er/sie}} Aufgaben rasch erfasst.",
+    "ok": true
+  },
+  "auffassungsgabe|gut|2": {
+    "tokenized": "Durch {{seine|ihre|seine/ihre}} rasche Auffassungsgabe und dank {{seinem|ihrem|seinem/ihrem}} analytischen Denkvermögen findet {{er|sie|er/sie}} schnell zu umsetzbaren Lösungen.",
+    "ok": true
+  },
+  "auffassungsgabe|gut|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} setzt erworbenes Wissen erfolgreich in die Praxis um und findet sich dank {{seiner|ihrer|seiner/ihrer}} guten Auffassungsgabe auch in neuen Aufgaben schnell zurecht.",
+    "ok": true
+  },
+  "auffassungsgabe|sehr_gut|1": {
+    "tokenized": "Neues vernetzt {{er|sie|er/sie}} sehr schnell mit vorhandenem Wissen, da {{er|sie|er/sie}} komplexe Aufgaben denkbar rasch, gründlich und mit Leichtigkeit erfasst.",
+    "ok": true
+  },
+  "auffassungsgabe|sehr_gut|2": {
+    "tokenized": "Durch {{seine|ihre|seine/ihre}} äusserst rasche Auffassungsgabe und dank {{seinem|ihrem|seinem/ihrem}} analytischen Denkvermögen findet {{er|sie|er/sie}} auch für schwierige Probleme schnell zu umsetzbaren Lösungen. Zudem besitzt {{er|sie|er/sie}} eine ausgesprochene Stärke im vernetzten Denken sowie im Antizipieren von Entwicklungen.",
+    "ok": true
+  },
+  "auffassungsgabe|sehr_gut|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} setzt erworbenes Wissen vorbildlich in die Praxis um und findet sich in neuen Aufgaben dank {{seiner|ihrer|seiner/ihrer}} ausgeprägten Auffassungsgabe leicht zurecht.",
+    "ok": true
+  },
+  "auffassungsgabe|sehr_gut|4": {
+    "tokenized": "Auffassungsgabe",
+    "ok": true
+  },
+  "verantwortung_aufgabenbewaeltigung|ungenuegend|1": {
+    "tokenized": "Bei der Ausführung von Aufträgen zeigt {{er|sie|er/sie}} keine Unsicherheiten.",
+    "ok": true
+  },
+  "verantwortung_aufgabenbewaeltigung|ungenuegend|2": {
+    "tokenized": "Die Auswirkungen {{seiner|ihrer|seiner/ihrer}} Handlungen kann {{er|sie|er/sie}} mehrheitlich einschätzen. {{Seine|Ihre|Seine/Ihre}} Aufträge führt {{er|sie|er/sie}} mit Unterstützung aus.",
+    "ok": true
+  },
+  "verantwortung_aufgabenbewaeltigung|ungenuegend|3": {
+    "tokenized": "Probleme in {{seinem|ihrem|seinem/ihrem}} Verantwortungsbereich erkennt {{er|sie|er/sie}} nicht immer im erwarteten Ausmass und {{sein|ihr|sein/ihr}} Beitrag zu deren Lösung ist teilweise bescheiden.",
+    "ok": true
+  },
+  "verantwortung_aufgabenbewaeltigung|ungenuegend|4": {
+    "tokenized": "Die Auswirkungen {{seiner|ihrer|seiner/ihrer}} Handlungen und die damit verbundenen Chancen und Risiken sind {{ihm|ihr|ihm/ihr}} manchmal nicht voll bewusst. Teilweise mangelt es {{ihm|ihr|ihm/ihr}} am notwendigen Verantwortungsbewusstsein.",
+    "ok": true
+  },
+  "verantwortung_aufgabenbewaeltigung|genuegend|1": {
+    "tokenized": "Bei {{seinen|ihren|seinen/ihren}} Aufträgen übernimmt {{er|sie|er/sie}} Verantwortung und führt sie zum gewünschten Abschluss.",
+    "ok": true
+  },
+  "verantwortung_aufgabenbewaeltigung|genuegend|2": {
+    "tokenized": "Die Auswirkungen {{seiner|ihrer|seiner/ihrer}} Handlungen kann {{er|sie|er/sie}} einschätzen. Bei {{seinen|ihren|seinen/ihren}} Aufträgen geht {{er|sie|er/sie}} verantwortungsbewusst vor und bringt diese zum Abschluss.",
+    "ok": true
+  },
+  "verantwortung_aufgabenbewaeltigung|genuegend|3": {
+    "tokenized": "Probleme in {{seinem|ihrem|seinem/ihrem}} Verantwortungsbereich vermag {{er|sie|er/sie}} zu erkennen und zu beheben.",
+    "ok": true
+  },
+  "verantwortung_aufgabenbewaeltigung|genuegend|4": {
+    "tokenized": "Die Auswirkungen {{seiner|ihrer|seiner/ihrer}} Handlungen kann {{er|sie|er/sie}} einschätzen und bezieht Chancen wie auch Risiken in {{seine|ihre|seine/ihre}} Überlegungen mit ein. {{Er|Sie|Er/Sie}} handelt verantwortungsvoll.",
+    "ok": true
+  },
+  "verantwortung_aufgabenbewaeltigung|gut|1": {
+    "tokenized": "Jederzeit übernimmt {{er|sie|er/sie}} bei schwierigen Aufträgen Verantwortung und führt die Arbeiten mit Können zu einem gelungenen Abschluss.",
+    "ok": true
+  },
+  "verantwortung_aufgabenbewaeltigung|gut|2": {
+    "tokenized": "Die Auswirkungen {{seiner|ihrer|seiner/ihrer}} Handlungen schätzt {{er|sie|er/sie}} realistisch ein und wägt Chancen wie auch Risiken ab. {{Er|Sie|Er/Sie}} übernimmt stets Verantwortung und führt Aufträge zum gewünschten Abschluss.",
+    "ok": true
+  },
+  "verantwortung_aufgabenbewaeltigung|gut|3": {
+    "tokenized": "Probleme in {{seinem|ihrem|seinem/ihrem}} Aufgabenbereich erkennt {{er|sie|er/sie}} und liefert einen wesentlichen Beitrag zu deren Lösung.",
+    "ok": true
+  },
+  "verantwortung_aufgabenbewaeltigung|gut|4": {
+    "tokenized": "Die Auswirkungen und Folgen {{seiner|ihrer|seiner/ihrer}} Handlungen schätzt {{er|sie|er/sie}} realistisch ein und wägt Chancen wie auch Risiken sorgfältig ab. {{Er|Sie|Er/Sie}} handelt durchdacht und verantwortungsvoll.",
+    "ok": true
+  },
+  "verantwortung_aufgabenbewaeltigung|sehr_gut|1": {
+    "tokenized": "Jederzeit übernimmt {{er|sie|er/sie}} bei schwierigsten Aufträgen Verantwortung und führt die Arbeiten mit Geschick und Können zu einem hervorragenden Abschluss.",
+    "ok": true
+  },
+  "verantwortung_aufgabenbewaeltigung|sehr_gut|2": {
+    "tokenized": "Die Auswirkungen {{seiner|ihrer|seiner/ihrer}} Handlungen schätzt {{er|sie|er/sie}} sehr realistisch ein und wägt Chancen wie auch Risiken situationsgerecht ab. {{Er|Sie|Er/Sie}} übernimmt stets Verantwortung und führt Aufträge zielsicher zu einem erfolgreichen Abschluss.",
+    "ok": true
+  },
+  "verantwortung_aufgabenbewaeltigung|sehr_gut|3": {
+    "tokenized": "Probleme in {{seinem|ihrem|seinem/ihrem}} Verantwortungsbereich erkennt {{er|sie|er/sie}} sofort und findet eigenständig überzeugende Lösungen.",
+    "ok": true
+  },
+  "verantwortung_aufgabenbewaeltigung|sehr_gut|4": {
+    "tokenized": "Die Tragweite und die Auswirkungen {{seiner|ihrer|seiner/ihrer}} Handlungen schätzt {{er|sie|er/sie}} realistisch ein und wägt Chancen wie auch Risiken jederzeit sorgfältig ab. {{Er|Sie|Er/Sie}} übernimmt stets für {{seine|ihre|seine/ihre}} Handlungen die volle Verantwortung.",
+    "ok": true
+  },
+  "fachkenntnisse_lernbereitschaft|ungenuegend|1": {
+    "tokenized": "{vorname} {nachname} verfügt in {{seinem|ihrem|seinem/ihrem}} Gebiet über die nötigen Fachkenntnisse. Aufgrund {{seiner|ihrer|seiner/ihrer}} Lernbereitschaft kann {{er|sie|er/sie}} sich weiteres Wissen erarbeiten.",
+    "ok": true
+  },
+  "fachkenntnisse_lernbereitschaft|ungenuegend|2": {
+    "tokenized": "{vorname} {nachname} zeigt wenig Interesse an Weiterbildungsmöglichkeiten.",
+    "ok": true
+  },
+  "fachkenntnisse_lernbereitschaft|ungenuegend|3": {
+    "tokenized": "Mit Entwicklungen im Berufsumfeld setzt {vorname} {nachname} sich nur teilweise auseinander und ist mit wichtigen Standards zu wenig vertraut.",
+    "ok": true
+  },
+  "fachkenntnisse_lernbereitschaft|genuegend|1": {
+    "tokenized": "{vorname} {nachname} verfügt in {{seinem|ihrem|seinem/ihrem}} Gebiet über fundierte Fachkenntnisse. Aufgrund {{seiner|ihrer|seiner/ihrer}} Lernbereitschaft kann {{er|sie|er/sie}} diese von Zeit zu Zeit erweitern.",
+    "ok": true
+  },
+  "fachkenntnisse_lernbereitschaft|genuegend|2": {
+    "tokenized": "{vorname} {nachname} verfügt in {{seinem|ihrem|seinem/ihrem}} Gebiet über ausreichende Fachkenntnisse. {{Er|Sie|Er/Sie}} bildet sich bei betrieblichem Bedarf weiter.",
+    "ok": true
+  },
+  "fachkenntnisse_lernbereitschaft|genuegend|3": {
+    "tokenized": "Mit Entwicklungen im Berufsumfeld setzt {vorname} {nachname} sich auseinander und ist mit den aktuellen Standards vertraut.",
+    "ok": true
+  },
+  "fachkenntnisse_lernbereitschaft|gut|1": {
+    "tokenized": "{vorname} {nachname} verfügt über gute und fundierte Fachkenntnisse. {{Er|Sie|Er/Sie}} erweitert diese mit grosser Lernbereitschaft.",
+    "ok": true
+  },
+  "fachkenntnisse_lernbereitschaft|gut|2": {
+    "tokenized": "{vorname} {nachname} verfügt über gute und fundierte Fachkenntnisse. {{Er|Sie|Er/Sie}} erweitert diese fortlaufend, um auf dem neusten fachlichen Stand zu bleiben.",
+    "ok": true
+  },
+  "fachkenntnisse_lernbereitschaft|gut|3": {
+    "tokenized": "Mit Entwicklungen im Berufsumfeld setzt {vorname} {nachname} sich auseinander und ist immer mit den aktuellen Standards vertraut.",
+    "ok": true
+  },
+  "fachkenntnisse_lernbereitschaft|sehr_gut|1": {
+    "tokenized": "{vorname} {nachname} verfügt über besonders umfassende und vielseitige Fachkenntnisse. {{Er|Sie|Er/Sie}} erweitert diese laufend mit grosser Lernbereitschaft.",
+    "ok": true
+  },
+  "fachkenntnisse_lernbereitschaft|sehr_gut|2": {
+    "tokenized": "{vorname} {nachname} verfügt über besonders umfassende und vielseitige Fachkenntnisse, welche {{er|sie|er/sie}} laufend mit grosser Lernbereitschaft erweitert, um jederzeit auf dem neusten fachlichen Stand zu bleiben. Darüber hinaus setzt {{er|sie|er/sie}} {{sein|ihr|sein/ihr}} hervorragendes Know-how stets effektiv und erfolgreich in der Praxis um.",
+    "ok": true
+  },
+  "fachkenntnisse_lernbereitschaft|sehr_gut|3": {
+    "tokenized": "Mit Entwicklungen im Berufsumfeld setzt {vorname} {nachname} sich engagiert auseinander und ist immer mit den neuesten Standards vertraut.",
+    "ok": true
+  },
+  "methodeneinsatz|ungenuegend|1": {
+    "tokenized": "Vorhandene Techniken wendet {{er|sie|er/sie}} den Vorgaben entsprechend in {{seiner|ihrer|seiner/ihrer}} Berufspraxis an.",
+    "ok": true
+  },
+  "methodeneinsatz|ungenuegend|2": {
+    "tokenized": "Dem wirtschaftlichen, kostenbewussten und zweckmässigen Einsatz von Betriebsmitteln schenkt {{er|sie|er/sie}} teilweise zu wenig Beachtung.",
+    "ok": true
+  },
+  "methodeneinsatz|genuegend|1": {
+    "tokenized": "Vorhandene Methoden und Techniken wendet {{er|sie|er/sie}} richtig in {{seiner|ihrer|seiner/ihrer}} Berufspraxis an.",
+    "ok": true
+  },
+  "methodeneinsatz|genuegend|2": {
+    "tokenized": "Vorhandene Methoden, Mittel und Techniken wendet {{er|sie|er/sie}} an.",
+    "ok": true
+  },
+  "methodeneinsatz|genuegend|3": {
+    "tokenized": "Betriebsmittel setzt {{er|sie|er/sie}} meistens wirtschaftlich, kostenbewusst und zweckmässig ein.",
+    "ok": true
+  },
+  "methodeneinsatz|gut|1": {
+    "tokenized": "Vorhandene Methoden, Instrumente und Techniken wendet {{er|sie|er/sie}} wirksam in {{seiner|ihrer|seiner/ihrer}} Berufspraxis an.",
+    "ok": true
+  },
+  "methodeneinsatz|gut|2": {
+    "tokenized": "Methoden, Mittel und Techniken wendet {{er|sie|er/sie}} jederzeit wirksam an.",
+    "ok": true
+  },
+  "methodeneinsatz|gut|3": {
+    "tokenized": "Betriebsmittel setzt {{er|sie|er/sie}} wirtschaftlich, kostenbewusst und zweckmässig ein.",
+    "ok": true
+  },
+  "methodeneinsatz|sehr_gut|1": {
+    "tokenized": "Vorhandene Methoden, Instrumente und Techniken wendet {{er|sie|er/sie}} jederzeit sehr wirksam in {{seiner|ihrer|seiner/ihrer}} Berufspraxis an.",
+    "ok": true
+  },
+  "methodeneinsatz|sehr_gut|2": {
+    "tokenized": "Methoden, Mittel und Techniken wendet {{er|sie|er/sie}} jederzeit sehr wirksam an.",
+    "ok": true
+  },
+  "methodeneinsatz|sehr_gut|3": {
+    "tokenized": "Betriebsmittel setzt {{er|sie|er/sie}} äusserst wirtschaftlich, kostenbewusst und zweckmässig ein.",
+    "ok": true
+  },
+  "selbstaendigkeit_sorgfalt_genauigkeit|ungenuegend|1": {
+    "tokenized": "{{Er|Sie|Er/Sie}} arbeitet {{seinen|ihren|seinen/ihren}} Möglichkeiten entsprechend selbständig und findet sich in den gestellten Aufgaben zurecht.",
+    "ok": true
+  },
+  "selbstaendigkeit_sorgfalt_genauigkeit|ungenuegend|2": {
+    "tokenized": "{{Er|Sie|Er/Sie}} arbeitet {{seinen|ihren|seinen/ihren}} Möglichkeiten entsprechend selbstständig und trifft Entscheidungen nach vorgängigen Abklärungen.",
+    "ok": true
+  },
+  "selbstaendigkeit_sorgfalt_genauigkeit|ungenuegend|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} kann Entscheidungen oft nur nach vorgängigen Rückfragen treffen.",
+    "ok": true
+  },
+  "selbstaendigkeit_sorgfalt_genauigkeit|genuegend|1": {
+    "tokenized": "{{Er|Sie|Er/Sie}} arbeitet grösstenteils selbständig und findet sich in {{seinem|ihrem|seinem/ihrem}} Arbeitsbereich zurecht. Dabei arbeitet {{er|sie|er/sie}} sorgfältig und genau.",
+    "ok": true
+  },
+  "selbstaendigkeit_sorgfalt_genauigkeit|genuegend|2": {
+    "tokenized": "{{Er|Sie|Er/Sie}} arbeitet sorgfältig und trifft Entscheidungen grösstenteils selbstständig.",
+    "ok": true
+  },
+  "selbstaendigkeit_sorgfalt_genauigkeit|genuegend|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} trifft Entscheidungen mit Sachverstand und wenigen Rückfragen.",
+    "ok": true
+  },
+  "selbstaendigkeit_sorgfalt_genauigkeit|gut|1": {
+    "tokenized": "{{Er|Sie|Er/Sie}} arbeitet sicher und selbständig. Dabei trifft {{er|sie|er/sie}} gute Entscheide und arbeitet mit ausserordentlicher Sorgfalt und Genauigkeit.",
+    "ok": true
+  },
+  "selbstaendigkeit_sorgfalt_genauigkeit|gut|2": {
+    "tokenized": "{{Er|Sie|Er/Sie}} arbeitet effizient und genau. Entscheidungen trifft {{er|sie|er/sie}} selbstständig und mit Sachkenntnis.",
+    "ok": true
+  },
+  "selbstaendigkeit_sorgfalt_genauigkeit|gut|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} trifft Entscheidungen selbstständig und mit viel Sachkenntnis.",
+    "ok": true
+  },
+  "selbstaendigkeit_sorgfalt_genauigkeit|sehr_gut|1": {
+    "tokenized": "{{Er|Sie|Er/Sie}} arbeitet sicher und selbständig. Dabei trifft {{er|sie|er/sie}} stets die richtigen Entscheide und arbeitet mit beispielhafter Sorgfalt und Genauigkeit.",
+    "ok": true
+  },
+  "selbstaendigkeit_sorgfalt_genauigkeit|sehr_gut|2": {
+    "tokenized": "{{Er|Sie|Er/Sie}} arbeitet sehr effizient und genau. Entscheidungen trifft {{er|sie|er/sie}} situationsgerecht, sehr selbstständig und mit grosser Sachkenntnis.",
+    "ok": true
+  },
+  "selbstaendigkeit_sorgfalt_genauigkeit|sehr_gut|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} trifft Entscheidungen sehr selbstständig, vorausschauend und mit grosser Sachkenntnis.",
+    "ok": true
+  },
+  "termintreue|ungenuegend|1": {
+    "tokenized": "Termine hält {{er|sie|er/sie}} grundsätzlich ein.",
+    "ok": true
+  },
+  "termintreue|ungenuegend|2": {
+    "tokenized": "{{Er|Sie|Er/Sie}} beachtet allgemeine Richtlinien oder konkrete Vorgaben nicht immer mit der erforderlichen Sorgfalt.",
+    "ok": true
+  },
+  "termintreue|genuegend|1": {
+    "tokenized": "Termine hält {{er|sie|er/sie}} meist zuverlässig ein.",
+    "ok": true
+  },
+  "termintreue|genuegend|2": {
+    "tokenized": "{{Er|Sie|Er/Sie}} hält Terminauflagen meist ein und befolgt weitgehend sowohl allgemeine Richtlinien als auch konkrete Vorgaben.",
+    "ok": true
+  },
+  "termintreue|gut|1": {
+    "tokenized": "Termine hält {{er|sie|er/sie}} auch unter Belastung ein.",
+    "ok": true
+  },
+  "termintreue|gut|2": {
+    "tokenized": "{{Er|Sie|Er/Sie}} hält Terminauflagen ein und befolgt sowohl allgemeine Richtlinien als auch konkrete Vorgaben.",
+    "ok": true
+  },
+  "termintreue|sehr_gut|1": {
+    "tokenized": "Termine hält {{er|sie|er/sie}} auch unter hoher Belastung zuverlässig ein.",
+    "ok": true
+  },
+  "termintreue|sehr_gut|2": {
+    "tokenized": "Termine hält {{er|sie|er/sie}} auch unter hoher Belastung jederzeit zuverlässig ein.",
+    "ok": true
+  },
+  "termintreue|sehr_gut|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} unterschreitet häufig die Terminauflagen und hält sich ausnahmslos sowohl an allgemeine Richtlinien als auch konkrete Vorgaben.",
+    "ok": true
+  },
+  "ausdauer_belastbarkeit|ungenuegend|1": {
+    "tokenized": "Ausserdem ist {{er|sie|er/sie}} ein {{Mitarbeitender|Mitarbeitende|Mitarbeitende/r}}, {{der|die|der/die}} {{seine|ihre|seine/ihre}} Aufgaben grösstenteils gut bewältigt.",
+    "ok": true
+  },
+  "ausdauer_belastbarkeit|ungenuegend|2": {
+    "tokenized": "Unter anspruchsvollen Arbeitsbedingungen vermag {{er|sie|er/sie}} den an {{ihn|sie|ihn/sie}} gestellten Anforderungen nicht immer nachzukommen.",
+    "ok": true
+  },
+  "ausdauer_belastbarkeit|ungenuegend|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} arbeitet ohne Zeitdruck zuverlässig.",
+    "ok": true
+  },
+  "ausdauer_belastbarkeit|genuegend|1": {
+    "tokenized": "Ausserdem ist {{er|sie|er/sie}} ein {{belastbarer|belastbare|belastbare/r}} {{Mitarbeitender|Mitarbeitende|Mitarbeitende/r}}, {{der|die|der/die}} {{seine|ihre|seine/ihre}} Aufgaben in der Regel gut bewältigt.",
+    "ok": true
+  },
+  "ausdauer_belastbarkeit|genuegend|2": {
+    "tokenized": "Auch unter anspruchsvollen Arbeitsbedingungen bewältigt {{er|sie|er/sie}} {{seine|ihre|seine/ihre}} Aufgaben zufriedenstellend.",
+    "ok": true
+  },
+  "ausdauer_belastbarkeit|genuegend|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} arbeitet auch bei gestiegenen Anforderungen gleichmässig und ausdauernd.",
+    "ok": true
+  },
+  "ausdauer_belastbarkeit|gut|1": {
+    "tokenized": "Auch unter schwierigen Arbeitsbedingungen ist {{er|sie|er/sie}} ein {{ausdauernder|ausdauernde|ausdauernde/r}} und {{belastbarer|belastbare|belastbare/r}} {{Mitarbeitender|Mitarbeitende|Mitarbeitende/r}}, {{der|die|der/die}} alle Anforderungen stets gut bewältigt.",
+    "ok": true
+  },
+  "ausdauer_belastbarkeit|gut|2": {
+    "tokenized": "Auch unter anspruchsvollen Arbeitsbedingungen ist {{er|sie|er/sie}} ein {{ausdauernder|ausdauernde|ausdauernde/r}} und {{belastbarer|belastbare|belastbare/r}} {{Mitarbeitender|Mitarbeitende|Mitarbeitende/r}}, {{der|die|der/die}} alle Anforderungen stets gut bewältigt.",
+    "ok": true
+  },
+  "ausdauer_belastbarkeit|gut|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} arbeitet auch bei hohen Anforderungen konzentriert und erbringt eine konstant gute Leistung.",
+    "ok": true
+  },
+  "ausdauer_belastbarkeit|sehr_gut|1": {
+    "tokenized": "Auch unter schwierigen Arbeitsbedingungen ist {{er|sie|er/sie}} ein {{ausdauernder|ausdauernde|ausdauernde/r}} und ausserordentlich {{belastbarer|belastbare|belastbare/r}} {{Mitarbeitender|Mitarbeitende|Mitarbeitende/r}}, {{der|die|der/die}} allen Anforderungen stets sehr gut gewachsen ist.",
+    "ok": true
+  },
+  "ausdauer_belastbarkeit|sehr_gut|2": {
+    "tokenized": "Auch unter anspruchsvollen Arbeitsbedingungen ist {{er|sie|er/sie}} ein {{ausdauernder|ausdauernde|ausdauernde/r}} und äusserst {{belastbarer|belastbare|belastbare/r}} {{Mitarbeitender|Mitarbeitende|Mitarbeitende/r}}, {{der|die|der/die}} alle Anforderungen stets sehr gut bewältigt. Dabei behält {{er|sie|er/sie}} die Übersicht und handelt überlegt.",
+    "ok": true
+  },
+  "ausdauer_belastbarkeit|sehr_gut|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} arbeitet auch bei höchsten Anforderungen sehr konzentriert und unermüdlich und erbringt eine hervorragende Leistung.",
+    "ok": true
+  },
+  "arbeitsqualitaet|ungenuegend|1": {
+    "tokenized": "Mit {{seinen|ihren|seinen/ihren}} Arbeitsergebnissen strebt {{er|sie|er/sie}} Qualität an.",
+    "ok": true
+  },
+  "arbeitsqualitaet|ungenuegend|2": {
+    "tokenized": "Die angestrebte Arbeitsqualität vermag {{er|sie|er/sie}} nur mit Unterstützung zu erreichen.",
+    "ok": true
+  },
+  "arbeitsqualitaet|genuegend|1": {
+    "tokenized": "{{Seine|Ihre|Seine/Ihre}} Arbeitsergebnisse sind von guter Qualität.",
+    "ok": true
+  },
+  "arbeitsqualitaet|genuegend|2": {
+    "tokenized": "Mit der notwendigen Aufmerksamkeit erzielt {{er|sie|er/sie}} das geforderte Arbeitsergebnis.",
+    "ok": true
+  },
+  "arbeitsqualitaet|gut|1": {
+    "tokenized": "{{Seine|Ihre|Seine/Ihre}} Arbeitsergebnisse sind von überzeugender Qualität.",
+    "ok": true
+  },
+  "arbeitsqualitaet|gut|2": {
+    "tokenized": "Durch {{seine|ihre|seine/ihre}} Sorgfalt und Gewissenhaftigkeit erzielt {{er|sie|er/sie}} ein einwandfreies Arbeitsergebnis.",
+    "ok": true
+  },
+  "arbeitsqualitaet|sehr_gut|1": {
+    "tokenized": "{{Seine|Ihre|Seine/Ihre}} Arbeitsergebnisse sind von beispielhafter Qualität.",
+    "ok": true
+  },
+  "arbeitsqualitaet|sehr_gut|2": {
+    "tokenized": "Durch grösste Sorgfalt und Gewissenhaftigkeit erzielt {{er|sie|er/sie}} ein hochwertiges Arbeitsergebnis.",
+    "ok": true
+  },
+  "arbeitsorganisation|ungenuegend|1": {
+    "tokenized": "{vorname} {nachname} kann geplante Aufgaben umsetzen.",
+    "ok": true
+  },
+  "arbeitsorganisation|ungenuegend|2": {
+    "tokenized": "{vorname} {nachname} benötigt Unterstützung bei der Arbeitsplanung.",
+    "ok": true
+  },
+  "arbeitsorganisation|ungenuegend|3": {
+    "tokenized": "Das ungenügend ausgeprägte organisatorische Geschick von {vorname} {nachname} erfordert manchmal Vorgaben bei der Aufgabenerfüllung.",
+    "ok": true
+  },
+  "arbeitsorganisation|ungenuegend|4": {
+    "tokenized": "{vorname} {nachname} informiert spärlich über den eigenen Arbeitsbereich und unterschätzt teilweise den Informationsbedarf anderer Stellen. {Er|Sie|Er/Sie} meldet sich in schwierigen Situationen bei den Vorgesetzten manchmal zu spät.",
+    "ok": true
+  },
+  "arbeitsorganisation|genuegend|1": {
+    "tokenized": "{vorname} {nachname} kann geplante Aufgaben richtig umsetzen.",
+    "ok": true
+  },
+  "arbeitsorganisation|genuegend|2": {
+    "tokenized": "{vorname} {nachname} vermag die Aufgaben praxisgerecht zu organisieren.",
+    "ok": true
+  },
+  "arbeitsorganisation|genuegend|3": {
+    "tokenized": "Dank {seiner|ihrer|seiner/ihrer} Umsicht organisiert {vorname} {nachname} Aufgaben und Projekte praxisgerecht.",
+    "ok": true
+  },
+  "arbeitsorganisation|genuegend|4": {
+    "tokenized": "{vorname} {nachname} informiert auf Verlangen angemessen über den eigenen Arbeitsbereich und leitet wichtige Informationen meistens weiter. {Er|Sie|Er/Sie} bezieht Vorgesetzte bei Bedarf mit ein.",
+    "ok": true
+  },
+  "arbeitsorganisation|gut|1": {
+    "tokenized": "{vorname} {nachname} plant und organisiert {seine|ihre|seine/ihre} Aufgaben gut und setzt Prioritäten bei der Erfüllung derselben.",
+    "ok": true
+  },
+  "arbeitsorganisation|gut|2": {
+    "tokenized": "{vorname} {nachname} plant und organisiert {seine|ihre|seine/ihre} Aufgaben effektiv und setzt klare Prioritäten.",
+    "ok": true
+  },
+  "arbeitsorganisation|gut|3": {
+    "tokenized": "Dank {seiner|ihrer|seiner/ihrer} guten analytischen Fähigkeit plant und organisiert {vorname} {nachname} Aufgaben zweckmässig und setzt Prioritäten.",
+    "ok": true
+  },
+  "arbeitsorganisation|gut|4": {
+    "tokenized": "{vorname} {nachname} informiert zeitgerecht, umfassend über den eigenen Arbeitsbereich und leitet wichtige Informationen rechtzeitig weiter. {Er|Sie|Er/Sie} bezieht Vorgesetzte in schwierige Situationen mit ein.",
+    "ok": true
+  },
+  "arbeitsorganisation|sehr_gut|1": {
+    "tokenized": "{vorname} {nachname} plant und organisiert {seine|ihre|seine/ihre} Aufgaben gekonnt und setzt konsequent klare Prioritäten bei der Erfüllung derselben.",
+    "ok": true
+  },
+  "arbeitsorganisation|sehr_gut|2": {
+    "tokenized": "{vorname} {nachname} plant und organisiert {seine|ihre|seine/ihre} Aufgaben effektiv, systematisch und setzt klare Prioritäten.",
+    "ok": true
+  },
+  "arbeitsorganisation|sehr_gut|3": {
+    "tokenized": "Dank {seiner|ihrer|seiner/ihrer} ausgeprägten analytischen Fähigkeit plant und organisiert {vorname} {nachname} Aufgaben systematisch und nach klaren Prioritäten.",
+    "ok": true
+  },
+  "arbeitsorganisation|sehr_gut|4": {
+    "tokenized": "{vorname} {nachname} informiert zeitgerecht, offen, umfassend über den eigenen Arbeitsbereich und leitet wichtige Informationen sofort an die richtigen Stellen weiter. {Er|Sie|Er/Sie} bezieht Vorgesetzte in schwierige Situationen rechtzeitig mit ein.",
+    "ok": true
+  },
+  "verlaesslichkeit_pflichtbewusstsein|ungenuegend|1": {
+    "tokenized": "{vorname} {nachname} ist {{ein|eine|ein/eine}} {{pflichtbewusster|pflichtbewusste|pflichtbewusster/pflichtbewusste}} {{Mitarbeitender|Mitarbeitende|Mitarbeitende/r}}.",
+    "ok": true
+  },
+  "verlaesslichkeit_pflichtbewusstsein|ungenuegend|2": {
+    "tokenized": "{vorname} {nachname} ist {{ein|eine|ein/eine}} {{pflichtbewusster|pflichtbewusste|pflichtbewusster/pflichtbewusste}} {{Mitarbeitender|Mitarbeitende|Mitarbeitende/r}}.",
+    "ok": true
+  },
+  "verlaesslichkeit_pflichtbewusstsein|ungenuegend|3": {
+    "tokenized": "{vorname} {nachname} fühlt sich {{seiner|ihrer|seiner/ihrer}} Aufgabe und der Verwaltung nur bedingt verpflichtet.",
+    "ok": true
+  },
+  "verlaesslichkeit_pflichtbewusstsein|genuegend|1": {
+    "tokenized": "{vorname} {nachname} ist {{ein|eine|ein/eine}} {{pflichtbewusster|pflichtbewusste|pflichtbewusster/pflichtbewusste}} und {{verlässlicher|verlässliche|verlässlicher/verlässliche}} {{Mitarbeitender|Mitarbeitende|Mitarbeitende/r}}.",
+    "ok": true
+  },
+  "verlaesslichkeit_pflichtbewusstsein|genuegend|2": {
+    "tokenized": "Wir lernten {vorname} {nachname} als {{einen|eine|einen/eine}} {{zuverlässigen|zuverlässige|zuverlässigen/zuverlässige}} {{Mitarbeiter|Mitarbeiterin|Mitarbeiter/in}} kennen, {{der|die|der/die}} sich {{seiner|ihrer|seiner/ihrer}} Aufgabe und der Verwaltung verpflichtet fühlt.",
+    "ok": true
+  },
+  "verlaesslichkeit_pflichtbewusstsein|gut|1": {
+    "tokenized": "{vorname} {nachname} ist {{ein|eine|ein/eine}} sehr {{konzentrierter|konzentrierte|konzentrierter/konzentrierte}}, {{pflichtbewusster|pflichtbewusste|pflichtbewusster/pflichtbewusste}} und {{verlässlicher|verlässliche|verlässlicher/verlässliche}} {{Mitarbeitender|Mitarbeitende|Mitarbeitende/r}}.",
+    "ok": true
+  },
+  "verlaesslichkeit_pflichtbewusstsein|gut|2": {
+    "tokenized": "Wir schätzen {vorname} {nachname} als {{einen|eine|einen/eine}} {{pflichtbewussten|pflichtbewusste|pflichtbewussten/pflichtbewusste}} und {{verlässlichen|verlässliche|verlässlichen/verlässliche}} {{Mitarbeitenden|Mitarbeitende|Mitarbeitenden/Mitarbeitende}}.",
+    "ok": true
+  },
+  "verlaesslichkeit_pflichtbewusstsein|gut|3": {
+    "tokenized": "Wir erleben {vorname} {nachname} als {{einen|eine|einen/eine}} {{wertvollen|wertvolle|wertvollen/wertvolle}} {{Mitarbeiter|Mitarbeiterin|Mitarbeiter/in}}, {{der|die|der/die}} sich in anerkennenswerter Weise {{seiner|ihrer|seiner/ihrer}} Aufgabe und der Verwaltung verpflichtet fühlt.",
+    "ok": true
+  },
+  "verlaesslichkeit_pflichtbewusstsein|sehr_gut|1": {
+    "tokenized": "{vorname} {nachname} ist {{ein|eine|ein/eine}} äusserst {{konzentrierter|konzentrierte|konzentrierter/konzentrierte}}, {{pflichtbewusster|pflichtbewusste|pflichtbewusster/pflichtbewusste}} und {{verlässlicher|verlässliche|verlässlicher/verlässliche}} {{Mitarbeitender|Mitarbeitende|Mitarbeitende/r}}.",
+    "ok": true
+  },
+  "verlaesslichkeit_pflichtbewusstsein|sehr_gut|2": {
+    "tokenized": "Wir schätzen {vorname} {nachname} als {{einen|eine|einen/eine}} äusserst {{pflichtbewussten|pflichtbewusste|pflichtbewussten/pflichtbewusste}} und {{verlässlichen|verlässliche|verlässlichen/verlässliche}} {{Mitarbeitenden|Mitarbeitende|Mitarbeitenden/Mitarbeitende}}.",
+    "ok": true
+  },
+  "verlaesslichkeit_pflichtbewusstsein|sehr_gut|3": {
+    "tokenized": "Wir erleben {vorname} {nachname} als {{einen|eine|einen/eine}} äusserst {{wertvollen|wertvolle|wertvollen/wertvolle}} {{Mitarbeiter|Mitarbeiterin|Mitarbeiter/in}}, {{der|die|der/die}} sich in unverkennbarer Weise {{seiner|ihrer|seiner/ihrer}} Aufgabe und der Verwaltung verpflichtet fühlt.",
+    "ok": true
+  },
+  "zielerreichung|ungenuegend|1": {
+    "tokenized": "Dabei erreicht {{er|sie|er/sie}} meist viele vereinbarte Ziele.",
+    "ok": true
+  },
+  "zielerreichung|ungenuegend|2": {
+    "tokenized": "Dabei erreicht {{er|sie|er/sie}} meist vereinbarte Ziele.",
+    "ok": true
+  },
+  "zielerreichung|ungenuegend|3": {
+    "tokenized": "Die qualitativen und quantitativen Vorgaben erfüllt {{er|sie|er/sie}} nicht immer. Mit {{seinen|ihren|seinen/ihren}} Leistungen sind wir meist zufrieden.",
+    "ok": true
+  },
+  "zielerreichung|genuegend|1": {
+    "tokenized": "Dabei erreicht {{er|sie|er/sie}} meist alle vereinbarten Ziele.",
+    "ok": true
+  },
+  "zielerreichung|genuegend|2": {
+    "tokenized": "Dabei erreicht {{er|sie|er/sie}} vereinbarte Ziele.",
+    "ok": true
+  },
+  "zielerreichung|genuegend|3": {
+    "tokenized": "Die qualitativen und quantitativen Vorgaben erfüllt {{er|sie|er/sie}}. Mit {{seinen|ihren|seinen/ihren}} Leistungen sind wir zufrieden.",
+    "ok": true
+  },
+  "zielerreichung|gut|1": {
+    "tokenized": "Dabei erreicht {{er|sie|er/sie}} die vereinbarten Ziele und übertrifft diese häufig.",
+    "ok": true
+  },
+  "zielerreichung|gut|2": {
+    "tokenized": "Dabei erreicht {{er|sie|er/sie}} stets die vereinbarten Ziele.",
+    "ok": true
+  },
+  "zielerreichung|gut|3": {
+    "tokenized": "Die qualitativen und quantitativen Vorgaben erfüllt {{er|sie|er/sie}} einwandfrei. Mit {{seinen|ihren|seinen/ihren}} Leistungen sind wir sehr zufrieden.",
+    "ok": true
+  },
+  "zielerreichung|sehr_gut|1": {
+    "tokenized": "Dabei erreicht {{er|sie|er/sie}} die vereinbarten sehr hoch gesetzten Ziele und übertrifft diese meist.",
+    "ok": true
+  },
+  "zielerreichung|sehr_gut|2": {
+    "tokenized": "Dabei erreicht {{er|sie|er/sie}} auch anspruchsvolle Ziele und übertrifft diese oft.",
+    "ok": true
+  },
+  "zielerreichung|sehr_gut|3": {
+    "tokenized": "Die qualitativen und quantitativen Vorgaben übertrifft {{er|sie|er/sie}} oft. Mit {{seinen|ihren|seinen/ihren}} Leistungen sind wir ausgesprochen zufrieden.",
+    "ok": true
+  },
+  "zufriedenheit_leistung|ungenuegend|1": {
+    "tokenized": "Zusammengefasst erbringt {vorname} {nachname} unseren Erwartungen entsprechende Leistungen.",
+    "ok": true
+  },
+  "zufriedenheit_leistung|ungenuegend|2": {
+    "tokenized": "Zusammengefasst entsprechen die Leistungen von {vorname} {nachname} nicht immer unseren Erwartungen.",
+    "ok": true
+  },
+  "zufriedenheit_leistung|ungenuegend|3": {
+    "tokenized": "Die Leistungen von {vorname} {nachname} entsprechen nicht immer unseren Erwartungen.",
+    "ok": true
+  },
+  "zufriedenheit_leistung|genuegend|1": {
+    "tokenized": "Zusammengefasst erbringt {vorname} {nachname} immer die von uns erwarteten Leistungen. {{Seine|Ihre|Seine/Ihre}} Aufgaben erledigt {{er|sie|er/sie}} ordnungsgemäss.",
+    "ok": true
+  },
+  "zufriedenheit_leistung|genuegend|2": {
+    "tokenized": "Zusammengefasst erbringt {vorname} {nachname} konstante Leistungen, welche unseren Erwartungen entsprechen.",
+    "ok": true
+  },
+  "zufriedenheit_leistung|genuegend|3": {
+    "tokenized": "Die Leistungen von {vorname} {nachname} entsprechen weitgehend unseren Erwartungen.",
+    "ok": true
+  },
+  "zufriedenheit_leistung|gut|1": {
+    "tokenized": "Zusammengefasst erbringt {vorname} {nachname} jederzeit beste Leistungen, welche unseren hohen Erwartungen entsprechen. {{Seine|Ihre|Seine/Ihre}} Aufgaben erledigt {{er|sie|er/sie}} stets zu unserer vollen Zufriedenheit.",
+    "ok": true
+  },
+  "zufriedenheit_leistung|gut|2": {
+    "tokenized": "Zusammengefasst erbringt {vorname} {nachname} konstant gute Leistungen, welche unseren Erwartungen in jeder Hinsicht entsprechen.",
+    "ok": true
+  },
+  "zufriedenheit_leistung|gut|3": {
+    "tokenized": "Die Leistungen von {vorname} {nachname} entsprechen in jeder Hinsicht unseren Erwartungen.",
+    "ok": true
+  },
+  "zufriedenheit_leistung|sehr_gut|1": {
+    "tokenized": "Zusammengefasst erbringt {vorname} {nachname} jederzeit in höchstem Masse beste Leistungen, welche unsere hohen Erwartungen überbieten. Alle {{seine|ihre|seine/ihre}} Aufgaben erledigt {{er|sie|er/sie}} stets zu unserer vollsten Zufriedenheit.",
+    "ok": true
+  },
+  "zufriedenheit_leistung|sehr_gut|2": {
+    "tokenized": "Zusammengefasst erbringt {vorname} {nachname} jederzeit ausgezeichnete Leistungen, welche unsere Erwartungen in jeder Hinsicht übertreffen.",
+    "ok": true
+  },
+  "zufriedenheit_leistung|sehr_gut|3": {
+    "tokenized": "Die Leistungen von {vorname} {nachname} übertreffen in jeder Hinsicht unsere Erwartungen.",
+    "ok": true
+  },
+  "konfliktfaehigkeit|ungenuegend|1": {
+    "tokenized": "{{Er|Sie|Er/Sie}} meistert schwierige Situationen angebracht.",
+    "ok": true
+  },
+  "konfliktfaehigkeit|ungenuegend|2": {
+    "tokenized": "{{Er|Sie|Er/Sie}} benötigt in schwierigen Situationen Unterstützung, um angemessene Lösungen zu finden.",
+    "ok": true
+  },
+  "konfliktfaehigkeit|ungenuegend|3": {
+    "tokenized": "Aus Diskussionen und Auseinandersetzungen hält {{er|sie|er/sie}} sich wo möglich raus oder meidet diese.",
+    "ok": true
+  },
+  "konfliktfaehigkeit|ungenuegend|4": {
+    "tokenized": "In Verhandlungssituationen benötigt {{er|sie|er/sie}} teilweise Unterstützung, um eine für die Beteiligten annehmbare Lösung zu finden.",
+    "ok": true
+  },
+  "konfliktfaehigkeit|genuegend|1": {
+    "tokenized": "{{Er|Sie|Er/Sie}} bleibt auch in schwierigen Situationen sachlich. Darüber hinaus versucht {{er|sie|er/sie}} stets angemessene Lösungen zu finden.",
+    "ok": true
+  },
+  "konfliktfaehigkeit|genuegend|2": {
+    "tokenized": "{{Er|Sie|Er/Sie}} bleibt auch in schwierigen Situationen sachlich und kann angemessene Lösungen finden.",
+    "ok": true
+  },
+  "konfliktfaehigkeit|genuegend|3": {
+    "tokenized": "Bei Diskussionen und Auseinandersetzungen verhält {{er|sie|er/sie}} sich eher zurückhaltend und nimmt meist eine neutrale Haltung ein.",
+    "ok": true
+  },
+  "konfliktfaehigkeit|genuegend|4": {
+    "tokenized": "Mit {{seinem|ihrem|seinem/ihrem}} Verhandlungsgeschick gelingt es {{ihm|ihr|ihm/ihr}} auch in angespannten Situationen eine für die Beteiligten annehmbare Lösung zu finden.",
+    "ok": true
+  },
+  "konfliktfaehigkeit|gut|1": {
+    "tokenized": "{{Er|Sie|Er/Sie}} bleibt auch in schwierigen Situationen sachlich und kooperativ. Darüber hinaus versucht {{er|sie|er/sie}} Lösungen zu finden, welche möglichst die Interessen aller Beteiligten berücksichtigen.",
+    "ok": true
+  },
+  "konfliktfaehigkeit|gut|2": {
+    "tokenized": "{{Er|Sie|Er/Sie}} bleibt auch in schwierigen Situationen sachlich, kooperativ und lösungsorientiert.",
+    "ok": true
+  },
+  "konfliktfaehigkeit|gut|3": {
+    "tokenized": "Bei Diskussionen und Auseinandersetzungen wirkt {{er|sie|er/sie}} bei unterschiedlichen Ansichten ausgleichend.",
+    "ok": true
+  },
+  "konfliktfaehigkeit|gut|4": {
+    "tokenized": "Mit {{seinem|ihrem|seinem/ihrem}} guten Verhandlungsgeschick gelingt es {{ihm|ihr|ihm/ihr}} auch in angespannten Situationen eine für alle Beteiligten geeignete Lösung zu finden.",
+    "ok": true
+  },
+  "konfliktfaehigkeit|sehr_gut|1": {
+    "tokenized": "{{Er|Sie|Er/Sie}} bleibt auch in schwierigen Situationen ruhig, sachlich und kooperativ. Darüber hinaus findet {{er|sie|er/sie}} optimale Lösungen, welche die Interessen aller Beteiligten berücksichtigen.",
+    "ok": true
+  },
+  "konfliktfaehigkeit|sehr_gut|2": {
+    "tokenized": "Bei Diskussionen und Auseinandersetzungen kann {{er|sie|er/sie}} ausgezeichnet zwischen unterschiedlichen Ansichten vermitteln.",
+    "ok": true
+  },
+  "konfliktfaehigkeit|sehr_gut|3": {
+    "tokenized": "Mit {{seinem|ihrem|seinem/ihrem}} beeindruckenden Verhandlungsgeschick gelingt es {{ihm|ihr|ihm/ihr}} auch in angespannten Situationen eine konsensfähige Lösung zu finden.",
+    "ok": true
+  },
+  "verhalten_gegenueber_dritten|ungenuegend|1": {
+    "tokenized": "Das Verhalten von {vorname} {nachname} gegenüber Vorgesetzten, anderen Mitarbeitenden, Kunden und Geschäftspartnern ist angemessen.",
+    "ok": true
+  },
+  "verhalten_gegenueber_dritten|ungenuegend|2": {
+    "tokenized": "Das Verhalten von {vorname} {nachname} gegenüber Vorgesetzten, Mitarbeitenden, Kundinnen und Kunden ist korrekt.",
+    "ok": true
+  },
+  "verhalten_gegenueber_dritten|ungenuegend|3": {
+    "tokenized": "{vorname} {nachname} ist bei Vorgesetzten, Mitarbeitenden und Anspruchsgruppen akzeptiert.",
+    "ok": true
+  },
+  "verhalten_gegenueber_dritten|ungenuegend|4": {
+    "tokenized": "Das Auftreten von {vorname} {nachname} gibt gelegentlich zu Beanstandung Anlass.",
+    "ok": true
+  },
+  "verhalten_gegenueber_dritten|genuegend|1": {
+    "tokenized": "Das Verhalten von {vorname} {nachname} gegenüber Vorgesetzten, anderen Mitarbeitenden, Kunden und Geschäftspartnern ist immer korrekt.",
+    "ok": true
+  },
+  "verhalten_gegenueber_dritten|genuegend|2": {
+    "tokenized": "Das Verhalten von {vorname} {nachname} gegenüber Vorgesetzten, Mitarbeitenden, Kundinnen und Kunden ist stets korrekt.",
+    "ok": true
+  },
+  "verhalten_gegenueber_dritten|genuegend|3": {
+    "tokenized": "{vorname} {nachname} ist bei Vorgesetzten, Mitarbeitenden und Anspruchsgruppen anerkannt.",
+    "ok": true
+  },
+  "verhalten_gegenueber_dritten|genuegend|4": {
+    "tokenized": "{vorname} {nachname} ist freundlich und hilfsbereit und kann sich auch in ungewohnten Situationen behaupten.",
+    "ok": true
+  },
+  "verhalten_gegenueber_dritten|gut|1": {
+    "tokenized": "Das Verhalten von {vorname} {nachname} gegenüber Vorgesetzten, anderen Mitarbeitenden, Kunden und Geschäftspartnern ist einwandfrei.",
+    "ok": true
+  },
+  "verhalten_gegenueber_dritten|gut|2": {
+    "tokenized": "Das Verhalten von {vorname} {nachname} gegenüber Vorgesetzten, Mitarbeitenden, Kundinnen und Kunden ist stets freundlich und korrekt.",
+    "ok": true
+  },
+  "verhalten_gegenueber_dritten|gut|3": {
+    "tokenized": "{vorname} {nachname} ist bei Vorgesetzten, Mitarbeitenden und Anspruchsgruppen anerkannt und geschätzt.",
+    "ok": true
+  },
+  "verhalten_gegenueber_dritten|gut|4": {
+    "tokenized": "{vorname} {nachname} ist aufgeschlossen, freundlich und hilfsbereit und meistert auch ungewohnte Situationen routiniert.",
+    "ok": true
+  },
+  "verhalten_gegenueber_dritten|sehr_gut|1": {
+    "tokenized": "Das Verhalten von {vorname} {nachname} gegenüber Vorgesetzten, anderen Mitarbeitenden, Kunden und Geschäftspartnern ist stets vorbildlich und einwandfrei.",
+    "ok": true
+  },
+  "verhalten_gegenueber_dritten|sehr_gut|2": {
+    "tokenized": "Das Verhalten von {vorname} {nachname} gegenüber Vorgesetzten, Mitarbeitenden, Kundinnen und Kunden ist stets vorbildlich, freundlich und korrekt. {{Er|Sie|Er/Sie}} wird allseits sehr geschätzt und anerkannt.",
+    "ok": true
+  },
+  "verhalten_gegenueber_dritten|sehr_gut|3": {
+    "tokenized": "{vorname} {nachname} wird von Vorgesetzten, Mitarbeitenden und Anspruchsgruppen gleichermassen anerkannt und sehr geschätzt.",
+    "ok": true
+  },
+  "verhalten_gegenueber_dritten|sehr_gut|4": {
+    "tokenized": "{vorname} {nachname} geht offen, zuvorkommend und hilfsbereit auf andere zu und meistert auch ungewöhnliche Situationen sehr gewandt.",
+    "ok": true
+  },
+  "kommunikationsfaehigkeit|ungenuegend|1": {
+    "tokenized": "In Gesprächen kommuniziert {{er|sie|er/sie}} verständlich.",
+    "ok": true
+  },
+  "kommunikationsfaehigkeit|ungenuegend|2": {
+    "tokenized": "In Fachgesprächen kommuniziert {{er|sie|er/sie}} verständlich.",
+    "ok": true
+  },
+  "kommunikationsfaehigkeit|ungenuegend|3": {
+    "tokenized": "{{Seine|Ihre|Seine/Ihre}} mündliche und schriftliche Ausdrucksfähigkeit ist teils zu wenig adressatengerecht.",
+    "ok": true
+  },
+  "kommunikationsfaehigkeit|ungenuegend|4": {
+    "tokenized": "Darüber hinaus gelingt es {{ihm|ihr|ihm/ihr}} selten, eigene Ideen in Gespräche oder Diskussionen einzubringen.",
+    "ok": true
+  },
+  "kommunikationsfaehigkeit|genuegend|1": {
+    "tokenized": "In Gesprächen kommuniziert {{er|sie|er/sie}} korrekt und hört auch anderen Standpunkten zu.",
+    "ok": true
+  },
+  "kommunikationsfaehigkeit|genuegend|2": {
+    "tokenized": "In Fachgesprächen kommuniziert {{er|sie|er/sie}} korrekt und lässt andere Standpunkte gelten.",
+    "ok": true
+  },
+  "kommunikationsfaehigkeit|genuegend|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} verfügt weitgehend über eine adressatengerechte mündliche und schriftliche Ausdrucksfähigkeit.",
+    "ok": true
+  },
+  "kommunikationsfaehigkeit|genuegend|4": {
+    "tokenized": "Darüber hinaus kann {{er|sie|er/sie}} eigene Ideen verständlich darlegen und an Fachdiskussionen teilnehmen.",
+    "ok": true
+  },
+  "kommunikationsfaehigkeit|gut|1": {
+    "tokenized": "In Gesprächen kommuniziert {{er|sie|er/sie}} klar, offen und versteht es gut, auch andere Meinungen und Standpunkte einzubeziehen.",
+    "ok": true
+  },
+  "kommunikationsfaehigkeit|gut|2": {
+    "tokenized": "In Fachgesprächen versteht {{er|sie|er/sie}} es gut, auch andere Meinungen und Standpunkte einzubeziehen, nachvollziehbar zu argumentieren und dabei klar und offen zu kommunizieren. {{Er|Sie|Er/Sie}} pflegt einen angemessenen und zielorientierten Informationsaustausch mit den jeweiligen Anspruchsgruppen.",
+    "ok": true
+  },
+  "kommunikationsfaehigkeit|gut|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} verfügt über eine adressatengerechte mündliche und schriftliche Ausdrucksfähigkeit.",
+    "ok": true
+  },
+  "kommunikationsfaehigkeit|gut|4": {
+    "tokenized": "Darüber hinaus versteht {{er|sie|er/sie}} es, eigene Ideen nachvollziehbar zu vertreten und sich an Fachdiskussionen aktiv zu beteiligen.",
+    "ok": true
+  },
+  "kommunikationsfaehigkeit|sehr_gut|1": {
+    "tokenized": "In Gesprächen versteht {{er|sie|er/sie}} es besonders gut, auch andere Meinungen und Standpunkte einzubeziehen und dabei immer klar, ehrlich und offen zu kommunizieren.",
+    "ok": true
+  },
+  "kommunikationsfaehigkeit|sehr_gut|2": {
+    "tokenized": "In Fachgesprächen versteht {{er|sie|er/sie}} es besonders gut, auch andere Meinungen und Standpunkte einzubeziehen, nachvollziehbar zu argumentieren und dabei immer klar und offen zu kommunizieren. {{Er|Sie|Er/Sie}} pflegt einen angemessenen und zielorientierten Informationsaustausch mit den jeweiligen Anspruchsgruppen.",
+    "ok": true
+  },
+  "kommunikationsfaehigkeit|sehr_gut|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} verfügt über eine gewandte, adressatengerechte mündliche und schriftliche Ausdrucksfähigkeit.",
+    "ok": true
+  },
+  "kommunikationsfaehigkeit|sehr_gut|4": {
+    "tokenized": "Darüber hinaus versteht {{er|sie|er/sie}} es, eigene Ideen stichhaltig zu vertreten und sich in Fachdiskussionen konstruktiv einzubringen.",
+    "ok": true
+  },
+  "teamfaehigkeit|ungenuegend|1": {
+    "tokenized": "Zu {{seinen|ihren|seinen/ihren}} Eigenschaften gehört, dass {{er|sie|er/sie}} sich um ein gutes Verhältnis zu {{seinem|ihrem|seinem/ihrem}} Team bemüht.",
+    "ok": true
+  },
+  "teamfaehigkeit|ungenuegend|2": {
+    "tokenized": "{{Er|Sie|Er/Sie}} ordnet sich im Team ein.",
+    "ok": true
+  },
+  "teamfaehigkeit|ungenuegend|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} hat Schwierigkeiten, sich in ein Team einzuordnen.",
+    "ok": true
+  },
+  "teamfaehigkeit|genuegend|1": {
+    "tokenized": "Zu {{seinen|ihren|seinen/ihren}} Stärken gehört, dass {{er|sie|er/sie}} sich immer um ein gutes Verhältnis zu {{seinem|ihrem|seinem/ihrem}} Team bemüht.",
+    "ok": true
+  },
+  "teamfaehigkeit|genuegend|2": {
+    "tokenized": "{{Er|Sie|Er/Sie}} bringt sich ins Team ein und trägt zu einer angenehmen Zusammenarbeit bei.",
+    "ok": true
+  },
+  "teamfaehigkeit|genuegend|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} fügt sich ins Team ein und arbeitet mit den Anderen zusammen.",
+    "ok": true
+  },
+  "teamfaehigkeit|gut|1": {
+    "tokenized": "Zu {{seinen|ihren|seinen/ihren}} Stärken gehören Teamfähigkeit und das aktive Unterstützen von Zusammenarbeit.",
+    "ok": true
+  },
+  "teamfaehigkeit|gut|2": {
+    "tokenized": "{{Er|Sie|Er/Sie}} bringt sich ins Team ein, ist integer und unterstützend. {{Er|Sie|Er/Sie}} trägt zu einer konstruktiven sowie positiven Zusammenarbeit bei und kann gut mit unterschiedlichen Personen und Situationen umgehen.",
+    "ok": true
+  },
+  "teamfaehigkeit|gut|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} bringt sich gut ins Team ein und unterstützt die Zusammenarbeit.",
+    "ok": true
+  },
+  "teamfaehigkeit|sehr_gut|1": {
+    "tokenized": "Zu {{seinen|ihren|seinen/ihren}} Stärken gehören vorbildliche Teamfähigkeit und die Fähigkeit gute, positive Zusammenarbeit aktiv zu unterstützen.",
+    "ok": true
+  },
+  "teamfaehigkeit|sehr_gut|2": {
+    "tokenized": "{{Er|Sie|Er/Sie}} bringt sich vorbildlich ins Team ein, ist integer und jederzeit unterstützend. {{Er|Sie|Er/Sie}} trägt aktiv zu einer konstruktiven sowie positiven Zusammenarbeit bei und kann sehr gut mit unterschiedlichen Personen und Situationen umgehen.",
+    "ok": true
+  },
+  "teamfaehigkeit|sehr_gut|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} bringt sich vorbildlich ins Team ein und unterstützt und fördert die Zusammenarbeit.",
+    "ok": true
+  },
+  "offenheit_fuer_feedback|ungenuegend|1": {
+    "tokenized": "Ausserdem ist {{er|sie|er/sie}} Anregungen gegenüber empfänglich und hört sich Vorschläge immer an.",
+    "ok": true
+  },
+  "offenheit_fuer_feedback|ungenuegend|2": {
+    "tokenized": "Ausserdem hört {{er|sie|er/sie}} sich Feedback und Vorschläge an.",
+    "ok": true
+  },
+  "offenheit_fuer_feedback|ungenuegend|3": {
+    "tokenized": "Es ist für {{ihn|sie|ihn/sie}} nicht einfach, andere Meinungen und begründete Kritik anzunehmen und sich auf die Bedürfnisse der Gesprächspartner einzustellen.",
+    "ok": true
+  },
+  "offenheit_fuer_feedback|ungenuegend|4": {
+    "tokenized": "{{Er|Sie|Er/Sie}} reflektiert eigene Handlungen kaum und setzt Anregungen nur zögerlich um.",
+    "ok": true
+  },
+  "offenheit_fuer_feedback|genuegend|1": {
+    "tokenized": "Ausserdem ist {{er|sie|er/sie}} Anregungen und Feedback gegenüber offen und kann Vorschläge annehmen.",
+    "ok": true
+  },
+  "offenheit_fuer_feedback|genuegend|2": {
+    "tokenized": "Ausserdem ist {{er|sie|er/sie}} Feedback gegenüber offen und kann Vorschläge annehmen.",
+    "ok": true
+  },
+  "offenheit_fuer_feedback|genuegend|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} akzeptiert andere Meinungen und begründete Kritik und lässt sich auf die Bedürfnisse der Gesprächspartner ein.",
+    "ok": true
+  },
+  "offenheit_fuer_feedback|gut|1": {
+    "tokenized": "Ausserdem gibt {{er|sie|er/sie}} konstruktives Feedback, ist offen für Anregungen und setzt Vorschläge nutzbringend um.",
+    "ok": true
+  },
+  "offenheit_fuer_feedback|gut|2": {
+    "tokenized": "{{Er|Sie|Er/Sie}} lässt sich durch andere Meinungen und begründete Kritik anregen, kann zuhören und sich auf die Bedürfnisse der Gesprächspartner einlassen.",
+    "ok": true
+  },
+  "offenheit_fuer_feedback|gut|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} ist fähig, die eigenen Handlungen zu reflektieren, ist offen für Anregungen und nutzt entsprechende Empfehlungen.",
+    "ok": true
+  },
+  "offenheit_fuer_feedback|sehr_gut|1": {
+    "tokenized": "Ausserdem gibt und fördert {{er|sie|er/sie}} konstruktives Feedback, ist jederzeit offen für Anregungen und setzt Vorschläge zielsicher, sowie nutzbringend um.",
+    "ok": true
+  },
+  "offenheit_fuer_feedback|sehr_gut|2": {
+    "tokenized": "Ausserdem gibt und fördert {{er|sie|er/sie}} konstruktives Feedback, reflektiert und ist jederzeit offen für Anregungen. Vorschläge setzt {{er|sie|er/sie}} nutzbringend um.",
+    "ok": true
+  },
+  "offenheit_fuer_feedback|sehr_gut|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} begrüsst andere Meinungen und begründete Kritik als Anregung, kann gut zuhören und sich problemlos auf die Bedürfnisse der Gesprächspartner einlassen.",
+    "ok": true
+  },
+  "offenheit_fuer_feedback|sehr_gut|4": {
+    "tokenized": "{{Er|Sie|Er/Sie}} reflektiert die eigenen Handlungen konsequent und nutzt Anregungen sowie Empfehlungen von aussen sehr professionell.",
+    "ok": true
+  },
+  "synergien_nutzen|ungenuegend|1": {
+    "tokenized": "{vorname} {nachname} erkennt funktions- und bereichsübergreifende Synergien und bespricht daraus gewonnene Ideen mit anderen Fachpersonen.",
+    "ok": true
+  },
+  "synergien_nutzen|ungenuegend|2": {
+    "tokenized": "{vorname} {nachname} erkennt mit Unterstützung Synergien.",
+    "ok": true
+  },
+  "synergien_nutzen|ungenuegend|3": {
+    "tokenized": "Das Sensorium von {vorname} {nachname} für wirtschaftliche und bereichsübergreifende Zusammenhänge ist nicht sehr ausgeprägt.",
+    "ok": true
+  },
+  "synergien_nutzen|genuegend|1": {
+    "tokenized": "{vorname} {nachname} erkennt funktions- und bereichsübergreifende Synergien und setzt daraus gewonnenes Wissen ein.",
+    "ok": true
+  },
+  "synergien_nutzen|genuegend|2": {
+    "tokenized": "{vorname} {nachname} erkennt Synergien und kann daraus gewonnenes Wissen einsetzen.",
+    "ok": true
+  },
+  "synergien_nutzen|genuegend|3": {
+    "tokenized": "{vorname} {nachname} besitzt ein Sensorium für wirtschaftliche und bereichsübergreifende Zusammenhänge.",
+    "ok": true
+  },
+  "synergien_nutzen|gut|1": {
+    "tokenized": "{vorname} {nachname} erkennt funktions- und bereichsübergreifende Synergien und kann daraus gewonnenes Wissen nutzbringend einsetzen.",
+    "ok": true
+  },
+  "synergien_nutzen|gut|2": {
+    "tokenized": "{vorname} {nachname} erkennt funktions- und bereichsübergreifende Synergien und setzt daraus gewonnenes Wissen ein.",
+    "ok": true
+  },
+  "synergien_nutzen|gut|3": {
+    "tokenized": "{vorname} {nachname} besitzt ein gutes Sensorium für wirtschaftliche und bereichsübergreifende Zusammenhänge.",
+    "ok": true
+  },
+  "synergien_nutzen|sehr_gut|1": {
+    "tokenized": "{vorname} {nachname} erkennt funktions- und bereichsübergreifende Synergien und kann dank dieser Kompetenz, daraus gewonnenes Wissen optimal zum Nutzen des Unternehmens einsetzen.",
+    "ok": true
+  },
+  "synergien_nutzen|sehr_gut|2": {
+    "tokenized": "{vorname} {nachname} erkennt und nutzt funktions- sowie bereichsübergreifende Synergien und setzt daraus gewonnenes Wissen optimal ein.",
+    "ok": true
+  },
+  "synergien_nutzen|sehr_gut|3": {
+    "tokenized": "{vorname} {nachname} besitzt ein ausgeprägtes Sensorium für wirtschaftliche und bereichsübergreifende Zusammenhänge.",
+    "ok": true
+  },
+  "wissen_teilen|ungenuegend|1": {
+    "tokenized": "{{Sein|Ihr|Sein/Ihr}} Wissen und Informationen teilt {{er|sie|er/sie}} bei Bedarf mit {{seinem|ihrem|seinem/ihrem}} Team und {{seinen|ihren|seinen/ihren}} Vorgesetzten.",
+    "ok": true
+  },
+  "wissen_teilen|ungenuegend|2": {
+    "tokenized": "{{Er|Sie|Er/Sie}} gibt {{sein|ihr|sein/ihr}} Wissen und Informationen auf Nachfrage an Vorgesetzte und Mitarbeitende weiter.",
+    "ok": true
+  },
+  "wissen_teilen|ungenuegend|3": {
+    "tokenized": "{{Sein|Ihr|Sein/Ihr}} Wissen und Können vermittelt {{er|sie|er/sie}} zu wenig nachhaltig.",
+    "ok": true
+  },
+  "wissen_teilen|ungenuegend|4": {
+    "tokenized": "Wir vermissen manchmal {{sein|ihr|sein/ihr}} Engagement und die Freude bei der Ausbildung der Lernenden.",
+    "ok": true
+  },
+  "wissen_teilen|genuegend|1": {
+    "tokenized": "{{Sein|Ihr|Sein/Ihr}} Wissen und Informationen teilt {{er|sie|er/sie}} bei Bedarf stets mit {{seinem|ihrem|seinem/ihrem}} Team und {{seinen|ihren|seinen/ihren}} Vorgesetzten.",
+    "ok": true
+  },
+  "wissen_teilen|genuegend|2": {
+    "tokenized": "{{Er|Sie|Er/Sie}} gibt {{sein|ihr|sein/ihr}} Wissen und Informationen bei Bedarf an Vorgesetzte und Mitarbeitende weiter.",
+    "ok": true
+  },
+  "wissen_teilen|genuegend|3": {
+    "tokenized": "{{Sein|Ihr|Sein/Ihr}} Wissen und Können vermittelt {{er|sie|er/sie}} im Allgemeinen geschickt.",
+    "ok": true
+  },
+  "wissen_teilen|genuegend|4": {
+    "tokenized": "Die Lernenden bildet {{er|sie|er/sie}} mit Engagement und Freude aus.",
+    "ok": true
+  },
+  "wissen_teilen|gut|1": {
+    "tokenized": "Mit grossem Engagement gibt {{er|sie|er/sie}} {{sein|ihr|sein/ihr}} Wissen und Informationen gut verständlich an {{sein|ihr|sein/ihr}} Team und {{seine|ihre|seine/ihre}} Vorgesetzten weiter.",
+    "ok": true
+  },
+  "wissen_teilen|gut|2": {
+    "tokenized": "{{Er|Sie|Er/Sie}} gibt {{sein|ihr|sein/ihr}} Wissen und arbeitsrelevante Informationen an Vorgesetzte und Mitarbeitende weiter.",
+    "ok": true
+  },
+  "wissen_teilen|gut|3": {
+    "tokenized": "{{Sein|Ihr|Sein/Ihr}} Wissen und Können vermittelt {{er|sie|er/sie}} mit didaktischem und pädagogischem Geschick.",
+    "ok": true
+  },
+  "wissen_teilen|gut|4": {
+    "tokenized": "Die Lernenden bildet {{er|sie|er/sie}} mit viel Engagement und Freude aus, verbunden mit didaktischem und pädagogischem Geschick.",
+    "ok": true
+  },
+  "wissen_teilen|sehr_gut|1": {
+    "tokenized": "Mit grossem und unaufdringlichem Engagement gibt {{er|sie|er/sie}} {{sein|ihr|sein/ihr}} umfassendes Wissen und arbeitsrelevante Informationen gut verständlich an {{sein|ihr|sein/ihr}} Team und {{seine|ihre|seine/ihre}} Vorgesetzten weiter.",
+    "ok": true
+  },
+  "wissen_teilen|sehr_gut|2": {
+    "tokenized": "{{Er|Sie|Er/Sie}} gibt {{sein|ihr|sein/ihr}} umfassendes Wissen und arbeitsrelevante Informationen adäquat an Vorgesetzte und Mitarbeitende weiter.",
+    "ok": true
+  },
+  "wissen_teilen|sehr_gut|3": {
+    "tokenized": "{{Sein|Ihr|Sein/Ihr}} Wissen und Können vermittelt {{er|sie|er/sie}} mit ausgeprägtem didaktischem und pädagogischem Geschick.",
+    "ok": true
+  },
+  "wissen_teilen|sehr_gut|4": {
+    "tokenized": "Die Lernenden bildet {{er|sie|er/sie}} mit grossem Engagement und Freude aus, verbunden mit einem ausgeprägten didaktischen und pädagogischen Geschick.",
+    "ok": true
+  },
+  "flexibilitaet|ungenuegend|1": {
+    "tokenized": "Auch Veränderungen kann {{er|sie|er/sie}} annehmen und vertraut Bewährtem.",
+    "ok": true
+  },
+  "flexibilitaet|ungenuegend|2": {
+    "tokenized": "Veränderungen kann {{er|sie|er/sie}} annehmen und vertraut Bewährtem.",
+    "ok": true
+  },
+  "flexibilitaet|ungenuegend|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} kann sich nur schwer auf veränderte Situationen einstellen.",
+    "ok": true
+  },
+  "flexibilitaet|genuegend|1": {
+    "tokenized": "Auch bei Veränderungen kann {{er|sie|er/sie}} sich der neuen Situation anpassen.",
+    "ok": true
+  },
+  "flexibilitaet|genuegend|2": {
+    "tokenized": "Veränderungen nimmt {{er|sie|er/sie}} an und kann sich neuen Gegebenheiten anpassen.",
+    "ok": true
+  },
+  "flexibilitaet|genuegend|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} ist bereit, sich veränderten Situationen anzupassen.",
+    "ok": true
+  },
+  "flexibilitaet|gut|1": {
+    "tokenized": "Mit Veränderungen geht {{er|sie|er/sie}} erfolgreich und anpassungsfähig um.",
+    "ok": true
+  },
+  "flexibilitaet|gut|2": {
+    "tokenized": "Veränderungen gegenüber ist {{er|sie|er/sie}} offen und kann sich neuen Gegebenheiten gut anpassen.",
+    "ok": true
+  },
+  "flexibilitaet|gut|3": {
+    "tokenized": "{{Er|Sie|Er/Sie}} kann sich veränderten Situationen leicht anpassen und betrachtet diese als Lernfeld.",
+    "ok": true
+  },
+  "flexibilitaet|sehr_gut|1": {
+    "tokenized": "Mit Veränderungen geht {{er|sie|er/sie}} professionell um und kann sich neuen Gegebenheiten gut anpassen.",
+    "ok": true
+  },
+  "flexibilitaet|sehr_gut|2": {
+    "tokenized": "Mit Veränderungen geht {{er|sie|er/sie}} sehr offen und gewandt um. {{Er|Sie|Er/Sie}} passt sich neuen Gegebenheiten schnell an.",
+    "ok": true
+  },
+  "flexibilitaet|sehr_gut|3": {
+    "tokenized": "Auf veränderte Situationen kann {{er|sie|er/sie}} sich sofort einstellen und betrachtet diese als Herausforderung.",
+    "ok": true
+  },
+  "kundenorientierung|ungenuegend|1": {
+    "tokenized": "Zudem erweist {{er|sie|er/sie}} sich Kunden gegenüber als {{Ansprechpartner|Ansprechpartnerin|Ansprechpartner/in}}, {{welcher|welche|welcher/welche}} Kundenbedürfnisse aufnimmt und Kundenbeziehungen als wichtig erachtet.",
+    "ok": true
+  },
+  "kundenorientierung|ungenuegend|2": {
+    "tokenized": "Zudem steht {{er|sie|er/sie}} der Kundschaft als {{Ansprechpartner|Ansprechpartnerin|Ansprechpartner/in}} zur Verfügung.",
+    "ok": true
+  },
+  "kundenorientierung|ungenuegend|3": {
+    "tokenized": "Als {{Ansprechpartner|Ansprechpartnerin|Ansprechpartner/in}} verfolgt {{er|sie|er/sie}} die Anliegen und Bedürfnisse der Kunden bzw. verschiedenen Anspruchsgruppen meist mit der angezeigten Verbindlichkeit.",
+    "ok": true
+  },
+  "kundenorientierung|ungenuegend|4": {
+    "tokenized": "Bei {{ihm|ihr|ihm/ihr}} vermissen wir manchmal die angemessene Beratung der Anspruchsgruppen.",
+    "ok": true
+  },
+  "kundenorientierung|genuegend|1": {
+    "tokenized": "Zudem erweist {{er|sie|er/sie}} sich Kunden gegenüber als {{anerkannter|anerkannte|anerkannter/anerkannte}} {{Ansprechpartner|Ansprechpartnerin|Ansprechpartner/in}}, {{welcher|welche|welcher/welche}} Kundenbedürfnisse erfasst und Kundenbeziehungen pflegt.",
+    "ok": true
+  },
+  "kundenorientierung|genuegend|2": {
+    "tokenized": "Zudem erweist {{er|sie|er/sie}} sich gegenüber der Kundschaft als {{freundlicher|freundliche|freundlicher/freundliche}} {{Ansprechpartner|Ansprechpartnerin|Ansprechpartner/in}}.",
+    "ok": true
+  },
+  "kundenorientierung|genuegend|3": {
+    "tokenized": "Zudem erweist {{er|sie|er/sie}} sich als {{anerkannter|anerkannte|anerkannter/anerkannte}} {{Ansprechpartner|Ansprechpartnerin|Ansprechpartner/in}}, {{welcher|welche|welcher/welche}} die Anliegen der Kunden bzw. verschiedenen Anspruchsgruppen ernst nimmt und sich an diesen orientiert.",
+    "ok": true
+  },
+  "kundenorientierung|genuegend|4": {
+    "tokenized": "{{Er|Sie|Er/Sie}} achtet auf eine angemessene Beratung der Anspruchsgruppen.",
+    "ok": true
+  },
+  "kundenorientierung|gut|1": {
+    "tokenized": "Zudem erweist {{er|sie|er/sie}} sich Kunden gegenüber als {{kompetenter|kompetente|kompetenter/kompetente}} und {{dienstleistungsorientierter|dienstleistungsorientierte|dienstleistungsorientierter/dienstleistungsorientierte}} {{Ansprechpartner|Ansprechpartnerin|Ansprechpartner/in}}, {{welcher|welche|welcher/welche}} spezifische Kundenbedürfnisse erfasst und langfristige Kundenbeziehungen entwickelt und pflegt.",
+    "ok": true
+  },
+  "kundenorientierung|gut|2": {
+    "tokenized": "Zudem erweist {{er|sie|er/sie}} sich gegenüber der Kundschaft als {{kompetenter|kompetente|kompetenter/kompetente}}, {{dienstleistungsorientierter|dienstleistungsorientierte|dienstleistungsorientierter/dienstleistungsorientierte}} {{Ansprechpartner|Ansprechpartnerin|Ansprechpartner/in}}. Kundenbeziehungen pflegt {{er|sie|er/sie}} nachhaltig.",
+    "ok": true
+  },
+  "kundenorientierung|gut|3": {
+    "tokenized": "Zudem erweist {{er|sie|er/sie}} sich als {{kompetenter|kompetente|kompetenter/kompetente}}, {{dienstleistungsorientierter|dienstleistungsorientierte|dienstleistungsorientierter/dienstleistungsorientierte}} {{Ansprechpartner|Ansprechpartnerin|Ansprechpartner/in}}, {{welcher|welche|welcher/welche}} die Anliegen der Kunden bzw. verschiedenen Anspruchsgruppen ernst nimmt und spezifische Kundenbedürfnisse gut erfasst.",
+    "ok": true
+  },
+  "kundenorientierung|gut|4": {
+    "tokenized": "{{Er|Sie|Er/Sie}} achtet auf eine gründliche und seriöse Beratung der Anspruchsgruppen.",
+    "ok": true
+  },
+  "kundenorientierung|sehr_gut|1": {
+    "tokenized": "Zudem erweist {{er|sie|er/sie}} sich Kunden gegenüber als überaus {{kompetenter|kompetente|kompetenter/kompetente}}, sehr {{dienstleistungsorientierter|dienstleistungsorientierte|dienstleistungsorientierter/dienstleistungsorientierte}} {{Ansprechpartner|Ansprechpartnerin|Ansprechpartner/in}}, {{welcher|welche|welcher/welche}} spezifische Kundenbedürfnisse präzise erfasst und langfristige Kundenbeziehungen mit viel Eigeninitiative entwickelt und pflegt.",
+    "ok": true
+  },
+  "kundenorientierung|sehr_gut|2": {
+    "tokenized": "Zudem erweist {{er|sie|er/sie}} sich gegenüber der Kundschaft als überaus {{kompetenter|kompetente|kompetenter/kompetente}}, {{dienstleistungsorientierter|dienstleistungsorientierte|dienstleistungsorientierter/dienstleistungsorientierte}} {{Ansprechpartner|Ansprechpartnerin|Ansprechpartner/in}}. Spezifische Kundenbedürfnisse erfasst {{er|sie|er/sie}} präzise und pflegt Kundenbeziehungen nachhaltig.",
+    "ok": true
+  },
+  "kundenorientierung|sehr_gut|3": {
+    "tokenized": "Zudem erweist {{er|sie|er/sie}} sich als {{ein|eine|ein/eine}} überaus {{kompetenter|kompetente|kompetenter/kompetente}}, sehr {{dienstleistungsorientierter|dienstleistungsorientierte|dienstleistungsorientierter/dienstleistungsorientierte}} {{Ansprechpartner|Ansprechpartnerin|Ansprechpartner/in}}, {{welcher|welche|welcher/welche}} die Anliegen der Kunden bzw. verschiedenen Anspruchsgruppen sehr ernst nimmt und deren spezifischen Bedürfnisse präzise erfasst.",
+    "ok": false,
+    "note": "'ein' ist geschlechtsabhängig (eine), muss tokenisiert werden"
+  },
+  "kundenorientierung|sehr_gut|4": {
+    "tokenized": "{{Er|Sie|Er/Sie}} sorgt für eine fundierte Beratung der Anspruchsgruppen.",
+    "ok": true
+  }
+}

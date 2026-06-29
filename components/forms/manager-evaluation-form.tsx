@@ -1,18 +1,7 @@
 "use client";
 
-import { useState } from "react";
-
-const CATEGORIES_BASE = [
-  { key: "fachliche_leistung", label: "Fachliche Leistung", help: "Fachkenntnisse, Qualifikation, Kompetenz im Aufgabengebiet" },
-  { key: "arbeitsweise", label: "Arbeitsweise", help: "Sorgfalt, Selbständigkeit, Pflichtbewusstsein, Termintreue" },
-  { key: "arbeitsqualitaet", label: "Arbeitsqualität", help: "Genauigkeit, Verlässlichkeit der Resultate" },
-  { key: "zielerreichung", label: "Zielerreichung", help: "Erreichen der vereinbarten Ziele" },
-  { key: "verhalten", label: "Verhalten", help: "Gegenüber Vorgesetzten, Mitarbeitenden und Dritten" },
-];
-
-const MANAGER_EXTRA = [
-  { key: "fuehrungsverhalten", label: "Führungsverhalten", help: "Vorbildfunktion, Mitarbeiterführung, Teamentwicklung" },
-];
+import { useMemo, useState } from "react";
+import { SKILLS, type SkillMeta } from "@/lib/phrases/skills";
 
 const RATINGS = [
   { value: "sehr_gut", label: "Sehr gut" },
@@ -20,6 +9,37 @@ const RATINGS = [
   { value: "genuegend", label: "Genügend" },
   { value: "ungenuegend", label: "Ungenügend" },
 ];
+
+interface ThemeGroup {
+  theme: string;
+  themeLabel: string;
+  skills: SkillMeta[];
+}
+
+/**
+ * Skills nach Thema gruppieren. Eine Führungskraft erhält den Führungs-Block
+ * UND die allgemeinen Themen (wie zuvor: Basis + Führung), eine Mitarbeitende
+ * ohne Führungsfunktion nur die allgemeinen Themen. Reihenfolge folgt aus
+ * 'order' im Katalog.
+ */
+function buildThemes(isManager: boolean): ThemeGroup[] {
+  const relevant = SKILLS.filter(
+    (s) => isManager || s.employeeType === "mitarbeiter",
+  )
+    .slice()
+    .sort((a, b) => a.order - b.order);
+
+  const groups: ThemeGroup[] = [];
+  for (const s of relevant) {
+    let g = groups.find((x) => x.theme === s.theme);
+    if (!g) {
+      g = { theme: s.theme, themeLabel: s.themeLabel, skills: [] };
+      groups.push(g);
+    }
+    g.skills.push(s);
+  }
+  return groups;
+}
 
 interface Props {
   certificateId: string;
@@ -35,32 +55,61 @@ export function ManagerEvaluationForm({
   isManager,
   selfMode,
 }: Props) {
-  const categories = isManager ? [...CATEGORIES_BASE, ...MANAGER_EXTRA] : CATEGORIES_BASE;
+  const themes = useMemo(() => buildThemes(isManager), [isManager]);
 
+  // Kern-Skills (im Katalog mit '*') sind vorausgewählt; weitere zuschaltbar.
+  const [selected, setSelected] = useState<Record<string, boolean>>(() => {
+    const init: Record<string, boolean> = {};
+    for (const g of themes) for (const s of g.skills) if (s.core) init[s.key] = true;
+    return init;
+  });
   const [ratings, setRatings] = useState<Record<string, string>>({});
   const [freeTexts, setFreeTexts] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState("");
 
+  function toggleSkill(key: string) {
+    setSelected((prev) => ({ ...prev, [key]: !prev[key] }));
+  }
+
+  const selectedKeys = useMemo(
+    () => Object.keys(selected).filter((k) => selected[k]),
+    [selected],
+  );
+  const ratedSelectedCount = selectedKeys.filter((k) => ratings[k]).length;
+  const progress =
+    selectedKeys.length === 0
+      ? 0
+      : Math.round((ratedSelectedCount / selectedKeys.length) * 100);
+
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setSubmitting(true);
     setError("");
 
-    // Validierung: alle Pflicht-Kategorien müssen bewertet sein
-    const missing = categories.filter((c) => !ratings[c.key]);
+    if (selectedKeys.length === 0) {
+      setError("Bitte mindestens eine Eigenschaft zur Beurteilung auswählen.");
+      return;
+    }
+    const missing = selectedKeys.filter((k) => !ratings[k]);
     if (missing.length > 0) {
-      setError(`Bitte alle Kategorien bewerten (${missing.length} fehlen)`);
-      setSubmitting(false);
+      setError(`Bitte alle ausgewählten Eigenschaften bewerten (${missing.length} offen).`);
       return;
     }
 
-    const evaluations = categories.map((c) => ({
-      category: c.key,
-      rating: ratings[c.key],
-      free_text: freeTexts[c.key] ?? null,
-    }));
+    setSubmitting(true);
+
+    // Reihenfolge entlang der Themen beibehalten (für stabile Ausgabe).
+    const evaluations = themes.flatMap((g) =>
+      g.skills
+        .filter((s) => selected[s.key])
+        .map((s) => ({
+          category: s.key,
+          subcategory: s.theme,
+          rating: ratings[s.key],
+          free_text: freeTexts[s.key] ?? null,
+        })),
+    );
 
     let res: Response;
     if (selfMode) {
@@ -80,7 +129,7 @@ export function ManagerEvaluationForm({
     }
 
     if (!res.ok) {
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
       setError(data.error ?? "Fehler beim Absenden");
       setSubmitting(false);
       return;
@@ -125,16 +174,15 @@ export function ManagerEvaluationForm({
     );
   }
 
-  const progress = Math.round(
-    (Object.keys(ratings).length / categories.length) * 100,
-  );
-
   return (
-    <form onSubmit={onSubmit} className="space-y-6">
+    <form onSubmit={onSubmit} className="space-y-8">
       {/* Fortschritt */}
       <div className="card p-4">
         <div className="flex items-center justify-between text-[12px]">
-          <span className="font-medium">Fortschritt</span>
+          <span className="font-medium">
+            Fortschritt · {selectedKeys.length} Eigenschaft
+            {selectedKeys.length === 1 ? "" : "en"} ausgewählt
+          </span>
           <span className="text-ink-500">{progress}%</span>
         </div>
         <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-ink-100">
@@ -143,48 +191,107 @@ export function ManagerEvaluationForm({
             style={{ width: `${progress}%` }}
           />
         </div>
+        <p className="mt-2 text-[11.5px] leading-relaxed text-ink-500">
+          Empfohlene Eigenschaften sind vorausgewählt. Schalten Sie pro Thema
+          weitere zu oder ab – nur ausgewählte Eigenschaften erscheinen im Zeugnis.
+        </p>
       </div>
 
-      {categories.map((cat) => (
-        <div key={cat.key} className="card p-5">
-          <h3 className="text-[14px] font-medium tracking-tight">{cat.label}</h3>
-          <p className="mt-1 text-[12px] text-ink-500">{cat.help}</p>
+      {themes.map((g) => {
+        const selectedInTheme = g.skills.filter((s) => selected[s.key]);
+        const ratedInTheme = selectedInTheme.filter((s) => ratings[s.key]);
+        return (
+          <section key={g.theme} className="space-y-3">
+            <div className="flex items-baseline justify-between">
+              <h2 className="text-[15px] font-semibold tracking-tight">
+                {g.themeLabel}
+              </h2>
+              <span className="text-[12px] text-ink-500">
+                {ratedInTheme.length}/{selectedInTheme.length} bewertet
+              </span>
+            </div>
 
-          <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
-            {RATINGS.map((r) => (
-              <button
-                key={r.value}
-                type="button"
-                onClick={() =>
-                  setRatings((prev) => ({ ...prev, [cat.key]: r.value }))
-                }
-                className={`rounded-md border px-3 py-2.5 text-[12.5px] font-medium transition-colors ${
-                  ratings[cat.key] === r.value
-                    ? "border-petrol-600 bg-petrol-50 text-petrol-800"
-                    : "border-ink-200 bg-white text-ink-700 hover:border-ink-300"
-                }`}
-              >
-                {r.label}
-              </button>
-            ))}
-          </div>
+            <div className="space-y-3">
+              {g.skills.map((s) => {
+                const on = !!selected[s.key];
+                return (
+                  <div
+                    key={s.key}
+                    className={`card p-4 transition-colors ${
+                      on ? "" : "bg-ink-50/40"
+                    }`}
+                  >
+                    <label className="flex cursor-pointer items-center gap-3">
+                      <input
+                        type="checkbox"
+                        checked={on}
+                        onChange={() => toggleSkill(s.key)}
+                        className="h-4 w-4 accent-petrol-600"
+                      />
+                      <span
+                        className={`text-[14px] font-medium ${
+                          on ? "text-ink-900" : "text-ink-500"
+                        }`}
+                      >
+                        {s.label}
+                      </span>
+                      {s.core && (
+                        <span className="rounded-full bg-petrol-50 px-2 py-0.5 text-[10.5px] font-medium text-petrol-700">
+                          empfohlen
+                        </span>
+                      )}
+                    </label>
+                    {s.help && on && (
+                      <p className="mt-1 pl-7 text-[12px] text-ink-500">{s.help}</p>
+                    )}
 
-          <details className="mt-3">
-            <summary className="cursor-pointer text-[12px] text-petrol-700 hover:underline">
-              Optionale Anmerkung
-            </summary>
-            <textarea
-              value={freeTexts[cat.key] ?? ""}
-              onChange={(e) =>
-                setFreeTexts((prev) => ({ ...prev, [cat.key]: e.target.value }))
-              }
-              rows={2}
-              placeholder="z.B. besonders erwähnenswerte Projekte oder Leistungen"
-              className="mt-2 w-full rounded-md border border-ink-200 px-3 py-2 text-[13px]"
-            />
-          </details>
-        </div>
-      ))}
+                    {on && (
+                      <div className="mt-3 pl-7">
+                        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+                          {RATINGS.map((r) => (
+                            <button
+                              key={r.value}
+                              type="button"
+                              onClick={() =>
+                                setRatings((prev) => ({ ...prev, [s.key]: r.value }))
+                              }
+                              className={`rounded-md border px-3 py-2 text-[12.5px] font-medium transition-colors ${
+                                ratings[s.key] === r.value
+                                  ? "border-petrol-600 bg-petrol-50 text-petrol-800"
+                                  : "border-ink-200 bg-white text-ink-700 hover:border-ink-300"
+                              }`}
+                            >
+                              {r.label}
+                            </button>
+                          ))}
+                        </div>
+
+                        <details className="mt-3">
+                          <summary className="cursor-pointer text-[12px] text-petrol-700 hover:underline">
+                            Optionale Anmerkung
+                          </summary>
+                          <textarea
+                            value={freeTexts[s.key] ?? ""}
+                            onChange={(e) =>
+                              setFreeTexts((prev) => ({
+                                ...prev,
+                                [s.key]: e.target.value,
+                              }))
+                            }
+                            rows={2}
+                            placeholder="z.B. besonders erwähnenswerte Projekte oder Leistungen"
+                            className="mt-2 w-full rounded-md border border-ink-200 px-3 py-2 text-[13px]"
+                          />
+                        </details>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+        );
+      })}
 
       {error && (
         <div className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-[13px] text-red-700">
@@ -195,7 +302,7 @@ export function ManagerEvaluationForm({
       <div className="sticky bottom-0 -mx-6 border-t border-ink-200 bg-white px-6 py-4">
         <button
           type="submit"
-          disabled={submitting || progress < 100}
+          disabled={submitting || selectedKeys.length === 0 || progress < 100}
           className="btn-primary w-full disabled:opacity-50"
         >
           {submitting ? "Wird gesendet…" : "Beurteilung absenden"}

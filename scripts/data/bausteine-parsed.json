@@ -1,0 +1,2563 @@
+{
+  "skills": [
+    {
+      "key": "vorbild",
+      "label": "Vorbild",
+      "core": true,
+      "theme": "fuehrung",
+      "themeLabel": "Führung",
+      "employeeType": "fuehrungskraft",
+      "order": 0,
+      "variants": [
+        {
+          "rating": "ungenuegend",
+          "variant": 1,
+          "text": "{vorname} {nachname} schätzen wir als Führungspersönlichkeit, dessen Führungsleistung auf Glaubwürdigkeit basiert."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 2,
+          "text": "{vorname} {nachname} erleben wir als Vorgesetzten, der jeweils mit seinem Team solide Leistungen erbringt."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 1,
+          "text": "{vorname} {nachname} schätzen wir als zuverlässige Führungspersönlichkeit, dessen Führungsleistung auf Glaubwürdigkeit und Integrität basiert."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 2,
+          "text": "{vorname} {nachname} erleben wir als motivierte Führungskraft, die verantwortungsvoll handelt. Entscheidungen trifft er durchdacht, kommuniziert diese klar und nachvollziehbar."
+        },
+        {
+          "rating": "gut",
+          "variant": 1,
+          "text": "{vorname} {nachname} schätzen wir als engagierte Führungspersönlichkeit, dessen vorbildliche Führungsleistung auf Glaubwürdigkeit und Integrität basiert."
+        },
+        {
+          "rating": "gut",
+          "variant": 2,
+          "text": "{vorname} {nachname} schätzen wir als engagierte und integre Führungskraft, die vorausschauend, ziel- und umsetzungsorientiert sowie im Sinne unserer Wertekultur handelt. Er verfügt über Selbstdisziplin und übernimmt stets Verantwortung. Entscheidungen trifft er gut durchdacht, kommuniziert diese zeitgerecht, klar und nachvollziehbar. Zudem überzeugt er durch seinen kooperativen Führungsstil."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 1,
+          "text": "{vorname} {nachname} schätzen wir als sehr engagierte Führungspersönlichkeit, dessen vorbildliche und beeindruckende Führungsleistung auf Glaubwürdigkeit und Integrität basiert."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 2,
+          "text": "{vorname} {nachname} schätzen wir als sehr engagierte und integre Führungskraft, die vorausschauend, ziel- und umsetzungsorientiert sowie im Sinne unserer Wertekultur denkt und agiert. Er verfügt über einen hohen Grad an Selbstdisziplin und übernimmt stets Verantwortung. Entscheidungen trifft er bestens durchdacht und kommuniziert diese zeitgerecht, klar und nachvollziehbar. Zudem überzeugt er jederzeit durch sein vorbildliches Engagement sowie durch seinen kooperativen, sach- und personenbezogenen Führungsstil."
+        }
+      ]
+    },
+    {
+      "key": "offenheit_vertrauen",
+      "label": "Offenheit und Vertrauen",
+      "core": false,
+      "theme": "fuehrung",
+      "themeLabel": "Führung",
+      "employeeType": "fuehrungskraft",
+      "order": 1,
+      "variants": [
+        {
+          "rating": "ungenuegend",
+          "variant": 1,
+          "text": "Durch sein Interesse gegenüber den Anliegen seiner Mitarbeitenden schafft er ein angenehmes Arbeitsklima."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 2,
+          "text": "Den Anliegen seiner Mitarbeitenden steht {vorname} {nachname} jeweils offen gegenüber."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 1,
+          "text": "Durch sein echtes Interesse gegenüber den Anliegen seiner Mitarbeitenden schafft er ein vertrauensvolles Arbeitsklima."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 2,
+          "text": "Den Anliegen seiner Mitarbeitenden gegenüber ist {vorname} {nachname} jeweils offen. Durch seine wertschätzende Haltung schafft er ein förderliches Arbeitsklima."
+        },
+        {
+          "rating": "gut",
+          "variant": 1,
+          "text": "Durch seine Offenheit und echtes Interesse gegenüber den Anliegen seiner Mitarbeitenden schafft er ein vertrauensvolles und produktives Arbeitsklima."
+        },
+        {
+          "rating": "gut",
+          "variant": 2,
+          "text": "Als Führungskraft versteht {vorname} {nachname} es, seine Mitarbeitenden entsprechend einzubeziehen und zielorientiert zu fördern. Durch seine wertschätzende Haltung schafft er eine vertrauensvolle Basis der Zusammenarbeit sowie ein produktives Arbeitsklima. Vorschläge seiner Mitarbeitenden lässt er sinnvoll und angemessen in die Umsetzung seiner Ziele einfliessen."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 1,
+          "text": "Durch Begeisterungsfähigkeit, Offenheit und echtes Interesse gegenüber den Anliegen seiner Mitarbeitenden schafft er ein vertrauensvolles und produktives Arbeitsklima."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 2,
+          "text": "Als Führungskraft versteht {vorname} {nachname} es jederzeit bestens, alle Mitarbeitenden seines Teams entsprechend ihrer Persönlichkeiten und Kompetenzen einzubeziehen und zielorientiert zu fördern. Durch seine wertschätzende Haltung schafft er aktiv eine vertrauensvolle Basis der Zusammenarbeit sowie ein produktives Arbeitsklima. Vorschläge seiner Mitarbeitenden lässt er sinnvoll und angemessen in die Umsetzung seiner Ziele einfliessen."
+        }
+      ]
+    },
+    {
+      "key": "verantwortung_uebertragen",
+      "label": "Verantwortung übertragen",
+      "core": false,
+      "theme": "fuehrung",
+      "themeLabel": "Führung",
+      "employeeType": "fuehrungskraft",
+      "order": 2,
+      "variants": [
+        {
+          "rating": "ungenuegend",
+          "variant": 1,
+          "text": "Wir möchten erwähnen, dass er als Vorgesetzter Aufgaben in massvollem Umfang delegiert."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 2,
+          "text": "Aufgaben delegiert er teilweise."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 3,
+          "text": "Er delegiert Aufgaben teils undifferenziert."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 1,
+          "text": "Wir schätzen, dass er als Vorgesetzter Aufgaben in passendem Umfang delegiert."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 2,
+          "text": "Aufgaben delegiert er im richtigen Umfang."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 3,
+          "text": "Er delegiert Aufgaben besonnen."
+        },
+        {
+          "rating": "gut",
+          "variant": 1,
+          "text": "Wir schätzen sehr, dass er als tüchtiger Vorgesetzter Aufgaben und Verantwortung in richtigem Umfang delegiert."
+        },
+        {
+          "rating": "gut",
+          "variant": 2,
+          "text": "Aufgaben, Verantwortung und Kompetenzen delegiert er stets klar und im richtigen Umfang."
+        },
+        {
+          "rating": "gut",
+          "variant": 3,
+          "text": "Er delegiert Aufgaben mit Sachverstand und Gespür."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 1,
+          "text": "Wir schätzen enorm, dass er als engagierter Vorgesetzter Aufgaben und Verantwortung vorbildlich und in angemessenem Umfang delegiert."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 2,
+          "text": "Aufgaben, Verantwortung und Kompetenzen delegiert er stets klar, ressourcenoptimiert und im richtigen Umfang."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 3,
+          "text": "Er delegiert Aufgaben mit grossem Sachverstand und Gespür."
+        }
+      ]
+    },
+    {
+      "key": "lenkung_arbeitsleistung",
+      "label": "Lenkung und Arbeitsleistung",
+      "core": true,
+      "theme": "fuehrung",
+      "themeLabel": "Führung",
+      "employeeType": "fuehrungskraft",
+      "order": 3,
+      "variants": [
+        {
+          "rating": "ungenuegend",
+          "variant": 1,
+          "text": "Er fördert die Arbeitsleistung seiner Mitarbeitenden. Gleichzeitig unterstützt er durch geeignete Zielsetzungen."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 2,
+          "text": "Mit Unterstützung gelingt es ihm, seine Mitarbeitenden zu Leistungen zu motivieren."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 3,
+          "text": "Er kann die Mitarbeitenden teilweise nur schwer motivieren und erteilt manchmal unzureichende Handlungsanweisungen."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 1,
+          "text": "Er fördert die Arbeitsleistung seiner Mitarbeitenden bewusst. Gleichzeitig unterstützt er durch erreichbare und messbare Zielsetzungen."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 2,
+          "text": "Er kann seine Mitarbeitenden zu guten Leistungen motivieren und erteilt dabei nachvollziehbare Handlungsanweisungen."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 3,
+          "text": "Er kann die Mitarbeitenden motivieren und erteilt ausreichende Handlungsanweisungen."
+        },
+        {
+          "rating": "gut",
+          "variant": 1,
+          "text": "Er fördert die Arbeitsleistung seiner Mitarbeitenden sehr bewusst. Gleichzeitig motiviert er durch anspruchsvolle, erreichbare und messbare Zielsetzungen."
+        },
+        {
+          "rating": "gut",
+          "variant": 2,
+          "text": "Anhand klarer und erreichbarer Zielvorgaben motiviert er sein Team stets zu guten Ergebnissen. Darüber hinaus versteht er es, allen Beteiligten nachvollziehbare Handlungsanweisungen zu erteilen."
+        },
+        {
+          "rating": "gut",
+          "variant": 3,
+          "text": "Er kann die Mitarbeitenden zielbezogen motivieren und erteilt klare Handlungsanweisungen."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 1,
+          "text": "Er fördert die Arbeitsleistung seiner Mitarbeitenden bemerkenswert. Gleichzeitig motiviert er perfekt und umsichtig durch anspruchsvolle, erreichbare und messbare Zielsetzungen."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 2,
+          "text": "Anhand klarer und erreichbarer Zielvorgaben motiviert er sein Team zu anhaltend sehr guten Ergebnissen. Darüber hinaus versteht er es bestens, allen Beteiligten nachvollziehbare Handlungsanweisungen zu erteilen."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 3,
+          "text": "Er versteht es, die Mitarbeitenden überzeugend und zielbezogen zu motivieren. Er erteilt präzise, nachvollziehbare Handlungsanweisungen."
+        }
+      ]
+    },
+    {
+      "key": "aktives_change_management",
+      "label": "Aktives Change Management",
+      "core": false,
+      "theme": "fuehrung",
+      "themeLabel": "Führung",
+      "employeeType": "fuehrungskraft",
+      "order": 4,
+      "variants": [
+        {
+          "rating": "ungenuegend",
+          "variant": 1,
+          "text": "Seine Mitarbeitenden unterstützt er gewissenhaft, sodass diese auf Veränderungen vorbereitet sind und angemessen damit umgehen können."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 2,
+          "text": "Seine Mitarbeitenden unterstützt er bei Veränderungsprozessen, sodass diese Neuerungen akzeptieren können."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 3,
+          "text": "Er bevorzugt es meist, am Bestehenden festzuhalten."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 1,
+          "text": "Seine Mitarbeitenden unterstützt er aufmerksam, sodass diese auf Veränderungen vorbereitet sind und gut damit umgehen können."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 2,
+          "text": "Seine Mitarbeitenden unterstützt er, sodass diese auf Veränderungen vorbereitet sind und angemessen damit umgehen können."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 3,
+          "text": "Er hat wiederholt gute Ideen."
+        },
+        {
+          "rating": "gut",
+          "variant": 1,
+          "text": "Seine Mitarbeitenden unterstützt er aufmerksam und umsichtig, sodass diese rechtzeitig auf Veränderungen vorbereitet sind und mit Akzeptanz damit umgehen können."
+        },
+        {
+          "rating": "gut",
+          "variant": 2,
+          "text": "Seine Mitarbeitenden führt und unterstützt er bei Veränderungsprozessen umsichtig, sodass diese rechtzeitig auf Neuerungen vorbereitet sind und mit Akzeptanz damit umgehen können."
+        },
+        {
+          "rating": "gut",
+          "variant": 3,
+          "text": "Er hat viele konkret umsetzbare Ideen."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 1,
+          "text": "Seine Mitarbeitenden unterstützt er sehr aufmerksam und klug, sodass diese rechtzeitig auf Veränderungen bestens vorbereitet sind und mit grosser Akzeptanz damit umgehen können."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 2,
+          "text": "Seine Mitarbeitenden führt und unterstützt er bei Veränderungsprozessen professionell und routiniert, sodass diese die Neuerungen aktiv mitunterstützen."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 3,
+          "text": "Er hat aussergewöhnlich viele erfolgreich umsetzbare Ideen."
+        }
+      ]
+    },
+    {
+      "key": "mitarbeiterfoerderung",
+      "label": "Mitarbeiterförderung",
+      "core": false,
+      "theme": "fuehrung",
+      "themeLabel": "Führung",
+      "employeeType": "fuehrungskraft",
+      "order": 5,
+      "variants": [
+        {
+          "rating": "ungenuegend",
+          "variant": 1,
+          "text": "Ausserdem überlegt er sich mögliche Karriereperspektiven."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 2,
+          "text": "Er zeigt seinen Mitarbeitenden Weiterbildungsmöglichkeiten auf."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 1,
+          "text": "Ausserdem überlegt er sich Entwicklungsmöglichkeiten und mögliche Karriereperspektiven."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 2,
+          "text": "Er versteht es, die Mitarbeitenden zu fördern und Weiterbildungsmöglichkeiten aufzuzeigen."
+        },
+        {
+          "rating": "gut",
+          "variant": 1,
+          "text": "Ausserdem plant er sinnvolle Entwicklungsmöglichkeiten und zeigt mögliche Karriereperspektiven auf."
+        },
+        {
+          "rating": "gut",
+          "variant": 2,
+          "text": "Er versteht es, die Talente seiner Mitarbeitenden zu erkennen und diese zu fördern. Er ermöglicht auf die Funktion zugeschnittene Weiterbildungsmöglichkeiten und zeigt Entwicklungsperspektiven auf."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 1,
+          "text": "Ausserdem plant er individuell zugeschnittene und sinnvolle Entwicklungsmöglichkeiten und zeigt interessante Karriereperspektiven auf."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 2,
+          "text": "Er versteht es gekonnt, die Talente seiner Mitarbeitenden zu erkennen und diese entsprechend zu fördern. Er ermöglicht auf die Funktion zugeschnittene Weiterbildungsmöglichkeiten und individuell interessante Entwicklungsperspektiven."
+        }
+      ]
+    },
+    {
+      "key": "wissensaustausch",
+      "label": "Wissensaustausch",
+      "core": false,
+      "theme": "fuehrung",
+      "themeLabel": "Führung",
+      "employeeType": "fuehrungskraft",
+      "order": 6,
+      "variants": [
+        {
+          "rating": "ungenuegend",
+          "variant": 1,
+          "text": "Er achtet in seinem Arbeitsbereich auf Zusammenarbeit und Informationsaustausch."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 2,
+          "text": "Er unterstützt in seinem Arbeitsbereich den Informationsaustausch."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 3,
+          "text": "Er achtet zu wenig auf einen ausreichenden Informations- und Wissensaustausch."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 1,
+          "text": "Er unterstützt in seinem Arbeitsbereich die Zusammenarbeit und den Informationsaustausch."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 2,
+          "text": "Er fördert den Informations- und Wissensaustausch."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 3,
+          "text": "Er achtet auf einen angemessenen Informations- und Wissensaustausch."
+        },
+        {
+          "rating": "gut",
+          "variant": 1,
+          "text": "Er fördert im Unternehmen gezielt die Zusammenarbeit sowie einen wertvollen Informations- und Wissensaustausch."
+        },
+        {
+          "rating": "gut",
+          "variant": 2,
+          "text": "Er fördert aktiv das Wissensmanagement durch einen sinnvollen Informations- und Wissensaustausch."
+        },
+        {
+          "rating": "gut",
+          "variant": 3,
+          "text": "Er fördert einen wertvollen Informations- und Wissensaustausch."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 1,
+          "text": "Er fördert im Unternehmen gezielt und nachahmenswert die Zusammenarbeit sowie einen sehr wertvollen Informations- und Wissensaustausch."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 2,
+          "text": "Er fördert aktiv das Wissensmanagement durch einen gezielten und wertvollen Informations- und Wissensaustausch."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 3,
+          "text": "Er fördert gezielt einen sehr wertvollen Informations- und Wissensaustausch."
+        }
+      ]
+    },
+    {
+      "key": "strategieorientierung",
+      "label": "Strategieorientierung",
+      "core": false,
+      "theme": "fuehrung",
+      "themeLabel": "Führung",
+      "employeeType": "fuehrungskraft",
+      "order": 7,
+      "variants": [
+        {
+          "rating": "ungenuegend",
+          "variant": 1,
+          "text": "Visionen, Strategien und Ziele erläutert er den Vorgaben gemäss. Zudem bezieht er im Team entwickelte Ideen in die Entscheidungsfindung mit ein."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 2,
+          "text": "Strategien und Ziele erläutert er den Vorgaben gemäss."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 1,
+          "text": "Visionen, Strategien und Ziele erläutert er korrekt und schlüssig. Zudem bezieht er im Team entwickelte Ideen passend in die Entscheidungsfindung mit ein."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 2,
+          "text": "Strategien und Ziele erläutert er schlüssig und im Team entwickelte Ideen nimmt er in die Entscheidungsfindung mit auf."
+        },
+        {
+          "rating": "gut",
+          "variant": 1,
+          "text": "Visionen, Strategien und Ziele erläutert er zuverlässig und umfassend. Zudem bezieht er im Team entwickelte Ideen klug in die Entscheidungsfindung mit ein."
+        },
+        {
+          "rating": "gut",
+          "variant": 2,
+          "text": "Zudem denkt und handelt er strategisch, bezieht die jeweiligen Vorgaben mit ein und leitet die notwendigen Massnahmen auf seinen Verantwortungsbereich ab. Strategien und Ziele vermittelt er jeweils verständlich. Zudem integriert er im Team entwickelte Ideen in die Strategieorientierung."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 1,
+          "text": "Visionen, Strategien und Ziele erläutert er vortrefflich und umfassend. Zudem bezieht er im Team entwickelte Ideen in hervorragender Weise in die Entscheidungsfindung mit ein."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 2,
+          "text": "Zudem denkt und handelt er strategisch, bezieht die jeweiligen Vorgaben mit ein und leitet die notwendigen Massnahmen auf seinen Verantwortungsbereich ab. Strategien und Ziele vermittelt er jeweils vortrefflich. Zudem integriert er im Team entwickelte Ideen in hervorragender Weise in die Strategieorientierung."
+        }
+      ]
+    },
+    {
+      "key": "initiativ_fleiss",
+      "label": "Initiativ und Fleiss",
+      "core": true,
+      "theme": "arbeitsbereitschaft_fachwissen",
+      "themeLabel": "Arbeitsbereitschaft und Fachwissen",
+      "employeeType": "mitarbeiter",
+      "order": 8,
+      "variants": [
+        {
+          "rating": "ungenuegend",
+          "variant": 1,
+          "text": "{vorname} {nachname} zeigt Initiative und Fleiss in ausreichendem Masse."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 2,
+          "text": "{vorname} {nachname} erledigt die Arbeiten mehrheitlich auftragsgemäss."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 3,
+          "text": "{vorname} {nachname} fällt es teilweise schwer Initiative zu entwickeln und sich für seinen Aufgabenbereich zu engagieren."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 1,
+          "text": "{vorname} {nachname} zeigt Initiative und Fleiss."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 2,
+          "text": "{vorname} {nachname} erledigt die Arbeiten auftragsgemäss im Rahmen seines Aufgabenbereichs."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 3,
+          "text": "Mit der Initiative von {vorname} {nachname} und dem Engagement in seinem Aufgabenbereich sind wir zufrieden."
+        },
+        {
+          "rating": "gut",
+          "variant": 1,
+          "text": "{vorname} {nachname} zeigt stets grosse Initiative und Fleiss."
+        },
+        {
+          "rating": "gut",
+          "variant": 2,
+          "text": "{vorname} {nachname} ist initiativ und setzt sich vollumfänglich für seinen Aufgabenbereich ein."
+        },
+        {
+          "rating": "gut",
+          "variant": 3,
+          "text": "{vorname} {nachname} ist initiativ und arbeitet mit Freude und Engagement in seinem Aufgabenbereich."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 1,
+          "text": "{vorname} {nachname} zeigt stets ausserordentliche Initiative und grossen Fleiss."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 2,
+          "text": "{vorname} {nachname} ist sehr initiativ und setzt sich überdurchschnittlich für seinen Aufgabenbereich ein."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 3,
+          "text": "{vorname} {nachname} ist äusserst initiativ und arbeitet mit viel Freude und grossem Engagement in seinem Aufgabenbereich."
+        }
+      ]
+    },
+    {
+      "key": "selbstaendigkeit_nach_eintritt",
+      "label": "Selbständigkeit nach Eintritt",
+      "core": false,
+      "theme": "arbeitsbereitschaft_fachwissen",
+      "themeLabel": "Arbeitsbereitschaft und Fachwissen",
+      "employeeType": "mitarbeiter",
+      "order": 9,
+      "variants": [
+        {
+          "rating": "ungenuegend",
+          "variant": 1,
+          "text": "Nach einer Einarbeitungszeit arbeitet er selbständig und benötigt selten Unterstützung."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 2,
+          "text": "Nach einer Einarbeitungszeit führt er die übertragenen Arbeiten mit fachlicher Unterstützung aus."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 1,
+          "text": "Nach einer Einarbeitungszeit arbeitet er selbständig und findet sich in seinem Arbeitsbereich zurecht."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 2,
+          "text": "Nach einer Einarbeitungszeit führt er die übertragenen Arbeiten pflichtbewusst aus und benötigt selten fachliche Unterstützung."
+        },
+        {
+          "rating": "gut",
+          "variant": 1,
+          "text": "Bereits nach kurzer Einarbeitungszeit arbeitet er sicher und selbständig."
+        },
+        {
+          "rating": "gut",
+          "variant": 2,
+          "text": "Bereits nach kurzer Einarbeitungszeit erledigt er seine Aufgaben selbstständig. Dank seiner schnellen Auffassungsgabe erkennt er Zusammenhänge und kann sich auf neue Situationen einstellen."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 1,
+          "text": "Bereits nach sehr kurzer Einarbeitungszeit erledigt er seine Aufgaben vollkommen selbständig."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 2,
+          "text": "Bereits nach kurzer Einarbeitungszeit erledigt er sämtliche Aufgaben sehr selbstständig. Er zeichnet sich durch schnelle Auffassungsgabe aus, erkennt relevante Zusammenhänge und kann sich rasch auf neue Situationen einstellen."
+        }
+      ]
+    },
+    {
+      "key": "motivation_engagement",
+      "label": "Motivation und Engagement",
+      "core": true,
+      "theme": "arbeitsbereitschaft_fachwissen",
+      "themeLabel": "Arbeitsbereitschaft und Fachwissen",
+      "employeeType": "mitarbeiter",
+      "order": 10,
+      "variants": [
+        {
+          "rating": "ungenuegend",
+          "variant": 1,
+          "text": "Er ist genügend motiviert und arbeitet sich erwartungsgemäss in neue Arbeitsgebiete ein."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 2,
+          "text": "Er erledigt seine Aufgaben erwartungsgemäss."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 3,
+          "text": "Er lässt es teilweise am Engagement für sein Arbeitsgebiet fehlen."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 1,
+          "text": "Er ist motiviert und arbeitet sich mit Interesse in neue Arbeitsgebiete ein."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 2,
+          "text": "Er setzt sich für seinen Aufgabenbereich ein und bearbeitet auch neue Arbeitsgebiete."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 3,
+          "text": "Er engagiert sich für sein Arbeitsgebiet."
+        },
+        {
+          "rating": "gut",
+          "variant": 1,
+          "text": "Er ist immer motiviert und arbeitet sich mit Engagement und Erfolg in neue Arbeitsgebiete ein."
+        },
+        {
+          "rating": "gut",
+          "variant": 2,
+          "text": "Er ist motiviert und setzt sich stets für seinen Aufgabenbereich ein. Mit Engagement bearbeitet er erfolgreich neue Arbeitsgebiete."
+        },
+        {
+          "rating": "gut",
+          "variant": 3,
+          "text": "Er engagiert sich vollumfänglich für sein Arbeitsgebiet."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 1,
+          "text": "Er ist immer hoch motiviert und arbeitet sich mit grossem Engagement und Erfolg in neue Arbeitsgebiete ein."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 2,
+          "text": "Er ist hoch motiviert und setzt sich überdurchschnittlich für seinen Aufgabenbereich ein. Mit grossem Engagement bearbeitet er erfolgreich neue Arbeitsgebiete."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 3,
+          "text": "Er engagiert sich überdurchschnittlich für sein Arbeitsgebiet."
+        }
+      ]
+    },
+    {
+      "key": "unternehmensbeitrag",
+      "label": "Unternehmensbeitrag",
+      "core": false,
+      "theme": "arbeitsbereitschaft_fachwissen",
+      "themeLabel": "Arbeitsbereitschaft und Fachwissen",
+      "employeeType": "mitarbeiter",
+      "order": 11,
+      "variants": [
+        {
+          "rating": "ungenuegend",
+          "variant": 1,
+          "text": "Aufgrund seiner Mitarbeit leistet er den erwarteten Beitrag in seinem Team."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 2,
+          "text": "Mit seinem Einsatz leistet er einen Beitrag im eigenen Verantwortungsbereich."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 3,
+          "text": "In seinem Denken und Handeln berücksichtigt {vorname} {nachname} übergeordnete Zielsetzungen der gesamten Organisation zu wenig konsequent, was sich auf die Ergebnisse im eigenen Verantwortungsbereich auswirkt."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 1,
+          "text": "Aufgrund seiner Mitarbeit leistet er einen angemessenen Beitrag in seinem Team."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 2,
+          "text": "Mit seinem Einsatz leistet er einen angemessenen Beitrag im eigenen Verantwortungsbereich."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 3,
+          "text": "In seinem Denken und Handeln berücksichtigt {vorname} {nachname} übergeordnete Zielsetzungen der gesamten Organisation und setzt sich für die Umsetzung und die Ergebnisse im eigenen Verantwortungsbereich ein."
+        },
+        {
+          "rating": "gut",
+          "variant": 1,
+          "text": "Aufgrund seines persönlichen Einsatzes leistet er einen achtbaren Beitrag zur Entwicklung unseres Unternehmens."
+        },
+        {
+          "rating": "gut",
+          "variant": 2,
+          "text": "Aufgrund seines persönlichen Einsatzes leistet er einen massgeblichen Beitrag zur Erfüllung der Aufträge. Dabei verhält er sich unterstützend, loyal und denkt mit."
+        },
+        {
+          "rating": "gut",
+          "variant": 3,
+          "text": "Sein Denken und Handeln richtet {vorname} {nachname} auf die Zielsetzungen der gesamten Organisation aus, und er übernimmt die Verantwortung für die Umsetzung und die Ergebnisse im eigenen Verantwortungsbereich."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 1,
+          "text": "Aufgrund seines hohen persönlichen Einsatzes leistet er einen bedeutenden Beitrag zur Entwicklung unseres Unternehmens."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 2,
+          "text": "Aufgrund seines hohen persönlichen Einsatzes leistet er einen bedeutenden Beitrag zur Erfüllung der Aufträge. Dabei verhält er sich sehr unterstützend, loyal und verfügt über eine interdisziplinäre Denkweise."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 3,
+          "text": "Sein Denken und Handeln richtet {vorname} {nachname} konsequent auf die Zielsetzungen der gesamten Organisation aus, und er übernimmt die volle Verantwortung für die Umsetzung und die Ergebnisse im eigenen Verantwortungsbereich."
+        }
+      ]
+    },
+    {
+      "key": "berufserfahrung",
+      "label": "Berufserfahrung",
+      "core": true,
+      "theme": "arbeitsbereitschaft_fachwissen",
+      "themeLabel": "Arbeitsbereitschaft und Fachwissen",
+      "employeeType": "mitarbeiter",
+      "order": 12,
+      "variants": [
+        {
+          "rating": "ungenuegend",
+          "variant": 1,
+          "text": "{vorname} {nachname} beherrscht sein Arbeitsgebiet unseren Erwartungen entsprechend."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 2,
+          "text": "{vorname} {nachname} verfügt über erste Erfahrungen im Arbeitsgebiet."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 3,
+          "text": "{vorname} {nachname} weist eine begrenzte Erfahrung im Aufgabengebiet auf."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 1,
+          "text": "{vorname} {nachname} beherrscht sein Arbeitsgebiet angemessen."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 2,
+          "text": "{vorname} {nachname} verfügt über die erforderliche Erfahrung im Arbeitsgebiet."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 3,
+          "text": "{vorname} {nachname} hat die nötige Erfahrung im Aufgabengebiet."
+        },
+        {
+          "rating": "gut",
+          "variant": 1,
+          "text": "{vorname} {nachname} verfügt über umfassende Berufserfahrung und beherrscht seinen Arbeitsbereich sicher."
+        },
+        {
+          "rating": "gut",
+          "variant": 2,
+          "text": "{vorname} {nachname} verfügt über eine umfangreiche Erfahrung im Aufgabengebiet."
+        },
+        {
+          "rating": "gut",
+          "variant": 3,
+          "text": "{vorname} {nachname} hat eine umfangreiche Erfahrung in seinem Aufgabengebiet, vereinzelt auch in angrenzenden Fachbereichen."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 1,
+          "text": "{vorname} {nachname} verfügt über sehr grosse Berufserfahrung und beherrscht seinen Arbeitsbereich in jeder Weise umfassend, sicher und vollkommen."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 2,
+          "text": "{vorname} {nachname} verfügt über eine besonders umfangreiche Erfahrung im Aufgabengebiet sowie in Nachbardisziplinen. Er teilt zudem sein Wissen mit anderen Mitarbeitenden."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 3,
+          "text": "{vorname} {nachname} hat eine überdurchschnittliche Erfahrung in seinem Aufgabengebiet wie auch in angrenzenden Fachbereichen."
+        }
+      ]
+    },
+    {
+      "key": "fachliche_anforderungen",
+      "label": "Fachliche Anforderungen",
+      "core": false,
+      "theme": "arbeitsbereitschaft_fachwissen",
+      "themeLabel": "Arbeitsbereitschaft und Fachwissen",
+      "employeeType": "mitarbeiter",
+      "order": 13,
+      "variants": [
+        {
+          "rating": "ungenuegend",
+          "variant": 1,
+          "text": "Er wird den fachlichen Anforderungen gerecht."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 2,
+          "text": "Er verfügt nur teilweise über das erforderliche Fachwissen."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 1,
+          "text": "Er stellt an sich selbst fachliche Anforderungen, die er erfüllt."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 2,
+          "text": "Er verfügt über ein abgerundetes Fachwissen."
+        },
+        {
+          "rating": "gut",
+          "variant": 1,
+          "text": "Er stellt an sich selbst grosse fachliche Anforderungen, die er stets erfüllt."
+        },
+        {
+          "rating": "gut",
+          "variant": 2,
+          "text": "Er verfügt über ein fundiertes Fachwissen."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 1,
+          "text": "Er stellt an sich selbst hohe fachliche Anforderungen, die er stets vollumfänglich erfüllt."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 2,
+          "text": "Er verfügt über ein hervorragendes, in die Tiefe gehendes Fachwissen."
+        }
+      ]
+    },
+    {
+      "key": "verantwortung_aufgabenbewaeltigung",
+      "label": "Verantwortung und Aufgabenbewältigung",
+      "core": true,
+      "theme": "arbeitsbereitschaft_fachwissen",
+      "themeLabel": "Arbeitsbereitschaft und Fachwissen",
+      "employeeType": "mitarbeiter",
+      "order": 14,
+      "variants": [
+        {
+          "rating": "ungenuegend",
+          "variant": 1,
+          "text": "Bei der Ausführung von Aufträgen zeigt er keine Unsicherheiten."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 2,
+          "text": "Die Auswirkungen seiner Handlungen kann er mehrheitlich einschätzen. Seine Aufträge führt er mit Unterstützung aus."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 3,
+          "text": "Probleme in seinem Verantwortungsbereich erkennt er nicht immer im erwarteten Ausmass und sein Beitrag zu deren Lösung ist teilweise bescheiden."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 4,
+          "text": "Die Auswirkungen seiner Handlungen und die damit verbundenen Chancen und Risiken sind ihm manchmal nicht voll bewusst. Teilweise mangelt es ihm am notwendigen Verantwortungsbewusstsein."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 1,
+          "text": "Bei seinen Aufträgen übernimmt er Verantwortung und führt sie zum gewünschten Abschluss."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 2,
+          "text": "Die Auswirkungen seiner Handlungen kann er einschätzen. Bei seinen Aufträgen geht er verantwortungsbewusst vor und bringt diese zum Abschluss."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 3,
+          "text": "Probleme in seinem Verantwortungsbereich vermag er zu erkennen und zu beheben."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 4,
+          "text": "Die Auswirkungen seiner Handlungen kann er einschätzen und bezieht Chancen wie auch Risiken in seine Überlegungen mit ein. Er handelt verantwortungsvoll."
+        },
+        {
+          "rating": "gut",
+          "variant": 1,
+          "text": "Jederzeit übernimmt er bei schwierigen Aufträgen Verantwortung und führt die Arbeiten mit Können zu einem gelungenen Abschluss."
+        },
+        {
+          "rating": "gut",
+          "variant": 2,
+          "text": "Die Auswirkungen seiner Handlungen schätzt er realistisch ein und wägt Chancen wie auch Risiken ab. Er übernimmt stets Verantwortung und führt Aufträge zum gewünschten Abschluss."
+        },
+        {
+          "rating": "gut",
+          "variant": 3,
+          "text": "Probleme in seinem Aufgabenbereich erkennt er und liefert einen wesentlichen Beitrag zu deren Lösung."
+        },
+        {
+          "rating": "gut",
+          "variant": 4,
+          "text": "Die Auswirkungen und Folgen seiner Handlungen schätzt er realistisch ein und wägt Chancen wie auch Risiken sorgfältig ab. Er handelt durchdacht und verantwortungsvoll."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 1,
+          "text": "Jederzeit übernimmt er bei schwierigsten Aufträgen Verantwortung und führt die Arbeiten mit Geschick und Können zu einem hervorragenden Abschluss."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 2,
+          "text": "Die Auswirkungen seiner Handlungen schätzt er sehr realistisch ein und wägt Chancen wie auch Risiken situationsgerecht ab. Er übernimmt stets Verantwortung und führt Aufträge zielsicher zu einem erfolgreichen Abschluss."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 3,
+          "text": "Probleme in seinem Verantwortungsbereich erkennt er sofort und findet eigenständig überzeugende Lösungen."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 4,
+          "text": "Die Tragweite und die Auswirkungen seiner Handlungen schätzt er realistisch ein und wägt Chancen wie auch Risiken jederzeit sorgfältig ab. Er übernimmt stets für seine Handlungen die volle Verantwortung."
+        }
+      ]
+    },
+    {
+      "key": "auffassungsgabe",
+      "label": "Auffassungsgabe",
+      "core": false,
+      "theme": "arbeitsbereitschaft_fachwissen",
+      "themeLabel": "Arbeitsbereitschaft und Fachwissen",
+      "employeeType": "mitarbeiter",
+      "order": 15,
+      "variants": [
+        {
+          "rating": "ungenuegend",
+          "variant": 1,
+          "text": "Neues nimmt er auf und versucht es in seinem Aufgabengebiet umzusetzen."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 2,
+          "text": "Neues nimmt er auf und kann es unter Anleitung in seinem Aufgabengebiet umsetzen."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 3,
+          "text": "Er setzt erworbenes Wissen nicht mit dem gewünschten Erfolg in die Praxis um und findet sich in neuen Aufgaben nur mit Unterstützung zurecht."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 1,
+          "text": "Neues nimmt er gut auf und setzt es in seinem Aufgabengebiet um."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 2,
+          "text": "Neues Wissen vermag er gut in seinem Aufgabengebiet umzusetzen."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 3,
+          "text": "Er setzt erworbenes Wissen in die Praxis um und findet sich dank seiner Umsicht auch in neuen Aufgaben zurecht."
+        },
+        {
+          "rating": "gut",
+          "variant": 1,
+          "text": "Neues kann er mit vorhandenem Wissen vernetzen, da er Aufgaben rasch erfasst."
+        },
+        {
+          "rating": "gut",
+          "variant": 2,
+          "text": "Durch seine rasche Auffassungsgabe und dank seinem analytischen Denkvermögen findet er schnell zu umsetzbaren Lösungen."
+        },
+        {
+          "rating": "gut",
+          "variant": 3,
+          "text": "Er setzt erworbenes Wissen erfolgreich in die Praxis um und findet sich dank seiner guten Auffassungsgabe auch in neuen Aufgaben schnell zurecht."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 1,
+          "text": "Neues vernetzt er sehr schnell mit vorhandenem Wissen, da er komplexe Aufgaben denkbar rasch, gründlich und mit Leichtigkeit erfasst."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 2,
+          "text": "Durch seine äusserst rasche Auffassungsgabe und dank seinem analytischen Denkvermögen findet er auch für schwierige Probleme schnell zu umsetzbaren Lösungen. Zudem besitzt er eine ausgesprochene Stärke im vernetzten Denken sowie im Antizipieren von Entwicklungen."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 3,
+          "text": "Er setzt erworbenes Wissen vorbildlich in die Praxis um und findet sich in neuen Aufgaben dank seiner ausgeprägten Auffassungsgabe leicht zurecht."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 4,
+          "text": "Auffassungsgabe"
+        }
+      ]
+    },
+    {
+      "key": "innovation",
+      "label": "Innovation",
+      "core": false,
+      "theme": "arbeitsbereitschaft_fachwissen",
+      "themeLabel": "Arbeitsbereitschaft und Fachwissen",
+      "employeeType": "mitarbeiter",
+      "order": 16,
+      "variants": [
+        {
+          "rating": "ungenuegend",
+          "variant": 1,
+          "text": "Ferner überlegt er sich Neuerungen und bringt diese Ideen ein."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 2,
+          "text": "Ferner stützt er sich auf Bestehendes."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 3,
+          "text": "Er wirkt an Neuerungen zum Teil nur zögernd mit."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 1,
+          "text": "Ferner bringt er eigene gute Ideen ein."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 2,
+          "text": "Ferner bringt er Ideen ein."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 3,
+          "text": "Ferner ist er interessiert an Neuerungen mitzuwirken."
+        },
+        {
+          "rating": "gut",
+          "variant": 1,
+          "text": "Ferner bringt er frische und umsetzbare Ideen ein."
+        },
+        {
+          "rating": "gut",
+          "variant": 2,
+          "text": "Ferner bringt er umsetzbare Ideen ein."
+        },
+        {
+          "rating": "gut",
+          "variant": 3,
+          "text": "Ferner wirkt er an Neuerungen gestaltend mit."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 1,
+          "text": "Ferner bringt er innovative, zukunftweisende und umsetzbare Ideen ein."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 2,
+          "text": "Ferner wirkt er an Neuerungen tatkräftig und gestaltend mit."
+        }
+      ]
+    },
+    {
+      "key": "ausdauer_belastbarkeit",
+      "label": "Ausdauer und Belastbarkeit",
+      "core": false,
+      "theme": "arbeitsbereitschaft_fachwissen",
+      "themeLabel": "Arbeitsbereitschaft und Fachwissen",
+      "employeeType": "mitarbeiter",
+      "order": 17,
+      "variants": [
+        {
+          "rating": "ungenuegend",
+          "variant": 1,
+          "text": "Ausserdem ist er ein Mitarbeitender, der seine Aufgaben grösstenteils gut bewältigt."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 2,
+          "text": "Unter anspruchsvollen Arbeitsbedingungen vermag er den an ihn gestellten Anforderungen nicht immer nachzukommen."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 3,
+          "text": "Er arbeitet ohne Zeitdruck zuverlässig."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 1,
+          "text": "Ausserdem ist er ein belastbarer Mitarbeitender, der seine Aufgaben in der Regel gut bewältigt."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 2,
+          "text": "Auch unter anspruchsvollen Arbeitsbedingungen bewältigt er seine Aufgaben zufriedenstellend."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 3,
+          "text": "Er arbeitet auch bei gestiegenen Anforderungen gleichmässig und ausdauernd."
+        },
+        {
+          "rating": "gut",
+          "variant": 1,
+          "text": "Auch unter schwierigen Arbeitsbedingungen ist er ein ausdauernder und belastbarer Mitarbeitender, der alle Anforderungen stets gut bewältigt."
+        },
+        {
+          "rating": "gut",
+          "variant": 2,
+          "text": "Auch unter anspruchsvollen Arbeitsbedingungen ist er ein ausdauernder und belastbarer Mitarbeitender, der alle Anforderungen stets gut bewältigt."
+        },
+        {
+          "rating": "gut",
+          "variant": 3,
+          "text": "Er arbeitet auch bei hohen Anforderungen konzentriert und erbringt eine konstant gute Leistung."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 1,
+          "text": "Auch unter schwierigen Arbeitsbedingungen ist er ein ausdauernder und ausserordentlich belastbarer Mitarbeitender, der allen Anforderungen stets sehr gut gewachsen ist."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 2,
+          "text": "Auch unter anspruchsvollen Arbeitsbedingungen ist er ein ausdauernder und äusserst belastbarer Mitarbeitender, der alle Anforderungen stets sehr gut bewältigt. Dabei behält er die Übersicht und handelt überlegt."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 3,
+          "text": "Er arbeitet auch bei höchsten Anforderungen sehr konzentriert und unermüdlich und erbringt eine hervorragende Leistung."
+        }
+      ]
+    },
+    {
+      "key": "fachkenntnisse_lernbereitschaft",
+      "label": "Fachkenntnisse und Lernbereitschaft",
+      "core": true,
+      "theme": "arbeitsbereitschaft_fachwissen",
+      "themeLabel": "Arbeitsbereitschaft und Fachwissen",
+      "employeeType": "mitarbeiter",
+      "order": 18,
+      "variants": [
+        {
+          "rating": "ungenuegend",
+          "variant": 1,
+          "text": "{vorname} {nachname} verfügt in seinem Gebiet über die nötigen Fachkenntnisse. Aufgrund seiner Lernbereitschaft kann er sich weiteres Wissen erarbeiten."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 2,
+          "text": "{vorname} {nachname} zeigt wenig Interesse an Weiterbildungsmöglichkeiten."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 3,
+          "text": "Mit Entwicklungen im Berufsumfeld setzt {vorname} {nachname} sich nur teilweise auseinander und ist mit wichtigen Standards zu wenig vertraut."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 1,
+          "text": "{vorname} {nachname} verfügt in seinem Gebiet über fundierte Fachkenntnisse. Aufgrund seiner Lernbereitschaft kann er diese von Zeit zu Zeit erweitern."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 2,
+          "text": "{vorname} {nachname} verfügt in seinem Gebiet über ausreichende Fachkenntnisse. Er bildet sich bei betrieblichem Bedarf weiter."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 3,
+          "text": "Mit Entwicklungen im Berufsumfeld setzt {vorname} {nachname} sich auseinander und ist mit den aktuellen Standards vertraut."
+        },
+        {
+          "rating": "gut",
+          "variant": 1,
+          "text": "{vorname} {nachname} verfügt über gute und fundierte Fachkenntnisse. Er erweitert diese mit grosser Lernbereitschaft."
+        },
+        {
+          "rating": "gut",
+          "variant": 2,
+          "text": "{vorname} {nachname} verfügt über gute und fundierte Fachkenntnisse. Er erweitert diese fortlaufend, um auf dem neusten fachlichen Stand zu bleiben."
+        },
+        {
+          "rating": "gut",
+          "variant": 3,
+          "text": "Mit Entwicklungen im Berufsumfeld setzt {vorname} {nachname} sich auseinander und ist immer mit den aktuellen Standards vertraut."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 1,
+          "text": "{vorname} {nachname} verfügt über besonders umfassende und vielseitige Fachkenntnisse. Er erweitert diese laufend mit grosser Lernbereitschaft."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 2,
+          "text": "{vorname} {nachname} verfügt über besonders umfassende und vielseitige Fachkenntnisse, welche er laufend mit grosser Lernbereitschaft erweitert, um jederzeit auf dem neusten fachlichen Stand zu bleiben. Darüber hinaus setzt er sein hervorragendes Know-how stets effektiv und erfolgreich in der Praxis um."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 3,
+          "text": "Mit Entwicklungen im Berufsumfeld setzt {vorname} {nachname} sich engagiert auseinander und ist immer mit den neuesten Standards vertraut."
+        }
+      ]
+    },
+    {
+      "key": "methodeneinsatz",
+      "label": "Methodeneinsatz",
+      "core": false,
+      "theme": "arbeitsbereitschaft_fachwissen",
+      "themeLabel": "Arbeitsbereitschaft und Fachwissen",
+      "employeeType": "mitarbeiter",
+      "order": 19,
+      "variants": [
+        {
+          "rating": "ungenuegend",
+          "variant": 1,
+          "text": "Vorhandene Techniken wendet er den Vorgaben entsprechend in seiner Berufspraxis an."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 2,
+          "text": "Dem wirtschaftlichen, kostenbewussten und zweckmässigen Einsatz von Betriebsmitteln schenkt er teilweise zu wenig Beachtung."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 1,
+          "text": "Vorhandene Methoden und Techniken wendet er richtig in seiner Berufspraxis an."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 2,
+          "text": "Vorhandene Methoden, Mittel und Techniken wendet er an."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 3,
+          "text": "Betriebsmittel setzt er meistens wirtschaftlich, kostenbewusst und zweckmässig ein."
+        },
+        {
+          "rating": "gut",
+          "variant": 1,
+          "text": "Vorhandene Methoden, Instrumente und Techniken wendet er wirksam in seiner Berufspraxis an."
+        },
+        {
+          "rating": "gut",
+          "variant": 2,
+          "text": "Methoden, Mittel und Techniken wendet er jederzeit wirksam an."
+        },
+        {
+          "rating": "gut",
+          "variant": 3,
+          "text": "Betriebsmittel setzt er wirtschaftlich, kostenbewusst und zweckmässig ein."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 1,
+          "text": "Vorhandene Methoden, Instrumente und Techniken wendet er jederzeit sehr wirksam in seiner Berufspraxis an."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 2,
+          "text": "Methoden, Mittel und Techniken wendet er jederzeit sehr wirksam an."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 3,
+          "text": "Betriebsmittel setzt er äusserst wirtschaftlich, kostenbewusst und zweckmässig ein."
+        }
+      ]
+    },
+    {
+      "key": "verlaesslichkeit_pflichtbewusstsein",
+      "label": "Verlässlichkeit und Pflichtbewusstsein",
+      "core": true,
+      "theme": "arbeitsweise_leistung",
+      "themeLabel": "Arbeitsweise und Leistung",
+      "employeeType": "mitarbeiter",
+      "order": 20,
+      "variants": [
+        {
+          "rating": "ungenuegend",
+          "variant": 1,
+          "text": "{vorname} {nachname} ist ein pflichtbewusster Mitarbeitender."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 2,
+          "text": "{vorname} {nachname} ist ein pflichtbewusster Mitarbeitender."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 3,
+          "text": "{vorname} {nachname} fühlt sich seiner Aufgabe und der Verwaltung nur bedingt verpflichtet."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 1,
+          "text": "{vorname} {nachname} ist ein pflichtbewusster und verlässlicher Mitarbeitender."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 2,
+          "text": "Wir lernten {vorname} {nachname} als einen zuverlässigen Mitarbeiter kennen, der sich seiner Aufgabe und der Verwaltung verpflichtet fühlt."
+        },
+        {
+          "rating": "gut",
+          "variant": 1,
+          "text": "{vorname} {nachname} ist ein sehr konzentrierter, pflichtbewusster und verlässlicher Mitarbeitender."
+        },
+        {
+          "rating": "gut",
+          "variant": 2,
+          "text": "Wir schätzen {vorname} {nachname} als einen pflichtbewussten und verlässlichen Mitarbeitenden."
+        },
+        {
+          "rating": "gut",
+          "variant": 3,
+          "text": "Wir erleben {vorname} {nachname} als einen wertvollen Mitarbeiter, der sich in anerkennenswerter Weise seiner Aufgabe und der Verwaltung verpflichtet fühlt."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 1,
+          "text": "{vorname} {nachname} ist ein äusserst konzentrierter, pflichtbewusster und verlässlicher Mitarbeitender."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 2,
+          "text": "Wir schätzen {vorname} {nachname} als einen äusserst pflichtbewussten und verlässlichen Mitarbeitenden."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 3,
+          "text": "Wir erleben {vorname} {nachname} als einen äusserst wertvollen Mitarbeiter, der sich in unverkennbarer Weise seiner Aufgabe und der Verwaltung verpflichtet fühlt."
+        }
+      ]
+    },
+    {
+      "key": "selbstaendigkeit_sorgfalt_genauigkeit",
+      "label": "Selbständigkeit, Sorgfalt und Genauigkeit",
+      "core": true,
+      "theme": "arbeitsweise_leistung",
+      "themeLabel": "Arbeitsweise und Leistung",
+      "employeeType": "mitarbeiter",
+      "order": 21,
+      "variants": [
+        {
+          "rating": "ungenuegend",
+          "variant": 1,
+          "text": "Er arbeitet seinen Möglichkeiten entsprechend selbständig und findet sich in den gestellten Aufgaben zurecht."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 2,
+          "text": "Er arbeitet seinen Möglichkeiten entsprechend selbstständig und trifft Entscheidungen nach vorgängigen Abklärungen."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 3,
+          "text": "Er kann Entscheidungen oft nur nach vorgängigen Rückfragen treffen."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 1,
+          "text": "Er arbeitet grösstenteils selbständig und findet sich in seinem Arbeitsbereich zurecht. Dabei arbeitet er sorgfältig und genau."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 2,
+          "text": "Er arbeitet sorgfältig und trifft Entscheidungen grösstenteils selbstständig."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 3,
+          "text": "Er trifft Entscheidungen mit Sachverstand und wenigen Rückfragen."
+        },
+        {
+          "rating": "gut",
+          "variant": 1,
+          "text": "Er arbeitet sicher und selbständig. Dabei trifft er gute Entscheide und arbeitet mit ausserordentlicher Sorgfalt und Genauigkeit."
+        },
+        {
+          "rating": "gut",
+          "variant": 2,
+          "text": "Er arbeitet effizient und genau. Entscheidungen trifft er selbstständig und mit Sachkenntnis."
+        },
+        {
+          "rating": "gut",
+          "variant": 3,
+          "text": "Er trifft Entscheidungen selbstständig und mit viel Sachkenntnis."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 1,
+          "text": "Er arbeitet sicher und selbständig. Dabei trifft er stets die richtigen Entscheide und arbeitet mit beispielhafter Sorgfalt und Genauigkeit."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 2,
+          "text": "Er arbeitet sehr effizient und genau. Entscheidungen trifft er situationsgerecht, sehr selbstständig und mit grosser Sachkenntnis."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 3,
+          "text": "Er trifft Entscheidungen sehr selbstständig, vorausschauend und mit grosser Sachkenntnis."
+        }
+      ]
+    },
+    {
+      "key": "termintreue",
+      "label": "Termintreue",
+      "core": false,
+      "theme": "arbeitsweise_leistung",
+      "themeLabel": "Arbeitsweise und Leistung",
+      "employeeType": "mitarbeiter",
+      "order": 22,
+      "variants": [
+        {
+          "rating": "ungenuegend",
+          "variant": 1,
+          "text": "Termine hält er grundsätzlich ein."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 2,
+          "text": "Er beachtet allgemeine Richtlinien oder konkrete Vorgaben nicht immer mit der erforderlichen Sorgfalt."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 1,
+          "text": "Termine hält er meist zuverlässig ein."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 2,
+          "text": "Er hält Terminauflagen meist ein und befolgt weitgehend sowohl allgemeine Richtlinien als auch konkrete Vorgaben."
+        },
+        {
+          "rating": "gut",
+          "variant": 1,
+          "text": "Termine hält er auch unter Belastung ein."
+        },
+        {
+          "rating": "gut",
+          "variant": 2,
+          "text": "Er hält Terminauflagen ein und befolgt sowohl allgemeine Richtlinien als auch konkrete Vorgaben."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 1,
+          "text": "Termine hält er auch unter hoher Belastung zuverlässig ein."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 2,
+          "text": "Termine hält er auch unter hoher Belastung jederzeit zuverlässig ein."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 3,
+          "text": "Er unterschreitet häufig die Terminauflagen und hält sich ausnahmslos sowohl an allgemeine Richtlinien als auch konkrete Vorgaben."
+        }
+      ]
+    },
+    {
+      "key": "arbeitsorganisation",
+      "label": "Arbeitsorganisation",
+      "core": false,
+      "theme": "arbeitsweise_leistung",
+      "themeLabel": "Arbeitsweise und Leistung",
+      "employeeType": "mitarbeiter",
+      "order": 23,
+      "variants": [
+        {
+          "rating": "ungenuegend",
+          "variant": 1,
+          "text": "{vorname} {nachname} kann geplante Aufgaben umsetzen."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 2,
+          "text": "{vorname} {nachname} benötigt Unterstützung bei der Arbeitsplanung."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 3,
+          "text": "Das ungenügend ausgeprägte organisatorische Geschick von {vorname} {nachname} erfordert manchmal Vorgaben bei der Aufgabenerfüllung."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 4,
+          "text": "{vorname} {nachname} informiert spärlich über den eigenen Arbeitsbereich und unterschätzt teilweise den Informationsbedarf anderer Stellen. Er meldet sich in schwierigen Situationen bei den Vorgesetzten manchmal zu spät."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 1,
+          "text": "{vorname} {nachname} kann geplante Aufgaben richtig umsetzen."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 2,
+          "text": "{vorname} {nachname} vermag die Aufgaben praxisgerecht zu organisieren."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 3,
+          "text": "Dank seiner Umsicht organisiert {vorname} {nachname} Aufgaben und Projekte praxisgerecht."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 4,
+          "text": "{vorname} {nachname} informiert auf Verlangen angemessen über den eigenen Arbeitsbereich und leitet wichtige Informationen meistens weiter. Er bezieht Vorgesetzte bei Bedarf mit ein."
+        },
+        {
+          "rating": "gut",
+          "variant": 1,
+          "text": "{vorname} {nachname} plant und organisiert seine Aufgaben gut und setzt Prioritäten bei der Erfüllung derselben."
+        },
+        {
+          "rating": "gut",
+          "variant": 2,
+          "text": "{vorname} {nachname} plant und organisiert seine Aufgaben effektiv und setzt klare Prioritäten."
+        },
+        {
+          "rating": "gut",
+          "variant": 3,
+          "text": "Dank seiner guten analytischen Fähigkeit plant und organisiert {vorname} {nachname} Aufgaben zweckmässig und setzt Prioritäten."
+        },
+        {
+          "rating": "gut",
+          "variant": 4,
+          "text": "{vorname} {nachname} informiert zeitgerecht, umfassend über den eigenen Arbeitsbereich und leitet wichtige Informationen rechtzeitig weiter. Er bezieht Vorgesetzte in schwierige Situationen mit ein."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 1,
+          "text": "{vorname} {nachname} plant und organisiert seine Aufgaben gekonnt und setzt konsequent klare Prioritäten bei der Erfüllung derselben."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 2,
+          "text": "{vorname} {nachname} plant und organisiert seine Aufgaben effektiv, systematisch und setzt klare Prioritäten."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 3,
+          "text": "Dank seiner ausgeprägten analytischen Fähigkeit plant und organisiert {vorname} {nachname} Aufgaben systematisch und nach klaren Prioritäten."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 4,
+          "text": "{vorname} {nachname} informiert zeitgerecht, offen, umfassend über den eigenen Arbeitsbereich und leitet wichtige Informationen sofort an die richtigen Stellen weiter. Er bezieht Vorgesetzte in schwierige Situationen rechtzeitig mit ein."
+        }
+      ]
+    },
+    {
+      "key": "arbeitsqualitaet",
+      "label": "Arbeitsqualität",
+      "core": true,
+      "theme": "arbeitsweise_leistung",
+      "themeLabel": "Arbeitsweise und Leistung",
+      "employeeType": "mitarbeiter",
+      "order": 24,
+      "variants": [
+        {
+          "rating": "ungenuegend",
+          "variant": 1,
+          "text": "Mit seinen Arbeitsergebnissen strebt er Qualität an."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 2,
+          "text": "Die angestrebte Arbeitsqualität vermag er nur mit Unterstützung zu erreichen."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 1,
+          "text": "Seine Arbeitsergebnisse sind von guter Qualität."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 2,
+          "text": "Mit der notwendigen Aufmerksamkeit erzielt er das geforderte Arbeitsergebnis."
+        },
+        {
+          "rating": "gut",
+          "variant": 1,
+          "text": "Seine Arbeitsergebnisse sind von überzeugender Qualität."
+        },
+        {
+          "rating": "gut",
+          "variant": 2,
+          "text": "Durch seine Sorgfalt und Gewissenhaftigkeit erzielt er ein einwandfreies Arbeitsergebnis."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 1,
+          "text": "Seine Arbeitsergebnisse sind von beispielhafter Qualität."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 2,
+          "text": "Durch grösste Sorgfalt und Gewissenhaftigkeit erzielt er ein hochwertiges Arbeitsergebnis."
+        }
+      ]
+    },
+    {
+      "key": "zielerreichung",
+      "label": "Zielerreichung",
+      "core": false,
+      "theme": "arbeitsweise_leistung",
+      "themeLabel": "Arbeitsweise und Leistung",
+      "employeeType": "mitarbeiter",
+      "order": 25,
+      "variants": [
+        {
+          "rating": "ungenuegend",
+          "variant": 1,
+          "text": "Dabei erreicht er meist viele vereinbarte Ziele."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 2,
+          "text": "Dabei erreicht er meist vereinbarte Ziele."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 3,
+          "text": "Die qualitativen und quantitativen Vorgaben erfüllt er nicht immer. Mit seinen Leistungen sind wir meist zufrieden."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 1,
+          "text": "Dabei erreicht er meist alle vereinbarten Ziele."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 2,
+          "text": "Dabei erreicht er vereinbarte Ziele."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 3,
+          "text": "Die qualitativen und quantitativen Vorgaben erfüllt er. Mit seinen Leistungen sind wir zufrieden."
+        },
+        {
+          "rating": "gut",
+          "variant": 1,
+          "text": "Dabei erreicht er die vereinbarten Ziele und übertrifft diese häufig."
+        },
+        {
+          "rating": "gut",
+          "variant": 2,
+          "text": "Dabei erreicht er stets die vereinbarten Ziele."
+        },
+        {
+          "rating": "gut",
+          "variant": 3,
+          "text": "Die qualitativen und quantitativen Vorgaben erfüllt er einwandfrei. Mit seinen Leistungen sind wir sehr zufrieden."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 1,
+          "text": "Dabei erreicht er die vereinbarten sehr hoch gesetzten Ziele und übertrifft diese meist."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 2,
+          "text": "Dabei erreicht er auch anspruchsvolle Ziele und übertrifft diese oft."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 3,
+          "text": "Die qualitativen und quantitativen Vorgaben übertrifft er oft. Mit seinen Leistungen sind wir ausgesprochen zufrieden."
+        }
+      ]
+    },
+    {
+      "key": "zufriedenheit_leistung",
+      "label": "Zufriedenheit mit Leistung",
+      "core": true,
+      "theme": "arbeitsweise_leistung",
+      "themeLabel": "Arbeitsweise und Leistung",
+      "employeeType": "mitarbeiter",
+      "order": 26,
+      "variants": [
+        {
+          "rating": "ungenuegend",
+          "variant": 1,
+          "text": "Zusammengefasst erbringt {vorname} {nachname} unseren Erwartungen entsprechende Leistungen."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 2,
+          "text": "Zusammengefasst entsprechen die Leistungen von {vorname} {nachname} nicht immer unseren Erwartungen."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 3,
+          "text": "Die Leistungen von {vorname} {nachname} entsprechen nicht immer unseren Erwartungen."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 1,
+          "text": "Zusammengefasst erbringt {vorname} {nachname} immer die von uns erwarteten Leistungen. Seine Aufgaben erledigt er ordnungsgemäss."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 2,
+          "text": "Zusammengefasst erbringt {vorname} {nachname} konstante Leistungen, welche unseren Erwartungen entsprechen."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 3,
+          "text": "Die Leistungen von {vorname} {nachname} entsprechen weitgehend unseren Erwartungen."
+        },
+        {
+          "rating": "gut",
+          "variant": 1,
+          "text": "Zusammengefasst erbringt {vorname} {nachname} jederzeit beste Leistungen, welche unseren hohen Erwartungen entsprechen. Seine Aufgaben erledigt er stets zu unserer vollen Zufriedenheit."
+        },
+        {
+          "rating": "gut",
+          "variant": 2,
+          "text": "Zusammengefasst erbringt {vorname} {nachname} konstant gute Leistungen, welche unseren Erwartungen in jeder Hinsicht entsprechen."
+        },
+        {
+          "rating": "gut",
+          "variant": 3,
+          "text": "Die Leistungen von {vorname} {nachname} entsprechen in jeder Hinsicht unseren Erwartungen."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 1,
+          "text": "Zusammengefasst erbringt {vorname} {nachname} jederzeit in höchstem Masse beste Leistungen, welche unsere hohen Erwartungen überbieten. Alle seine Aufgaben erledigt er stets zu unserer vollsten Zufriedenheit."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 2,
+          "text": "Zusammengefasst erbringt {vorname} {nachname} jederzeit ausgezeichnete Leistungen, welche unsere Erwartungen in jeder Hinsicht übertreffen."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 3,
+          "text": "Die Leistungen von {vorname} {nachname} übertreffen in jeder Hinsicht unsere Erwartungen."
+        }
+      ]
+    },
+    {
+      "key": "verhalten_gegenueber_dritten",
+      "label": "Verhalten gegenüber Dritten",
+      "core": true,
+      "theme": "persoenliches_verhalten",
+      "themeLabel": "Persönliches Verhalten",
+      "employeeType": "mitarbeiter",
+      "order": 27,
+      "variants": [
+        {
+          "rating": "ungenuegend",
+          "variant": 1,
+          "text": "Das Verhalten von {vorname} {nachname} gegenüber Vorgesetzten, anderen Mitarbeitenden, Kunden und Geschäftspartnern ist angemessen."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 2,
+          "text": "Das Verhalten von {vorname} {nachname} gegenüber Vorgesetzten, Mitarbeitenden, Kundinnen und Kunden ist korrekt."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 3,
+          "text": "{vorname} {nachname} ist bei Vorgesetzten, Mitarbeitenden und Anspruchsgruppen akzeptiert."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 4,
+          "text": "Das Auftreten von {vorname} {nachname} gibt gelegentlich zu Beanstandung Anlass."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 1,
+          "text": "Das Verhalten von {vorname} {nachname} gegenüber Vorgesetzten, anderen Mitarbeitenden, Kunden und Geschäftspartnern ist immer korrekt."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 2,
+          "text": "Das Verhalten von {vorname} {nachname} gegenüber Vorgesetzten, Mitarbeitenden, Kundinnen und Kunden ist stets korrekt."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 3,
+          "text": "{vorname} {nachname} ist bei Vorgesetzten, Mitarbeitenden und Anspruchsgruppen anerkannt."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 4,
+          "text": "{vorname} {nachname} ist freundlich und hilfsbereit und kann sich auch in ungewohnten Situationen behaupten."
+        },
+        {
+          "rating": "gut",
+          "variant": 1,
+          "text": "Das Verhalten von {vorname} {nachname} gegenüber Vorgesetzten, anderen Mitarbeitenden, Kunden und Geschäftspartnern ist einwandfrei."
+        },
+        {
+          "rating": "gut",
+          "variant": 2,
+          "text": "Das Verhalten von {vorname} {nachname} gegenüber Vorgesetzten, Mitarbeitenden, Kundinnen und Kunden ist stets freundlich und korrekt."
+        },
+        {
+          "rating": "gut",
+          "variant": 3,
+          "text": "{vorname} {nachname} ist bei Vorgesetzten, Mitarbeitenden und Anspruchsgruppen anerkannt und geschätzt."
+        },
+        {
+          "rating": "gut",
+          "variant": 4,
+          "text": "{vorname} {nachname} ist aufgeschlossen, freundlich und hilfsbereit und meistert auch ungewohnte Situationen routiniert."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 1,
+          "text": "Das Verhalten von {vorname} {nachname} gegenüber Vorgesetzten, anderen Mitarbeitenden, Kunden und Geschäftspartnern ist stets vorbildlich und einwandfrei."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 2,
+          "text": "Das Verhalten von {vorname} {nachname} gegenüber Vorgesetzten, Mitarbeitenden, Kundinnen und Kunden ist stets vorbildlich, freundlich und korrekt. Er wird allseits sehr geschätzt und anerkannt."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 3,
+          "text": "{vorname} {nachname} wird von Vorgesetzten, Mitarbeitenden und Anspruchsgruppen gleichermassen anerkannt und sehr geschätzt."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 4,
+          "text": "{vorname} {nachname} geht offen, zuvorkommend und hilfsbereit auf andere zu und meistert auch ungewöhnliche Situationen sehr gewandt."
+        }
+      ]
+    },
+    {
+      "key": "konfliktfaehigkeit",
+      "label": "Konfliktfähigkeit",
+      "core": false,
+      "theme": "persoenliches_verhalten",
+      "themeLabel": "Persönliches Verhalten",
+      "employeeType": "mitarbeiter",
+      "order": 28,
+      "variants": [
+        {
+          "rating": "ungenuegend",
+          "variant": 1,
+          "text": "Er meistert schwierige Situationen angebracht."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 2,
+          "text": "Er benötigt in schwierigen Situationen Unterstützung, um angemessene Lösungen zu finden."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 3,
+          "text": "Aus Diskussionen und Auseinandersetzungen hält er sich wo möglich raus oder meidet diese."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 4,
+          "text": "In Verhandlungssituationen benötigt er teilweise Unterstützung, um eine für die Beteiligten annehmbare Lösung zu finden."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 1,
+          "text": "Er bleibt auch in schwierigen Situationen sachlich. Darüber hinaus versucht er stets angemessene Lösungen zu finden."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 2,
+          "text": "Er bleibt auch in schwierigen Situationen sachlich und kann angemessene Lösungen finden."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 3,
+          "text": "Bei Diskussionen und Auseinandersetzungen verhält er sich eher zurückhaltend und nimmt meist eine neutrale Haltung ein."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 4,
+          "text": "Mit seinem Verhandlungsgeschick gelingt es ihm auch in angespannten Situationen eine für die Beteiligten annehmbare Lösung zu finden."
+        },
+        {
+          "rating": "gut",
+          "variant": 1,
+          "text": "Er bleibt auch in schwierigen Situationen sachlich und kooperativ. Darüber hinaus versucht er Lösungen zu finden, welche möglichst die Interessen aller Beteiligten berücksichtigen."
+        },
+        {
+          "rating": "gut",
+          "variant": 2,
+          "text": "Er bleibt auch in schwierigen Situationen sachlich, kooperativ und lösungsorientiert."
+        },
+        {
+          "rating": "gut",
+          "variant": 3,
+          "text": "Bei Diskussionen und Auseinandersetzungen wirkt er bei unterschiedlichen Ansichten ausgleichend."
+        },
+        {
+          "rating": "gut",
+          "variant": 4,
+          "text": "Mit seinem guten Verhandlungsgeschick gelingt es ihm auch in angespannten Situationen eine für alle Beteiligten geeignete Lösung zu finden."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 1,
+          "text": "Er bleibt auch in schwierigen Situationen ruhig, sachlich und kooperativ. Darüber hinaus findet er optimale Lösungen, welche die Interessen aller Beteiligten berücksichtigen."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 2,
+          "text": "Bei Diskussionen und Auseinandersetzungen kann er ausgezeichnet zwischen unterschiedlichen Ansichten vermitteln."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 3,
+          "text": "Mit seinem beeindruckenden Verhandlungsgeschick gelingt es ihm auch in angespannten Situationen eine konsensfähige Lösung zu finden."
+        }
+      ]
+    },
+    {
+      "key": "kommunikationsfaehigkeit",
+      "label": "Kommunikationsfähigkeit",
+      "core": false,
+      "theme": "persoenliches_verhalten",
+      "themeLabel": "Persönliches Verhalten",
+      "employeeType": "mitarbeiter",
+      "order": 29,
+      "variants": [
+        {
+          "rating": "ungenuegend",
+          "variant": 1,
+          "text": "In Gesprächen kommuniziert er verständlich."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 2,
+          "text": "In Fachgesprächen kommuniziert er verständlich."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 3,
+          "text": "Seine mündliche und schriftliche Ausdrucksfähigkeit ist teils zu wenig adressatengerecht."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 4,
+          "text": "Darüber hinaus gelingt es ihm selten, eigene Ideen in Gespräche oder Diskussionen einzubringen."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 1,
+          "text": "In Gesprächen kommuniziert er korrekt und hört auch anderen Standpunkten zu."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 2,
+          "text": "In Fachgesprächen kommuniziert er korrekt und lässt andere Standpunkte gelten."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 3,
+          "text": "Er verfügt weitgehend über eine adressatengerechte mündliche und schriftliche Ausdrucksfähigkeit."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 4,
+          "text": "Darüber hinaus kann er eigene Ideen verständlich darlegen und an Fachdiskussionen teilnehmen."
+        },
+        {
+          "rating": "gut",
+          "variant": 1,
+          "text": "In Gesprächen kommuniziert er klar, offen und versteht es gut, auch andere Meinungen und Standpunkte einzubeziehen."
+        },
+        {
+          "rating": "gut",
+          "variant": 2,
+          "text": "In Fachgesprächen versteht er es gut, auch andere Meinungen und Standpunkte einzubeziehen, nachvollziehbar zu argumentieren und dabei klar und offen zu kommunizieren. Er pflegt einen angemessenen und zielorientierten Informationsaustausch mit den jeweiligen Anspruchsgruppen."
+        },
+        {
+          "rating": "gut",
+          "variant": 3,
+          "text": "Er verfügt über eine adressatengerechte mündliche und schriftliche Ausdrucksfähigkeit."
+        },
+        {
+          "rating": "gut",
+          "variant": 4,
+          "text": "Darüber hinaus versteht er es, eigene Ideen nachvollziehbar zu vertreten und sich an Fachdiskussionen aktiv zu beteiligen."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 1,
+          "text": "In Gesprächen versteht er es besonders gut, auch andere Meinungen und Standpunkte einzubeziehen und dabei immer klar, ehrlich und offen zu kommunizieren."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 2,
+          "text": "In Fachgesprächen versteht er es besonders gut, auch andere Meinungen und Standpunkte einzubeziehen, nachvollziehbar zu argumentieren und dabei immer klar und offen zu kommunizieren. Er pflegt einen angemessenen und zielorientierten Informationsaustausch mit den jeweiligen Anspruchsgruppen."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 3,
+          "text": "Er verfügt über eine gewandte, adressatengerechte mündliche und schriftliche Ausdrucksfähigkeit."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 4,
+          "text": "Darüber hinaus versteht er es, eigene Ideen stichhaltig zu vertreten und sich in Fachdiskussionen konstruktiv einzubringen."
+        }
+      ]
+    },
+    {
+      "key": "teamfaehigkeit",
+      "label": "Teamfähigkeit",
+      "core": true,
+      "theme": "persoenliches_verhalten",
+      "themeLabel": "Persönliches Verhalten",
+      "employeeType": "mitarbeiter",
+      "order": 30,
+      "variants": [
+        {
+          "rating": "ungenuegend",
+          "variant": 1,
+          "text": "Zu seinen Eigenschaften gehört, dass er sich um ein gutes Verhältnis zu seinem Team bemüht."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 2,
+          "text": "Er ordnet sich im Team ein."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 3,
+          "text": "Er hat Schwierigkeiten, sich in ein Team einzuordnen."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 1,
+          "text": "Zu seinen Stärken gehört, dass er sich immer um ein gutes Verhältnis zu seinem Team bemüht."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 2,
+          "text": "Er bringt sich ins Team ein und trägt zu einer angenehmen Zusammenarbeit bei."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 3,
+          "text": "Er fügt sich ins Team ein und arbeitet mit den Anderen zusammen."
+        },
+        {
+          "rating": "gut",
+          "variant": 1,
+          "text": "Zu seinen Stärken gehören Teamfähigkeit und das aktive Unterstützen von Zusammenarbeit."
+        },
+        {
+          "rating": "gut",
+          "variant": 2,
+          "text": "Er bringt sich ins Team ein, ist integer und unterstützend. Er trägt zu einer konstruktiven sowie positiven Zusammenarbeit bei und kann gut mit unterschiedlichen Personen und Situationen umgehen."
+        },
+        {
+          "rating": "gut",
+          "variant": 3,
+          "text": "Er bringt sich gut ins Team ein und unterstützt die Zusammenarbeit."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 1,
+          "text": "Zu seinen Stärken gehören vorbildliche Teamfähigkeit und die Fähigkeit gute, positive Zusammenarbeit aktiv zu unterstützen."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 2,
+          "text": "Er bringt sich vorbildlich ins Team ein, ist integer und jederzeit unterstützend. Er trägt aktiv zu einer konstruktiven sowie positiven Zusammenarbeit bei und kann sehr gut mit unterschiedlichen Personen und Situationen umgehen."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 3,
+          "text": "Er bringt sich vorbildlich ins Team ein und unterstützt und fördert die Zusammenarbeit."
+        }
+      ]
+    },
+    {
+      "key": "offenheit_fuer_feedback",
+      "label": "Offenheit für Feedback",
+      "core": false,
+      "theme": "persoenliches_verhalten",
+      "themeLabel": "Persönliches Verhalten",
+      "employeeType": "mitarbeiter",
+      "order": 31,
+      "variants": [
+        {
+          "rating": "ungenuegend",
+          "variant": 1,
+          "text": "Ausserdem ist er Anregungen gegenüber empfänglich und hört sich Vorschläge immer an."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 2,
+          "text": "Ausserdem hört er sich Feedback und Vorschläge an."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 3,
+          "text": "Es ist für ihn nicht einfach, andere Meinungen und begründete Kritik anzunehmen und sich auf die Bedürfnisse der Gesprächspartner einzustellen."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 4,
+          "text": "Er reflektiert eigene Handlungen kaum und setzt Anregungen nur zögerlich um."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 1,
+          "text": "Ausserdem ist er Anregungen und Feedback gegenüber offen und kann Vorschläge annehmen."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 2,
+          "text": "Ausserdem ist er Feedback gegenüber offen und kann Vorschläge annehmen."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 3,
+          "text": "Er akzeptiert andere Meinungen und begründete Kritik und lässt sich auf die Bedürfnisse der Gesprächspartner ein."
+        },
+        {
+          "rating": "gut",
+          "variant": 1,
+          "text": "Ausserdem gibt er konstruktives Feedback, ist offen für Anregungen und setzt Vorschläge nutzbringend um."
+        },
+        {
+          "rating": "gut",
+          "variant": 2,
+          "text": "Er lässt sich durch andere Meinungen und begründete Kritik anregen, kann zuhören und sich auf die Bedürfnisse der Gesprächspartner einlassen."
+        },
+        {
+          "rating": "gut",
+          "variant": 3,
+          "text": "Er ist fähig, die eigenen Handlungen zu reflektieren, ist offen für Anregungen und nutzt entsprechende Empfehlungen."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 1,
+          "text": "Ausserdem gibt und fördert er konstruktives Feedback, ist jederzeit offen für Anregungen und setzt Vorschläge zielsicher, sowie nutzbringend um."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 2,
+          "text": "Ausserdem gibt und fördert er konstruktives Feedback, reflektiert und ist jederzeit offen für Anregungen. Vorschläge setzt er nutzbringend um."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 3,
+          "text": "Er begrüsst andere Meinungen und begründete Kritik als Anregung, kann gut zuhören und sich problemlos auf die Bedürfnisse der Gesprächspartner einlassen."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 4,
+          "text": "Er reflektiert die eigenen Handlungen konsequent und nutzt Anregungen sowie Empfehlungen von aussen sehr professionell."
+        }
+      ]
+    },
+    {
+      "key": "wissen_teilen",
+      "label": "Wissen teilen",
+      "core": false,
+      "theme": "persoenliches_verhalten",
+      "themeLabel": "Persönliches Verhalten",
+      "employeeType": "mitarbeiter",
+      "order": 32,
+      "variants": [
+        {
+          "rating": "ungenuegend",
+          "variant": 1,
+          "text": "Sein Wissen und Informationen teilt er bei Bedarf mit seinem Team und seinen Vorgesetzten."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 2,
+          "text": "Er gibt sein Wissen und Informationen auf Nachfrage an Vorgesetzte und Mitarbeitende weiter."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 3,
+          "text": "Sein Wissen und Können vermittelt er zu wenig nachhaltig."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 4,
+          "text": "Wir vermissen manchmal sein Engagement und die Freude bei der Ausbildung der Lernenden."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 1,
+          "text": "Sein Wissen und Informationen teilt er bei Bedarf stets mit seinem Team und seinen Vorgesetzten."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 2,
+          "text": "Er gibt sein Wissen und Informationen bei Bedarf an Vorgesetzte und Mitarbeitende weiter."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 3,
+          "text": "Sein Wissen und Können vermittelt er im Allgemeinen geschickt."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 4,
+          "text": "Die Lernenden bildet er mit Engagement und Freude aus."
+        },
+        {
+          "rating": "gut",
+          "variant": 1,
+          "text": "Mit grossem Engagement gibt er sein Wissen und Informationen gut verständlich an sein Team und seine Vorgesetzten weiter."
+        },
+        {
+          "rating": "gut",
+          "variant": 2,
+          "text": "Er gibt sein Wissen und arbeitsrelevante Informationen an Vorgesetzte und Mitarbeitende weiter."
+        },
+        {
+          "rating": "gut",
+          "variant": 3,
+          "text": "Sein Wissen und Können vermittelt er mit didaktischem und pädagogischem Geschick."
+        },
+        {
+          "rating": "gut",
+          "variant": 4,
+          "text": "Die Lernenden bildet er mit viel Engagement und Freude aus, verbunden mit didaktischem und pädagogischem Geschick."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 1,
+          "text": "Mit grossem und unaufdringlichem Engagement gibt er sein umfassendes Wissen und arbeitsrelevante Informationen gut verständlich an sein Team und seine Vorgesetzten weiter."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 2,
+          "text": "Er gibt sein umfassendes Wissen und arbeitsrelevante Informationen adäquat an Vorgesetzte und Mitarbeitende weiter."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 3,
+          "text": "Sein Wissen und Können vermittelt er mit ausgeprägtem didaktischem und pädagogischem Geschick."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 4,
+          "text": "Die Lernenden bildet er mit grossem Engagement und Freude aus, verbunden mit einem ausgeprägten didaktischen und pädagogischen Geschick."
+        }
+      ]
+    },
+    {
+      "key": "synergien_nutzen",
+      "label": "Synergien Nutzen",
+      "core": false,
+      "theme": "unternehmertum",
+      "themeLabel": "Unternehmertum",
+      "employeeType": "mitarbeiter",
+      "order": 33,
+      "variants": [
+        {
+          "rating": "ungenuegend",
+          "variant": 1,
+          "text": "{vorname} {nachname} erkennt funktions- und bereichsübergreifende Synergien und bespricht daraus gewonnene Ideen mit anderen Fachpersonen."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 2,
+          "text": "{vorname} {nachname} erkennt mit Unterstützung Synergien."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 3,
+          "text": "Das Sensorium von {vorname} {nachname} für wirtschaftliche und bereichsübergreifende Zusammenhänge ist nicht sehr ausgeprägt."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 1,
+          "text": "{vorname} {nachname} erkennt funktions- und bereichsübergreifende Synergien und setzt daraus gewonnenes Wissen ein."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 2,
+          "text": "{vorname} {nachname} erkennt Synergien und kann daraus gewonnenes Wissen einsetzen."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 3,
+          "text": "{vorname} {nachname} besitzt ein Sensorium für wirtschaftliche und bereichsübergreifende Zusammenhänge."
+        },
+        {
+          "rating": "gut",
+          "variant": 1,
+          "text": "{vorname} {nachname} erkennt funktions- und bereichsübergreifende Synergien und kann daraus gewonnenes Wissen nutzbringend einsetzen."
+        },
+        {
+          "rating": "gut",
+          "variant": 2,
+          "text": "{vorname} {nachname} erkennt funktions- und bereichsübergreifende Synergien und setzt daraus gewonnenes Wissen ein."
+        },
+        {
+          "rating": "gut",
+          "variant": 3,
+          "text": "{vorname} {nachname} besitzt ein gutes Sensorium für wirtschaftliche und bereichsübergreifende Zusammenhänge."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 1,
+          "text": "{vorname} {nachname} erkennt funktions- und bereichsübergreifende Synergien und kann dank dieser Kompetenz, daraus gewonnenes Wissen optimal zum Nutzen des Unternehmens einsetzen."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 2,
+          "text": "{vorname} {nachname} erkennt und nutzt funktions- sowie bereichsübergreifende Synergien und setzt daraus gewonnenes Wissen optimal ein."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 3,
+          "text": "{vorname} {nachname} besitzt ein ausgeprägtes Sensorium für wirtschaftliche und bereichsübergreifende Zusammenhänge."
+        }
+      ]
+    },
+    {
+      "key": "flexibilitaet",
+      "label": "Flexibilität",
+      "core": false,
+      "theme": "unternehmertum",
+      "themeLabel": "Unternehmertum",
+      "employeeType": "mitarbeiter",
+      "order": 34,
+      "variants": [
+        {
+          "rating": "ungenuegend",
+          "variant": 1,
+          "text": "Auch Veränderungen kann er annehmen und vertraut Bewährtem."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 2,
+          "text": "Veränderungen kann er annehmen und vertraut Bewährtem."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 3,
+          "text": "Er kann sich nur schwer auf veränderte Situationen einstellen."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 1,
+          "text": "Auch bei Veränderungen kann er sich der neuen Situation anpassen."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 2,
+          "text": "Veränderungen nimmt er an und kann sich neuen Gegebenheiten anpassen."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 3,
+          "text": "Er ist bereit, sich veränderten Situationen anzupassen."
+        },
+        {
+          "rating": "gut",
+          "variant": 1,
+          "text": "Mit Veränderungen geht er erfolgreich und anpassungsfähig um."
+        },
+        {
+          "rating": "gut",
+          "variant": 2,
+          "text": "Veränderungen gegenüber ist er offen und kann sich neuen Gegebenheiten gut anpassen."
+        },
+        {
+          "rating": "gut",
+          "variant": 3,
+          "text": "Er kann sich veränderten Situationen leicht anpassen und betrachtet diese als Lernfeld."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 1,
+          "text": "Mit Veränderungen geht er professionell um und kann sich neuen Gegebenheiten gut anpassen."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 2,
+          "text": "Mit Veränderungen geht er sehr offen und gewandt um. Er passt sich neuen Gegebenheiten schnell an."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 3,
+          "text": "Auf veränderte Situationen kann er sich sofort einstellen und betrachtet diese als Herausforderung."
+        }
+      ]
+    },
+    {
+      "key": "kundenorientierung",
+      "label": "Kundenorientierung",
+      "core": false,
+      "theme": "unternehmertum",
+      "themeLabel": "Unternehmertum",
+      "employeeType": "mitarbeiter",
+      "order": 35,
+      "variants": [
+        {
+          "rating": "ungenuegend",
+          "variant": 1,
+          "text": "Zudem erweist er sich Kunden gegenüber als Ansprechpartner, welcher Kundenbedürfnisse aufnimmt und Kundenbeziehungen als wichtig erachtet."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 2,
+          "text": "Zudem steht er der Kundschaft als Ansprechpartner zur Verfügung."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 3,
+          "text": "Als Ansprechpartner verfolgt er die Anliegen und Bedürfnisse der Kunden bzw. verschiedenen Anspruchsgruppen meist mit der angezeigten Verbindlichkeit."
+        },
+        {
+          "rating": "ungenuegend",
+          "variant": 4,
+          "text": "Bei ihm vermissen wir manchmal die angemessene Beratung der Anspruchsgruppen."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 1,
+          "text": "Zudem erweist er sich Kunden gegenüber als anerkannter Ansprechpartner, welcher Kundenbedürfnisse erfasst und Kundenbeziehungen pflegt."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 2,
+          "text": "Zudem erweist er sich gegenüber der Kundschaft als freundlicher Ansprechpartner."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 3,
+          "text": "Zudem erweist er sich als anerkannter Ansprechpartner, welcher die Anliegen der Kunden bzw. verschiedenen Anspruchsgruppen ernst nimmt und sich an diesen orientiert."
+        },
+        {
+          "rating": "genuegend",
+          "variant": 4,
+          "text": "Er achtet auf eine angemessene Beratung der Anspruchsgruppen."
+        },
+        {
+          "rating": "gut",
+          "variant": 1,
+          "text": "Zudem erweist er sich Kunden gegenüber als kompetenter und dienstleistungsorientierter Ansprechpartner, welcher spezifische Kundenbedürfnisse erfasst und langfristige Kundenbeziehungen entwickelt und pflegt."
+        },
+        {
+          "rating": "gut",
+          "variant": 2,
+          "text": "Zudem erweist er sich gegenüber der Kundschaft als kompetenter, dienstleistungsorientierter Ansprechpartner. Kundenbeziehungen pflegt er nachhaltig."
+        },
+        {
+          "rating": "gut",
+          "variant": 3,
+          "text": "Zudem erweist er sich als kompetenter, dienstleistungsorientierter Ansprechpartner, welcher die Anliegen der Kunden bzw. verschiedenen Anspruchsgruppen ernst nimmt und spezifische Kundenbedürfnisse gut erfasst."
+        },
+        {
+          "rating": "gut",
+          "variant": 4,
+          "text": "Er achtet auf eine gründliche und seriöse Beratung der Anspruchsgruppen."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 1,
+          "text": "Zudem erweist er sich Kunden gegenüber als überaus kompetenter, sehr dienstleistungsorientierter Ansprechpartner, welcher spezifische Kundenbedürfnisse präzise erfasst und langfristige Kundenbeziehungen mit viel Eigeninitiative entwickelt und pflegt."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 2,
+          "text": "Zudem erweist er sich gegenüber der Kundschaft als überaus kompetenter, dienstleistungsorientierter Ansprechpartner. Spezifische Kundenbedürfnisse erfasst er präzise und pflegt Kundenbeziehungen nachhaltig."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 3,
+          "text": "Zudem erweist er sich als ein überaus kompetenter, sehr dienstleistungsorientierter Ansprechpartner, welcher die Anliegen der Kunden bzw. verschiedenen Anspruchsgruppen sehr ernst nimmt und deren spezifischen Bedürfnisse präzise erfasst."
+        },
+        {
+          "rating": "sehr_gut",
+          "variant": 4,
+          "text": "Er sorgt für eine fundierte Beratung der Anspruchsgruppen."
+        }
+      ]
+    }
+  ],
+  "schlussLines": [
+    "Schlussformulierung",
+    "Dank an Mitarbeiter",
+    "Nein",
+    "Wir danken Max Mustermann für die bisherige Mitarbeit und wünschen ihm alles Gute und viel Erfolg.",
+    "Wir danken ihm für die bisherige Mitarbeit bestens.",
+    "Wir danken Max Mustermann für die bisherige Mitarbeit, wünschen ihm alles Gute und viel Erfolg.",
+    "Ja",
+    "Wir danken Max Mustermann bestens für die bisherige wertvolle Mitarbeit und wünschen ihm alles Gute und weiterhin viel Erfolg.",
+    "Wir danken ihm für die bisherige sehr wertvolle Unterstützung bestens und hoffen noch lange auf seine geschätzte Mitarbeit zählen zu dürfen.",
+    "Funktionswechsel:",
+    "Max Mustermann verlässt uns heute auf eigenen Wunsch, um eine Aufgabe als Junior Controller in der First Corporate Services AG zu übernehmen. Wir danken Herr Mustermann bestens für die wertvolle Mitarbeit und wünschen ihr alles Gute und weiterhin viel Erfolg.",
+    "Vorgesetztenwechsel:",
+    "Dieses Zeugnis wird aufgrund eines Vorgesetztenwechsels ausgestellt. Wir danken ihm für die bisherige sehr wertvolle Unterstützung bestens und hoffen noch lange auf seine geschätzte Mitarbeit zählen zu dürfen.",
+    "Interner Wechsel:",
+    "Dieses Zeugnis wird aufgrund eines internen Übertritts von Herrn Mustermann ausgestellt. Er wird per 1. Januar 2026 als Client Adviser weiter bei uns tätig sein.",
+    "Wir danken Max Mustermann bestens für die bisherige wertvolle Mitarbeit und wünschen ihm viel Freude und Erfolg im neuen Aufgabengebiet.",
+    "Reorganisation:",
+    "Max Mustermann verlässt uns heute. Wir danken Herr Mustermann bestens für die wertvolle Mitarbeit und wünschen ihm für die berufliche und private Zukunft alles Gute.",
+    "Wunsch des Mitarbeitenden:",
+    "Dieses Zeugnis wird auf Wunsch von Herr Mustermann ausgestellt. Wir danken ihm für die bisherige sehr wertvolle Unterstützung bestens und hoffen noch lange auf seine geschätzte Mitarbeit zählen zu dürfen."
+  ],
+  "warnings": []
+}
