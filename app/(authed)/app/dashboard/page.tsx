@@ -16,18 +16,33 @@ export default async function DashboardPage() {
     .select("id, name")
     .limit(5);
 
+  // Kennzahlen über echte count-Queries (head: true lädt keine Zeilen, nur den
+  // Zähler) – nicht mehr über ein auf 10 begrenztes Array. Archivierte Zeugnisse
+  // zählen nicht mit.
+  const countByStatus = (status: string) =>
+    supabase
+      .from("certificates")
+      .select("id", { count: "exact", head: true })
+      .is("archived_at", null)
+      .eq("status", status);
+
+  const [draftRes, pendingRes, finalRes] = await Promise.all([
+    countByStatus("draft"),
+    countByStatus("pending_manager"),
+    countByStatus("final"),
+  ]);
+
+  const draftCount = draftRes.count ?? 0;
+  const pendingCount = pendingRes.count ?? 0;
+  const finalCount = finalRes.count ?? 0;
+
+  // Zuletzt bearbeitete (aktive) Zeugnisse für die Liste unten.
   const { data: certificates } = await supabase
     .from("certificates")
     .select("id, status, created_at, employees(first_name, last_name)")
+    .is("archived_at", null)
     .order("created_at", { ascending: false })
     .limit(10);
-
-  const draftCount =
-    certificates?.filter((c) => c.status === "draft").length ?? 0;
-  const finalCount =
-    certificates?.filter((c) => c.status === "final").length ?? 0;
-  const pendingCount =
-    certificates?.filter((c) => c.status === "pending_manager").length ?? 0;
 
   return (
     <div className="space-y-8">

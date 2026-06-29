@@ -99,20 +99,26 @@ export function CompanyForm({ company, compact = false }: Props) {
       return;
     }
 
+    // Immer vorhandene Felder. Im compact-Modus werden Logo, Kontakt- und
+    // Unterzeichner-Felder NICHT gerendert – diese dürfen dann auch nicht ins
+    // Update, sonst würden bestehende Werte mit null überschrieben.
     const data: any = {
       name: (fd.get("name") as string)?.trim(),
       address: (fd.get("address") as string)?.trim() || null,
       postal_code: (fd.get("postal_code") as string)?.trim() || null,
       city: (fd.get("city") as string)?.trim() || null,
-      website: (fd.get("website") as string)?.trim() || null,
-      phone: (fd.get("phone") as string)?.trim() || null,
-      email: (fd.get("email") as string)?.trim() || null,
-      signatory_1_name: (fd.get("signatory_1_name") as string)?.trim() || null,
-      signatory_1_role: (fd.get("signatory_1_role") as string)?.trim() || null,
-      signatory_2_name: (fd.get("signatory_2_name") as string)?.trim() || null,
-      signatory_2_role: (fd.get("signatory_2_role") as string)?.trim() || null,
-      logo_url: logoUrl || null,
     };
+
+    if (!compact) {
+      data.website = (fd.get("website") as string)?.trim() || null;
+      data.phone = (fd.get("phone") as string)?.trim() || null;
+      data.email = (fd.get("email") as string)?.trim() || null;
+      data.signatory_1_name = (fd.get("signatory_1_name") as string)?.trim() || null;
+      data.signatory_1_role = (fd.get("signatory_1_role") as string)?.trim() || null;
+      data.signatory_2_name = (fd.get("signatory_2_name") as string)?.trim() || null;
+      data.signatory_2_role = (fd.get("signatory_2_role") as string)?.trim() || null;
+      data.logo_url = logoUrl || null;
+    }
 
     let dbErr;
     if (isEdit) {

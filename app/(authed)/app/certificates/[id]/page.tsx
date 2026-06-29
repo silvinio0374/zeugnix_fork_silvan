@@ -4,6 +4,7 @@ import { CertificateActions } from "@/components/app/certificate-actions";
 import { CertificateEditor } from "@/components/app/certificate-editor";
 import { CertificatePreview } from "@/components/app/certificate-preview";
 import { CertificateWorkspace } from "@/components/app/certificate-workspace";
+import { CertificateManage } from "@/components/app/certificate-manage";
 import Link from "next/link";
 
 interface PageProps {
@@ -64,9 +65,16 @@ export default async function CertificateDetailPage({ params }: PageProps) {
   const displayText = cert.edited_text || cert.generated_text || "";
   const isFinal = cert.status === "final";
   const hasText = !!cert.generated_text;
+  const isArchived = !!cert.archived_at;
 
   return (
     <div className="space-y-6">
+      {isArchived && (
+        <div className="rounded-md border border-amber-200 bg-amber-50/60 px-4 py-2.5 text-[12.5px] text-amber-800">
+          Dieses Zeugnis ist archiviert und erscheint nicht in der
+          Standardübersicht.
+        </div>
+      )}
       <div className="flex items-start justify-between gap-4">
         <div>
           <div className="text-[11px] font-medium uppercase tracking-wider text-petrol-600">
@@ -207,6 +215,13 @@ export default async function CertificateDetailPage({ params }: PageProps) {
         </div>
       )}
       </CertificateWorkspace>
+
+      {/* Verwaltung: Archivieren / Löschen */}
+      <CertificateManage
+        certificateId={cert.id}
+        status={cert.status}
+        archived={isArchived}
+      />
     </div>
   );
 }
