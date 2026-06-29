@@ -7,7 +7,16 @@ export const metadata: Metadata = {
     "Laden Sie ein Arbeitszeugnis hoch. Wir prüfen den Hash und analysieren die Formulierungen.",
 };
 
-export default function VerifyPage() {
+export default async function VerifyPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ tier?: string }>;
+}) {
+  const { tier } = await searchParams;
+  // Premium und Analyse schalten zusätzlich die Klartext-Analyse frei.
+  const analysisTier =
+    tier === "premium" || tier === "analyse" ? tier : undefined;
+
   return (
     <section className="border-b border-ink-200 bg-white py-20">
       <div className="container-zx max-w-3xl">
@@ -21,13 +30,14 @@ export default function VerifyPage() {
             </span>
           </h1>
           <p className="mx-auto mt-5 max-w-xl text-[15px] leading-relaxed text-ink-600">
-            Laden Sie ein Arbeitszeugnis als PDF hoch. Wir berechnen den Hash
-            und vergleichen ihn mit unserer Datenbank.
+            {analysisTier
+              ? "Laden Sie ein Arbeitszeugnis als PDF hoch. Wir prüfen den Hash und analysieren die Formulierungen nach Schweizer Arbeitszeugnislogik."
+              : "Laden Sie ein Arbeitszeugnis als PDF hoch. Wir berechnen den Hash und vergleichen ihn mit unserer Datenbank."}
           </p>
         </div>
 
         <div className="mt-12">
-          <VerifyUploader />
+          <VerifyUploader tier={analysisTier} />
         </div>
 
         <div

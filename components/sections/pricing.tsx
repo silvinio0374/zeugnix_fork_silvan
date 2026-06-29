@@ -41,18 +41,18 @@ const tiers = [
       "Manipulation erkennen",
       "Verifikationsbericht als PDF",
     ],
-    featured: true,
-    badge: "Jetzt verfügbar" as string | null,
+    featured: false,
+    badge: null as string | null,
   },
   {
     name: "Premium-Prüfung",
     price: "CHF 39.90",
     regularPrice: "CHF 39.90" as string | null,
     sub: "Echtheit + Analyse",
-    beta: false,
-    comingSoon: true,
-    cta: "Mehr erfahren",
-    href: "/verify",
+    beta: true,
+    comingSoon: false,
+    cta: "Premium starten",
+    href: "/verify?tier=premium",
     features: [
       "Vollständige Echtheitsprüfung",
       "Klartext-Zeugnisanalyse",
@@ -60,18 +60,18 @@ const tiers = [
       "Schlussformel-Analyse",
       "Kombinierter PDF-Bericht",
     ],
-    featured: false,
-    badge: null as string | null,
+    featured: true,
+    badge: "Empfohlen für Bewerbungen" as string | null,
   },
   {
     name: "Zeugnisanalyse",
     price: "CHF 29.90",
     regularPrice: "CHF 29.90" as string | null,
     sub: "Pro Zeugnis",
-    beta: false,
-    comingSoon: true,
-    cta: "Mehr erfahren",
-    href: "/verify",
+    beta: true,
+    comingSoon: false,
+    cta: "Zeugnis analysieren",
+    href: "/verify?tier=analyse",
     features: [
       "Formulierungen auswerten",
       "Gesamturteil und Vertrauensniveau",
@@ -99,12 +99,12 @@ export function PricingSection() {
             </h2>
           </div>
           <p className="text-[15px] leading-relaxed text-ink-600 sm:text-right">
-            Die Erstellung ist kostenlos und bleibt es. Die Echtheitsprüfung ist
+            Die Erstellung ist kostenlos und bleibt es. Prüfung und Analyse sind
             <strong className="font-medium text-ink-800">
               {" "}
               während der Beta ebenfalls kostenlos
             </strong>{" "}
-            – die Klartext-Analyse folgt in Kürze.
+            – die regulären Preise gelten erst nach der Beta.
           </p>
         </div>
 

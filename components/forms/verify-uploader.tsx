@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useRef } from "react";
+import type { AnalysisResult } from "@/lib/phrases/analyze";
+import { VerifyAnalysisResult } from "@/components/forms/verify-analysis-result";
 
 type State =
   | { kind: "idle" }
@@ -11,8 +13,10 @@ type State =
   | { kind: "no_sentinel"; message: string }
   | { kind: "error"; message: string };
 
-export function VerifyUploader() {
+export function VerifyUploader({ tier }: { tier?: "premium" | "analyse" }) {
   const [state, setState] = useState<State>({ kind: "idle" });
+  const [analysis, setAnalysis] = useState<AnalysisResult | null>(null);
+  const [analyzing, setAnalyzing] = useState(false);
   const [dragActive, setDragActive] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -92,6 +96,28 @@ export function VerifyUploader() {
       } else {
         setState({ kind: "unknown", hash: data.calculatedHash });
       }
+
+      // Klartext-Analyse nur für Premium-/Analyse-Tier. Nutzt denselben bereits
+      // extrahierten Text. Ein Analyse-Fehler ist nicht fatal – das
+      // Verify-Resultat bleibt bestehen.
+      if (tier) {
+        setAnalyzing(true);
+        try {
+          const ares = await fetch("/api/analyze", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ text: fullText }),
+          });
+          if (ares.ok) {
+            const adata = await ares.json();
+            setAnalysis(adata.analysis ?? null);
+          }
+        } catch {
+          // bewusst geschluckt – Analyse ist optional
+        } finally {
+          setAnalyzing(false);
+        }
+      }
     } catch (err: any) {
       setState({
         kind: "error",
@@ -102,12 +128,32 @@ export function VerifyUploader() {
 
   function reset() {
     setState({ kind: "idle" });
+    setAnalysis(null);
+    setAnalyzing(false);
     if (inputRef.current) inputRef.current.value = "";
   }
+
+  // Analyse-Block (Ladezustand oder Ergebnis), nur bei Premium-/Analyse-Tier.
+  const analysisBlock =
+    tier && (analyzing || analysis) ? (
+      <div className="mt-4">
+        {analysis ? (
+          <VerifyAnalysisResult result={analysis} />
+        ) : (
+          <div className="card p-8 text-center">
+            <div className="mx-auto h-8 w-8 animate-spin rounded-full border-2 border-ink-200 border-t-petrol-600" />
+            <div className="mt-3 text-[13px] text-ink-500">
+              Analyse wird erstellt…
+            </div>
+          </div>
+        )}
+      </div>
+    ) : null;
 
   // ----- Result-Anzeigen -----
   if (state.kind === "verified") {
     return (
+      <>
       <div className="card overflow-hidden">
         <div className="bg-petrol-700 px-6 py-5 text-white">
           <div className="flex items-center gap-3">
@@ -144,11 +190,14 @@ export function VerifyUploader() {
           </button>
         </div>
       </div>
+      {analysisBlock}
+      </>
     );
   }
 
   if (state.kind === "unknown") {
     return (
+      <>
       <div className="card overflow-hidden">
         <div className="bg-amber-600 px-6 py-5 text-white">
           <div className="flex items-center gap-3">
@@ -186,11 +235,14 @@ export function VerifyUploader() {
           </button>
         </div>
       </div>
+      {analysisBlock}
+      </>
     );
   }
 
   if (state.kind === "no_sentinel") {
     return (
+      <>
       <div className="card overflow-hidden">
         <div className="bg-ink-700 px-6 py-5 text-white">
           <div className="flex items-center gap-3">
@@ -216,6 +268,8 @@ export function VerifyUploader() {
           </button>
         </div>
       </div>
+      {analysisBlock}
+      </>
     );
   }
 
