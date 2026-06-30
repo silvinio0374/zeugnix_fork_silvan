@@ -1,8 +1,7 @@
 import { createClient } from "@/lib/db/supabase-server";
 import { notFound } from "next/navigation";
 import { CertificateActions } from "@/components/app/certificate-actions";
-import { CertificateEditor } from "@/components/app/certificate-editor";
-import { CertificatePreview } from "@/components/app/certificate-preview";
+import { CertificateRichWorkspace } from "@/components/app/certificate-rich-workspace";
 import { CertificateWorkspace } from "@/components/app/certificate-workspace";
 import { CertificateManage } from "@/components/app/certificate-manage";
 import Link from "next/link";
@@ -62,7 +61,6 @@ export default async function CertificateDetailPage({ params }: PageProps) {
   const evaluations = cert.evaluations ?? [];
   const invitations = cert.manager_invitations ?? [];
 
-  const displayText = cert.edited_text || cert.generated_text || "";
   const isFinal = cert.status === "final";
   const hasText = !!cert.generated_text;
   const isArchived = !!cert.archived_at;
@@ -144,34 +142,18 @@ export default async function CertificateDetailPage({ params }: PageProps) {
           <h2 className="mb-3 text-[15px] font-medium tracking-tight">
             Zeugnistext bearbeiten und Vorschau
           </h2>
-          <div className="grid gap-6 lg:grid-cols-5">
-            {/* Editor – linke, schmalere Spalte */}
-            <div className="space-y-3 lg:col-span-2">
-              <div className="text-[11px] font-medium uppercase tracking-wider text-ink-500">
-                Editor
-              </div>
-              <CertificateEditor
-                certificateId={cert.id}
-                generatedText={cert.generated_text ?? ""}
-                initialEditedText={cert.edited_text}
-                finalized={isFinal}
-              />
-            </div>
-
-            {/* Vorschau – breitere Spalte; das Blatt skaliert proportional (A4) */}
-            <div className="space-y-3 lg:col-span-3">
-              <div className="text-[11px] font-medium uppercase tracking-wider text-ink-500">
-                Vorschau (so wird das PDF aussehen)
-              </div>
-              <CertificatePreview
-                company={company}
-                employee={employee}
-                type={cert.type}
-                text={displayText}
-                hash={cert.hash}
-              />
-            </div>
-          </div>
+          <CertificateRichWorkspace
+            certificateId={cert.id}
+            generatedText={cert.generated_text ?? ""}
+            initialFormattedContent={cert.formatted_content ?? null}
+            finalized={isFinal}
+            baseFontKey={company.default_certificate_font_family}
+            baseTextColor={company.default_certificate_text_color}
+            company={company}
+            employee={employee}
+            type={cert.type}
+            hash={cert.hash}
+          />
 
           {/* Hinweise */}
           {(!company.logo_url ||

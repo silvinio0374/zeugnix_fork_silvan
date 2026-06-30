@@ -3,6 +3,11 @@
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/db/supabase-client";
+import {
+  CERTIFICATE_FONTS,
+  DEFAULT_FONT_KEY,
+  DEFAULT_TEXT_COLOR,
+} from "@/lib/pdf/fonts";
 
 interface Company {
   id?: string;
@@ -18,6 +23,8 @@ interface Company {
   signatory_1_role?: string | null;
   signatory_2_name?: string | null;
   signatory_2_role?: string | null;
+  default_certificate_font_family?: string | null;
+  default_certificate_text_color?: string | null;
 }
 
 interface Props {
@@ -118,6 +125,10 @@ export function CompanyForm({ company, compact = false }: Props) {
       data.signatory_2_name = (fd.get("signatory_2_name") as string)?.trim() || null;
       data.signatory_2_role = (fd.get("signatory_2_role") as string)?.trim() || null;
       data.logo_url = logoUrl || null;
+      data.default_certificate_font_family =
+        (fd.get("default_certificate_font_family") as string)?.trim() || null;
+      data.default_certificate_text_color =
+        (fd.get("default_certificate_text_color") as string)?.trim() || null;
     }
 
     let dbErr;
@@ -337,6 +348,46 @@ export function CompanyForm({ company, compact = false }: Props) {
                 />
               </Field>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Standard-Stil für Zeugnisse */}
+      {!compact && (
+        <div className="card p-5">
+          <div className="mb-1 text-[13px] font-medium tracking-tight">
+            Standard-Stil für Zeugnisse
+          </div>
+          <p className="mb-4 text-[12px] text-ink-500">
+            Schriftart und -farbe, mit der neue Zeugnisse vorbelegt werden. Pro
+            Zeugnis im Editor jederzeit überschreibbar.
+          </p>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field label="Schriftart">
+              <select
+                name="default_certificate_font_family"
+                defaultValue={
+                  company?.default_certificate_font_family ?? DEFAULT_FONT_KEY
+                }
+                className="input"
+              >
+                {CERTIFICATE_FONTS.map((f) => (
+                  <option key={f.key} value={f.key}>
+                    {f.label}
+                  </option>
+                ))}
+              </select>
+            </Field>
+            <Field label="Schriftfarbe">
+              <input
+                type="color"
+                name="default_certificate_text_color"
+                defaultValue={
+                  company?.default_certificate_text_color ?? DEFAULT_TEXT_COLOR
+                }
+                className="h-10 w-full cursor-pointer rounded-md border border-ink-200 bg-white"
+              />
+            </Field>
           </div>
         </div>
       )}

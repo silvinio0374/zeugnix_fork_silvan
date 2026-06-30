@@ -35,6 +35,14 @@ interface Props {
   type: string;
   text: string;
   hash?: string | null;
+  /**
+   * Optionaler vorgerenderter Body (formatierter Rich-Text). Ist er gesetzt,
+   * wird er statt des Plain-Text-Splits gerendert; der A4-Rahmen bleibt gleich.
+   */
+  bodyOverride?: React.ReactNode;
+  /** Basis-Schrift/-Farbe des Blatts (CSS), z.B. Firmen-Default. */
+  sheetFontFamily?: string;
+  sheetColor?: string;
 }
 
 const TYPE_LABELS: Record<string, string> = {
@@ -60,6 +68,9 @@ export function CertificatePreview({
   type,
   text,
   hash,
+  bodyOverride,
+  sheetFontFamily,
+  sheetColor,
 }: Props) {
   const title = TYPE_LABELS[type] ?? "Arbeitszeugnis";
   const today = new Date().toLocaleDateString("de-CH", {
@@ -148,10 +159,10 @@ export function CertificatePreview({
             minHeight: "297mm",
             padding: "20mm 22mm",
             boxSizing: "border-box",
-            fontFamily: "Arial, Helvetica, sans-serif",
+            fontFamily: sheetFontFamily ?? "Arial, Helvetica, sans-serif",
             fontSize: "11pt",
             lineHeight: "1.55",
-            color: "#1a1d22",
+            color: sheetColor ?? "#1a1d22",
             boxShadow:
               "0 1px 2px rgba(14, 16, 20, 0.08), 0 8px 24px rgba(14, 16, 20, 0.12)",
             transform: `scale(${scale})`,
@@ -230,7 +241,7 @@ export function CertificatePreview({
 
         {/* Body */}
         <div style={{ textAlign: "justify" }}>
-          {paragraphs.map((p, i) => {
+          {bodyOverride ?? paragraphs.map((p, i) => {
             // Bullet-Liste
             if (p.includes("•")) {
               const lines = p.split("\n");

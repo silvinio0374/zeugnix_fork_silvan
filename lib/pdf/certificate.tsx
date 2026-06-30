@@ -23,6 +23,9 @@ import {
   BODY_SENTINEL_END,
   buildVerifyUrl,
 } from "@/lib/hash/canonicalize";
+import type { TiptapDoc } from "@/lib/certificate/tiptap-plaintext";
+import { tiptapToPdf } from "./tiptap-to-pdf";
+import { DEFAULT_FONT_KEY, DEFAULT_TEXT_COLOR } from "./fonts";
 
 // Auto-Silbentrennung abschalten: @react-pdf würde lange Wörter am Zeilenende
 // mit eingefügtem Bindestrich umbrechen ("Resultate" -> "Re-" + "sultate").
@@ -46,6 +49,11 @@ interface RenderInput {
 
   certificateTitle: string;
   bodyText: string;
+  // Optionaler formatierter Body (Rich-Text). Ist er gesetzt, wird er statt
+  // bodyText gerendert; bodyText bleibt der Hash-/Fallback-Klartext.
+  formattedContent?: TiptapDoc | null;
+  baseFontKey?: string;
+  baseTextColor?: string;
 
   signatory1Name?: string;
   signatory1Role?: string;
@@ -250,7 +258,13 @@ function CertificateDocument(props: DocProps) {
 
   const verifyLink = "Echtheit pruefen: " + baseUrl.replace(/^https?:\/\//, "") + "/verify";
 
-  // Body in Paragraphen splitten
+  // Body: formatierter Rich-Text (falls vorhanden), sonst Plain-Text-Fallback.
+  const formattedBody = props.formattedContent
+    ? tiptapToPdf(props.formattedContent, {
+        fontKey: s(props.baseFontKey) || DEFAULT_FONT_KEY,
+        textColor: s(props.baseTextColor) || DEFAULT_TEXT_COLOR,
+      })
+    : null;
   const paragraphs: string[] = bodyText
     .split(/\n\n+/)
     .map((p: string) => p.trim())
@@ -288,11 +302,13 @@ function CertificateDocument(props: DocProps) {
         {/* Body – von unsichtbaren Sentinels eingerahmt (für Verify) */}
         <View>
           <Text style={styles.sentinel}>{BODY_SENTINEL_START}</Text>
-          {paragraphs.map((p: string, i: number) => (
-            <Text key={"p-" + i} style={styles.bodyParagraph}>
-              {p}
-            </Text>
-          ))}
+          {formattedBody
+            ? formattedBody
+            : paragraphs.map((p: string, i: number) => (
+                <Text key={"p-" + i} style={styles.bodyParagraph}>
+                  {p}
+                </Text>
+              ))}
           <Text style={styles.sentinel}>{BODY_SENTINEL_END}</Text>
         </View>
 

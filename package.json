@@ -10,6 +10,7 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "test:hash": "tsx scripts/test-hash.ts",
+    "test:tiptap": "tsx scripts/test-tiptap.ts",
     "backfill:hash": "tsx scripts/backfill-hash.ts"
   },
   "dependencies": {
@@ -17,6 +18,13 @@
     "@react-pdf/renderer": "^4.0.0",
     "@supabase/ssr": "^0.5.2",
     "@supabase/supabase-js": "^2.46.1",
+    "@tiptap/extension-color": "^3.27.1",
+    "@tiptap/extension-font-family": "^3.27.1",
+    "@tiptap/extension-text-style": "^3.27.1",
+    "@tiptap/extension-underline": "^3.27.1",
+    "@tiptap/pm": "^3.27.1",
+    "@tiptap/react": "^3.27.1",
+    "@tiptap/starter-kit": "^3.27.1",
     "clsx": "^2.1.1",
     "next": "^15.5.0",
     "pdfjs-dist": "^4.7.76",
