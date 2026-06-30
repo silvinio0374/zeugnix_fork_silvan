@@ -83,6 +83,9 @@ export async function POST(
     date: new Date().toISOString().split("T")[0],
     companyName: company.name,
     companyAddress: company.address,
+    newFunctionTitle: cert.new_function_title || undefined,
+    newCompanyName: cert.new_company_name || undefined,
+    transitionDate: cert.transition_date || undefined,
   };
 
   const evaluations: Evaluation[] = evals.map((e: any) => ({

@@ -66,6 +66,11 @@ export interface CertificateData {
   date: string;
   companyName: string;
   companyAddress?: string;
+  // Optionale Wechsel-Details (nur bei Wechsel-Typen relevant; speisen die
+  // _detail-Schlussbausteine via {neue_funktion}/{neue_firma}/{wechsel_datum}).
+  newFunctionTitle?: string;
+  newCompanyName?: string;
+  transitionDate?: string;
 }
 
 export interface Evaluation {
@@ -95,7 +100,11 @@ function resolveGenderTokens(text: string, gender: "m" | "f" | "d"): string {
   });
 }
 
-function substitute(template: string, employee: EmployeeData): string {
+function substitute(
+  template: string,
+  employee: EmployeeData,
+  cert?: CertificateData,
+): string {
   return resolveGenderTokens(template, employee.gender)
     .replace(/\{vorname\}/g, employee.firstName)
     .replace(/\{nachname\}/g, employee.lastName)
@@ -105,6 +114,12 @@ function substitute(template: string, employee: EmployeeData): string {
     .replace(
       /\{geburtsdatum\}/g,
       employee.dateOfBirth ? formatDate(employee.dateOfBirth) : "",
+    )
+    .replace(/\{neue_funktion\}/g, cert?.newFunctionTitle ?? "")
+    .replace(/\{neue_firma\}/g, cert?.newCompanyName ?? "")
+    .replace(
+      /\{wechsel_datum\}/g,
+      cert?.transitionDate ? formatDate(cert.transitionDate) : "",
     );
 }
 
@@ -202,7 +217,7 @@ export function generateCertificate(
     introCategory,
   );
   if (intro) {
-    sections.push(substitute(intro.text, employee));
+    sections.push(substitute(intro.text, employee, certificate));
   } else {
     warnings.push(`Kein Einleitungs-Baustein für Typ '${certificate.type}' gefunden`);
     sections.push(
@@ -259,7 +274,7 @@ export function generateCertificate(
     }
     const phrase = findPhrase(phraseBlocks, meta.key, ev.rating, employee, meta.theme);
     if (phrase) {
-      let text = substitute(phrase.text, employee);
+      let text = substitute(phrase.text, employee, certificate);
       if (ev.freeText) text += " " + ev.freeText.trim();
       themeBuffer.push(text);
     } else {
@@ -269,33 +284,53 @@ export function generateCertificate(
   flushTheme();
 
   // ----- Schlussformulierung -----
+  // Schluss ist nicht gegen die Bewertung skaliert (immer rating='gut').
+  const pick = (subcategory: string) =>
+    findPhrase(phraseBlocks, "schluss", "gut", employee, subcategory);
+  // Detail-Variante ('<typ>_detail', mit {neue_funktion}/{neue_firma}/
+  // {wechsel_datum}) nur wählen, wenn ALLE von ihr genutzten Felder gesetzt
+  // sind – sonst der generische Baustein, damit nie leere Platzhalter entstehen.
+  const pickWithDetail = (
+    baseSub: string,
+    detailSub: string,
+    detailReady: boolean,
+  ): PhraseBlock | null =>
+    detailReady ? pick(detailSub) ?? pick(baseSub) : pick(baseSub);
+
   let closing = "";
   if (certificate.type === "schluss" && certificate.thankEmployee) {
-    const closingPhrase = findPhrase(
-      phraseBlocks,
-      "schluss",
-      "gut", // Schlussformulierung ist nicht gegen Bewertung skaliert hier vereinfacht
-      employee,
-      "schluss_dank",
-    );
-    if (closingPhrase) {
-      closing = substitute(closingPhrase.text, employee);
-    } else {
-      closing = `Wir danken ${employee.firstName} ${employee.lastName} für die geleistete Arbeit und wünschen für die Zukunft alles Gute.`;
-    }
-  } else if (certificate.type === "zwischen") {
-    const cl = findPhrase(phraseBlocks, "schluss", "gut", employee, "zwischen");
+    const cl = pick("schluss_dank");
     closing = cl
-      ? substitute(cl.text, employee)
+      ? substitute(cl.text, employee, certificate)
+      : `Wir danken ${employee.firstName} ${employee.lastName} für die geleistete Arbeit und wünschen für die Zukunft alles Gute.`;
+  } else if (certificate.type === "zwischen") {
+    const cl = pick("zwischen");
+    closing = cl
+      ? substitute(cl.text, employee, certificate)
       : `Dieses Zwischenzeugnis wird auf Wunsch von ${employee.firstName} ${employee.lastName} ausgestellt.`;
   } else if (certificate.type === "reorganisation") {
-    const cl = findPhrase(phraseBlocks, "schluss", "gut", employee, "reorganisation");
+    const cl = pick("reorganisation");
     closing = cl
-      ? substitute(cl.text, employee)
+      ? substitute(cl.text, employee, certificate)
       : `Das Arbeitsverhältnis endet aufgrund einer Reorganisation. Wir wünschen für die Zukunft alles Gute.`;
+  } else if (certificate.type === "funktionswechsel") {
+    const cl = pickWithDetail(
+      "funktionswechsel",
+      "funktionswechsel_detail",
+      !!(certificate.newFunctionTitle && certificate.newCompanyName),
+    );
+    closing = cl ? substitute(cl.text, employee, certificate) : "";
+  } else if (certificate.type === "interner_wechsel") {
+    const cl = pickWithDetail(
+      "interner_wechsel",
+      "interner_wechsel_detail",
+      !!(certificate.newFunctionTitle && certificate.transitionDate),
+    );
+    closing = cl ? substitute(cl.text, employee, certificate) : "";
   } else {
-    const cl = findPhrase(phraseBlocks, "schluss", "gut", employee, certificate.type);
-    closing = cl ? substitute(cl.text, employee) : "";
+    // vorgesetztenwechsel, wunsch_mitarbeiter, wunsch_mitarbeiterin
+    const cl = pick(certificate.type);
+    closing = cl ? substitute(cl.text, employee, certificate) : "";
   }
 
   if (closing) sections.push(closing);

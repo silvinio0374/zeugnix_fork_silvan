@@ -8,10 +8,22 @@ interface Props {
   companies: { id: string; name: string }[];
 }
 
+// Zeugnistypen, bei denen wechsel-spezifische Zusatzfelder sinnvoll sind.
+const WECHSEL_TYPES = [
+  "funktionswechsel",
+  "vorgesetztenwechsel",
+  "interner_wechsel",
+  "reorganisation",
+  "wunsch_mitarbeiterin",
+  "wunsch_mitarbeiter",
+];
+
 export function NewCertificateForm({ companies }: Props) {
   const router = useRouter();
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const [type, setType] = useState("schluss");
+  const showWechselFields = WECHSEL_TYPES.includes(type);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -69,6 +81,9 @@ export function NewCertificateForm({ companies }: Props) {
         tasks,
         status: "draft",
         thank_employee: fd.get("thank_employee") === "on",
+        new_function_title: (fd.get("new_function_title") as string) || null,
+        new_company_name: (fd.get("new_company_name") as string) || null,
+        transition_date: (fd.get("transition_date") as string) || null,
         created_by_user_id: user.id,
       })
       .select()
@@ -150,7 +165,13 @@ export function NewCertificateForm({ companies }: Props) {
       {/* Zeugnis */}
       <Section title="Zeugnis">
         <Field label="Zeugnistyp">
-          <select name="type" required className="input">
+          <select
+            name="type"
+            required
+            className="input"
+            value={type}
+            onChange={(e) => setType(e.target.value)}
+          >
             <option value="schluss">Schlusszeugnis</option>
             <option value="zwischen">Zwischenzeugnis</option>
             <option value="funktionswechsel">Funktionswechsel</option>
@@ -161,6 +182,19 @@ export function NewCertificateForm({ companies }: Props) {
             <option value="wunsch_mitarbeiter">Wunsch des Mitarbeiters</option>
           </select>
         </Field>
+        {showWechselFields && (
+          <div className="grid gap-4 sm:grid-cols-3">
+            <Field label="Neue Funktion (optional)">
+              <input name="new_function_title" className="input" />
+            </Field>
+            <Field label="Neue Firma (optional)">
+              <input name="new_company_name" className="input" />
+            </Field>
+            <Field label="Wechseldatum (optional)">
+              <input name="transition_date" type="date" className="input" />
+            </Field>
+          </div>
+        )}
         <Field label="Hauptaufgaben (eine pro Zeile)">
           <textarea
             name="tasks"
