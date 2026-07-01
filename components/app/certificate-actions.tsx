@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useCertificateWorkspace } from "./certificate-workspace";
 
 interface Props {
   certificate: any;
@@ -15,6 +16,7 @@ export function CertificateActions({
   invitationCount,
 }: Props) {
   const router = useRouter();
+  const workspace = useCertificateWorkspace();
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [showInvite, setShowInvite] = useState(false);
@@ -100,6 +102,9 @@ export function CertificateActions({
     setBusy(true);
     setError("");
     try {
+      // Ausstehende Editor-Änderungen (800ms-Debounce) zuerst sichern, sonst
+      // würde ein veralteter Text finalisiert/gehasht.
+      if (workspace) await workspace.flush();
       const res = await fetch(`/api/certificates/${certificate.id}/finalize`, {
         method: "POST",
       });

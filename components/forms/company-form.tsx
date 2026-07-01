@@ -3,6 +3,11 @@
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/db/supabase-client";
+import {
+  CERTIFICATE_FONTS,
+  DEFAULT_FONT_KEY,
+  DEFAULT_TEXT_COLOR,
+} from "@/lib/pdf/fonts";
 
 interface Company {
   id?: string;
@@ -18,6 +23,8 @@ interface Company {
   signatory_1_role?: string | null;
   signatory_2_name?: string | null;
   signatory_2_role?: string | null;
+  default_certificate_font_family?: string | null;
+  default_certificate_text_color?: string | null;
 }
 
 interface Props {
@@ -43,17 +50,27 @@ export function CompanyForm({ company, compact = false }: Props) {
       setError("Logo darf maximal 2 MB gross sein");
       return;
     }
-    if (!file.type.startsWith("image/")) {
-      setError("Nur Bilddateien (PNG, JPG, SVG) erlaubt");
+    if (!["image/png", "image/jpeg"].includes(file.type)) {
+      setError("Nur PNG oder JPG erlaubt (SVG wird im PDF nicht unterstützt)");
       return;
     }
     setUploadingLogo(true);
     setError("");
 
     const supabase = createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (!user) {
+      setError("Nicht angemeldet");
+      setUploadingLogo(false);
+      return;
+    }
     const ext = file.name.split(".").pop()?.toLowerCase() ?? "png";
     const fileName = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
-    const path = `${company?.id ?? "tmp"}/${fileName}`;
+    // Pfad = <user_id>/<datei> — passt zur RLS-Policy (Migration 007) und
+    // vermeidet den frueheren "tmp/"-Sammelordner.
+    const path = `${user.id}/${fileName}`;
 
     const { error: upErr } = await supabase.storage
       .from("company-logos")
@@ -89,20 +106,30 @@ export function CompanyForm({ company, compact = false }: Props) {
       return;
     }
 
+    // Immer vorhandene Felder. Im compact-Modus werden Logo, Kontakt- und
+    // Unterzeichner-Felder NICHT gerendert – diese dürfen dann auch nicht ins
+    // Update, sonst würden bestehende Werte mit null überschrieben.
     const data: any = {
       name: (fd.get("name") as string)?.trim(),
       address: (fd.get("address") as string)?.trim() || null,
       postal_code: (fd.get("postal_code") as string)?.trim() || null,
       city: (fd.get("city") as string)?.trim() || null,
-      website: (fd.get("website") as string)?.trim() || null,
-      phone: (fd.get("phone") as string)?.trim() || null,
-      email: (fd.get("email") as string)?.trim() || null,
-      signatory_1_name: (fd.get("signatory_1_name") as string)?.trim() || null,
-      signatory_1_role: (fd.get("signatory_1_role") as string)?.trim() || null,
-      signatory_2_name: (fd.get("signatory_2_name") as string)?.trim() || null,
-      signatory_2_role: (fd.get("signatory_2_role") as string)?.trim() || null,
-      logo_url: logoUrl || null,
     };
+
+    if (!compact) {
+      data.website = (fd.get("website") as string)?.trim() || null;
+      data.phone = (fd.get("phone") as string)?.trim() || null;
+      data.email = (fd.get("email") as string)?.trim() || null;
+      data.signatory_1_name = (fd.get("signatory_1_name") as string)?.trim() || null;
+      data.signatory_1_role = (fd.get("signatory_1_role") as string)?.trim() || null;
+      data.signatory_2_name = (fd.get("signatory_2_name") as string)?.trim() || null;
+      data.signatory_2_role = (fd.get("signatory_2_role") as string)?.trim() || null;
+      data.logo_url = logoUrl || null;
+      data.default_certificate_font_family =
+        (fd.get("default_certificate_font_family") as string)?.trim() || null;
+      data.default_certificate_text_color =
+        (fd.get("default_certificate_text_color") as string)?.trim() || null;
+    }
 
     let dbErr;
     if (isEdit) {
@@ -143,7 +170,7 @@ export function CompanyForm({ company, compact = false }: Props) {
             Firmenlogo
           </div>
           <p className="mt-1 text-[12px] text-ink-500">
-            Erscheint im Briefkopf der Arbeitszeugnisse. PNG, JPG oder SVG, max. 2 MB.
+            Erscheint im Briefkopf der Arbeitszeugnisse. PNG oder JPG, max. 2 MB.
           </p>
           <div className="mt-4 flex items-center gap-4">
             <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-md border border-ink-200 bg-ink-50/50 overflow-hidden">
@@ -162,7 +189,7 @@ export function CompanyForm({ company, compact = false }: Props) {
               <input
                 ref={fileInputRef}
                 type="file"
-                accept="image/*"
+                accept="image/png,image/jpeg"
                 onChange={(e) => {
                   const f = e.target.files?.[0];
                   if (f) uploadLogo(f);
@@ -321,6 +348,46 @@ export function CompanyForm({ company, compact = false }: Props) {
                 />
               </Field>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Standard-Stil für Zeugnisse */}
+      {!compact && (
+        <div className="card p-5">
+          <div className="mb-1 text-[13px] font-medium tracking-tight">
+            Standard-Stil für Zeugnisse
+          </div>
+          <p className="mb-4 text-[12px] text-ink-500">
+            Schriftart und -farbe, mit der neue Zeugnisse vorbelegt werden. Pro
+            Zeugnis im Editor jederzeit überschreibbar.
+          </p>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field label="Schriftart">
+              <select
+                name="default_certificate_font_family"
+                defaultValue={
+                  company?.default_certificate_font_family ?? DEFAULT_FONT_KEY
+                }
+                className="input"
+              >
+                {CERTIFICATE_FONTS.map((f) => (
+                  <option key={f.key} value={f.key}>
+                    {f.label}
+                  </option>
+                ))}
+              </select>
+            </Field>
+            <Field label="Schriftfarbe">
+              <input
+                type="color"
+                name="default_certificate_text_color"
+                defaultValue={
+                  company?.default_certificate_text_color ?? DEFAULT_TEXT_COLOR
+                }
+                className="h-10 w-full cursor-pointer rounded-md border border-ink-200 bg-white"
+              />
+            </Field>
           </div>
         </div>
       )}

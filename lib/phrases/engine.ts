@@ -10,8 +10,8 @@
  *   - phraseBlocks: Bausteinbibliothek aus DB
  *
  * Ausgabe:
- *   - generierter Volltext
- *   - struktureller CanonicalContent für Hash-Berechnung
+ *   - generierter Volltext (wird gespeichert; Hash entsteht beim Finalisieren
+ *     aus diesem Body, siehe lib/hash/canonicalize.ts)
  *
  * Designentscheidungen:
  *   - Bausteine werden nach Score, Geschlecht und Mitarbeitertyp gefiltert
@@ -21,7 +21,7 @@
  *   - Keine plumpen Aneinanderreihungen: Sätze werden mit Übergängen verbunden
  */
 
-import type { CanonicalContent } from "@/lib/hash/canonicalize";
+import { SKILLS, type SkillMeta } from "./skills";
 
 // ============================================================================
 // Typen
@@ -66,6 +66,11 @@ export interface CertificateData {
   date: string;
   companyName: string;
   companyAddress?: string;
+  // Optionale Wechsel-Details (nur bei Wechsel-Typen relevant; speisen die
+  // _detail-Schlussbausteine via {neue_funktion}/{neue_firma}/{wechsel_datum}).
+  newFunctionTitle?: string;
+  newCompanyName?: string;
+  transitionDate?: string;
 }
 
 export interface Evaluation {
@@ -79,8 +84,28 @@ export interface Evaluation {
 // Helper: Platzhalter-Substitution
 // ============================================================================
 
-function substitute(template: string, employee: EmployeeData): string {
-  return template
+/**
+ * Löst Geschlechter-Tokens der Form {{maskulin|feminin|neutral}} auf.
+ * Die Katalog-Bausteine sind als gender='d' gespeichert und tragen diese Tokens;
+ * die Auswahl erfolgt hier nach dem Geschlecht der Person:
+ *   m → 1. Wert, f → 2. Wert, d → 3. Wert (Beidnennung mit Schrägstrich).
+ * Fehlt ein Wert (unvollständiges Token), wird der maskuline Wert als Fallback
+ * genommen, damit nie eine leere Stelle entsteht.
+ */
+function resolveGenderTokens(text: string, gender: "m" | "f" | "d"): string {
+  const idx = gender === "m" ? 0 : gender === "f" ? 1 : 2;
+  return text.replace(/\{\{([^{}]*)\}\}/g, (_match, inner: string) => {
+    const parts = inner.split("|");
+    return (parts[idx] ?? parts[0] ?? "").trim();
+  });
+}
+
+function substitute(
+  template: string,
+  employee: EmployeeData,
+  cert?: CertificateData,
+): string {
+  return resolveGenderTokens(template, employee.gender)
     .replace(/\{vorname\}/g, employee.firstName)
     .replace(/\{nachname\}/g, employee.lastName)
     .replace(/\{funktion\}/g, employee.functionTitle)
@@ -89,8 +114,17 @@ function substitute(template: string, employee: EmployeeData): string {
     .replace(
       /\{geburtsdatum\}/g,
       employee.dateOfBirth ? formatDate(employee.dateOfBirth) : "",
+    )
+    .replace(/\{neue_funktion\}/g, cert?.newFunctionTitle ?? "")
+    .replace(/\{neue_firma\}/g, cert?.newCompanyName ?? "")
+    .replace(
+      /\{wechsel_datum\}/g,
+      cert?.transitionDate ? formatDate(cert.transitionDate) : "",
     );
 }
+
+// Skill-Metadaten (Reihenfolge + Thema) für die themengruppierte Generierung.
+const SKILL_BY_KEY = new Map<string, SkillMeta>(SKILLS.map((s) => [s.key, s]));
 
 function formatDate(iso: string): string {
   const [y, m, d] = iso.split("-");
@@ -161,7 +195,6 @@ function hashString(s: string): number {
 
 export interface GenerationResult {
   text: string;
-  canonical: CanonicalContent;
   warnings: string[];
 }
 
@@ -184,7 +217,7 @@ export function generateCertificate(
     introCategory,
   );
   if (intro) {
-    sections.push(substitute(intro.text, employee));
+    sections.push(substitute(intro.text, employee, certificate));
   } else {
     warnings.push(`Kein Einleitungs-Baustein für Typ '${certificate.type}' gefunden`);
     sections.push(
@@ -204,66 +237,100 @@ export function generateCertificate(
     sections.push(certificate.tasks.map((t) => `• ${t}`).join("\n"));
   }
 
-  // ----- Beurteilungs-Sektionen -----
-  // Geordnete Reihenfolge: fachliche_leistung → arbeitsweise → arbeitsqualitaet
-  // → zielerreichung → fuehrungsverhalten (falls Manager) → verhalten
-  const orderedCategories = [
-    "fachliche_leistung",
-    "arbeitsweise",
-    "arbeitsqualitaet",
-    "zielerreichung",
-    ...(employee.isManager ? ["fuehrungsverhalten"] : []),
-    "verhalten",
-  ];
+  // ----- Beurteilungs-Sektionen (themengruppiert nach Skill-Katalog) -----
+  // Nur die tatsächlich bewerteten Skills aus dem Katalog, sortiert nach der
+  // Katalog-Reihenfolge (Thema → Skill) und je Thema zu einem Absatz
+  // zusammengefasst. Kategorien ausserhalb des Katalogs (z. B. Bausteine aus
+  // dem alten Schema) werden übersprungen und gewarnt.
+  const ratedSkills = evaluations
+    .map((ev) => ({ ev, meta: SKILL_BY_KEY.get(ev.category) }))
+    .filter(
+      (x): x is { ev: Evaluation; meta: SkillMeta } => x.meta !== undefined,
+    )
+    .sort((a, b) => a.meta.order - b.meta.order);
 
-  const evalsParagraph: string[] = [];
-  for (const cat of orderedCategories) {
-    const ev = evaluations.find((e) => e.category === cat);
-    if (!ev) {
-      warnings.push(`Keine Beurteilung für Kategorie '${cat}'`);
-      continue;
-    }
-    const phrase = findPhrase(phraseBlocks, cat, ev.rating, employee);
-    if (phrase) {
-      let text = substitute(phrase.text, employee);
-      if (ev.freeText) {
-        text += " " + ev.freeText.trim();
-      }
-      evalsParagraph.push(text);
-    } else {
-      warnings.push(`Kein Baustein für ${cat} / ${ev.rating} / ${employee.gender}`);
+  for (const e of evaluations) {
+    if (!SKILL_BY_KEY.has(e.category)) {
+      warnings.push(`Unbekannte Beurteilungs-Kategorie '${e.category}' übersprungen`);
     }
   }
-  sections.push(evalsParagraph.join(" "));
+  if (ratedSkills.length === 0) {
+    warnings.push("Keine bewerteten Skills aus dem Katalog vorhanden.");
+  }
+
+  // Je Thema einen eigenen Absatz bilden (Reihenfolge folgt aus 'order').
+  let currentTheme: string | null = null;
+  let themeBuffer: string[] = [];
+  const flushTheme = () => {
+    if (themeBuffer.length > 0) {
+      sections.push(themeBuffer.join(" "));
+      themeBuffer = [];
+    }
+  };
+  for (const { ev, meta } of ratedSkills) {
+    if (meta.theme !== currentTheme) {
+      flushTheme();
+      currentTheme = meta.theme;
+    }
+    const phrase = findPhrase(phraseBlocks, meta.key, ev.rating, employee, meta.theme);
+    if (phrase) {
+      let text = substitute(phrase.text, employee, certificate);
+      if (ev.freeText) text += " " + ev.freeText.trim();
+      themeBuffer.push(text);
+    } else {
+      warnings.push(`Kein Baustein für ${meta.key} / ${ev.rating}`);
+    }
+  }
+  flushTheme();
 
   // ----- Schlussformulierung -----
+  // Schluss ist nicht gegen die Bewertung skaliert (immer rating='gut').
+  const pick = (subcategory: string) =>
+    findPhrase(phraseBlocks, "schluss", "gut", employee, subcategory);
+  // Detail-Variante ('<typ>_detail', mit {neue_funktion}/{neue_firma}/
+  // {wechsel_datum}) nur wählen, wenn ALLE von ihr genutzten Felder gesetzt
+  // sind – sonst der generische Baustein, damit nie leere Platzhalter entstehen.
+  const pickWithDetail = (
+    baseSub: string,
+    detailSub: string,
+    detailReady: boolean,
+  ): PhraseBlock | null =>
+    detailReady ? pick(detailSub) ?? pick(baseSub) : pick(baseSub);
+
   let closing = "";
   if (certificate.type === "schluss" && certificate.thankEmployee) {
-    const closingPhrase = findPhrase(
-      phraseBlocks,
-      "schluss",
-      "gut", // Schlussformulierung ist nicht gegen Bewertung skaliert hier vereinfacht
-      employee,
-      "schluss_dank",
-    );
-    if (closingPhrase) {
-      closing = substitute(closingPhrase.text, employee);
-    } else {
-      closing = `Wir danken ${employee.firstName} ${employee.lastName} für die geleistete Arbeit und wünschen für die Zukunft alles Gute.`;
-    }
-  } else if (certificate.type === "zwischen") {
-    const cl = findPhrase(phraseBlocks, "schluss", "gut", employee, "zwischen");
+    const cl = pick("schluss_dank");
     closing = cl
-      ? substitute(cl.text, employee)
+      ? substitute(cl.text, employee, certificate)
+      : `Wir danken ${employee.firstName} ${employee.lastName} für die geleistete Arbeit und wünschen für die Zukunft alles Gute.`;
+  } else if (certificate.type === "zwischen") {
+    const cl = pick("zwischen");
+    closing = cl
+      ? substitute(cl.text, employee, certificate)
       : `Dieses Zwischenzeugnis wird auf Wunsch von ${employee.firstName} ${employee.lastName} ausgestellt.`;
   } else if (certificate.type === "reorganisation") {
-    const cl = findPhrase(phraseBlocks, "schluss", "gut", employee, "reorganisation");
+    const cl = pick("reorganisation");
     closing = cl
-      ? substitute(cl.text, employee)
+      ? substitute(cl.text, employee, certificate)
       : `Das Arbeitsverhältnis endet aufgrund einer Reorganisation. Wir wünschen für die Zukunft alles Gute.`;
+  } else if (certificate.type === "funktionswechsel") {
+    const cl = pickWithDetail(
+      "funktionswechsel",
+      "funktionswechsel_detail",
+      !!(certificate.newFunctionTitle && certificate.newCompanyName),
+    );
+    closing = cl ? substitute(cl.text, employee, certificate) : "";
+  } else if (certificate.type === "interner_wechsel") {
+    const cl = pickWithDetail(
+      "interner_wechsel",
+      "interner_wechsel_detail",
+      !!(certificate.newFunctionTitle && certificate.transitionDate),
+    );
+    closing = cl ? substitute(cl.text, employee, certificate) : "";
   } else {
-    const cl = findPhrase(phraseBlocks, "schluss", "gut", employee, certificate.type);
-    closing = cl ? substitute(cl.text, employee) : "";
+    // vorgesetztenwechsel, wunsch_mitarbeiter, wunsch_mitarbeiterin
+    const cl = pick(certificate.type);
+    closing = cl ? substitute(cl.text, employee, certificate) : "";
   }
 
   if (closing) sections.push(closing);
@@ -274,26 +341,5 @@ export function generateCertificate(
   // ----- Volltext bauen -----
   const fullText = sections.join("\n\n");
 
-  // ----- Canonical Content -----
-  const canonical: CanonicalContent = {
-    type: certificate.type,
-    company: {
-      name: certificate.companyName,
-      address: certificate.companyAddress,
-    },
-    employee: {
-      firstName: employee.firstName,
-      lastName: employee.lastName,
-      gender: employee.gender,
-      functionTitle: employee.functionTitle,
-      entryDate: employee.entryDate,
-      exitDate: employee.exitDate,
-    },
-    body: evalsParagraph.join(" "),
-    closing,
-    date: certificate.date,
-    location: certificate.location,
-  };
-
-  return { text: fullText, canonical, warnings };
+  return { text: fullText, warnings };
 }

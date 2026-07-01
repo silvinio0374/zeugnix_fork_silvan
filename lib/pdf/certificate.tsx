@@ -13,10 +13,26 @@ import {
   View,
   Image,
   StyleSheet,
+  Font,
   renderToBuffer,
 } from "@react-pdf/renderer";
 import QRCode from "qrcode";
 import React from "react";
+import {
+  BODY_SENTINEL_START,
+  BODY_SENTINEL_END,
+  buildVerifyUrl,
+} from "@/lib/hash/canonicalize";
+import type { TiptapDoc } from "@/lib/certificate/tiptap-plaintext";
+import { tiptapToPdf } from "./tiptap-to-pdf";
+import { DEFAULT_FONT_KEY, DEFAULT_TEXT_COLOR } from "./fonts";
+
+// Auto-Silbentrennung abschalten: @react-pdf würde lange Wörter am Zeilenende
+// mit eingefügtem Bindestrich umbrechen ("Resultate" -> "Re-" + "sultate").
+// Beim Auslesen des PDFs landen diese Trennstriche im Text und brechen den
+// Echtheits-Hash. Wir geben jedes Wort ungeteilt zurück → Umbruch nur an
+// Leerzeichen, extrahierter Text == Quelltext.
+Font.registerHyphenationCallback((word) => [word]);
 
 interface RenderInput {
   companyName: string;
@@ -33,6 +49,11 @@ interface RenderInput {
 
   certificateTitle: string;
   bodyText: string;
+  // Optionaler formatierter Body (Rich-Text). Ist er gesetzt, wird er statt
+  // bodyText gerendert; bodyText bleibt der Hash-/Fallback-Klartext.
+  formattedContent?: TiptapDoc | null;
+  baseFontKey?: string;
+  baseTextColor?: string;
 
   signatory1Name?: string;
   signatory1Role?: string;
@@ -106,6 +127,8 @@ const styles = StyleSheet.create({
     marginLeft: 14,
     marginBottom: 3,
   },
+  // Unsichtbare Marker (weiss) zum Isolieren des gehashten Body beim Verify
+  sentinel: { fontSize: 6, color: "#ffffff", lineHeight: 1 },
 
   signaturesHeader: {
     fontFamily: "Helvetica-Bold",
@@ -235,7 +258,13 @@ function CertificateDocument(props: DocProps) {
 
   const verifyLink = "Echtheit pruefen: " + baseUrl.replace(/^https?:\/\//, "") + "/verify";
 
-  // Body in Paragraphen splitten
+  // Body: formatierter Rich-Text (falls vorhanden), sonst Plain-Text-Fallback.
+  const formattedBody = props.formattedContent
+    ? tiptapToPdf(props.formattedContent, {
+        fontKey: s(props.baseFontKey) || DEFAULT_FONT_KEY,
+        textColor: s(props.baseTextColor) || DEFAULT_TEXT_COLOR,
+      })
+    : null;
   const paragraphs: string[] = bodyText
     .split(/\n\n+/)
     .map((p: string) => p.trim())
@@ -270,13 +299,17 @@ function CertificateDocument(props: DocProps) {
         {/* Title */}
         <Text style={styles.title}>{certificateTitle}</Text>
 
-        {/* Body */}
+        {/* Body – von unsichtbaren Sentinels eingerahmt (für Verify) */}
         <View>
-          {paragraphs.map((p: string, i: number) => (
-            <Text key={"p-" + i} style={styles.bodyParagraph}>
-              {p}
-            </Text>
-          ))}
+          <Text style={styles.sentinel}>{BODY_SENTINEL_START}</Text>
+          {formattedBody
+            ? formattedBody
+            : paragraphs.map((p: string, i: number) => (
+                <Text key={"p-" + i} style={styles.bodyParagraph}>
+                  {p}
+                </Text>
+              ))}
+          <Text style={styles.sentinel}>{BODY_SENTINEL_END}</Text>
         </View>
 
         {/* Signatures */}
@@ -339,7 +372,7 @@ function CertificateDocument(props: DocProps) {
 }
 
 export async function renderCertificatePdf(input: RenderInput): Promise<Buffer> {
-  const verifyUrl = input.baseUrl + "/verify?hash=" + input.hash;
+  const verifyUrl = buildVerifyUrl(input.baseUrl, input.hash);
   const qrDataUrl = await QRCode.toDataURL(verifyUrl, {
     margin: 0,
     width: 200,

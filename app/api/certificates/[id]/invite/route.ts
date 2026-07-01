@@ -1,8 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/db/supabase-server";
+import { userIsCompanyMember } from "@/lib/auth/ownership";
+import { rateLimit, tooManyRequests } from "@/lib/rate-limit";
 import { randomBytes } from "crypto";
 import { sendEmail } from "@/lib/email/send";
 import { buildManagerInvitationEmail } from "@/lib/email/templates";
+
+// Versendet eine E-Mail → Rate-Limit gegen Mail-Spam/Abuse.
+const INVITE_LIMIT = 10;
+const INVITE_WINDOW_MS = 60 * 60 * 1000;
 
 export async function POST(
   req: NextRequest,
@@ -24,17 +30,35 @@ export async function POST(
   } = await supabase.auth.getUser();
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
+  // Rate-Limit pro authentifiziertem User (nicht pro IP): ein HR-Team hinter
+  // gemeinsamem NAT soll sich nicht ein Limit teilen. Greift vor dem teuren
+  // E-Mail-Versand; das vorgelagerte getUser() ist günstig.
+  const limited = rateLimit(`invite:${user.id}`, INVITE_LIMIT, INVITE_WINDOW_MS);
+  if (!limited.ok) return tooManyRequests(limited.retryAfter);
+
   // Zeugnis + Mitarbeitende + Firma laden für Mail-Inhalt
   const { data: cert } = await supabase
     .from("certificates")
-    .select("id, status, employees(first_name, last_name), companies(name)")
+    .select("id, status, company_id, employees(first_name, last_name), companies(name)")
     .eq("id", id)
     .single();
   if (!cert)
     return NextResponse.json({ error: "Zeugnis nicht gefunden" }, { status: 404 });
 
+  if (!(await userIsCompanyMember(supabase, cert.company_id, user.id)))
+    return NextResponse.json({ error: "Kein Zugriff" }, { status: 403 });
+
   const employee: any = cert.employees;
   const company: any = cert.companies;
+  if (!employee || !company) {
+    return NextResponse.json(
+      {
+        error:
+          "Zeugnis ist nicht vollständig verknüpft (Mitarbeitende oder Firma fehlt).",
+      },
+      { status: 400 },
+    );
+  }
   const employeeName = `${employee.first_name} ${employee.last_name}`;
   const companyName = company.name;
 
@@ -52,11 +76,16 @@ export async function POST(
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 
-  // Status auf pending_manager setzen
-  await supabase
+  // Status auf pending_manager setzen. Die Einladung wurde bereits gespeichert
+  // und die E-Mail ist das eigentliche Ergebnis – ein Fehler hier ist nicht
+  // fatal, wird aber protokolliert (sonst stiller Status-Verlust).
+  const { error: statusErr } = await supabase
     .from("certificates")
     .update({ status: "pending_manager" })
     .eq("id", id);
+  if (statusErr) {
+    console.warn("[invite] Status-Update fehlgeschlagen:", statusErr.message);
+  }
 
   // Profil des HR-Senders laden für persönliche Anrede in der Mail
   const { data: hrProfile } = await supabase

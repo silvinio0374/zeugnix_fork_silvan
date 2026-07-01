@@ -2,22 +2,20 @@
  * Tests für die Hash-Engine.
  *
  * Ausführen:
- *   npx tsx scripts/test-hash.ts
+ *   npm run test:hash   (bzw. npx tsx scripts/test-hash.ts)
  *
- * Diese Tests sind absichtlich ohne Test-Framework geschrieben,
- * damit sie ohne zusätzliche Dependencies laufen.
+ * Absichtlich ohne Test-Framework, damit keine zusätzlichen Dependencies
+ * nötig sind. Kerngedanke: Der Hash beim Finalisieren (über die Textquelle)
+ * MUSS dem Hash beim Prüfen (über den aus dem PDF extrahierten, zwischen den
+ * Sentinels isolierten Text) entsprechen.
  */
 
 import {
-  buildCanonicalString,
-  canonicalizeRawText,
-  computeCertificateHash,
-  hashesMatch,
-  normalizeSpecialChars,
-  normalizeWhitespace,
+  BODY_SENTINEL_START,
+  BODY_SENTINEL_END,
+  canonicalizeForHash,
+  extractBodyBetweenSentinels,
   sha256,
-  stripHashBlock,
-  type CanonicalContent,
 } from "../lib/hash/canonicalize";
 
 let passed = 0;
@@ -36,152 +34,125 @@ function assert(name: string, condition: boolean, details?: string) {
 async function run() {
   console.log("\n=== Hash-Engine Tests ===\n");
 
-  // ----- Whitespace-Normalisierung -----
-  console.log("normalizeWhitespace:");
+  // ----- canonicalizeForHash -----
+  console.log("canonicalizeForHash:");
   assert(
-    "Mehrfach-Leerzeichen werden zusammengefasst",
-    normalizeWhitespace("a    b   c") === "a b c",
+    "Mehrfach-Whitespace → ein Space",
+    canonicalizeForHash("a    b\t\tc") === "a b c",
   );
   assert(
-    "Tabs werden zu Spaces",
-    normalizeWhitespace("a\tb\tc") === "a b c",
+    "Newlines werden zu Spaces geplättet",
+    canonicalizeForHash("a\n\n\n\nb") === "a b",
   );
   assert(
-    "CRLF wird zu LF",
-    normalizeWhitespace("a\r\nb") === "a\nb",
+    "Whitespace-Variationen ergeben gleichen Output",
+    canonicalizeForHash("Hallo  Welt\n\n\n\nDies\tist\tein  Test.") ===
+      canonicalizeForHash("Hallo Welt Dies ist ein Test."),
   );
+  assert("Trim am Rand", canonicalizeForHash("  text  ") === "text");
   assert(
-    "Mehr als 2 Newlines werden auf 2 reduziert",
-    normalizeWhitespace("a\n\n\n\nb") === "a\n\nb",
+    "Typografische Quotes → ASCII",
+    canonicalizeForHash("“Hallo”") === '"Hallo"',
   );
+  assert("En-Dash → Hyphen", canonicalizeForHash("a–b") === "a-b");
+  assert("NBSP → Space", canonicalizeForHash("a b") === "a b");
   assert(
-    "Trailing Whitespace wird entfernt",
-    normalizeWhitespace("  text  ") === "text",
-  );
-
-  // ----- Sonderzeichen -----
-  console.log("\nnormalizeSpecialChars:");
-  assert(
-    "Typografische Quotes werden zu ASCII",
-    normalizeSpecialChars("\u201CHallo\u201D") === '"Hallo"',
-  );
-  assert(
-    "En-Dash wird zu Standard-Hyphen",
-    normalizeSpecialChars("a\u2013b") === "a-b",
-  );
-  assert(
-    "NBSP wird zu Space",
-    normalizeSpecialChars("a\u00A0b") === "a b",
+    "Bullet bleibt erhalten",
+    canonicalizeForHash("• Aufgabe 1\n• Aufgabe 2") === "• Aufgabe 1 • Aufgabe 2",
   );
 
-  // ----- Hash-Block-Entfernung -----
-  console.log("\nstripHashBlock:");
-  const withBlock = `Dies ist der Zeugnistext.
-
-Dieses Arbeitszeugnis wurde digital erstellt und mit einem kryptografischen Echtheitsnachweis versehen.
-Hash: a3f5b9c2e7d18f4a2c9e1b7d
-Die Echtheit kann unter zeugnix.ch/verify geprüft werden.`;
-  assert(
-    "Hash-Block wird entfernt",
-    stripHashBlock(withBlock).trim() === "Dies ist der Zeugnistext.",
-  );
-
-  // ----- Determinismus von canonicalizeRawText -----
-  console.log("\ncanonicalizeRawText:");
-  const raw1 = "Hallo  Welt\n\n\n\nDies  ist  ein  Test.";
-  const raw2 = "Hallo Welt\n\nDies ist ein Test.";
-  assert(
-    "Whitespace-Variationen ergeben gleiche Kanonisierung",
-    canonicalizeRawText(raw1) === canonicalizeRawText(raw2),
-  );
-
-  // ----- SHA-256 -----
+  // ----- sha256 (bekannte Vektoren) -----
   console.log("\nsha256:");
-  const empty = await sha256("");
   assert(
-    "SHA-256 von leerem String ist korrekt",
-    empty === "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-  );
-  const a = await sha256("a");
-  assert(
-    "SHA-256 von 'a' ist korrekt",
-    a === "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
-  );
-
-  // ----- Determinismus von computeCertificateHash -----
-  console.log("\ncomputeCertificateHash:");
-  const content: CanonicalContent = {
-    type: "schluss",
-    company: { name: "Muster AG" },
-    employee: {
-      firstName: "Maria",
-      lastName: "Beispiel",
-      gender: "f",
-      functionTitle: "Sachbearbeiterin",
-      entryDate: "2020-01-01",
-      exitDate: "2024-12-31",
-    },
-    body: "Frau Beispiel verfügt über sehr gute Fachkenntnisse...",
-    closing: "Wir danken Frau Beispiel für die geleistete Arbeit.",
-    date: "2025-01-15",
-    location: "Zürich",
-  };
-
-  const result1 = await computeCertificateHash(content);
-  const result2 = await computeCertificateHash(content);
-  assert(
-    "Identischer Inhalt → identischer Hash",
-    result1.hash === result2.hash,
+    "SHA-256 von leerem String",
+    (await sha256("")) ===
+      "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   );
   assert(
-    "Hash hat 64 Hex-Zeichen (SHA-256)",
-    result1.hash.length === 64 && /^[a-f0-9]+$/.test(result1.hash),
+    "SHA-256 von 'a'",
+    (await sha256("a")) ===
+      "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
   );
 
-  // Inhaltliche Änderung muss zu anderem Hash führen
-  const modifiedContent = { ...content, body: content.body + " " };
-  const result3 = await computeCertificateHash(modifiedContent);
+  // ----- extractBodyBetweenSentinels -----
+  console.log("\nextractBodyBetweenSentinels:");
   assert(
-    "Whitespace-Anhang ändert Hash NICHT (kanonisiert)",
-    result1.hash === result3.hash,
+    "Body wird zwischen Sentinels herausgeschnitten",
+    extractBodyBetweenSentinels(
+      `Briefkopf XY ${BODY_SENTINEL_START} Der Zeugnistext. ${BODY_SENTINEL_END} Unterschriften`,
+    )?.trim() === "Der Zeugnistext.",
+  );
+  assert(
+    "Fehlende Marker → null",
+    extractBodyBetweenSentinels("Kein Marker hier drin") === null,
+  );
+  assert(
+    "Nur Start-Marker → null",
+    extractBodyBetweenSentinels(`x ${BODY_SENTINEL_START} y`) === null,
+  );
+  assert(
+    "Tolerant gegen Spaces in den Klammern (pdfjs-Verklebung)",
+    extractBodyBetweenSentinels(
+      "a [[ zeugnix : body-start ]] B [[ zeugnix : body-end ]] c",
+    )?.trim() === "B",
   );
 
-  const reallyDifferent = { ...content, body: "Komplett anderer Text." };
-  const result4 = await computeCertificateHash(reallyDifferent);
+  // ----- End-to-End-Symmetrie (Kern-Regression) -----
+  console.log("\nEnd-to-End-Symmetrie (Finalize ↔ Verify):");
+  const body =
+    "Frau Beispiel war vom 01.01.2020 bis 31.12.2024 tätig.\n\n" +
+    "Zu ihren Hauptaufgaben gehörten:\n• A\n• B\n\n" +
+    "Sie erfüllte die Aufgaben stets zu unserer vollsten Zufriedenheit.\n\n" +
+    "Zürich, 15.01.2025";
+
+  // Finalize-Seite: Hash über die reine Textquelle.
+  const finalizeHash = await sha256(canonicalizeForHash(body));
+
+  // Verify-Seite: simuliert pdfjs (alle Whitespaces → " ") + Sentinels + Rauschen
+  // (Briefkopf davor, Unterschriften/Hash-Block danach).
+  const pdfExtract =
+    "Muster AG  Musterstrasse 1  8000 Zürich  Arbeitszeugnis  " +
+    BODY_SENTINEL_START +
+    " " +
+    body.replace(/\s+/g, " ").trim() +
+    " " +
+    BODY_SENTINEL_END +
+    "  Digital ausgestellt durch  Max Muster  Echtheitsnachweis (SHA-256)  abcdef";
+  const verifyBody = extractBodyBetweenSentinels(pdfExtract);
+  const verifyHash = verifyBody
+    ? await sha256(canonicalizeForHash(verifyBody))
+    : "NULL";
+
   assert(
-    "Inhaltliche Änderung führt zu anderem Hash",
-    result1.hash !== result4.hash,
+    "Finalize-Hash == Verify-Hash (trotz Layout-/Whitespace-Unterschied)",
+    finalizeHash === verifyHash,
+    `${finalizeHash} != ${verifyHash}`,
+  );
+  assert(
+    "Inhaltliche Änderung bricht den Hash",
+    finalizeHash !== (await sha256(canonicalizeForHash(body + " zusätzlich"))),
   );
 
-  // ----- hashesMatch -----
-  console.log("\nhashesMatch:");
+  // ----- Silbentrennung (Regression: "Re- sultate") -----
+  console.log("\nSilbentrennung (PDF-Hyphenation):");
   assert(
-    "Identische Hashes matchen",
-    hashesMatch("abc123", "abc123"),
+    "Zeilenumbruch-Trennstrich wird neutralisiert",
+    canonicalizeForHash("durchdachte Re- sultate.") === "durchdachte Resultate.",
   );
   assert(
-    "Case-insensitive Match",
-    hashesMatch("ABC123", "abc123"),
+    "Echter Bindestrich ohne Folge-Space bleibt erhalten",
+    canonicalizeForHash("Cold-Outreach via Linked-In") ===
+      "Cold-Outreach via Linked-In",
   );
   assert(
-    "Whitespace-tolerant",
-    hashesMatch("  abc  ", "abc"),
-  );
-  assert(
-    "Verschiedene Hashes matchen nicht",
-    !hashesMatch("abc", "def"),
-  );
-  assert(
-    "Leerer Hash matcht nicht",
-    !hashesMatch("", "abc"),
+    "Quelle == silbengetrenntes PDF-Extrakt (gleicher Hash)",
+    (await sha256(canonicalizeForHash("Er lieferte präzise Resultate."))) ===
+      (await sha256(canonicalizeForHash("Er lieferte präzise Re- sultate."))),
   );
 
   // ----- Zusammenfassung -----
   console.log(`\n=== ${passed} passed, ${failed} failed ===\n`);
-
-  if (failed > 0) {
-    process.exit(1);
-  }
+  if (failed > 0) process.exit(1);
 }
 
 run().catch((err) => {

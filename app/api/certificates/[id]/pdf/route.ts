@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/db/supabase-server";
+import { userIsCompanyMember } from "@/lib/auth/ownership";
 import { renderCertificatePdf } from "@/lib/pdf/certificate";
 
 // @react-pdf/renderer braucht die Node-Runtime (nicht Edge). Die Antwort darf
@@ -18,6 +19,32 @@ const TYPE_LABELS: Record<string, string> = {
   wunsch_mitarbeiterin: "Arbeitszeugnis",
   wunsch_mitarbeiter: "Arbeitszeugnis",
 };
+
+// SSRF-Härtung des Logo-Fetch: Logos liegen ausschliesslich im Supabase-Storage
+// (gleicher Host wie NEXT_PUBLIC_SUPABASE_URL, z. B. <project>.supabase.co).
+// Wir fetchen daher nur https-URLs auf genau diesen Host – sonst könnte eine
+// manipulierte logo_url den Server zu beliebigen internen Adressen leiten.
+const SUPABASE_HOST = (() => {
+  try {
+    return new URL(process.env.NEXT_PUBLIC_SUPABASE_URL ?? "").host;
+  } catch {
+    return "";
+  }
+})();
+
+const LOGO_FETCH_TIMEOUT_MS = 5000;
+const MAX_LOGO_BYTES = 5 * 1024 * 1024; // 5 MB
+
+function isAllowedLogoUrl(rawUrl: string): boolean {
+  try {
+    const u = new URL(rawUrl);
+    return (
+      u.protocol === "https:" && SUPABASE_HOST !== "" && u.host === SUPABASE_HOST
+    );
+  } catch {
+    return false;
+  }
+}
 
 /**
  * GET /api/certificates/[id]/pdf
@@ -53,6 +80,10 @@ export async function GET(
       { error: "Zeugnis nicht gefunden" },
       { status: 404 },
     );
+
+  if (!(await userIsCompanyMember(supabase, cert.company_id, user.id)))
+    return NextResponse.json({ error: "Kein Zugriff" }, { status: 403 });
+
   if (cert.status !== "final" || !cert.hash) {
     return NextResponse.json(
       { error: "Zeugnis ist nicht finalisiert" },
@@ -63,19 +94,79 @@ export async function GET(
   const company = cert.companies;
   const employee = cert.employees;
 
-  // Logo als Data-URL laden, falls Logo-URL vorhanden
+  if (!company || !employee) {
+    return NextResponse.json(
+      {
+        error:
+          "Zeugnis ist nicht vollständig verknüpft (Mitarbeitende oder Firma fehlt).",
+      },
+      { status: 400 },
+    );
+  }
+
+  // Logo als Data-URL laden, falls Logo-URL vorhanden. SSRF-gehärtet:
+  // nur erlaubte (Supabase-Storage-)URLs, mit Timeout und Grössenlimit. Ein
+  // Problem beim Logo überspringt nur das Logo, bricht aber nicht den PDF-Build.
   let logoDataUrl: string | undefined;
   if (company.logo_url) {
-    try {
-      const res = await fetch(company.logo_url);
-      if (res.ok) {
-        const arrayBuffer = await res.arrayBuffer();
-        const base64 = Buffer.from(arrayBuffer).toString("base64");
-        const contentType = res.headers.get("content-type") ?? "image/png";
-        logoDataUrl = `data:${contentType};base64,${base64}`;
+    if (!isAllowedLogoUrl(company.logo_url)) {
+      console.warn(
+        "Logo-URL nicht erlaubt (SSRF-Schutz), wird übersprungen:",
+        company.logo_url,
+      );
+    } else {
+      const controller = new AbortController();
+      const timeout = setTimeout(
+        () => controller.abort(),
+        LOGO_FETCH_TIMEOUT_MS,
+      );
+      try {
+        // redirect: "manual" — die Allowlist prüft nur den ersten Hop. Würden
+        // wir Redirects folgen, könnte eine (vom Owner frei setzbare) logo_url
+        // auf dem Supabase-Host per 30x doch noch auf eine interne Adresse
+        // zeigen. Ein Redirect wird daher als "Logo überspringen" behandelt.
+        const res = await fetch(company.logo_url, {
+          signal: controller.signal,
+          redirect: "manual",
+        });
+        if (
+          res.type === "opaqueredirect" ||
+          (res.status >= 300 && res.status < 400)
+        ) {
+          console.warn(
+            "Logo übersprungen: Weiterleitung nicht erlaubt (SSRF-Schutz)",
+          );
+        } else if (res.ok) {
+          // Content-Length ist nur ein Vorab-Hinweis (vom Server fälschbar/weglassbar);
+          // der eigentliche Schutz ist der Byte-Längen-Check nach arrayBuffer().
+          const declaredLength = Number(
+            res.headers.get("content-length") ?? "0",
+          );
+          if (declaredLength > MAX_LOGO_BYTES) {
+            console.warn(
+              "Logo übersprungen: Content-Length überschreitet Limit:",
+              declaredLength,
+            );
+          } else {
+            const arrayBuffer = await res.arrayBuffer();
+            if (arrayBuffer.byteLength > MAX_LOGO_BYTES) {
+              console.warn(
+                "Logo übersprungen: tatsächliche Grösse überschreitet Limit:",
+                arrayBuffer.byteLength,
+              );
+            } else {
+              const base64 = Buffer.from(arrayBuffer).toString("base64");
+              const contentType =
+                res.headers.get("content-type") ?? "image/png";
+              logoDataUrl = `data:${contentType};base64,${base64}`;
+            }
+          }
+        }
+      } catch (err) {
+        console.warn("Logo konnte nicht geladen werden:", err);
+      } finally {
+        clearTimeout(timeout);
       }
-    } catch (err) {
-      console.warn("Logo konnte nicht geladen werden:", err);
     }
   }
 
@@ -101,6 +192,9 @@ export async function GET(
 
       certificateTitle,
       bodyText,
+      formattedContent: cert.formatted_content ?? null,
+      baseFontKey: company.default_certificate_font_family ?? undefined,
+      baseTextColor: company.default_certificate_text_color ?? undefined,
 
       signatory1Name: company.signatory_1_name ?? undefined,
       signatory1Role: company.signatory_1_role ?? undefined,

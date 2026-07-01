@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useCertificateWorkspace } from "./certificate-workspace";
 
 interface Props {
   certificateId: string;
@@ -19,13 +20,63 @@ export function CertificateEditor({
   finalized,
 }: Props) {
   const router = useRouter();
+  const workspace = useCertificateWorkspace();
   const [text, setText] = useState(initialEditedText ?? generatedText);
   const [status, setStatus] = useState<SaveStatus>("idle");
   const [errorMsg, setErrorMsg] = useState("");
   const debounceRef = useRef<NodeJS.Timeout | null>(null);
   const lastSavedRef = useRef(text);
+  // Spiegel des aktuellen Textes, damit saveNow() nie auf veraltete Closure-Werte zugreift.
+  const textRef = useRef(text);
 
   const isEdited = !!initialEditedText && initialEditedText !== generatedText;
+
+  useEffect(() => {
+    textRef.current = text;
+  }, [text]);
+
+  /**
+   * Speichert ausstehende Änderungen sofort (umgeht den Debounce). Wird vom
+   * Debounce, beim Verlassen des Feldes (blur) und vor dem Finalisieren über
+   * den Workspace-Context aufgerufen. Wirft bei Fehler, damit der Aufrufer
+   * (z.B. Finalisieren) abbrechen kann.
+   */
+  const saveNow = useCallback(async () => {
+    if (finalized) return;
+    if (textRef.current === lastSavedRef.current) return;
+    if (debounceRef.current) {
+      clearTimeout(debounceRef.current);
+      debounceRef.current = null;
+    }
+    const pending = textRef.current;
+    setStatus("saving");
+    try {
+      const res = await fetch(`/api/certificates/${certificateId}/text`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ edited_text: pending }),
+      });
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error ?? "Speichern fehlgeschlagen");
+      }
+      lastSavedRef.current = pending;
+      setStatus("saved");
+      setTimeout(() => setStatus("idle"), 2000);
+    } catch (err: any) {
+      setStatus("error");
+      setErrorMsg(err.message);
+      throw err;
+    }
+  }, [certificateId, finalized]);
+
+  // saveNow beim Workspace registrieren, damit z.B. das Finalisieren den
+  // ausstehenden Auto-Save flushen kann.
+  useEffect(() => {
+    if (!workspace) return;
+    workspace.registerFlush(saveNow);
+    return () => workspace.registerFlush(null);
+  }, [workspace, saveNow]);
 
   useEffect(() => {
     if (finalized) return; // kein Auto-Save bei finalisiertem Zeugnis
@@ -34,25 +85,10 @@ export function CertificateEditor({
     setStatus("typing");
     if (debounceRef.current) clearTimeout(debounceRef.current);
 
-    debounceRef.current = setTimeout(async () => {
-      setStatus("saving");
-      try {
-        const res = await fetch(`/api/certificates/${certificateId}/text`, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ edited_text: text }),
-        });
-        if (!res.ok) {
-          const data = await res.json();
-          throw new Error(data.error ?? "Speichern fehlgeschlagen");
-        }
-        lastSavedRef.current = text;
-        setStatus("saved");
-        setTimeout(() => setStatus("idle"), 2000);
-      } catch (err: any) {
-        setStatus("error");
-        setErrorMsg(err.message);
-      }
+    debounceRef.current = setTimeout(() => {
+      // Fehler werden in saveNow über den Status angezeigt; hier kein erneutes
+      // throw nötig (catch verhindert unbehandelte Promise-Rejection).
+      saveNow().catch(() => {});
     }, 800);
 
     return () => {
@@ -126,6 +162,7 @@ export function CertificateEditor({
       <textarea
         value={text}
         onChange={(e) => setText(e.target.value)}
+        onBlur={() => saveNow().catch(() => {})}
         readOnly={finalized}
         rows={20}
         className="font-display w-full resize-y rounded-md border border-ink-200 bg-white px-5 py-4 text-[14px] leading-relaxed text-ink-800 outline-none focus:border-petrol-500 focus:ring-2 focus:ring-petrol-100 disabled:bg-ink-50 disabled:text-ink-500"

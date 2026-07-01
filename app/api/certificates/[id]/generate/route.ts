@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/db/supabase-server";
+import { userIsCompanyMember } from "@/lib/auth/ownership";
 import {
   generateCertificate,
   type EmployeeData,
@@ -29,9 +30,22 @@ export async function POST(
   if (!cert)
     return NextResponse.json({ error: "Zeugnis nicht gefunden" }, { status: 404 });
 
+  if (!(await userIsCompanyMember(supabase, cert.company_id, user.id)))
+    return NextResponse.json({ error: "Kein Zugriff" }, { status: 403 });
+
   const employee = cert.employees;
   const company = cert.companies;
   const evals: any[] = cert.evaluations ?? [];
+
+  if (!employee || !company) {
+    return NextResponse.json(
+      {
+        error:
+          "Zeugnis ist nicht vollständig verknüpft (Mitarbeitende oder Firma fehlt).",
+      },
+      { status: 400 },
+    );
+  }
 
   if (evals.length === 0) {
     return NextResponse.json(
@@ -69,6 +83,9 @@ export async function POST(
     date: new Date().toISOString().split("T")[0],
     companyName: company.name,
     companyAddress: company.address,
+    newFunctionTitle: cert.new_function_title || undefined,
+    newCompanyName: cert.new_company_name || undefined,
+    transitionDate: cert.transition_date || undefined,
   };
 
   const evaluations: Evaluation[] = evals.map((e: any) => ({
@@ -86,14 +103,22 @@ export async function POST(
     (phraseBlocks ?? []) as PhraseBlock[],
   );
 
-  // 4. Speichern
-  await supabase
+  // 4. Speichern – Schreibfehler auswerten, sonst ginge der generierte Text
+  // verloren, während die UI "generiert" meldet.
+  const { error: saveErr } = await supabase
     .from("certificates")
     .update({
       generated_text: result.text,
       status: "manager_submitted",
     })
     .eq("id", id);
+
+  if (saveErr) {
+    return NextResponse.json(
+      { error: `Zeugnistext konnte nicht gespeichert werden: ${saveErr.message}` },
+      { status: 500 },
+    );
+  }
 
   return NextResponse.json({ ok: true, text: result.text, warnings: result.warnings });
 }

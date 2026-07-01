@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { Logo } from "@/components/ui/logo";
 import { SignOutButton } from "@/components/app/sign-out-button";
+import { AppNav } from "@/components/app/app-nav";
 
 export default async function AppLayout({
   children,
@@ -40,28 +41,12 @@ export default async function AppLayout({
       <div className="mx-auto grid w-full max-w-[1500px] gap-8 px-6 py-8 sm:px-8 lg:grid-cols-12 lg:px-12">
         {/* Sidebar */}
         <aside className="lg:col-span-2">
-          <nav className="space-y-1">
-            <NavItem href="/app/dashboard" label="Übersicht" />
-            <NavItem href="/app/certificates" label="Zeugnisse" />
-            <NavItem href="/app/certificates/new" label="Neues Zeugnis" />
-            <NavItem href="/app/company" label="Firma" />
-          </nav>
+          <AppNav />
         </aside>
 
         {/* Content */}
         <main className="lg:col-span-10">{children}</main>
       </div>
     </div>
-  );
-}
-
-function NavItem({ href, label }: { href: string; label: string }) {
-  return (
-    <Link
-      href={href}
-      className="block rounded-md px-3 py-2 text-[13.5px] font-medium text-ink-700 transition-colors hover:bg-white hover:text-petrol-700"
-    >
-      {label}
-    </Link>
   );
 }

@@ -47,14 +47,31 @@ export default async function InvitationPage({ params }: PageProps) {
     );
   }
 
-  const cert = inv.certificates;
-  const employee = cert.employees;
+  const cert: any = inv.certificates;
+  const employee: any = cert?.employees;
+  const company: any = cert?.companies;
 
-  // Status auf 'viewed' updaten
-  await supabase
+  // Verknüpfte Stammdaten fehlen → freundlicher Hinweis statt White-Screen.
+  if (!cert || !employee || !company) {
+    return (
+      <Wrapper>
+        <h1 className="headline-display text-[24px]">Einladung nicht verfügbar</h1>
+        <p className="mt-3 text-[14px] text-ink-600">
+          Zu dieser Einladung fehlen Angaben. Bitte fordern Sie eine neue
+          Einladung beim Arbeitgeber an.
+        </p>
+      </Wrapper>
+    );
+  }
+
+  // Status auf 'viewed' updaten (best-effort: blockiert die Anzeige nicht)
+  const { error: viewErr } = await supabase
     .from("manager_invitations")
     .update({ status: "viewed", viewed_at: new Date().toISOString() })
     .eq("id", inv.id);
+  if (viewErr) {
+    console.warn("[invitations] viewed-Update fehlgeschlagen:", viewErr.message);
+  }
 
   return (
     <Wrapper>
@@ -65,7 +82,7 @@ export default async function InvitationPage({ params }: PageProps) {
         {employee.first_name} {employee.last_name}
       </h1>
       <p className="mt-1 text-[14px] text-ink-600">
-        {employee.function_title} bei {cert.companies.name}
+        {employee.function_title} bei {company.name}
       </p>
 
       <div className="mt-8 rounded-md bg-petrol-50 p-4 text-[13px] leading-relaxed text-petrol-800">

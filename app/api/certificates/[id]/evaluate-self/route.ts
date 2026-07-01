@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/db/supabase-server";
+import { userIsCompanyMember } from "@/lib/auth/ownership";
 
 /**
  * POST /api/certificates/[id]/evaluate-self
@@ -35,7 +36,7 @@ export async function POST(
   // aber wir wollen auch sicherstellen, dass die ID gültig ist)
   const { data: cert } = await supabase
     .from("certificates")
-    .select("id, status")
+    .select("id, status, company_id")
     .eq("id", id)
     .single();
   if (!cert)
@@ -44,9 +45,22 @@ export async function POST(
       { status: 404 },
     );
 
+  if (!(await userIsCompanyMember(supabase, cert.company_id, user.id)))
+    return NextResponse.json({ error: "Kein Zugriff" }, { status: 403 });
+
   // Bestehende Evaluations zu diesem Zeugnis löschen (idempotent: erneute
-  // Selbst-Beurteilung überschreibt vorherige)
-  await supabase.from("evaluations").delete().eq("certificate_id", id);
+  // Selbst-Beurteilung überschreibt vorherige). Fehler hier ist kritisch:
+  // sonst würden neue Beurteilungen zu den alten addiert (Duplikate).
+  const { error: delErr } = await supabase
+    .from("evaluations")
+    .delete()
+    .eq("certificate_id", id);
+  if (delErr) {
+    return NextResponse.json(
+      { error: `Vorherige Beurteilungen konnten nicht ersetzt werden: ${delErr.message}` },
+      { status: 500 },
+    );
+  }
 
   // Neue Evaluations einfügen, mit User-E-Mail als Beurteiler
   const userEmail = user.email ?? "self";
@@ -66,10 +80,16 @@ export async function POST(
   }
 
   // Status auf manager_submitted setzen, damit der Generieren-Schritt freigeschaltet ist
-  await supabase
+  const { error: statusErr } = await supabase
     .from("certificates")
     .update({ status: "manager_submitted" })
     .eq("id", id);
+  if (statusErr) {
+    return NextResponse.json(
+      { error: `Status konnte nicht aktualisiert werden: ${statusErr.message}` },
+      { status: 500 },
+    );
+  }
 
   return NextResponse.json({ ok: true });
 }

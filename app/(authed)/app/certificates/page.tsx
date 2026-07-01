@@ -3,13 +3,25 @@ import Link from "next/link";
 
 export const metadata = { title: "Zeugnisse" };
 
-export default async function CertificatesListPage() {
+export default async function CertificatesListPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ view?: string }>;
+}) {
+  const { view } = await searchParams;
+  const showArchived = view === "archived";
   const supabase = await createClient();
 
-  const { data: certificates } = await supabase
+  let query = supabase
     .from("certificates")
-    .select("id, type, status, created_at, finalized_at, hash, employees(first_name, last_name, function_title)")
+    .select("id, type, status, created_at, finalized_at, hash, archived_at, employees(first_name, last_name, function_title)")
     .order("created_at", { ascending: false });
+
+  query = showArchived
+    ? query.not("archived_at", "is", null)
+    : query.is("archived_at", null);
+
+  const { data: certificates } = await query;
 
   return (
     <div className="space-y-6">
@@ -19,7 +31,9 @@ export default async function CertificatesListPage() {
             Zeugnisse
           </h1>
           <p className="mt-2 text-[14px] text-ink-600">
-            Alle erstellten Arbeitszeugnisse.
+            {showArchived
+              ? "Archivierte Arbeitszeugnisse."
+              : "Alle erstellten Arbeitszeugnisse."}
           </p>
         </div>
         <Link href="/app/certificates/new" className="btn-primary">
@@ -27,9 +41,35 @@ export default async function CertificatesListPage() {
         </Link>
       </div>
 
+      {/* Ansicht-Umschalter */}
+      <div className="flex items-center gap-1 text-[12.5px]">
+        <Link
+          href="/app/certificates"
+          className={`rounded-md px-3 py-1.5 font-medium ${
+            !showArchived
+              ? "bg-petrol-50 text-petrol-700"
+              : "text-ink-600 hover:bg-ink-50"
+          }`}
+        >
+          Aktive
+        </Link>
+        <Link
+          href="/app/certificates?view=archived"
+          className={`rounded-md px-3 py-1.5 font-medium ${
+            showArchived
+              ? "bg-petrol-50 text-petrol-700"
+              : "text-ink-600 hover:bg-ink-50"
+          }`}
+        >
+          Archiv
+        </Link>
+      </div>
+
       {!certificates || certificates.length === 0 ? (
         <div className="card p-10 text-center text-[13px] text-ink-500">
-          Noch keine Zeugnisse erstellt.
+          {showArchived
+            ? "Keine archivierten Zeugnisse."
+            : "Noch keine Zeugnisse erstellt."}
         </div>
       ) : (
         <div className="card overflow-hidden">

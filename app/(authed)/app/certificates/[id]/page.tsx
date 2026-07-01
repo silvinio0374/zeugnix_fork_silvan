@@ -1,8 +1,9 @@
 import { createClient } from "@/lib/db/supabase-server";
 import { notFound } from "next/navigation";
 import { CertificateActions } from "@/components/app/certificate-actions";
-import { CertificateEditor } from "@/components/app/certificate-editor";
-import { CertificatePreview } from "@/components/app/certificate-preview";
+import { CertificateRichWorkspace } from "@/components/app/certificate-rich-workspace";
+import { CertificateWorkspace } from "@/components/app/certificate-workspace";
+import { CertificateManage } from "@/components/app/certificate-manage";
 import Link from "next/link";
 
 interface PageProps {
@@ -31,15 +32,47 @@ export default async function CertificateDetailPage({ params }: PageProps) {
 
   const employee = cert.employees;
   const company = cert.companies;
+
+  // Pflicht-Joins: ohne Mitarbeitende oder Firma ist das Zeugnis nicht
+  // darstellbar (Datensatz inkonsistent) – freundliche Fehlerseite statt Crash.
+  if (!employee || !company) {
+    return (
+      <div className="card border-amber-200 bg-amber-50/40 p-6">
+        <h1 className="text-[16px] font-medium text-amber-900">
+          Zeugnis unvollständig
+        </h1>
+        <p className="mt-2 text-[13.5px] text-amber-800">
+          Zu diesem Zeugnis fehlen verknüpfte Stammdaten
+          {!employee ? " (Mitarbeitende)" : ""}
+          {!employee && !company ? " und" : ""}
+          {!company ? " (Firma)" : ""}. Bitte prüfen Sie die Mitarbeitenden- und
+          Firmendaten oder legen Sie das Zeugnis neu an.
+        </p>
+        <Link
+          href="/app/certificates"
+          className="mt-4 inline-block text-[13px] font-medium text-petrol-700 underline"
+        >
+          Zurück zur Übersicht
+        </Link>
+      </div>
+    );
+  }
+
   const evaluations = cert.evaluations ?? [];
   const invitations = cert.manager_invitations ?? [];
 
-  const displayText = cert.edited_text || cert.generated_text || "";
   const isFinal = cert.status === "final";
   const hasText = !!cert.generated_text;
+  const isArchived = !!cert.archived_at;
 
   return (
     <div className="space-y-6">
+      {isArchived && (
+        <div className="rounded-md border border-amber-200 bg-amber-50/60 px-4 py-2.5 text-[12.5px] text-amber-800">
+          Dieses Zeugnis ist archiviert und erscheint nicht in der
+          Standardübersicht.
+        </div>
+      )}
       <div className="flex items-start justify-between gap-4">
         <div>
           <div className="text-[11px] font-medium uppercase tracking-wider text-petrol-600">
@@ -93,6 +126,9 @@ export default async function CertificateDetailPage({ params }: PageProps) {
         </div>
       </div>
 
+      {/* Aktionen + Editor teilen sich einen Workspace, damit Finalisieren den
+          ausstehenden Auto-Save des Editors flushen kann. */}
+      <CertificateWorkspace>
       {/* Aktionen */}
       <CertificateActions
         certificate={cert}
@@ -102,38 +138,22 @@ export default async function CertificateDetailPage({ params }: PageProps) {
 
       {/* Editor + Preview Split-View */}
       {hasText && (
-        <div>
+        <div className="mt-6">
           <h2 className="mb-3 text-[15px] font-medium tracking-tight">
             Zeugnistext bearbeiten und Vorschau
           </h2>
-          <div className="grid gap-6 lg:grid-cols-5">
-            {/* Editor – linke, schmalere Spalte */}
-            <div className="space-y-3 lg:col-span-2">
-              <div className="text-[11px] font-medium uppercase tracking-wider text-ink-500">
-                Editor
-              </div>
-              <CertificateEditor
-                certificateId={cert.id}
-                generatedText={cert.generated_text ?? ""}
-                initialEditedText={cert.edited_text}
-                finalized={isFinal}
-              />
-            </div>
-
-            {/* Vorschau – breitere Spalte; das Blatt skaliert proportional (A4) */}
-            <div className="space-y-3 lg:col-span-3">
-              <div className="text-[11px] font-medium uppercase tracking-wider text-ink-500">
-                Vorschau (so wird das PDF aussehen)
-              </div>
-              <CertificatePreview
-                company={company}
-                employee={employee}
-                type={cert.type}
-                text={displayText}
-                hash={cert.hash}
-              />
-            </div>
-          </div>
+          <CertificateRichWorkspace
+            certificateId={cert.id}
+            generatedText={cert.generated_text ?? ""}
+            initialFormattedContent={cert.formatted_content ?? null}
+            finalized={isFinal}
+            baseFontKey={company.default_certificate_font_family}
+            baseTextColor={company.default_certificate_text_color}
+            company={company}
+            employee={employee}
+            type={cert.type}
+            hash={cert.hash}
+          />
 
           {/* Hinweise */}
           {(!company.logo_url ||
@@ -176,6 +196,14 @@ export default async function CertificateDetailPage({ params }: PageProps) {
           )}
         </div>
       )}
+      </CertificateWorkspace>
+
+      {/* Verwaltung: Archivieren / Löschen */}
+      <CertificateManage
+        certificateId={cert.id}
+        status={cert.status}
+        archived={isArchived}
+      />
     </div>
   );
 }
