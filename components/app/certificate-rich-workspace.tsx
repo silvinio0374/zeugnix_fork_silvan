@@ -172,6 +172,12 @@ export function CertificateRichWorkspace({
   }
 
   const previewText = tiptapToPlainText(doc);
+  const trimmedText = previewText.trim();
+  const wordCount = trimmedText ? trimmedText.split(/\s+/).length : 0;
+  const charCount = trimmedText.length;
+  // Schweizer Praxis: ein sehr knappes Zeugnis wirkt zurückhaltend/negativ.
+  // Dezenter Nudge, sobald der Text auffällig kurz ist (grobe Heuristik).
+  const tooShort = wordCount > 0 && wordCount < 150;
 
   return (
     <div className="grid gap-6 lg:grid-cols-5">
@@ -205,6 +211,17 @@ export function CertificateRichWorkspace({
           }}
         >
           <EditorContent editor={editor} />
+        </div>
+
+        <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 text-[11.5px] text-ink-500">
+          <span>
+            {wordCount} {wordCount === 1 ? "Wort" : "Wörter"} · {charCount} Zeichen
+          </span>
+          {tooShort && (
+            <span className="text-amber-700">
+              Eher kurz – je knapper ein Zeugnis, desto zurückhaltender wirkt es.
+            </span>
+          )}
         </div>
 
         {!finalized && (

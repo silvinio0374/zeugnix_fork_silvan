@@ -22,6 +22,7 @@
  */
 
 import { SKILLS, type SkillMeta } from "./skills";
+import { pickSchlusssatz } from "./schlusssaetze";
 
 // ============================================================================
 // Typen
@@ -59,7 +60,18 @@ export interface CertificateData {
     | "interner_wechsel"
     | "reorganisation"
     | "wunsch_mitarbeiterin"
-    | "wunsch_mitarbeiter";
+    | "wunsch_mitarbeiter"
+    | "arbeitsbestaetigung";
+  // Neues, sauber getrenntes Datenmodell (Christoph-Matrix). Optional, damit
+  // Alt-Aufrufer weiter funktionieren; steuert u.a. den Arbeitsbestätigungs-Zweig
+  // und den Schlusssatz aus dem Katalog (lib/phrases/schlusssaetze.ts).
+  zeugnisTyp?: "schluss" | "zwischen" | "arbeitsbestaetigung";
+  austrittsgrund?: "wunsch_an" | "wunsch_ag" | "einvernehmen" | null;
+  wertschaetzung?: "standard" | "wertschaetzender" | "top" | null;
+  optinBedauern?: boolean;
+  optinReorg?: boolean;
+  optinVorgesetztenwechsel?: boolean;
+  optinInternerWechsel?: boolean;
   tasks: string[];
   thankEmployee: boolean;
   location: string;
@@ -204,6 +216,43 @@ export function generateCertificate(
   evaluations: Evaluation[],
   phraseBlocks: PhraseBlock[],
 ): GenerationResult {
+  // ----- Arbeitsbestätigung -----
+  // Rein bestätigend: Funktion + Dauer (+ optionale Aufgaben), OHNE qualitativen
+  // Beurteilungsteil. Läuft daher an der Baustein-/Skill-Logik vorbei.
+  if (certificate.zeugnisTyp === "arbeitsbestaetigung") {
+    const secs: string[] = [];
+    const name = `${employee.firstName} ${employee.lastName}`;
+    const geb = employee.dateOfBirth
+      ? `, geboren am ${formatDate(employee.dateOfBirth)},`
+      : "";
+    const ongoing = !employee.exitDate;
+    const zeitraum = ongoing
+      ? `ist seit dem ${formatDate(employee.entryDate)}`
+      : `war vom ${formatDate(employee.entryDate)} bis ${formatDate(employee.exitDate!)}`;
+    secs.push(
+      `${name}${geb} ${zeitraum} als ${employee.functionTitle} in unserem Unternehmen tätig.`,
+    );
+    if (
+      employee.employmentPercentage != null &&
+      employee.employmentPercentage < 100
+    ) {
+      secs.push(
+        `Das Arbeitspensum ${ongoing ? "beträgt" : "betrug"} ${employee.employmentPercentage}%.`,
+      );
+    }
+    if (certificate.tasks.length > 0) {
+      secs.push(
+        ongoing ? "Zu den Hauptaufgaben gehören:" : "Zu den Hauptaufgaben gehörten:",
+      );
+      secs.push(certificate.tasks.map((t) => `• ${t}`).join("\n"));
+    }
+    secs.push(
+      `Diese Arbeitsbestätigung wird auf Wunsch von ${name} ausgestellt.`,
+    );
+    secs.push(`${certificate.location}, ${formatDate(certificate.date)}`);
+    return { text: secs.join("\n\n"), warnings: [] };
+  }
+
   const warnings: string[] = [];
   const sections: string[] = [];
 
@@ -298,7 +347,23 @@ export function generateCertificate(
     detailReady ? pick(detailSub) ?? pick(baseSub) : pick(baseSub);
 
   let closing = "";
-  if (certificate.type === "schluss" && certificate.thankEmployee) {
+  if (
+    certificate.zeugnisTyp === "schluss" ||
+    certificate.zeugnisTyp === "zwischen"
+  ) {
+    // Neues Modell (Christoph-Matrix): Schlusssatz aus dem TS-Katalog, gewählt
+    // nach Austrittsgrund × Wertschätzungsgrad + Opt-ins (Bedauern/Reorg).
+    const tmpl = pickSchlusssatz({
+      zeugnisTyp: certificate.zeugnisTyp,
+      austrittsgrund: certificate.austrittsgrund ?? null,
+      wertschaetzung: certificate.wertschaetzung ?? null,
+      optinBedauern: certificate.optinBedauern,
+      optinReorg: certificate.optinReorg,
+    });
+    closing = tmpl
+      ? substitute(tmpl, employee, certificate)
+      : `Wir danken ${employee.firstName} ${employee.lastName} für die geleistete Arbeit und wünschen für die Zukunft alles Gute.`;
+  } else if (certificate.type === "schluss" && certificate.thankEmployee) {
     const cl = pick("schluss_dank");
     closing = cl
       ? substitute(cl.text, employee, certificate)

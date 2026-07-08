@@ -83,6 +83,28 @@ export function ManagerEvaluationForm({
       ? 0
       : Math.round((ratedSelectedCount / selectedKeys.length) * 100);
 
+  // Umfang-Stufe: je mehr beurteilte Eigenschaften, desto umfassender wirkt das
+  // Zeugnis (Schweizer Praxis). Lückenlose Bänder nach Vorgabe Christoph:
+  // 0–7 Genügend · 8–10 Gut · 11–13 Sehr gut · ab 14 Hervorragend.
+  const evaluatedCount = selectedKeys.length;
+  const qualityTier =
+    evaluatedCount >= 14
+      ? "Hervorragend"
+      : evaluatedCount >= 11
+        ? "Sehr gut"
+        : evaluatedCount >= 8
+          ? "Gut"
+          : "Genügend";
+  const nextTier =
+    evaluatedCount < 8
+      ? { at: 8, label: "Gut" }
+      : evaluatedCount < 11
+        ? { at: 11, label: "Sehr gut" }
+        : evaluatedCount < 14
+          ? { at: 14, label: "Hervorragend" }
+          : null;
+  const toNextTier = nextTier ? nextTier.at - evaluatedCount : 0;
+
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError("");
@@ -193,8 +215,25 @@ export function ManagerEvaluationForm({
         </div>
         <p className="mt-2 text-[11.5px] leading-relaxed text-ink-500">
           Empfohlene Eigenschaften sind vorausgewählt. Schalten Sie pro Thema
-          weitere zu oder ab – nur ausgewählte Eigenschaften erscheinen im Zeugnis.
+          weitere zu oder ab – nur ausgewählte Eigenschaften erscheinen im
+          Zeugnis. Je mehr Eigenschaften Sie beurteilen, desto umfassender wirkt
+          das Zeugnis.
         </p>
+        <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 border-t border-ink-100 pt-3 text-[12px]">
+          <span className="text-ink-600">Umfang des Zeugnisses:</span>
+          <span className="rounded-full bg-petrol-50 px-2 py-0.5 font-medium text-petrol-800">
+            {qualityTier}
+          </span>
+          {nextTier ? (
+            <span className="text-ink-500">
+              noch {toNextTier}{" "}
+              {toNextTier === 1 ? "Eigenschaft" : "Eigenschaften"} bis „
+              {nextTier.label}“
+            </span>
+          ) : (
+            <span className="text-ink-500">Höchste Stufe erreicht.</span>
+          )}
+        </div>
       </div>
 
       {themes.map((g) => {
@@ -270,6 +309,11 @@ export function ManagerEvaluationForm({
                           <summary className="cursor-pointer text-[12px] text-petrol-700 hover:underline">
                             Optionale Anmerkung
                           </summary>
+                          <p className="mt-2 text-[11.5px] leading-relaxed text-ink-500">
+                            Wird <strong className="font-semibold">1:1</strong>{" "}
+                            ins Zeugnis übernommen – die KI schreibt diese
+                            Anmerkung nicht um.
+                          </p>
                           <textarea
                             value={freeTexts[s.key] ?? ""}
                             onChange={(e) =>

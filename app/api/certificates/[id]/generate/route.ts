@@ -47,7 +47,8 @@ export async function POST(
     );
   }
 
-  if (evals.length === 0) {
+  // Arbeitsbestätigung braucht keine Beurteilung (kein Qualitativ-Teil).
+  if (evals.length === 0 && cert.zeugnis_typ !== "arbeitsbestaetigung") {
     return NextResponse.json(
       {
         error:
@@ -77,6 +78,13 @@ export async function POST(
 
   const certData: CertificateData = {
     type: cert.type,
+    zeugnisTyp: cert.zeugnis_typ ?? undefined,
+    austrittsgrund: cert.austrittsgrund ?? null,
+    wertschaetzung: cert.wertschaetzungsgrad ?? null,
+    optinBedauern: cert.optin_bedauern ?? false,
+    optinReorg: cert.optin_reorg ?? false,
+    optinVorgesetztenwechsel: cert.optin_vorgesetztenwechsel ?? false,
+    optinInternerWechsel: cert.optin_interner_wechsel ?? false,
     tasks: cert.tasks ?? [],
     thankEmployee: cert.thank_employee,
     location: company.city ?? "Zürich",

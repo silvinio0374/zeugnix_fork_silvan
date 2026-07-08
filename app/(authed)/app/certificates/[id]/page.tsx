@@ -218,6 +218,7 @@ function typeLabel(t: string) {
     reorganisation: "Reorganisation",
     wunsch_mitarbeiterin: "Wunsch der Mitarbeiterin",
     wunsch_mitarbeiter: "Wunsch des Mitarbeiters",
+    arbeitsbestaetigung: "Arbeitsbestätigung",
   };
   return map[t] ?? t;
 }

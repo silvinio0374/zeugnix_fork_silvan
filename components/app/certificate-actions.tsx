@@ -29,6 +29,9 @@ export function CertificateActions({
   } | null>(null);
   const [copied, setCopied] = useState(false);
 
+  const isArbeitsbestaetigung =
+    certificate.zeugnis_typ === "arbeitsbestaetigung";
+
   async function inviteManager() {
     setBusy(true);
     setError("");
@@ -136,15 +139,17 @@ export function CertificateActions({
           step="1"
           title="Beurteilung der Führungskraft"
           desc={
-            evaluationCount > 0
-              ? `${evaluationCount} Kategorien beurteilt`
-              : invitationCount > 0
-                ? `${invitationCount} Einladung(en) verschickt – Antwort ausstehend`
-                : "Bewertung in 5 Kategorien (Selbst oder per E-Mail-Einladung)"
+            isArbeitsbestaetigung
+              ? "Bei einer Arbeitsbestätigung nicht erforderlich"
+              : evaluationCount > 0
+                ? `${evaluationCount} Kategorien beurteilt`
+                : invitationCount > 0
+                  ? `${invitationCount} Einladung(en) verschickt – Antwort ausstehend`
+                  : "Bewertung in 5 Kategorien (Selbst oder per E-Mail-Einladung)"
           }
-          done={evaluationCount >= 5}
+          done={isArbeitsbestaetigung || evaluationCount >= 5}
         >
-          {!showInvite && evaluationCount === 0 && (
+          {!isArbeitsbestaetigung && !showInvite && evaluationCount === 0 && (
             <div className="flex flex-col gap-1.5 sm:flex-row sm:gap-2">
               <a
                 href={`/app/certificates/${certificate.id}/evaluate`}
@@ -160,7 +165,7 @@ export function CertificateActions({
               </button>
             </div>
           )}
-          {!showInvite && evaluationCount > 0 && (
+          {!isArbeitsbestaetigung && !showInvite && evaluationCount > 0 && (
             <a
               href={`/app/certificates/${certificate.id}/evaluate`}
               className="btn-secondary py-2 text-[12px]"
@@ -294,7 +299,7 @@ export function CertificateActions({
           desc="Aus Beurteilungen und Bausteinen"
           done={!!certificate.generated_text}
         >
-          {evaluationCount > 0 && (
+          {(evaluationCount > 0 || isArbeitsbestaetigung) && (
             <button
               onClick={generateText}
               disabled={busy}
