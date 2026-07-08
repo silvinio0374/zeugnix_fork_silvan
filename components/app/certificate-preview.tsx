@@ -54,6 +54,7 @@ const TYPE_LABELS: Record<string, string> = {
   reorganisation: "Arbeitszeugnis",
   wunsch_mitarbeiterin: "Arbeitszeugnis",
   wunsch_mitarbeiter: "Arbeitszeugnis",
+  arbeitsbestaetigung: "Arbeitsbestätigung",
 };
 
 function formatDate(iso?: string | null): string {

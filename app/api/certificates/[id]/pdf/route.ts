@@ -18,6 +18,7 @@ const TYPE_LABELS: Record<string, string> = {
   reorganisation: "Arbeitszeugnis",
   wunsch_mitarbeiterin: "Arbeitszeugnis",
   wunsch_mitarbeiter: "Arbeitszeugnis",
+  arbeitsbestaetigung: "Arbeitsbestätigung",
 };
 
 // SSRF-Härtung des Logo-Fetch: Logos liegen ausschliesslich im Supabase-Storage
