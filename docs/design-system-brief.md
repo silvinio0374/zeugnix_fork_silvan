@@ -3,211 +3,251 @@
 **Adressat:** Christoph Senn, Head HR, First Corporate Services AG
 **Autor:** Silvan Schück
 **Stand:** 10. Juli 2026
-**Anlass:** Antwort auf das Mail vom 7. Juli 2026 und die `Brand Summary`
+**Anlass:** Antwort auf das Mail vom 7. Juli 2026 und die Brand Summary
 
 ---
 
 ## Vorbemerkung
 
-Der Einwand trifft zu, und zwar in jedem Punkt. zeugnix hat heute **kein Designsystem**. Es gibt keine Design Tokens, keine Theme-Ebene, kein Template-System. Die Anfrage „Schrift und Farbe konfigurierbar machen" war genau die isolierte Einzelanpassung, vor der das Mail warnt. Dieses Dokument beschreibt den Ist-Zustand ungeschönt, schlägt den Token-Satz vor und beantwortet die Frage nach den Schriftschnitten — inklusive zweier Punkte zu Lizenzkosten, die im Mail noch nicht enthalten sind.
+Der Einwand trifft zu. Als das Mail geschrieben wurde, hatte zeugnix **kein Designsystem**: keine Token-Ebene, keine Theme-Ebene, keine Grenzen. Die Anfrage „Schrift und Farbe konfigurierbar machen" war exakt die isolierte Einzelanpassung, vor der es warnt.
 
-Ein Hinweis vorweg zum Verständnis der `Brand Summary`: Sie zeigt fünf Marken mit je eigenem Schriftpaar und eigener Farbe. Damit ist die eigentliche Anforderung nicht „ein Style-Picker", sondern **Mandanten-Branding** — zeugnix muss Zeugnisse unter mehreren Marken ausstellen können. Das ist ein anderer und grösserer Auftrag, und das Dokument geht davon aus.
+Dieses Dokument trennt sauber zwischen **der Ausgangslage** und **dem, was seither umgesetzt ist**. Der lizenzfreie Teil des Umbaus ist bereits erledigt; er stand nicht unter Vorbehalt einer Schriftentscheidung. Was noch aussteht, ist die Marke.
+
+Zum Verständnis der Brand Summary: Sie zeigt fünf Marken mit je eigenem Schriftpaar und eigener Farbe. Damit ist die eigentliche Anforderung nicht „ein Style-Picker", sondern **Mandanten-Branding** — zeugnix muss Zeugnisse unter mehreren Marken ausstellen können. Das ist ein anderer und grösserer Auftrag, und dieses Dokument geht davon aus.
+
+### Die fünf Marken
+
+Angaben aus der von euch gelieferten Brand Summary. Die Schriftnamen sind übernommen; die **Farbwerte haben wir bewusst nicht aus dem PDF abgeleitet** — aus einem Bild lassen sie sich nur schätzen, und ein geschätzter Markenwert ist wertlos.
 
 | Marke | Headlines | Paragraphs | Farbe |
 |---|---|---|---|
-| First Advisory | Minion | Rotis Sans | Olivgrün |
-| CSL | Chambers Sans | Inter | Rot |
-| IAB | Minion | Akkurat | Stahlblau |
-| Comply2gether | CocoSharp | CocoSharp | Rot |
-| Prokuration | Campton | Campton | Blau |
+| First Advisory | Minion | Rotis Sans | Hex ausstehend |
+| CSL | Chambers Sans | Inter | Hex ausstehend |
+| IAB | Minion | Akkurat | Hex ausstehend |
+| Comply2gether | Coco Sharp | Coco Sharp | Hex ausstehend |
+| Prokuration | Campton | Campton | Hex ausstehend |
 
 ---
 
-## 1. Wie die Styles heute technisch verwaltet werden
+## Ausgangslage: wie die Styles verwaltet *waren*
 
-Die direkte Antwort auf die gestellten Fragen:
+Die direkte Antwort auf die vier gestellten Fragen, bezogen auf den Stand vor dem Umbau:
 
 | Frage | Antwort |
 |---|---|
-| Gibt es Design Tokens? | **Nein.** Kein Style Dictionary, kein Token-Export, keine Zwischenschicht. |
-| Gibt es CSS-Variablen? | **Praktisch nein.** Genau zwei (`--background`, `--foreground`), beide statisch. Keine Theme-Variablen. |
-| Können User Templates verwalten oder wechseln? | **Nein.** Es existiert genau ein hart codiertes Layout. |
-| Ist es hart codiert? | **Ja.** Farben und Schriftgrössen stehen als Literale im Code. |
+| Gab es Design Tokens? | **Nein.** Kein Style Dictionary, kein Token-Export, keine Zwischenschicht. |
+| Gab es CSS-Variablen? | **Praktisch nein.** Genau zwei (`--background`, `--foreground`), beide statisch. |
+| Konnten User Templates verwalten oder wechseln? | **Nein.** Genau ein hart codiertes Layout. |
+| War es hart codiert? | **Ja.** Farben und Schriftgrössen als Literale im Code. |
 
-Technisch: Next.js 15 mit Tailwind CSS. Die Farben sind drei hart codierte Hex-Skalen (`ink`, `petrol`, `navy`) in `tailwind.config.ts`. Es gibt kein shadcn/ui, kein `class-variance-authority`, keinen Dark Mode.
+Technisch: Next.js 15 mit Tailwind CSS. Die Farben der Anwendung sind drei hart codierte Hex-Skalen (`ink`, `petrol`, `navy`) in `tailwind.config.ts`. Kein shadcn/ui, kein `class-variance-authority`, kein Dark Mode.
 
-**Der eigentliche Befund** liegt tiefer: Die Typografie des Zeugnisses selbst ist an **drei Stellen dupliziert** —
+Der eigentliche Befund lag tiefer: Die Typografie des Zeugnisses war an **drei Stellen dupliziert** — im PDF-Generator, in der Live-Vorschau und im Absatz-Renderer. Diese drei Stellen waren bereits leicht auseinandergelaufen: unterschiedliche Seitenränder (56/60 pt gegen 20/22 mm), unterschiedliche Zeilenhöhen (1,6 gegen 1,55), unterschiedliche Signaturfarben, und der Vorschau fehlte der Unterschriftskopf ganz.
 
-- `lib/pdf/certificate.tsx` (das PDF)
-- `components/app/certificate-preview.tsx` (die Live-Vorschau)
-- `lib/pdf/tiptap-to-pdf.tsx` (die Absätze im PDF)
-
-Eine Änderung an der Schriftgrösse müsste heute an drei Orten konsistent nachgezogen werden. Die drei Stellen sind bereits leicht auseinandergelaufen (siehe Abschnitt 4).
+Konfigurierbar war pro Firma: Logo, Unterzeichner, Stammdaten — dazu ein **freier Farbwähler ohne jede Kontrastprüfung** und eine von drei Schriften. Zusätzlich konnte im Editor **jede einzelne Textstelle** eine beliebige Schrift und beliebige Farbe erhalten. Genau die „vollständige Freiheit in der Gestaltung", die laut Mail selten sinnvoll ist.
 
 ---
 
-## 2. Es gibt zwei getrennte Style-Welten
+## Es gibt zwei getrennte Style-Welten
 
-Das ist für die Schriftfrage entscheidend, weil nur eine der beiden Welten überhaupt gebrandet werden soll.
+Das ist für die Schriftfrage entscheidend, weil nur eine der beiden gebrandet werden soll.
 
-**Welt A — die zeugnix-Anwendung** (Login, Formulare, Editor-Oberfläche). Schriften Inter Tight und Fraunces, geladen über einen Google-Fonts-Link. Akzentfarbe Petrol `#0F7A6B`. Das ist die Marke zeugnix, sie bleibt unverändert und ist **nicht Gegenstand des Brandings**.
+**Welt A — die Anwendung.** Login, Formulare, Editor-Oberfläche. Inter Tight und Fraunces, geladen über einen Google-Fonts-Link. Akzent Petrol `#0F7A6B`. Das ist die Marke zeugnix. **Nicht Gegenstand des Brandings.**
 
-**Welt B — das erzeugte Zeugnis** (A4-PDF und dessen Live-Vorschau). Erzeugt serverseitig mit `@react-pdf/renderer`. Verfügbar sind hier bislang **nur die drei in PDF eingebauten Basisschriften**: Helvetica, Times, Courier. Diese brauchen keine Einbettung und keine Lizenz.
+**Welt B — das erzeugte Zeugnis.** Zwei Darstellungen desselben Dokuments:
 
-Nur **Welt B** trägt die Marke des Mandanten. Wenn ein Zeugnis unter „First Advisory" erscheinen soll, betrifft das ausschliesslich das Dokument.
+- Das **A4-PDF** wird serverseitig erzeugt (`@react-pdf/renderer`).
+- Die **Live-Vorschau** ist eine clientseitige HTML-Wiedergabe aus denselben Tokens.
 
----
+Diese Unterscheidung ist gleich in der Lizenzfrage wichtig, denn PDF und Browser sind lizenzrechtlich zwei verschiedene Fälle.
 
-## 3. Was heute pro Firma konfigurierbar ist
-
-Sehr wenig, und ohne Grenzen:
-
-- **Logo** (Upload, erscheint im Briefkopf)
-- **Textfarbe** — ein freier Farbwähler. Volle Freiheit, keine Kontrastprüfung.
-- **Schriftart** — eine von drei (Helvetica, Times, Courier)
-
-Zusätzlich kann im Editor **jede einzelne Textstelle** eine beliebige Schrift und beliebige Farbe erhalten. Genau die „vollständige Freiheit in der Gestaltung", die laut Mail selten sinnvoll ist. Dem stimmen wir zu und schlagen vor, sie zurückzunehmen.
-
-Alles andere ist fest: Titelgrösse 18 pt, Fliesstext 11 pt, Zeilenhöhe, Seitenränder, Akzentfarbe, Grautöne.
+Verfügbar sind heute in Welt B nur die drei in PDF eingebauten Basisschriften: Helvetica, Times, Courier. Sie werden **ohne Einbettung der Glyphen** nur namentlich referenziert; es fallen keine Font-Lizenzkosten an. (Die Namen bleiben Monotype-Marken, und eine PDF/A-Archivierung würde Einbettung verlangen — für uns heute nicht relevant.)
 
 ---
 
-## 4. Vorschlag: eine Token-Ebene für das Dokument
+## Was seither umgesetzt ist
 
-Wir führen `lib/design/document-tokens.ts` als **einzige Quelle der Wahrheit** für das Zeugnis ein. Die drei duplizierten Stellen lesen künftig daraus.
+Eine **Token-Ebene für das Dokument** ist die einzige Quelle der Wahrheit. Die drei duplizierten Stellen lesen daraus. Das PDF ist dabei die verbindliche Wahrheit — es ist das rechtlich relevante Artefakt —, und die Vorschau folgt seinen Werten.
 
-Die Tokens zerfallen bewusst in zwei Klassen — das ist die im Mail geforderte **Grenzziehung**:
+Die Tokens zerfallen bewusst in zwei Klassen. Das ist die geforderte Grenzziehung:
 
-**Unveränderlich (nie durch Marke oder Nutzer überschreibbar):**
+**Unveränderlich, nie durch Marke oder Nutzer überschreibbar**
 
-| Token-Gruppe | Werte |
+| Token-Gruppe | Rollen |
 |---|---|
-| `fontSize` | title 18 · companyName 14 · body 11 · caption 10 · small 9 · letterhead 8.5 · micro 8 · fine 7.5 |
-| `lineHeight` | page 1.55 · body 1.6 · letterhead 1.45 |
-| `letterSpacing` | title 0.5 · label 0.6 |
+| `fontSize` | `title` 18 · `companyName` 14 · `body` 11 · `signature` 10 · `signatureRole` 9 · `letterhead` 8,5 · `signaturesHeader` 8 · `hash` 7,5 · `hashLabel` 7 |
+| `lineHeight` | `page` 1,55 · `body` 1,6 · `letterhead` 1,45 |
+| `letterSpacing` | `title` · `label` |
 | `space` | Seitenränder, Abstände Briefkopf/Titel/Absatz/Signatur/Hash |
 | `page` | A4, 210 × 297 mm |
 
-**Überschreibbar pro Marke (`DocumentTheme`):**
+**Überschreibbar pro Marke (das gesamte Theme, mehr nicht)**
 
 | Token | Bedeutung |
 |---|---|
-| `fonts.heading` | Schrift für Titel und Briefkopf |
-| `fonts.body` | Schrift für den Fliesstext |
-| `fonts.mono` | Schrift für den Prüfhash |
-| `colors.brandAccent` | Markenfarbe (Labels, Linien, QR-Code) |
+| `fonts.heading` | Titel, Briefkopf, Unterschriftsnamen, Labels |
+| `fonts.body` | Fliesstext |
+| `fonts.mono` | Prüfhash |
+| `colors.brandAccent` | Labels, Linien, QR-Code |
 | `colors.textPrimary` | Fliesstextfarbe |
 | `colors.textSecondary`, `.textMuted`, `.rule` | abgeleitete Grautöne |
 
-Der Punkt aus dem Mail — „es macht einen Unterschied, ob das ein Titel, eine Zwischenüberschrift oder eine Fusszeile ist" — ist damit im Typsystem abgebildet: Rollen statt Werte. Und weil die Grössen **nicht** Teil des Theme-Typs sind, kann eine Marke die Schriftgrösse gar nicht verstellen. Die Grenze ist vom Compiler erzwungen, nicht von einer Konvention.
+Der Punkt aus dem Mail — „es macht einen Unterschied, ob das ein Titel, eine Zwischenüberschrift oder eine Fusszeile ist" — ist damit im Typsystem abgebildet: **Rollen statt Werte**. Und weil die Grössen nicht Teil des Theme-Typs sind, *kann* eine Marke die Schriftgrösse gar nicht verstellen. Die Grenze ist vom Compiler erzwungen, nicht von einer Konvention.
 
-Eine Marke ist danach **reine Daten**:
+Weiter umgesetzt:
+
+- **Drei kuratierte Stile** stehen zur Wahl (Helvetica, Times, Courier als Fliesstextschrift) — kein freier Font-Upload.
+- **Der freie Farbwähler ist entfernt.** Farben kommen aus dem Theme und laufen durch einen automatischen **WCAG-AA-Kontrasttest**, der beim Bauen der Anwendung fehlschlägt, wenn ein Theme unter 4,5:1 gegen Papierweiss fällt.
+- **Im Editor bleiben Fett und Unterstrichen.** Schrift und Farbe pro Textstelle sind weg.
+- **Kursiv ist entfernt** — dazu gleich mehr.
+
+Was Nutzer weiterhin **nicht** können: eigene Vorlagen anlegen. Das Layout ist eines und fest. Umschaltbar ist der Stil, nicht die Struktur.
+
+Eine Marke wie First Advisory ist danach **reine Daten** — ein Eintrag, kein Code-Umbau:
 
 ```ts
 "first-advisory": {
-  id: "first-advisory",
   label: "First Advisory",
   fonts: { heading: "minion", body: "rotis-sans", mono: "courier" },
-  colors: { ...BASE_COLORS, brandAccent: "#XXXXXX" },
+  colors: { ...BASE, brandAccent: "#______" },
 }
 ```
 
-Kein Code-Umbau mehr, nur ein Eintrag. Genau deshalb bauen wir diese Ebene **jetzt**, bevor eine Schrift gekauft wird.
-
-**Zum Ist-Zustand ehrlich:** PDF und Vorschau sind bereits auseinandergelaufen (Seitenränder 56/60 pt gegen 20/22 mm, Zeilenhöhe 1.6 gegen 1.55, unterschiedliche Signaturfarben, und der Vorschau fehlt der Block „Digital ausgestellt durch"). Der Refactor macht das PDF zur verbindlichen Wahrheit — es ist das rechtlich relevante Artefakt — und zieht die Vorschau darauf nach.
+Genau deshalb haben wir diese Ebene **jetzt** gebaut, bevor eine Schrift gekauft wird. Dass das erzeugte PDF sich dabei nicht verändert hat, ist nachgewiesen: alter und neuer Stand wurden gerendert und die Position jedes einzelnen Textelements verglichen.
 
 ---
 
-## 5. Wie viele Schriftschnitte wirklich nötig sind
+## Wie viele Schriftschnitte wirklich nötig sind
 
-Die Vermutung im Mail, dass kein volles Family Pack nötig ist, trifft zu. Wir können die Zahl sogar exakt herleiten.
+Die Vermutung, dass kein volles Family Pack nötig ist, trifft zu. Die Zahl lässt sich exakt herleiten.
 
-**Technische Randbedingung:** `@react-pdf/renderer` muss **jeden Schnitt einzeln registrieren und in jedes erzeugte PDF einbetten**. Es gibt kein synthetisches Fetten oder Kursivieren. Jeder Schnitt, den der Editor erlaubt, ist also eine eigene Lizenzposition.
+**Technische Randbedingung:** Der PDF-Renderer muss jeden Schnitt einzeln registrieren und in jedes erzeugte PDF einbetten. Es gibt kein synthetisches Fetten oder Kursivieren. Jeder Schnitt, den der Editor erlaubt, ist eine eigene Lizenzposition. Unterstrichen braucht keinen eigenen Schnitt, und der Prüfhash bleibt auf der lizenzfreien Courier.
 
-Heute erlaubt der Editor Fett **und Kursiv**. Das erzwänge pro Familie vier Schnitte: Regular, Italic, Bold, Bold Italic.
+### Der Kursiv-Punkt — mit der gebotenen Genauigkeit
 
-**Hier hilft das eigene Merkblatt weiter.** Das `Merkblatt Zeugniserstellung 2017` hält fest, dass persönliche Anmerkungen durch Ausrufezeichen, Fragezeichen, Anführungszeichen **und Kursivsetzung** nicht ins Arbeitszeugnis gehören. Kursiv ist im Zeugnis also fachlich unzulässig. Wenn wir es aus dem Editor entfernen — was wir ohnehin tun sollten —, halbiert sich der Bedarf:
+Euer eigenes **Merkblatt zur Zeugniserstellung (2017)** listet unter „Was gehört nicht ins Zeugnis?" wörtlich:
 
-| | mit Kursiv | ohne Kursiv |
+> „Persönliche Anmerkungen oder Andeutungen durch Ausrufe oder Fragezeichen, **kursive Schrift**, Anführungszeichen, etc."
+
+Wichtig ist die genaue Lesart: Das Merkblatt verbietet nicht den Schriftschnitt, sondern **Andeutungen, die sich seiner bedienen**. Ein zwingendes Rechtsverbot der Kursivschrift folgt daraus nicht.
+
+Unsere Konsequenz ist trotzdem eindeutig: Wir haben Kursiv **aus dem Editor entfernt**. Damit kann es gar nicht erst als Andeutung eingesetzt werden — das Werkzeug macht den Fehler unmöglich, statt ihn nur zu verbieten. Dass dabei zwei Schriftschnitte pro Marke entfallen, ist ein willkommener Nebeneffekt, nicht der Grund.
+
+**Fettdruck steht nicht auf eurer Liste**, deshalb ist er geblieben. Falls ihr ihn aus derselben Erwägung ebenfalls ausschliessen wollt, wäre das eine bewusste Entscheidung mit weiterer Kostenwirkung — siehe offene Fragen.
+
+### Die Matrix
+
+Jede Familie braucht Regular; Bold zusätzlich dort, wo fett gesetzt wird.
+
+| | vorher (mit Kursiv) | jetzt (ohne Kursiv) |
 |---|---|---|
 | Paragraph-Familie | Regular, Italic, Bold, Bold Italic | **Regular, Bold** |
-| Headline-Familie | Regular, Bold | **Regular** |
-| **Schnitte pro Marke** | **6** | **3** |
-| Comply2gether / Prokuration (eine Familie) | 4 | **2** |
+| Headline-Familie | Regular, Bold | Regular, Bold |
+| **Schnitte pro Marke** | **6** | **4** |
+| Comply2gether / Prokuration (eine Familie für beide Rollen) | 4 | **2** |
 
-Unterstrichen braucht keinen eigenen Schnitt. Der Prüfhash bleibt auf der lizenzfreien Courier.
+Der Kursiv-Verzicht spart also **genau zwei Schnitte pro Marke** — die beiden Kursivschnitte der Fliesstextfamilie. Bei den Marken mit nur einer Familie ist das eine Halbierung, bei den übrigen ein Drittel.
 
-Damit ist die Antwort: **zwei bis drei Schnitte pro Marke, kein Family Pack.** Und die Grenze ist nicht aus Sparzwang gesetzt, sondern aus der Fachregel abgeleitet — genau die Art von Begründung, die ein Designsystem tragen sollte.
+Anmerkung zur Headline-Familie: Sie trägt nicht nur den Titel, sondern auch Briefkopf, Unterschriftsnamen und Labels. Bold wird dort gebraucht. Die Zahl fällt erst dann auf **zwei Schnitte pro Marke**, wenn eine Marke durchgehend **eine** Familie für alle Rollen des Dokuments benutzt — nicht schon, wenn nur der Titel die Fliesstextschrift übernimmt.
 
-Wenn der Zeugnistitel dieselbe Familie wie der Fliesstext nutzen darf, sinkt der Bedarf auf **zwei Schnitte pro Marke**. Das ist eine gestalterische Entscheidung, die wir gerne gemeinsam treffen.
+**Antwort auf die Ausgangsfrage: zwei bis vier Schnitte pro Marke. Kein Family Pack.**
 
 ---
 
-## 6. Zur Lizenzfrage — was der MyFonts-Link nicht abdeckt
+## Zur Lizenzfrage — was der MyFonts-Link nicht abdeckt
 
-Zwei Punkte, die vor jeder Budgetfreigabe geklärt sein müssen.
+Hier liegt der Punkt, der die Wirtschaftlichkeitsrechnung verschiebt. Alle Zitate sind wörtlich aus der [MyFonts-FAQ](https://www.myfonts.com/pages/faq/) und der zugehörigen [Desktop-EULA](https://www.myfonts.com/pages/license-agreement?id=eula_2275).
 
-**a) Serverseitig erzeugte PDFs sind kein Desktop-Kauf.**
-zeugnix rendert das Zeugnis auf dem Server und bettet die Schrift in jedes PDF ein. Nach der [MyFonts-FAQ](https://www.myfonts.com/pages/faq/) ist das ausdrücklich der Fall der **Server-Lizenz** („required for sites, web apps, or services that allow a non-licensed user to utilize the font to create a product … would cover server-generated documents like dynamic PDFs"). Eine **Desktop-Lizenz schliesst Einbettung und Weitergabe explizit aus** und genügt hier nicht.
+### Serverseitig erzeugte PDFs sind kein Desktop-Kauf
 
-Die Live-Vorschau im Browser braucht **zusätzlich** eine **Webfont-Lizenz**. Diese wird bei MyFonts von den meisten Foundries **jährlich und nach Seitenaufrufen** abgerechnet.
+zeugnix rendert das Zeugnis auf dem Server und bettet die Schrift in jedes PDF ein. Die FAQ beschreibt genau diesen Fall unter der **Server-Lizenz**:
 
-Es sind also **zwei Lizenzarten parallel**, und bei der Webfont-Lizenz handelt es sich um eine **laufende, mengenabhängige Verpflichtung — keinen Einmalkauf.** Das ändert die Wirtschaftlichkeitsrechnung und sollte vor der Auswahl bekannt sein.
+> „A server license is required for sites, web apps, or services that allow a non-licensed user to utilize the font to create a product (for example, personalized t-shirts, **PDF receipts**, business cards, and pictures with captions, et cetera)."
 
-**b) Nicht alle fünf Schriften gibt es bei MyFonts.**
-Nach erster Recherche — **jede Zeile ist vor einer Beschaffung zu verifizieren**:
+Ein serverseitig erzeugtes Zeugnis-PDF folgt demselben Muster wie eine „PDF receipt".
 
-| Schrift | Vermutliche Bezugsquelle | Bemerkung |
+Die **Desktop-Lizenz** genügt dafür nicht. Die FAQ ist unmissverständlich: „distribution and embedding of the font is not allowed." Die ausführliche EULA ist etwas differenzierter — sie erlaubt „create and distribute non-commercial non-editable .pdf documents containing embedded Font Software" — aber die Einschränkung auf **nicht-kommerzielle** Dokumente und das Verbot der Serverinstallation schliessen unseren Fall in beiden Fassungen aus.
+
+### Ein SaaS-Vorbehalt, den wir klären müssen
+
+Dieselbe FAQ enthält einen Satz, der für zeugnix unmittelbar relevant ist:
+
+> „A font downloaded with this license cannot be used in SaaS, where the service is the product rather that the item that is created."
+
+Die Auslegung ist nicht trivial. Bei zeugnix ist der Dienst das Produkt — *und* das erzeugte Zeugnis ist der geschaffene Gegenstand. Was hier gilt, **müssen wir vor einem Kauf mit der jeweiligen Foundry schriftlich klären.** Ich kennzeichne das ausdrücklich als offenen Punkt und argumentiere es nicht weg.
+
+### Die Vorschau ist ein zweiter, bedingter Lizenzfall
+
+Die Live-Vorschau nutzt heute reine System-Schriftstacks. Solange das so bleibt, entsteht **kein Webfont-Fall**. Sobald die lizenzierte Markenschrift auch im Browser erscheinen soll — damit die Vorschau dem PDF wirklich entspricht —, wird die Schriftdatei an den Browser ausgeliefert, und es braucht zusätzlich eine **Webfont-Lizenz**.
+
+Das ist eine echte Produktentscheidung, keine technische Zwangsläufigkeit:
+
+- **Mit Webfont-Lizenz:** Vorschau und PDF sehen identisch aus. Zusätzliche, mengenabhängige Kosten.
+- **Ohne:** Die Vorschau zeigt eine Systemschrift, das PDF die Markenschrift. Die Geometrie stimmt, das Schriftbild nicht.
+
+Zur Abrechnung, wörtlich: „Most foundries on MyFonts offer their webfonts with an Annual license model based on pageviews … You get a total number of pageviews that can be used per month." Also ein Jahresmodell mit **monatlichem Kontingent**, das nachgekauft werden muss. Einzelne Foundries bieten stattdessen einen Einmalkauf. **Pro Schrift zu prüfen.**
+
+### Konsequenz für das Budget
+
+Es sind potenziell **zwei Lizenzarten parallel** — Server für das PDF, Webfont für die Vorschau. Die Server-Lizenz ist bei den meisten Foundries jährlich zu erneuern, die Webfont-Lizenz mengenabhängig. Das sind **wiederkehrende Kosten**, kein reiner Einmalkauf. Diese Struktur sollte vor der Schriftauswahl bekannt sein, nicht danach.
+
+### Bezugsquellen
+
+Korrigiert gegenüber meiner ersten Recherche. Die meisten Schriften sind bei MyFonts erhältlich — die Lücke ist kleiner als gedacht, die Lizenzfrage dafür grösser:
+
+| Schrift | Foundry / Gestalter | Bezug |
 |---|---|---|
-| Inter | SIL Open Font License | **kostenlos**, bereits im Produkt |
-| Minion | Adobe | Lizenzierung über Adobe, nicht MyFonts; Server-Einbettung gesondert prüfen |
-| Akkurat | Lineto (Direktvertrieb) | vermutlich nicht über MyFonts beziehbar |
-| Rotis Sans | Monotype | |
-| Chambers Sans | Fontsmith / Monotype | |
-| CocoSharp | Latinotype | |
-| Campton | René Bieder | |
+| Inter | Rasmus Andersson, SIL Open Font License | **kostenlos**, kein MyFonts-Produkt |
+| Minion | Adobe Originals, Robert Slimbach | Adobe Fonts **und** MyFonts |
+| Rotis Sans | Monotype | MyFonts |
+| FF Chambers Sans | Verena Gerlach, FontFont (Monotype) | MyFonts |
+| Coco Sharp | Zetafonts, Cosimo Lorenzo Pancini | MyFonts |
+| Campton | René Bieder | MyFonts |
+| Akkurat | Lineto | **nur Direktvertrieb**, nicht über MyFonts |
 
-**Empfehlung für die Reihenfolge: mit CSL beginnen.** Deren Paragraph-Schrift ist **Inter** — Open Source, kostenlos, und bereits im Produkt vorhanden. Damit lässt sich die gesamte Marken-Pipeline (Theme, Einbettung, PDF, Vorschau) **zu null Lizenzkosten** end-to-end beweisen, bevor irgendetwas gekauft wird. Erst wenn das steht, kaufen wir die erste kommerzielle Schrift.
+**Empfehlung zur Reihenfolge: mit CSL beginnen.** Deren Fliesstextschrift ist Inter — unter der SIL Open Font License, also kostenlos und ohne Server- oder Webfont-Problematik. Damit lässt sich die gesamte Marken-Pipeline (Theme, Einbettung, PDF, Vorschau) **zu null Lizenzkosten** end-to-end beweisen, bevor irgendetwas gekauft wird.
 
----
-
-## 7. Barrierefreiheit
-
-Im Mail zu Recht genannt. Die heutige Akzentfarbe Petrol `#0F7A6B` erreicht auf Papierweiss einen Kontrast von **≈ 5,2 : 1**. Sie besteht damit **WCAG AA** für Fliesstext (Schwelle 4,5 : 1); die strengere Stufe AAA (7 : 1) erreicht sie nicht.
-
-Für die Markenfarben aus der `Brand Summary` können wir das noch nicht prüfen — dafür brauchen wir die **exakten Hex-Werte**, nicht die Farbeindrücke aus dem PDF. Sobald sie vorliegen, läuft jede Markenfarbe durch einen automatischen Kontrast-Test, der beim Bauen der Anwendung fehlschlägt, wenn ein Theme unter 4,5 : 1 fällt. Der Test schützt damit den Theme-Autor, nicht den Endnutzer — was der Punkt an einem Designsystem mit Grenzen ist.
-
-Anzumerken ist: Die roten Marken (CSL, Comply2gether) und das Stahlblau (IAB) könnten hier knapp werden, je nach Sättigung. Das ist lösbar, indem die Markenfarbe für **Flächen und Linien** genutzt wird und der Fliesstext auf dem dunklen Neutralton bleibt.
+Eine Klarstellung dazu, weil sie leicht misszuverstehen ist: Inter ist heute **nicht** im Zeugnis-Renderer eingebunden. Die Anwendungsoberfläche nutzt die verwandte Familie *Inter Tight*. Für CSL müsste Inter einmalig als Schriftdatei eingebettet werden — ohne Lizenzkosten, aber mit einem Einbauschritt.
 
 ---
 
-## 8. Testzugang und direkte Abstimmung
+## Barrierefreiheit
 
-Beides gern, und der Vorschlag geht sogar weiter.
+Im Mail zu Recht genannt. Die heutige Akzentfarbe Petrol `#0F7A6B` erreicht auf Papierweiss **5,23:1**. Sie besteht damit **WCAG AA** für Fliesstext (Schwelle 4,5:1); die strengere Stufe AAA (7:1) erreicht sie nicht.
 
-- **Testzugang:** Wir richten einen Account auf der **Preview-Umgebung** ein. Nicht auf der Produktivumgebung — dort liegen echte Mandantendaten.
-- **Direkter Draht:** Eine Vermittlung ist nicht nötig. Silvan Schück ist der Entwickler und stimmt sich direkt ab.
+Für die Markenfarben können wir das noch nicht prüfen — dafür brauchen wir die exakten Hex-Werte. Sobald sie vorliegen, läuft jede Markenfarbe durch den Kontrasttest, der beim Bauen fehlschlägt, wenn ein Theme unter 4,5:1 fällt. Der Test schützt damit den Theme-Autor, nicht den Endnutzer — was der Punkt an einem Designsystem mit Grenzen ist.
 
-Vorschlag für einen Termin von 45 Minuten:
-
-1. Token-Satz aus Abschnitt 4 gemeinsam durchgehen und die Rollen festlegen
-2. Die Schriftschnitt-Matrix aus Abschnitt 5 bestätigen
-3. Bezugsquelle und Lizenzform pro Schrift klären, Kostenrahmen abstecken
-4. Reihenfolge der fünf Marken festlegen
+Anzumerken ist: Kräftige Rot- und Blautöne können hier je nach Sättigung knapp werden. Das ist lösbar, indem die Markenfarbe für **Flächen und Linien** genutzt wird und der Fliesstext auf dem dunklen Neutralton bleibt.
 
 ---
 
-## 9. Offene Fragen
+## Testzugang und direkte Abstimmung
 
-1. **Kursiv im Zeugnis** — wird bestätigt, dass es ausgeschlossen werden soll? Das Merkblatt 2017 sagt ja. Es halbiert die benötigten Schriftschnitte.
-2. **Bezugseinheit des Brandings** — pro Marke oder pro ausstellender Gesellschaft? Beide sind abbildbar, es entscheidet über das Datenmodell.
-3. **Reihenfolge der Marken** — Vorschlag CSL zuerst, weil Inter lizenzkostenfrei ist.
-4. **Lizenzhalter** — beschafft First Advisory die Lizenzen, oder zeugnix? Bei einer pageview-basierten Webfont-Lizenz ist das eine **laufende** Verpflichtung mit einer Mengenschwelle, die jemand überwachen muss.
-5. **Titelschrift** — braucht der Zeugnistitel wirklich die Headline-Familie, oder genügt die Paragraph-Familie? Ersteres kostet pro Marke eine ganze zusätzliche Familie.
-6. **Exakte Hex-Werte** der fünf Markenfarben, für den Kontrast-Test.
+Beides gern.
+
+**Testzugang:** Wir richten einen Account auf der Preview-Umgebung ein. Nicht auf der Produktivumgebung — dort liegen echte Mandantendaten.
+
+**Direkter Draht:** Eine Vermittlung ist nicht nötig. Ich entwickle an zeugnix mit und stimme mich direkt ab. (Die Codebasis stammt ursprünglich von Patrick Hitz; die hier beschriebenen Änderungen sind von mir.)
+
+Vorschlag für 45 Minuten: den Token-Satz gemeinsam durchgehen und die Rollen festlegen; die Schriftschnitt-Matrix bestätigen; Bezugsquelle, Lizenzform und den SaaS-Vorbehalt pro Schrift klären; die Reihenfolge der fünf Marken festlegen.
 
 ---
 
-## Was wir bis zum Termin bereits umsetzen
+## Offene Fragen
 
-Die Token-Ebene aus Abschnitt 4, die Zusammenführung der drei duplizierten Render-Stellen, die Entfernung der unbegrenzten Schrift- und Farbwahl aus dem Editor, sowie den Kontrast-Test. Das alles ist **lizenzfrei** und benötigt keine Entscheidung über Schriften. Es ist die Grundlage, auf der das Hinzufügen einer Marke danach eine Datenänderung ist und kein Projekt.
+1. **Exakte Hex-Werte** der fünf Markenfarben. Ohne sie kein Kontrasttest und kein Theme.
+2. **SaaS-Vorbehalt.** Wer klärt mit den Foundries, ob eine Server-Lizenz den zeugnix-Anwendungsfall deckt? Das ist die einzige Frage, die ein echtes Projektrisiko trägt.
+3. **Fettdruck.** Euer Merkblatt nennt ihn nicht. Soll er im Zeugnis bleiben? Ein Verzicht spart pro Marke einen weiteren Schnitt.
+4. **Bezugseinheit des Brandings** — pro Marke oder pro ausstellender Gesellschaft? Beide sind abbildbar; es entscheidet über das Datenmodell.
+5. **Vorschau-Treue.** Soll die Live-Vorschau die Markenschrift zeigen (Webfont-Lizenz nötig) oder genügt eine Systemschrift?
+6. **Titelschrift.** Braucht der Zeugnistitel die Headline-Familie, oder genügt die Paragraph-Familie? Eine durchgehende Familie senkt den Bedarf auf zwei Schnitte.
+7. **Lizenzhalter.** Beschafft First Advisory die Lizenzen, oder zeugnix? Bei mengenabhängigen Lizenzen ist das eine laufende Verpflichtung mit einer Schwelle, die jemand überwachen muss.
+8. **Reihenfolge der Marken** — Vorschlag CSL zuerst, weil Inter lizenzkostenfrei ist.
+
+---
+
+## Zu den Quellen
+
+Die Aussagen dieses Briefs sind gegen die jeweilige Primärquelle geprüft: die MyFonts-FAQ und die Desktop-EULA für die Lizenztypen, die Foundry-Seiten für die Zuordnung der Schriften, euer Merkblatt zur Zeugniserstellung (2017) für die Kursiv-Frage, und der Quellcode für alle Aussagen über zeugnix. Der Kontrastwert ist nach WCAG 2.1 berechnet.
+
+Wo eine Aussage vom Auslegungsspielraum abhängt — der SaaS-Vorbehalt, das Webfont-Abrechnungsmodell —, ist sie als solche gekennzeichnet und nicht als Tatsache formuliert.

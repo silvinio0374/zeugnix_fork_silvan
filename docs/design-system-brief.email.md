@@ -1,7 +1,8 @@
 # E-Mail-Entwurf an Christoph Senn
 
 > Nicht Teil des Briefs. Zum Kopieren, Kürzen, Anpassen.
-> Der Brief (`design-system-brief.md`) geht als PDF oder Anhang mit.
+> Anhang: `design-system-brief.html` — öffnet sich per Doppelklick im Browser,
+> lädt nichts nach, und lässt sich über „Drucken → Als PDF sichern" zu PDF machen.
 
 ---
 
@@ -9,21 +10,25 @@
 
 Hallo Christoph
 
-Danke für den Anhang und vor allem für den Kommentar. Du hast in jedem Punkt recht: zeugnix hat heute kein Designsystem. Keine Design Tokens, keine Theme-Ebene, keine CSS-Variablen ausser zwei statischen, kein Template-System. Die Typografie des Zeugnisses steht als Literal an drei Stellen im Code, und die sind bereits leicht auseinandergelaufen. Unsere Anfrage „Schrift und Farbe konfigurierbar machen" war genau die isolierte Einzelanpassung, vor der du warnst.
+Danke für den Anhang und vor allem für den Kommentar. Du hast recht: zeugnix hatte kein Designsystem. Keine Design Tokens, keine Theme-Ebene, keine CSS-Variablen ausser zwei statischen, keine definierten Grenzen. Die Typografie des Zeugnisses stand als Literal an drei Stellen im Code, und die waren bereits leicht auseinandergelaufen. Unsere Anfrage „Schrift und Farbe konfigurierbar machen" war genau die isolierte Einzelanpassung, vor der du warnst.
 
-Ich habe das im Detail aufgeschrieben — beiliegend der Brief mit dem Ist-Zustand, dem vorgeschlagenen Token-Satz und den Grenzen, die wir setzen wollen. Zwei Punkte daraus möchte ich hier vorwegnehmen, weil sie die Kostenfrage verschieben:
+Deinen Einwand haben wir umgesetzt, statt ihn nur zu diskutieren. Beiliegend der Brief mit dem Token-Satz, den Grenzen und der Schriftschnitt-Matrix. Der lizenzfreie Teil ist bereits gebaut — er brauchte keine Schriftentscheidung.
 
-**1. Der MyFonts-Link greift zu kurz.** zeugnix erzeugt die PDFs auf dem Server und bettet die Schrift in jedes Dokument ein. Das ist bei MyFonts nicht der Desktop-Fall, sondern eine **Server-Lizenz** — deren FAQ nennt „server-generated documents like dynamic PDFs" ausdrücklich. Die Live-Vorschau im Browser braucht zusätzlich eine **Webfont-Lizenz**, und die wird dort meist **jährlich nach Seitenaufrufen** abgerechnet. Also zwei Lizenzarten parallel und eine laufende Verpflichtung, kein Einmalkauf. Ausserdem gibt es nicht alle fünf Schriften bei MyFonts: Inter ist Open Source und kostenlos, Akkurat kommt von Lineto, Minion von Adobe.
+Drei Punkte möchte ich vorwegnehmen:
 
-**2. Dein eigenes Merkblatt beantwortet die Schriftschnitt-Frage.** Das `Merkblatt Zeugniserstellung 2017` hält fest, dass Kursivsetzung — wie Ausrufezeichen und Anführungszeichen — als persönliche Andeutung nicht ins Zeugnis gehört. Unser Editor erlaubt Kursiv heute trotzdem. Nehmen wir es raus, sinkt der Bedarf von vier auf **zwei Schnitte pro Familie**: Regular und Bold. Bei Comply2gether und Prokuration, die eine Familie für Headlines und Paragraphs nutzen, sind das **zwei Schnitte statt eines Family Packs**. Die Grenze ist damit nicht aus Sparzwang gesetzt, sondern aus deiner Fachregel abgeleitet.
+**1. Der MyFonts-Link greift zu kurz, aber anders, als ich zuerst dachte.** Die meisten eurer Schriften sind dort tatsächlich erhältlich; nur Akkurat läuft über den Direktvertrieb von Lineto, und Inter ist ohnehin Open Source. Das eigentliche Problem ist die **Lizenzart**. zeugnix erzeugt die PDFs auf dem Server und bettet die Schrift in jedes Dokument ein. Die MyFonts-FAQ ordnet genau das der **Server-Lizenz** zu und nennt als Beispiel ausdrücklich „PDF receipts". Eine Desktop-Lizenz deckt das nicht. Kommt später die Markenschrift auch in die Browser-Vorschau, braucht es zusätzlich eine **Webfont-Lizenz**, die nach monatlichen Seitenaufrufen bemessen wird. Das sind wiederkehrende Kosten, kein Einmalkauf.
 
-Als Reihenfolge schlage ich vor, **mit CSL zu beginnen**: deren Paragraph-Schrift ist Inter, die ist kostenlos und schon im Produkt. Damit können wir die ganze Marken-Pipeline zu null Lizenzkosten beweisen, bevor wir die erste Schrift kaufen.
+**Und ein Vorbehalt, den ich nicht wegargumentieren will:** Dieselbe FAQ schreibt, eine so lizenzierte Schrift dürfe nicht in SaaS eingesetzt werden, „where the service is the product rather that the item that is created". Ob zeugnix darunter fällt, ist Auslegungssache — bei uns ist der Dienst das Produkt *und* das Zeugnis der geschaffene Gegenstand. **Das müssen wir vor einem Kauf mit der Foundry schriftlich klären.** Es ist der einzige Punkt im ganzen Vorhaben, der ein echtes Risiko trägt.
 
-**Zu deiner Frage nach Testzugang und Entwickler:** beides gern. Ich bin der Entwickler, wir brauchen keinen Umweg. Ich richte dir einen Testzugang auf unserer Preview-Umgebung ein — nicht auf der Produktivumgebung, dort liegen echte Mandantendaten. Hast du in den nächsten Tagen 45 Minuten? Agenda: Token-Satz durchgehen, Schriftschnitte bestätigen, Lizenzform pro Schrift klären, Reihenfolge der Marken festlegen.
+**2. Euer eigenes Merkblatt beantwortet die Schriftschnitt-Frage.** Das „Merkblatt zur Zeugniserstellung" von 2017 nennt unter „Was gehört nicht ins Zeugnis?" die persönlichen Andeutungen „durch Ausrufe oder Fragezeichen, kursive Schrift, Anführungszeichen". Genau gelesen verbietet das nicht den Schriftschnitt, sondern die Andeutung. Wir haben Kursiv trotzdem aus dem Editor genommen — so kann es gar nicht erst als Andeutung dienen. Nebeneffekt: pro Marke fallen zwei Schnitte weg. Statt sechs braucht es vier; bei Comply2gether und Prokuration, die eine Familie für Headlines und Paragraphs nutzen, nur zwei.
 
-Was ich von dir noch bräuchte: die **exakten Hex-Werte** der fünf Markenfarben. Aus dem PDF lassen sie sich nur schätzen, und ich möchte jede Farbe gegen WCAG AA prüfen, bevor sie ins System geht. Unser heutiges Petrol liegt bei rund 5,2:1 und besteht AA — bei den roten Marken könnte es knapper werden.
+Auffällig ist, dass **Fettdruck nicht auf eurer Liste steht.** Er ist deshalb geblieben. Wenn ihr ihn aus derselben Erwägung ebenfalls streichen wollt, spart das nochmals einen Schnitt pro Marke — sagt uns kurz Bescheid.
 
-Bis zum Termin baue ich die Token-Ebene bereits ein und räume die drei duplizierten Stellen zusammen. Das ist lizenzfrei und setzt keine Schriftentscheidung voraus. Danach ist eine neue Marke eine Datenänderung und kein Projekt.
+**3. Als Reihenfolge schlage ich CSL zuerst vor.** Deren Fliesstextschrift ist Inter, Open Source und kostenlos. Damit können wir die ganze Marken-Pipeline zu null Lizenzkosten beweisen, bevor wir die erste Schrift kaufen. (Zur Klarstellung: Inter steckt noch nicht im Zeugnis-Renderer — die Oberfläche nutzt die verwandte Inter Tight. Für CSL wäre es ein Einbauschritt, aber kein Kostenpunkt.)
+
+**Zu deiner Frage nach Testzugang und Entwickler:** beides gern, wir brauchen keinen Umweg. Ich entwickle an zeugnix mit und stimme mich direkt mit dir ab. Einen Testzugang richte ich dir auf unserer Preview-Umgebung ein — nicht auf der Produktivumgebung, dort liegen echte Mandantendaten. Hast du in den nächsten Tagen 45 Minuten? Agenda: Token-Satz durchgehen, Schriftschnitte bestätigen, Lizenzform und den SaaS-Vorbehalt pro Schrift klären, Reihenfolge der Marken festlegen.
+
+Was ich von dir noch bräuchte: die **exakten Hex-Werte** der fünf Markenfarben. Aus dem PDF lassen sie sich nur schätzen, und ich möchte keine geschätzte Markenfarbe ins System legen. Jede Farbe läuft bei uns durch einen Kontrasttest, der den Build abbricht, wenn sie WCAG AA verfehlt. Unser heutiges Petrol liegt bei 5,23:1 und besteht — bei kräftigen Rot- und Blautönen kann es knapper werden.
 
 Beste Grüsse
 Silvan
