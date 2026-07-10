@@ -257,8 +257,11 @@ export const WCAG_AA_NORMAL_TEXT = 4.5;
 
 /**
  * Prüft ein Theme gegen WCAG AA. Der Check schützt den Theme-Autor, nicht den
- * Endnutzer – Themes sind kuratierte Daten, kein User-Freitext. Läuft in CI
- * (scripts/test-themes.ts) und schlägt beim Bauen fehl, nicht zur Laufzeit.
+ * Endnutzer – Themes sind kuratierte Daten, kein User-Freitext.
+ *
+ * Läuft über scripts/test-themes.ts, das als `prebuild`-Skript vor jedem
+ * `npm run build` ausgeführt wird: ein Theme mit zu blasser Markenfarbe bricht
+ * den Build ab. Eine Grenze, die kein Build prüft, wäre keine Grenze.
  */
 export function assertThemeReadable(theme: DocumentTheme): void {
   const { paper } = theme.colors;

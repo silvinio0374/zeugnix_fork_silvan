@@ -294,7 +294,7 @@ td.num { text-align: right; padding-right: 1.5rem; }
 
 <h3>Die fünf Marken</h3>
 
-<p class="caption">Angaben aus der von euch gelieferten Brand Summary. Die Schriftnamen sind übernommen; die Farbwerte haben wir bewusst nicht aus dem PDF abgeleitet — aus einem Bild lassen sie sich nur schätzen, und ein geschätzter Markenwert ist wertlos.</p>
+<p class="caption">Angaben aus der von euch gelieferten Brand Summary. Die Schriftnamen sind übernommen; die Farbwerte haben wir bewusst nicht aus dem PDF abgeleitet — aus einem Bild lassen sie sich nur schätzen, und eine geschätzte Markenfarbe ist nicht belastbar.</p>
 
 <div class="scroll">
 <table>
@@ -395,7 +395,7 @@ td.num { text-align: right; padding-right: 1.5rem; }
 
 <p>Der Punkt aus dem Mail — „es macht einen Unterschied, ob das ein Titel, eine Zwischenüberschrift oder eine Fusszeile ist“ — ist damit im Typsystem abgebildet: <strong>Rollen statt Werte</strong>. Und weil die Grössen nicht Teil des Theme-Typs sind, <em>kann</em> eine Marke die Schriftgrösse gar nicht verstellen. Die Grenze ist vom Compiler erzwungen, nicht von einer Konvention.</p>
 
-<p>Weiter umgesetzt: <strong>drei kuratierte Stile</strong> statt freiem Font-Upload; der <strong>freie Farbwähler ist entfernt</strong> und Theme-Farben laufen durch einen automatischen WCAG-AA-Kontrasttest, der den Build abbricht; im Editor bleiben <strong>Fett und Unterstrichen</strong>, Schrift und Farbe pro Textstelle sind weg; <strong>Kursiv ist entfernt</strong> — dazu gleich mehr.</p>
+<p>Weiter umgesetzt: <strong>drei kuratierte Stile</strong> statt freiem Font-Upload; der <strong>freie Farbwähler ist entfernt</strong>, und Theme-Farben laufen durch einen automatischen WCAG-AA-Kontrasttest, der dem Build vorgeschaltet ist — fällt ein Theme unter 4,5:1 gegen Papierweiss, lässt sich die Anwendung nicht mehr bauen; im Editor bleiben <strong>Fett und Unterstrichen</strong>, Schrift und Farbe pro Textstelle sind weg; <strong>Kursiv ist entfernt</strong> — dazu gleich mehr.</p>
 
 <p>Was Nutzer weiterhin <strong>nicht</strong> können: eigene Vorlagen anlegen. Das Layout ist eines und fest. Umschaltbar ist der Stil, nicht die Struktur.</p>
 
@@ -411,7 +411,9 @@ td.num { text-align: right; padding-right: 1.5rem; }
 </p>
 </div>
 
-<p>Genau deshalb haben wir diese Ebene <strong>jetzt</strong> gebaut, bevor eine Schrift gekauft wird. Dass das erzeugte PDF sich dabei nicht verändert hat, ist nachgewiesen: alter und neuer Stand wurden gerendert und die Position jedes einzelnen Textelements verglichen.</p>
+<p>Genau deshalb haben wir diese Ebene <strong>jetzt</strong> gebaut, bevor eine Schrift gekauft wird.</p>
+
+<p>Dass das erzeugte PDF sich beim Umbau nicht verändert hat, ist auf zwei Wegen abgesichert. Einmalig wurden alter und neuer Stand gerendert und die Position jedes einzelnen Textelements verglichen — identisch. Dauerhaft prüft ein Test die berechneten Stilwerte gegen die Literalwerte von vor dem Umbau; er läuft bei jedem Build mit.</p>
 
 <h2>Wie viele Schriftschnitte wirklich nötig sind</h2>
 
@@ -419,22 +421,22 @@ td.num { text-align: right; padding-right: 1.5rem; }
 
 <p><strong>Technische Randbedingung:</strong> Der PDF-Renderer muss jeden Schnitt einzeln registrieren und in jedes erzeugte PDF einbetten. Es gibt kein synthetisches Fetten oder Kursivieren. Jeder Schnitt, den der Editor erlaubt, ist eine eigene Lizenzposition. Unterstrichen braucht keinen eigenen Schnitt, und der Prüfhash bleibt auf der lizenzfreien Courier.</p>
 
-<h3>Der Kursiv-Punkt — mit der gebotenen Genauigkeit</h3>
+<h3>Der Kursiv-Punkt</h3>
 
-<p>Euer eigenes <strong>Merkblatt zur Zeugniserstellung (2017)</strong> listet unter „Was gehört nicht ins Zeugnis?“ wörtlich:</p>
+<p>Euer <strong>Merkblatt zur Zeugniserstellung (2017)</strong> listet unter „Was gehört nicht ins Zeugnis?“ wörtlich:</p>
 
 <blockquote>
   <p>„Persönliche Anmerkungen oder Andeutungen durch Ausrufe oder Fragezeichen, <strong>kursive Schrift</strong>, Anführungszeichen, etc.“</p>
   <cite>Merkblatt zur Zeugniserstellung, 2017, Seite 2</cite>
 </blockquote>
 
-<p>Wichtig ist die genaue Lesart: Das Merkblatt verbietet nicht den Schriftschnitt, sondern <strong>Andeutungen, die sich seiner bedienen</strong>. Ein zwingendes Rechtsverbot der Kursivschrift folgt daraus nicht.</p>
+<p>So wie wir das verstehen, geht es dort nicht um den Schriftschnitt an sich, sondern um <strong>Andeutungen, die sich seiner bedienen</strong>. Ein zwingendes Verbot der Kursivschrift lesen wir daraus nicht heraus; die rechtliche Einordnung liegt bei euch.</p>
 
-<p>Unsere Konsequenz ist trotzdem eindeutig: Wir haben Kursiv <strong>aus dem Editor entfernt</strong>. Damit kann es gar nicht erst als Andeutung eingesetzt werden — das Werkzeug macht den Fehler unmöglich, statt ihn nur zu verbieten. Dass dabei zwei Schriftschnitte pro Marke entfallen, ist ein willkommener Nebeneffekt, nicht der Grund.</p>
+<p>Unsere Konsequenz ist trotzdem eindeutig: Wir haben Kursiv <strong>aus dem Editor entfernt</strong>, damit es gar nicht erst als Andeutung eingesetzt werden kann. Dass dabei zwei Schriftschnitte pro Marke entfallen, ist ein willkommener Nebeneffekt, nicht der Grund.</p>
 
 <div class="callout">
   <p class="label">Eine Beobachtung zum Fettdruck</p>
-  <p><strong>Fettdruck steht nicht auf eurer Liste</strong>, deshalb ist er geblieben. Falls ihr ihn aus derselben Erwägung ebenfalls ausschliessen wollt, wäre das eine bewusste Entscheidung mit weiterer Kostenwirkung — ein Schnitt weniger pro Marke.</p>
+  <p>Aufgefallen ist uns: <strong>Fettdruck steht nicht auf dieser Liste.</strong> Deshalb ist er geblieben. Falls ihr ihn aus derselben Erwägung ebenfalls ausschliessen wollt, wäre das eine bewusste Entscheidung mit weiterer Kostenwirkung — ein Schnitt weniger pro Marke.</p>
 </div>
 
 <h3>Die Matrix</h3>
@@ -507,7 +509,12 @@ td.num { text-align: right; padding-right: 1.5rem; }
   </div>
 </div>
 
-<p>Zur Abrechnung, wörtlich: „Most foundries on MyFonts offer their webfonts with an Annual license model based on pageviews … You get a total number of pageviews that can be used per month.“ Also ein Jahresmodell mit <strong>monatlichem Kontingent</strong>, das nachgekauft werden muss. Einzelne Foundries bieten stattdessen einen Einmalkauf. <strong>Pro Schrift zu prüfen.</strong></p>
+<blockquote>
+  <p>„Most foundries on MyFonts offer their webfonts with the Annual license model. … You get a total number of pageviews that can be used per month. This means that you will pay for a number of monthly pageviews, then you'll have to come back to purchase more after your site has been viewed that number of times in a single month.“</p>
+  <cite>MyFonts-FAQ</cite>
+</blockquote>
+
+<p>Also ein Jahresmodell mit <strong>monatlichem Kontingent</strong>, das nachgekauft werden muss. Einzelne Foundries bieten stattdessen einen Einmalkauf. <strong>Pro Schrift zu prüfen.</strong></p>
 
 <div class="callout">
   <p class="label">Konsequenz für das Budget</p>
@@ -554,7 +561,7 @@ td.num { text-align: right; padding-right: 1.5rem; }
   <p class="note">Besteht <strong>WCAG AA</strong> für Fliesstext (Schwelle 4,5:1). Die strengere Stufe AAA (7:1) erreicht sie nicht. Der Zahlenwert links ist in genau dieser Farbe gesetzt.</p>
 </div>
 
-<p>Für die Markenfarben können wir das noch nicht prüfen — dafür brauchen wir die exakten Hex-Werte. Sobald sie vorliegen, läuft jede Markenfarbe durch den Kontrasttest, der beim Bauen fehlschlägt, wenn ein Theme unter 4,5:1 fällt. Der Test schützt damit den Theme-Autor, nicht den Endnutzer — was der Punkt an einem Designsystem mit Grenzen ist.</p>
+<p>Für die Markenfarben können wir das noch nicht prüfen — dafür brauchen wir die exakten Hex-Werte. Sobald sie vorliegen, läuft jede Markenfarbe durch den Kontrasttest, der dem Build vorgeschaltet ist. Eine zu blasse Markenfarbe lässt sich damit nicht ausliefern. Der Test schützt den Theme-Autor, nicht den Endnutzer.</p>
 
 <p>Anzumerken ist: Kräftige Rot- und Blautöne können hier je nach Sättigung knapp werden. Das ist lösbar, indem die Markenfarbe für <strong>Flächen und Linien</strong> genutzt wird und der Fliesstext auf dem dunklen Neutralton bleibt.</p>
 
@@ -564,7 +571,7 @@ td.num { text-align: right; padding-right: 1.5rem; }
 
 <p><strong>Testzugang:</strong> Wir richten einen Account auf der Preview-Umgebung ein. Nicht auf der Produktivumgebung — dort liegen echte Mandantendaten.</p>
 
-<p><strong>Direkter Draht:</strong> Eine Vermittlung ist nicht nötig. Ich entwickle an zeugnix mit und stimme mich direkt ab. (Die Codebasis stammt ursprünglich von Patrick Hitz; die hier beschriebenen Änderungen sind von mir.)</p>
+<p><strong>Direkter Draht:</strong> Eine Vermittlung ist nicht nötig. zeugnix wurde von Patrick Hitz begonnen; ich entwickle mit, habe die hier beschriebenen Änderungen gemacht und stimme mich gern direkt mit dir ab.</p>
 
 <p>Vorschlag für 45 Minuten: den Token-Satz gemeinsam durchgehen und die Rollen festlegen; die Schriftschnitt-Matrix bestätigen; Bezugsquelle, Lizenzform und den SaaS-Vorbehalt pro Schrift klären; die Reihenfolge der fünf Marken festlegen.</p>
 

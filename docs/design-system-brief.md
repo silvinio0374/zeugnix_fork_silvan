@@ -17,7 +17,7 @@ Zum Verständnis der Brand Summary: Sie zeigt fünf Marken mit je eigenem Schrif
 
 ### Die fünf Marken
 
-Angaben aus der von euch gelieferten Brand Summary. Die Schriftnamen sind übernommen; die **Farbwerte haben wir bewusst nicht aus dem PDF abgeleitet** — aus einem Bild lassen sie sich nur schätzen, und ein geschätzter Markenwert ist wertlos.
+Angaben aus der von euch gelieferten Brand Summary. Die Schriftnamen sind übernommen; die **Farbwerte haben wir bewusst nicht aus dem PDF abgeleitet** — aus einem Bild lassen sie sich nur schätzen, und eine geschätzte Markenfarbe ist nicht belastbar.
 
 | Marke | Headlines | Paragraphs | Farbe |
 |---|---|---|---|
@@ -97,7 +97,7 @@ Der Punkt aus dem Mail — „es macht einen Unterschied, ob das ein Titel, eine
 Weiter umgesetzt:
 
 - **Drei kuratierte Stile** stehen zur Wahl (Helvetica, Times, Courier als Fliesstextschrift) — kein freier Font-Upload.
-- **Der freie Farbwähler ist entfernt.** Farben kommen aus dem Theme und laufen durch einen automatischen **WCAG-AA-Kontrasttest**, der beim Bauen der Anwendung fehlschlägt, wenn ein Theme unter 4,5:1 gegen Papierweiss fällt.
+- **Der freie Farbwähler ist entfernt.** Farben kommen aus dem Theme und laufen durch einen automatischen **WCAG-AA-Kontrasttest**. Er ist dem Build vorgeschaltet: Fällt ein Theme unter 4,5:1 gegen Papierweiss, lässt sich die Anwendung nicht mehr bauen.
 - **Im Editor bleiben Fett und Unterstrichen.** Schrift und Farbe pro Textstelle sind weg.
 - **Kursiv ist entfernt** — dazu gleich mehr.
 
@@ -113,7 +113,9 @@ Eine Marke wie First Advisory ist danach **reine Daten** — ein Eintrag, kein C
 }
 ```
 
-Genau deshalb haben wir diese Ebene **jetzt** gebaut, bevor eine Schrift gekauft wird. Dass das erzeugte PDF sich dabei nicht verändert hat, ist nachgewiesen: alter und neuer Stand wurden gerendert und die Position jedes einzelnen Textelements verglichen.
+Genau deshalb haben wir diese Ebene **jetzt** gebaut, bevor eine Schrift gekauft wird.
+
+Dass das erzeugte PDF sich beim Umbau nicht verändert hat, ist auf zwei Wegen abgesichert. Einmalig wurden alter und neuer Stand gerendert und die Position jedes einzelnen Textelements verglichen — identisch. Dauerhaft prüft ein Test die berechneten Stilwerte gegen die Literalwerte von vor dem Umbau; er läuft bei jedem Build mit.
 
 ---
 
@@ -123,17 +125,17 @@ Die Vermutung, dass kein volles Family Pack nötig ist, trifft zu. Die Zahl läs
 
 **Technische Randbedingung:** Der PDF-Renderer muss jeden Schnitt einzeln registrieren und in jedes erzeugte PDF einbetten. Es gibt kein synthetisches Fetten oder Kursivieren. Jeder Schnitt, den der Editor erlaubt, ist eine eigene Lizenzposition. Unterstrichen braucht keinen eigenen Schnitt, und der Prüfhash bleibt auf der lizenzfreien Courier.
 
-### Der Kursiv-Punkt — mit der gebotenen Genauigkeit
+### Der Kursiv-Punkt
 
-Euer eigenes **Merkblatt zur Zeugniserstellung (2017)** listet unter „Was gehört nicht ins Zeugnis?" wörtlich:
+Euer **Merkblatt zur Zeugniserstellung (2017)** listet unter „Was gehört nicht ins Zeugnis?" wörtlich:
 
 > „Persönliche Anmerkungen oder Andeutungen durch Ausrufe oder Fragezeichen, **kursive Schrift**, Anführungszeichen, etc."
 
-Wichtig ist die genaue Lesart: Das Merkblatt verbietet nicht den Schriftschnitt, sondern **Andeutungen, die sich seiner bedienen**. Ein zwingendes Rechtsverbot der Kursivschrift folgt daraus nicht.
+So wie wir das verstehen, geht es dort nicht um den Schriftschnitt an sich, sondern um **Andeutungen, die sich seiner bedienen**. Ein zwingendes Verbot der Kursivschrift lesen wir daraus nicht heraus; die rechtliche Einordnung liegt bei euch.
 
-Unsere Konsequenz ist trotzdem eindeutig: Wir haben Kursiv **aus dem Editor entfernt**. Damit kann es gar nicht erst als Andeutung eingesetzt werden — das Werkzeug macht den Fehler unmöglich, statt ihn nur zu verbieten. Dass dabei zwei Schriftschnitte pro Marke entfallen, ist ein willkommener Nebeneffekt, nicht der Grund.
+Unsere Konsequenz ist trotzdem eindeutig: Wir haben Kursiv **aus dem Editor entfernt**, damit es gar nicht erst als Andeutung eingesetzt werden kann. Dass dabei zwei Schriftschnitte pro Marke entfallen, ist ein willkommener Nebeneffekt, nicht der Grund.
 
-**Fettdruck steht nicht auf eurer Liste**, deshalb ist er geblieben. Falls ihr ihn aus derselben Erwägung ebenfalls ausschliessen wollt, wäre das eine bewusste Entscheidung mit weiterer Kostenwirkung — siehe offene Fragen.
+Aufgefallen ist uns: **Fettdruck steht nicht auf dieser Liste.** Deshalb ist er geblieben. Falls ihr ihn aus derselben Erwägung ebenfalls ausschliessen wollt, wäre das eine bewusste Entscheidung mit weiterer Kostenwirkung — siehe offene Fragen.
 
 ### Die Matrix
 
@@ -185,7 +187,7 @@ Das ist eine echte Produktentscheidung, keine technische Zwangsläufigkeit:
 - **Mit Webfont-Lizenz:** Vorschau und PDF sehen identisch aus. Zusätzliche, mengenabhängige Kosten.
 - **Ohne:** Die Vorschau zeigt eine Systemschrift, das PDF die Markenschrift. Die Geometrie stimmt, das Schriftbild nicht.
 
-Zur Abrechnung, wörtlich: „Most foundries on MyFonts offer their webfonts with an Annual license model based on pageviews … You get a total number of pageviews that can be used per month." Also ein Jahresmodell mit **monatlichem Kontingent**, das nachgekauft werden muss. Einzelne Foundries bieten stattdessen einen Einmalkauf. **Pro Schrift zu prüfen.**
+Zur Abrechnung, wörtlich: „Most foundries on MyFonts offer their webfonts with the Annual license model. … You get a total number of pageviews that can be used per month. This means that you will pay for a number of monthly pageviews, then you'll have to come back to purchase more after your site has been viewed that number of times in a single month." Also ein Jahresmodell mit **monatlichem Kontingent**, das nachgekauft werden muss. Einzelne Foundries bieten stattdessen einen Einmalkauf. **Pro Schrift zu prüfen.**
 
 ### Konsequenz für das Budget
 
@@ -215,7 +217,7 @@ Eine Klarstellung dazu, weil sie leicht misszuverstehen ist: Inter ist heute **n
 
 Im Mail zu Recht genannt. Die heutige Akzentfarbe Petrol `#0F7A6B` erreicht auf Papierweiss **5,23:1**. Sie besteht damit **WCAG AA** für Fliesstext (Schwelle 4,5:1); die strengere Stufe AAA (7:1) erreicht sie nicht.
 
-Für die Markenfarben können wir das noch nicht prüfen — dafür brauchen wir die exakten Hex-Werte. Sobald sie vorliegen, läuft jede Markenfarbe durch den Kontrasttest, der beim Bauen fehlschlägt, wenn ein Theme unter 4,5:1 fällt. Der Test schützt damit den Theme-Autor, nicht den Endnutzer — was der Punkt an einem Designsystem mit Grenzen ist.
+Für die Markenfarben können wir das noch nicht prüfen — dafür brauchen wir die exakten Hex-Werte. Sobald sie vorliegen, läuft jede Markenfarbe durch den Kontrasttest, der dem Build vorgeschaltet ist. Eine zu blasse Markenfarbe lässt sich damit nicht ausliefern. Der Test schützt den Theme-Autor, nicht den Endnutzer.
 
 Anzumerken ist: Kräftige Rot- und Blautöne können hier je nach Sättigung knapp werden. Das ist lösbar, indem die Markenfarbe für **Flächen und Linien** genutzt wird und der Fliesstext auf dem dunklen Neutralton bleibt.
 
@@ -227,7 +229,7 @@ Beides gern.
 
 **Testzugang:** Wir richten einen Account auf der Preview-Umgebung ein. Nicht auf der Produktivumgebung — dort liegen echte Mandantendaten.
 
-**Direkter Draht:** Eine Vermittlung ist nicht nötig. Ich entwickle an zeugnix mit und stimme mich direkt ab. (Die Codebasis stammt ursprünglich von Patrick Hitz; die hier beschriebenen Änderungen sind von mir.)
+**Direkter Draht:** Eine Vermittlung ist nicht nötig. zeugnix wurde von Patrick Hitz begonnen; ich entwickle mit, habe die hier beschriebenen Änderungen gemacht und stimme mich gern direkt mit dir ab.
 
 Vorschlag für 45 Minuten: den Token-Satz gemeinsam durchgehen und die Rollen festlegen; die Schriftschnitt-Matrix bestätigen; Bezugsquelle, Lizenzform und den SaaS-Vorbehalt pro Schrift klären; die Reihenfolge der fünf Marken festlegen.
 
