@@ -15,7 +15,6 @@ import type { TiptapMark, TiptapNode } from "./tiptap-plaintext";
 export interface Run {
   text: string;
   bold: boolean;
-  italic: boolean;
   underline: boolean;
   color?: string;
   fontFamily?: string;
@@ -26,22 +25,31 @@ export interface Block {
   runs: Run[];
 }
 
+/**
+ * KURSIV: bewusst NICHT abgebildet. Das Merkblatt zur Zeugniserstellung (2017)
+ * zählt Kursivsetzung – wie Ausrufe-/Fragezeichen und Anführungszeichen – zu
+ * den unzulässigen persönlichen Andeutungen im Arbeitszeugnis. Der Editor bietet
+ * Kursiv daher nicht mehr an; eine `italic`-Mark aus einem Alt-Dokument wird
+ * hier still verworfen und aufrecht gerendert. Das ist hash-sicher, weil der
+ * Hash allein über die Klartext-Projektion läuft (Marks spielen keine Rolle).
+ *
+ * Nebeneffekt: pro Schriftfamilie werden nur Regular und Bold benötigt statt
+ * zusätzlich Italic und Bold-Italic – halbiert die Font-Lizenzkosten.
+ */
 function resolveMarks(marks?: TiptapMark[]): Omit<Run, "text"> {
   let bold = false;
-  let italic = false;
   let underline = false;
   let color: string | undefined;
   let fontFamily: string | undefined;
   for (const m of marks ?? []) {
     if (m.type === "bold") bold = true;
-    else if (m.type === "italic") italic = true;
     else if (m.type === "underline") underline = true;
     else if (m.type === "textStyle") {
       if (m.attrs?.color) color = m.attrs.color as string;
       if (m.attrs?.fontFamily) fontFamily = m.attrs.fontFamily as string;
     }
   }
-  return { bold, italic, underline, color, fontFamily };
+  return { bold, underline, color, fontFamily };
 }
 
 /** Sammelt die Runs eines Block-Knotens (Absatz oder Listenpunkt). */
@@ -50,7 +58,7 @@ function collectRuns(node: TiptapNode, runs: Run[]): void {
     if (child.type === "text") {
       runs.push({ text: child.text ?? "", ...resolveMarks(child.marks) });
     } else if (child.type === "hardBreak") {
-      runs.push({ text: "\n", bold: false, italic: false, underline: false });
+      runs.push({ text: "\n", bold: false, underline: false });
     } else if (child.content) {
       collectRuns(child, runs);
     }

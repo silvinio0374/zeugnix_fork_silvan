@@ -42,3 +42,6 @@ next-env.d.ts
 
 # Windows
 desktop.ini
+
+# Vertrauliche Inputs Dritter (nicht ins Repo)
+/Inputs von Christoph Senn/

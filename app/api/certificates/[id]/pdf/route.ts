@@ -194,8 +194,7 @@ export async function GET(
       certificateTitle,
       bodyText,
       formattedContent: cert.formatted_content ?? null,
-      baseFontKey: company.default_certificate_font_family ?? undefined,
-      baseTextColor: company.default_certificate_text_color ?? undefined,
+      themeId: company.default_certificate_font_family ?? undefined,
 
       signatory1Name: company.signatory_1_name ?? undefined,
       signatory1Role: company.signatory_1_role ?? undefined,
