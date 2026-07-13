@@ -4,10 +4,9 @@ import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/db/supabase-client";
 import {
-  CERTIFICATE_FONTS,
-  DEFAULT_FONT_KEY,
-  DEFAULT_TEXT_COLOR,
-} from "@/lib/pdf/fonts";
+  BUILTIN_THEMES,
+  resolveThemeFromCompany,
+} from "@/lib/design/document-tokens";
 
 interface Company {
   id?: string;
@@ -125,10 +124,12 @@ export function CompanyForm({ company, compact = false }: Props) {
       data.signatory_2_name = (fd.get("signatory_2_name") as string)?.trim() || null;
       data.signatory_2_role = (fd.get("signatory_2_role") as string)?.trim() || null;
       data.logo_url = logoUrl || null;
+      // Hält die Theme-ID (lib/design/document-tokens.ts). Der Spaltenname ist
+      // historisch; resolveTheme() versteht auch die Alt-Font-Keys.
       data.default_certificate_font_family =
         (fd.get("default_certificate_font_family") as string)?.trim() || null;
-      data.default_certificate_text_color =
-        (fd.get("default_certificate_text_color") as string)?.trim() || null;
+      // default_certificate_text_color wird bewusst nicht mehr geschrieben:
+      // die Textfarbe gehört zum Theme. Die Spalte bleibt als Altlast bestehen.
     }
 
     let dbErr;
@@ -352,41 +353,33 @@ export function CompanyForm({ company, compact = false }: Props) {
         </div>
       )}
 
-      {/* Standard-Stil für Zeugnisse */}
+      {/* Dokument-Stil (Theme) */}
       {!compact && (
         <div className="card p-5">
           <div className="mb-1 text-[13px] font-medium tracking-tight">
-            Standard-Stil für Zeugnisse
+            Stil der Zeugnisse
           </div>
           <p className="mb-4 text-[12px] text-ink-500">
-            Schriftart und -farbe, mit der neue Zeugnisse vorbelegt werden. Pro
-            Zeugnis im Editor jederzeit überschreibbar.
+            Schriften, Farben und Abstände des Zeugnisses folgen einem
+            abgestimmten Stil. Schriftgrössen und Seitenränder sind bewusst
+            festgelegt, damit jedes Zeugnis einheitlich wirkt.
           </p>
           <div className="grid gap-4 sm:grid-cols-2">
-            <Field label="Schriftart">
+            <Field label="Stil">
+              {/* Spaltenname bleibt default_certificate_font_family: sie hält
+                  jetzt die Theme-ID. resolveTheme() versteht auch die
+                  Alt-Werte helvetica|times|courier – daher keine Migration. */}
               <select
                 name="default_certificate_font_family"
-                defaultValue={
-                  company?.default_certificate_font_family ?? DEFAULT_FONT_KEY
-                }
+                defaultValue={resolveThemeFromCompany(company ?? {}).id}
                 className="input"
               >
-                {CERTIFICATE_FONTS.map((f) => (
-                  <option key={f.key} value={f.key}>
-                    {f.label}
+                {Object.values(BUILTIN_THEMES).map((t) => (
+                  <option key={t.id} value={t.id}>
+                    {t.label}
                   </option>
                 ))}
               </select>
-            </Field>
-            <Field label="Schriftfarbe">
-              <input
-                type="color"
-                name="default_certificate_text_color"
-                defaultValue={
-                  company?.default_certificate_text_color ?? DEFAULT_TEXT_COLOR
-                }
-                className="h-10 w-full cursor-pointer rounded-md border border-ink-200 bg-white"
-              />
             </Field>
           </div>
         </div>

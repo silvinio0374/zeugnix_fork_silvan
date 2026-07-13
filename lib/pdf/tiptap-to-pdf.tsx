@@ -1,8 +1,8 @@
 /**
  * zeugnix.ch – Tiptap-JSON -> @react-pdf
  * ----------------------------------------------------------------------------
- * Rendert den formatierten Body (Schrift/Farbe/Fett/Kursiv pro Run) ins PDF.
- * Nutzt denselben Block-/Run-Walker wie die HTML-Vorschau (lib/certificate/
+ * Rendert den formatierten Body (Schrift/Farbe/Fett pro Run) ins PDF. Nutzt
+ * denselben Block-/Run-Walker wie die HTML-Vorschau (lib/certificate/
  * tiptap-runs.ts) -> Vorschau und PDF zeigen garantiert denselben Text mit
  * denselben Formatierungen.
  *
@@ -10,26 +10,22 @@
  * Reihenfolge, OHNE eingefügte Trennzeichen) ist – nach canonicalizeForHash –
  * identisch zur gehashten Klartext-Projektion. Runs nie mit Whitespace trennen.
  *
- * Style-Werte sind bewusst inline gehalten (nicht aus dem StyleSheet von
- * certificate.tsx importiert), bleiben aber deckungsgleich mit styles.body-
- * Paragraph / styles.bullet.
+ * Alle Masse stammen aus lib/design/document-tokens.ts (BASE_TOKENS), damit
+ * PDF und Vorschau nicht auseinanderlaufen können.
  */
 
 import { Text } from "@react-pdf/renderer";
 import React from "react";
 import type { TiptapNode } from "@/lib/certificate/tiptap-plaintext";
 import { tiptapToBlocks, type Run } from "@/lib/certificate/tiptap-runs";
-import { pdfFontName, DEFAULT_FONT_KEY, DEFAULT_TEXT_COLOR } from "./fonts";
+import { BASE_TOKENS as T, type DocumentTheme } from "@/lib/design/document-tokens";
+import { pdfFontName } from "./fonts";
 
-export interface PdfBaseStyle {
-  fontKey: string;
-  textColor: string;
-}
-
-function runStyle(run: Run, base: PdfBaseStyle) {
+function runStyle(run: Run, theme: DocumentTheme) {
   return {
-    fontFamily: pdfFontName(run.fontFamily ?? base.fontKey, run.bold, run.italic),
-    color: run.color ?? base.textColor,
+    // Kursiv ist im Zeugnis unzulässig (siehe tiptap-runs.ts) -> immer aufrecht.
+    fontFamily: pdfFontName(run.fontFamily ?? theme.fonts.body, run.bold, false),
+    color: run.color ?? theme.colors.textPrimary,
     ...(run.underline ? { textDecoration: "underline" as const } : {}),
   };
 }
@@ -41,14 +37,16 @@ function runStyle(run: Run, base: PdfBaseStyle) {
  */
 export function tiptapToPdf(
   doc: TiptapNode | null | undefined,
-  base: PdfBaseStyle,
+  theme: DocumentTheme,
 ): React.ReactElement[] | null {
   const blocks = tiptapToBlocks(doc);
   if (blocks.length === 0) return null;
 
+  const blockFont = pdfFontName(theme.fonts.body, false, false);
+
   return blocks.map((block, bi) => {
     const runEls = block.runs.map((run, ri) => (
-      <Text key={"r-" + ri} style={runStyle(run, base)}>
+      <Text key={"r-" + ri} style={runStyle(run, theme)}>
         {run.text}
       </Text>
     ));
@@ -58,12 +56,12 @@ export function tiptapToPdf(
         <Text
           key={"b-" + bi}
           style={{
-            fontSize: 11,
-            lineHeight: 1.6,
-            marginLeft: 14,
-            marginBottom: 3,
-            fontFamily: pdfFontName(base.fontKey, false, false),
-            color: base.textColor,
+            fontSize: T.fontSize.body,
+            lineHeight: T.lineHeight.body,
+            marginLeft: T.space.bulletMarginLeft,
+            marginBottom: T.space.bulletMarginBottom,
+            fontFamily: blockFont,
+            color: theme.colors.textPrimary,
           }}
         >
           {"• "}
@@ -76,12 +74,12 @@ export function tiptapToPdf(
       <Text
         key={"p-" + bi}
         style={{
-          fontSize: 11,
-          lineHeight: 1.6,
+          fontSize: T.fontSize.body,
+          lineHeight: T.lineHeight.body,
           textAlign: "justify",
-          marginBottom: 11,
-          fontFamily: pdfFontName(base.fontKey, false, false),
-          color: base.textColor,
+          marginBottom: T.space.paragraphMarginBottom,
+          fontFamily: blockFont,
+          color: theme.colors.textPrimary,
         }}
       >
         {runEls}
@@ -89,8 +87,3 @@ export function tiptapToPdf(
     );
   });
 }
-
-export const PDF_BASE_DEFAULT: PdfBaseStyle = {
-  fontKey: DEFAULT_FONT_KEY,
-  textColor: DEFAULT_TEXT_COLOR,
-};

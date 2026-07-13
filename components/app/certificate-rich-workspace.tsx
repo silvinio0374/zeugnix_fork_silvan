@@ -13,20 +13,16 @@ import {
   tiptapToPlainText,
   type TiptapDoc,
 } from "@/lib/certificate/tiptap-plaintext";
-import {
-  CERTIFICATE_FONTS,
-  fontConfig,
-  DEFAULT_FONT_KEY,
-  DEFAULT_TEXT_COLOR,
-} from "@/lib/pdf/fonts";
+import { fontConfig } from "@/lib/pdf/fonts";
+import { resolveTheme } from "@/lib/design/document-tokens";
 
 interface Props {
   certificateId: string;
   generatedText: string;
   initialFormattedContent?: TiptapDoc | null;
   finalized: boolean;
-  baseFontKey?: string | null;
-  baseTextColor?: string | null;
+  /** Theme des Dokuments; versteht auch die Alt-Font-Keys. */
+  themeId?: string | null;
   // Daten für die A4-Vorschau
   company: any;
   employee: any;
@@ -41,8 +37,7 @@ export function CertificateRichWorkspace({
   generatedText,
   initialFormattedContent,
   finalized,
-  baseFontKey,
-  baseTextColor,
+  themeId,
   company,
   employee,
   type,
@@ -51,8 +46,10 @@ export function CertificateRichWorkspace({
   const router = useRouter();
   const workspace = useCertificateWorkspace();
 
-  const baseCfg = fontConfig(baseFontKey || DEFAULT_FONT_KEY);
-  const baseColor = baseTextColor || DEFAULT_TEXT_COLOR;
+  // Schrift und Farbe kommen aus dem Theme, nicht aus freier Nutzerwahl.
+  const theme = resolveTheme(themeId);
+  const editorFont = fontConfig(theme.fonts.body).css;
+  const editorColor = theme.colors.textPrimary;
 
   const initialDoc: TiptapDoc =
     initialFormattedContent ?? plainTextToTiptap(generatedText);
@@ -100,7 +97,11 @@ export function CertificateRichWorkspace({
   const editor = useEditor({
     immediatelyRender: false,
     editable: !finalized,
-    extensions: [StarterKit, TextStyle, Color, FontFamily],
+    // italic: false entfernt Mark UND Tastenkürzel (Ctrl/Cmd+I). Begründung
+    // siehe lib/certificate/tiptap-runs.ts. TextStyle/Color/FontFamily bleiben
+    // registriert, damit Marks aus Alt-Dokumenten weiter geparst werden – die
+    // Bedienelemente dazu sind aus der Toolbar entfernt.
+    extensions: [StarterKit.configure({ italic: false }), TextStyle, Color, FontFamily],
     content: initialDoc,
     editorProps: {
       attributes: {
@@ -201,13 +202,13 @@ export function CertificateRichWorkspace({
           </div>
         </div>
 
-        {!finalized && <Toolbar editor={editor} baseCfg={baseCfg} baseColor={baseColor} />}
+        {!finalized && <Toolbar editor={editor} />}
 
         <div
           className="rounded-md border border-ink-200 bg-white"
           style={{
-            fontFamily: baseCfg.css,
-            color: baseColor,
+            fontFamily: editorFont,
+            color: editorColor,
           }}
         >
           <EditorContent editor={editor} />
@@ -250,9 +251,8 @@ export function CertificateRichWorkspace({
           type={type}
           text={previewText}
           hash={hash}
-          bodyOverride={<CertificateFormattedBody doc={doc} />}
-          sheetFontFamily={baseCfg.css}
-          sheetColor={baseColor}
+          bodyOverride={<CertificateFormattedBody doc={doc} themeId={themeId} />}
+          themeId={themeId}
         />
       </div>
 
@@ -277,22 +277,16 @@ export function CertificateRichWorkspace({
 // Toolbar
 // ----------------------------------------------------------------------------
 
-function Toolbar({
-  editor,
-  baseCfg,
-  baseColor,
-}: {
-  editor: Editor | null;
-  baseCfg: ReturnType<typeof fontConfig>;
-  baseColor: string;
-}) {
+/**
+ * Bewusst auf Fett und Unterstrichen begrenzt.
+ *
+ * - Schriftart und Schriftfarbe bestimmt das Theme der Firma, nicht die
+ *   einzelne Textstelle. Ein freier Font-/Farbwähler pro Run erzeugt genau die
+ *   uneinheitlichen Dokumente, die ein Designsystem verhindern soll.
+ * - Kursiv ist im Arbeitszeugnis fachlich unzulässig (siehe tiptap-runs.ts).
+ */
+function Toolbar({ editor }: { editor: Editor | null }) {
   if (!editor) return null;
-
-  const currentFont = fontConfig(
-    (editor.getAttributes("textStyle").fontFamily as string) || baseCfg.key,
-  );
-  const currentColor =
-    (editor.getAttributes("textStyle").color as string) || baseColor;
 
   const btn = (active: boolean) =>
     `rounded px-2.5 py-1 text-[13px] font-medium border ${
@@ -303,25 +297,6 @@ function Toolbar({
 
   return (
     <div className="flex flex-wrap items-center gap-2 rounded-md border border-ink-200 bg-ink-50/50 p-2">
-      <select
-        value={currentFont.key}
-        onChange={(e) =>
-          editor
-            .chain()
-            .focus()
-            .setFontFamily(fontConfig(e.target.value).css)
-            .run()
-        }
-        className="rounded border border-ink-200 bg-white px-2 py-1 text-[12.5px]"
-        title="Schriftart"
-      >
-        {CERTIFICATE_FONTS.map((f) => (
-          <option key={f.key} value={f.key}>
-            {f.label}
-          </option>
-        ))}
-      </select>
-
       <button
         type="button"
         onClick={() => editor.chain().focus().toggleBold().run()}
@@ -333,15 +308,6 @@ function Toolbar({
       </button>
       <button
         type="button"
-        onClick={() => editor.chain().focus().toggleItalic().run()}
-        className={btn(editor.isActive("italic"))}
-        title="Kursiv"
-        style={{ fontStyle: "italic" }}
-      >
-        K
-      </button>
-      <button
-        type="button"
         onClick={() => editor.chain().focus().toggleUnderline().run()}
         className={btn(editor.isActive("underline"))}
         title="Unterstrichen"
@@ -350,24 +316,9 @@ function Toolbar({
         U
       </button>
 
-      <label className="flex items-center gap-1.5 text-[12.5px] text-ink-600">
-        Farbe
-        <input
-          type="color"
-          value={currentColor}
-          onChange={(e) => editor.chain().focus().setColor(e.target.value).run()}
-          className="h-7 w-9 cursor-pointer rounded border border-ink-200 bg-white"
-          title="Schriftfarbe"
-        />
-      </label>
-      <button
-        type="button"
-        onClick={() => editor.chain().focus().unsetColor().run()}
-        className="text-[11.5px] text-ink-500 underline hover:text-ink-800"
-        title="Farbe zurücksetzen"
-      >
-        Farbe zurücksetzen
-      </button>
+      <span className="ml-1 text-[11.5px] text-ink-500">
+        Schrift und Farbe folgen dem Firmen-Stil.
+      </span>
     </div>
   );
 }

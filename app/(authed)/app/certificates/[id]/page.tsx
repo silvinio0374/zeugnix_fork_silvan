@@ -147,8 +147,7 @@ export default async function CertificateDetailPage({ params }: PageProps) {
             generatedText={cert.generated_text ?? ""}
             initialFormattedContent={cert.formatted_content ?? null}
             finalized={isFinal}
-            baseFontKey={company.default_certificate_font_family}
-            baseTextColor={company.default_certificate_text_color}
+            themeId={company.default_certificate_font_family}
             company={company}
             employee={employee}
             type={cert.type}

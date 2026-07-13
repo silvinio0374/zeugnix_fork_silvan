@@ -77,7 +77,16 @@ export function fontConfig(value?: string | null): FontConfig {
   );
 }
 
-/** Wählt den passenden PDF-Fontnamen je nach Fett/Kursiv. */
+/**
+ * Wählt den passenden PDF-Fontnamen je nach Fett/Kursiv.
+ *
+ * ACHTUNG bei echten (lizenzpflichtigen) Schriften: Der Zeugnis-Renderer ruft
+ * `italic` immer mit `false` auf – Kursiv ist im Arbeitszeugnis unzulässig
+ * (siehe lib/certificate/tiptap-runs.ts). Pro Familie werden daher nur
+ * `regular` und `bold` tatsächlich gebraucht. Bei den drei eingebauten
+ * Standardschriften kosten die Kursivschnitte nichts, deshalb bleiben sie hier
+ * stehen; eine neu lizenzierte Marke braucht sie NICHT zu beschaffen.
+ */
 export function pdfFontName(key: string | undefined, bold: boolean, italic: boolean): string {
   const cfg = fontConfig(key);
   if (bold && italic) return cfg.pdf.boldItalic;

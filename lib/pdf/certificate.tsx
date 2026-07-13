@@ -12,7 +12,6 @@ import {
   Text,
   View,
   Image,
-  StyleSheet,
   Font,
   renderToBuffer,
 } from "@react-pdf/renderer";
@@ -25,7 +24,8 @@ import {
 } from "@/lib/hash/canonicalize";
 import type { TiptapDoc } from "@/lib/certificate/tiptap-plaintext";
 import { tiptapToPdf } from "./tiptap-to-pdf";
-import { DEFAULT_FONT_KEY, DEFAULT_TEXT_COLOR } from "./fonts";
+import { resolveTheme, type DocumentTheme } from "@/lib/design/document-tokens";
+import { buildPdfStyles } from "@/lib/design/document-pdf-styles";
 
 // Auto-Silbentrennung abschalten: @react-pdf würde lange Wörter am Zeilenende
 // mit eingefügtem Bindestrich umbrechen ("Resultate" -> "Re-" + "sultate").
@@ -52,8 +52,12 @@ interface RenderInput {
   // Optionaler formatierter Body (Rich-Text). Ist er gesetzt, wird er statt
   // bodyText gerendert; bodyText bleibt der Hash-/Fallback-Klartext.
   formattedContent?: TiptapDoc | null;
-  baseFontKey?: string;
-  baseTextColor?: string;
+  /**
+   * Theme-ID des Dokuments (lib/design/document-tokens.ts). Versteht auch die
+   * Alt-Werte 'helvetica'|'times'|'courier' aus companies.
+   * default_certificate_font_family. Leer -> Standard-Theme.
+   */
+  themeId?: string;
 
   signatory1Name?: string;
   signatory1Role?: string;
@@ -67,133 +71,6 @@ interface RenderInput {
   hash: string;
   baseUrl: string;
 }
-
-const styles = StyleSheet.create({
-  page: {
-    paddingTop: 56,
-    paddingBottom: 60,
-    paddingHorizontal: 60,
-    fontFamily: "Helvetica",
-    fontSize: 11,
-    lineHeight: 1.55,
-    color: "#1a1d22",
-  },
-
-  letterhead: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "flex-start",
-    paddingBottom: 14,
-    borderBottomWidth: 0.5,
-    borderBottomColor: "#d4d8dd",
-    marginBottom: 28,
-  },
-  letterheadLeft: { flex: 1 },
-  logo: { maxWidth: 140, maxHeight: 48, objectFit: "contain" },
-  companyNameNoLogo: {
-    fontSize: 14,
-    fontFamily: "Helvetica-Bold",
-  },
-  letterheadRight: {
-    textAlign: "right",
-    fontSize: 8.5,
-    color: "#6b7178",
-    lineHeight: 1.45,
-    width: 200,
-  },
-  letterheadCompanyName: {
-    fontFamily: "Helvetica-Bold",
-    color: "#1a1d22",
-    marginBottom: 2,
-  },
-
-  title: {
-    fontSize: 18,
-    fontFamily: "Helvetica-Bold",
-    textAlign: "center",
-    marginTop: 24,
-    marginBottom: 32,
-    letterSpacing: 0.5,
-  },
-
-  bodyParagraph: {
-    fontSize: 11,
-    lineHeight: 1.6,
-    textAlign: "justify",
-    marginBottom: 11,
-  },
-  bullet: {
-    fontSize: 11,
-    marginLeft: 14,
-    marginBottom: 3,
-  },
-  // Unsichtbare Marker (weiss) zum Isolieren des gehashten Body beim Verify
-  sentinel: { fontSize: 6, color: "#ffffff", lineHeight: 1 },
-
-  signaturesHeader: {
-    fontFamily: "Helvetica-Bold",
-    fontSize: 8,
-    color: "#0f7a6b",
-    textTransform: "uppercase",
-    letterSpacing: 0.6,
-    marginTop: 36,
-    marginBottom: 8,
-  },
-  signatures: {
-    flexDirection: "row",
-    marginTop: 4,
-  },
-  signatureCell: {
-    flex: 1,
-    paddingTop: 6,
-    borderTopWidth: 0.6,
-    borderTopColor: "#1a1d22",
-    fontSize: 10,
-  },
-  signatureSpacer: { width: 20 },
-  signatureName: { fontFamily: "Helvetica-Bold" },
-  signatureRole: { color: "#3a3f46", marginTop: 1, fontSize: 9 },
-  signatureEmail: { color: "#6b7178", marginTop: 1, fontSize: 8 },
-  signatureConfirmed: {
-    color: "#0f7a6b",
-    marginTop: 3,
-    fontSize: 7.5,
-    fontFamily: "Helvetica-Bold",
-  },
-
-  hashBlock: {
-    marginTop: 36,
-    paddingTop: 12,
-    borderTopWidth: 0.5,
-    borderTopColor: "#d4d8dd",
-    flexDirection: "row",
-  },
-  hashText: {
-    flex: 1,
-    paddingRight: 16,
-    fontSize: 7.5,
-    color: "#6b7178",
-    lineHeight: 1.5,
-  },
-  hashLabel: {
-    fontFamily: "Helvetica-Bold",
-    color: "#0f7a6b",
-    fontSize: 7,
-    letterSpacing: 0.6,
-    marginBottom: 3,
-  },
-  hashValue: {
-    fontFamily: "Courier",
-    color: "#1a1d22",
-    fontSize: 7.5,
-    marginBottom: 4,
-  },
-  hashLink: {
-    marginTop: 3,
-    color: "#0f7a6b",
-  },
-  qrCode: { width: 56, height: 56 },
-});
 
 // ============================================================================
 // Defensiv-Helper: garantiert String
@@ -222,9 +99,12 @@ function formatConfirmation(iso: string): string {
 // ============================================================================
 interface DocProps extends RenderInput {
   qrDataUrl: string;
+  theme: DocumentTheme;
 }
 
 function CertificateDocument(props: DocProps) {
+  const styles = buildPdfStyles(props.theme);
+
   // Defensive Konversion ALLER Strings vorab
   const companyName = s(props.companyName);
   const companyAddress = s(props.companyAddress);
@@ -260,10 +140,7 @@ function CertificateDocument(props: DocProps) {
 
   // Body: formatierter Rich-Text (falls vorhanden), sonst Plain-Text-Fallback.
   const formattedBody = props.formattedContent
-    ? tiptapToPdf(props.formattedContent, {
-        fontKey: s(props.baseFontKey) || DEFAULT_FONT_KEY,
-        textColor: s(props.baseTextColor) || DEFAULT_TEXT_COLOR,
-      })
+    ? tiptapToPdf(props.formattedContent, props.theme)
     : null;
   const paragraphs: string[] = bodyText
     .split(/\n\n+/)
@@ -372,17 +249,19 @@ function CertificateDocument(props: DocProps) {
 }
 
 export async function renderCertificatePdf(input: RenderInput): Promise<Buffer> {
+  const theme = resolveTheme(input.themeId);
   const verifyUrl = buildVerifyUrl(input.baseUrl, input.hash);
   const qrDataUrl = await QRCode.toDataURL(verifyUrl, {
     margin: 0,
     width: 200,
-    color: { dark: "#0f7a6b", light: "#ffffff" },
+    color: { dark: theme.colors.brandAccent, light: theme.colors.paper },
   });
 
   const buffer = await renderToBuffer(
     React.createElement(CertificateDocument, {
       ...input,
       qrDataUrl,
+      theme,
     }) as any,
   );
   return buffer as unknown as Buffer;

@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import QRCode from "qrcode";
 import { buildVerifyUrl } from "@/lib/hash/canonicalize";
+import { resolveTheme } from "@/lib/design/document-tokens";
+import { buildDocumentCss } from "@/lib/design/document-css";
 
 interface Company {
   name?: string;
@@ -40,9 +42,8 @@ interface Props {
    * wird er statt des Plain-Text-Splits gerendert; der A4-Rahmen bleibt gleich.
    */
   bodyOverride?: React.ReactNode;
-  /** Basis-Schrift/-Farbe des Blatts (CSS), z.B. Firmen-Default. */
-  sheetFontFamily?: string;
-  sheetColor?: string;
+  /** Theme des Dokuments; versteht auch die Alt-Font-Keys. */
+  themeId?: string | null;
 }
 
 const TYPE_LABELS: Record<string, string> = {
@@ -57,12 +58,6 @@ const TYPE_LABELS: Record<string, string> = {
   arbeitsbestaetigung: "Arbeitsbestätigung",
 };
 
-function formatDate(iso?: string | null): string {
-  if (!iso) return "";
-  const [y, m, d] = iso.split("-");
-  return `${d}.${m}.${y}`;
-}
-
 export function CertificatePreview({
   company,
   employee,
@@ -70,15 +65,13 @@ export function CertificatePreview({
   text,
   hash,
   bodyOverride,
-  sheetFontFamily,
-  sheetColor,
+  themeId,
 }: Props) {
   const title = TYPE_LABELS[type] ?? "Arbeitszeugnis";
-  const today = new Date().toLocaleDateString("de-CH", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-  });
+  const theme = resolveTheme(themeId);
+  const css = buildDocumentCss(theme);
+  const qrDark = theme.colors.brandAccent;
+  const qrLight = theme.colors.paper;
 
   // QR-Code zum Hash erzeugen – identische Verify-URL und Optionen wie im PDF
   // (lib/pdf/certificate.tsx), damit Vorschau und PDF konsistent sind.
@@ -95,7 +88,7 @@ export function CertificatePreview({
     QRCode.toDataURL(verifyUrl, {
       margin: 0,
       width: 200,
-      color: { dark: "#0f7a6b", light: "#ffffff" },
+      color: { dark: qrDark, light: qrLight },
     })
       .then((url) => {
         if (!cancelled) setQrDataUrl(url);
@@ -106,7 +99,7 @@ export function CertificatePreview({
     return () => {
       cancelled = true;
     };
-  }, [hash]);
+  }, [hash, qrDark, qrLight]);
 
   // A4-Blatt proportional auf die verfügbare Spaltenbreite skalieren, damit es
   // bei jeder Breite das echte DIN-A4-Verhältnis behält (nur kleiner, nie
@@ -153,17 +146,10 @@ export function CertificatePreview({
           ref={sheetRef}
           className="bg-white"
           style={{
+            ...css.sheet,
             position: "absolute",
             top: 0,
             left: 0,
-            width: "210mm",
-            minHeight: "297mm",
-            padding: "20mm 22mm",
-            boxSizing: "border-box",
-            fontFamily: sheetFontFamily ?? "Arial, Helvetica, sans-serif",
-            fontSize: "11pt",
-            lineHeight: "1.55",
-            color: sheetColor ?? "#1a1d22",
             boxShadow:
               "0 1px 2px rgba(14, 16, 20, 0.08), 0 8px 24px rgba(14, 16, 20, 0.12)",
             transform: `scale(${scale})`,
@@ -171,47 +157,20 @@ export function CertificatePreview({
           }}
         >
         {/* Letterhead */}
-        <table style={{ width: "100%", borderBottom: "1px solid #d4d8dd", paddingBottom: "16px", marginBottom: "32px" }}>
+        <table style={css.letterhead}>
           <tbody>
             <tr>
               <td style={{ verticalAlign: "top", width: "60%" }}>
                 {company.logo_url ? (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={company.logo_url}
-                    alt={company.name}
-                    style={{
-                      maxHeight: "48px",
-                      maxWidth: "180px",
-                      objectFit: "contain",
-                      display: "block",
-                    }}
-                  />
+                  <img src={company.logo_url} alt={company.name} style={css.logo} />
                 ) : (
-                  <div
-                    style={{
-                      fontSize: "13pt",
-                      fontWeight: 600,
-                      letterSpacing: "-0.01em",
-                    }}
-                  >
-                    {company.name}
-                  </div>
+                  <div style={css.companyNameNoLogo}>{company.name}</div>
                 )}
               </td>
-              <td
-                style={{
-                  verticalAlign: "top",
-                  textAlign: "right",
-                  fontSize: "8.5pt",
-                  color: "#6b7178",
-                  lineHeight: "1.45",
-                }}
-              >
+              <td style={css.letterheadRight}>
                 {company.logo_url && (
-                  <div style={{ fontWeight: 600, color: "#1a1d22", marginBottom: "2px" }}>
-                    {company.name}
-                  </div>
+                  <div style={css.letterheadCompanyName}>{company.name}</div>
                 )}
                 {company.address && <div>{company.address}</div>}
                 {(company.postal_code || company.city) && (
@@ -228,17 +187,7 @@ export function CertificatePreview({
         </table>
 
         {/* Title */}
-        <h1
-          style={{
-            fontSize: "18pt",
-            fontWeight: 700,
-            textAlign: "center",
-            margin: "0 0 32px 0",
-            letterSpacing: "0.02em",
-          }}
-        >
-          {title}
-        </h1>
+        <h1 style={css.title}>{title}</h1>
 
         {/* Body */}
         <div style={{ textAlign: "justify" }}>
@@ -247,15 +196,9 @@ export function CertificatePreview({
             if (p.includes("•")) {
               const lines = p.split("\n");
               return (
-                <div key={i} style={{ marginBottom: "14px" }}>
+                <div key={i} style={{ marginBottom: css.bodyParagraph.margin }}>
                   {lines.map((line, j) => (
-                    <div
-                      key={j}
-                      style={{
-                        marginLeft: line.startsWith("•") ? "16px" : 0,
-                        marginBottom: line.startsWith("•") ? "4px" : "8px",
-                      }}
-                    >
+                    <div key={j} style={line.startsWith("•") ? css.bullet : css.bodyParagraph}>
                       {line}
                     </div>
                   ))}
@@ -265,20 +208,13 @@ export function CertificatePreview({
             // Datum / Ort am Ende
             if (i === paragraphs.length - 1 && /^[A-ZÄÖÜ][a-zäöü]+,\s*\d{2}\.\d{2}\.\d{4}/.test(p)) {
               return (
-                <p
-                  key={i}
-                  style={{
-                    marginTop: "32px",
-                    marginBottom: "8px",
-                    textAlign: "left",
-                  }}
-                >
+                <p key={i} style={css.dateParagraph}>
                   {p}
                 </p>
               );
             }
             return (
-              <p key={i} style={{ margin: "0 0 14px 0" }}>
+              <p key={i} style={css.bodyParagraph}>
                 {p}
               </p>
             );
@@ -287,38 +223,27 @@ export function CertificatePreview({
 
         {/* Unterschriftsblock */}
         {(company.signatory_1_name || company.signatory_2_name) && (
-          <div style={{ marginTop: "48px" }}>
-            <table style={{ width: "100%" }}>
+          <div>
+            <div style={css.signaturesHeader}>Digital ausgestellt durch</div>
+            <table style={css.signaturesWrap}>
               <tbody>
                 <tr>
                   {company.signatory_1_name && (
-                    <td style={{ verticalAlign: "top", width: "50%", paddingRight: "20px" }}>
-                      <div
-                        style={{
-                          borderTop: "1px solid #1a1d22",
-                          paddingTop: "6px",
-                          fontSize: "10pt",
-                        }}
-                      >
-                        <div style={{ fontWeight: 500 }}>{company.signatory_1_name}</div>
+                    <td style={css.signatureCellLeft}>
+                      <div style={css.signatureRule}>
+                        <div style={css.signatureName}>{company.signatory_1_name}</div>
                         {company.signatory_1_role && (
-                          <div style={{ color: "#6b7178" }}>{company.signatory_1_role}</div>
+                          <div style={css.signatureRole}>{company.signatory_1_role}</div>
                         )}
                       </div>
                     </td>
                   )}
                   {company.signatory_2_name && (
-                    <td style={{ verticalAlign: "top", width: "50%", paddingLeft: "20px" }}>
-                      <div
-                        style={{
-                          borderTop: "1px solid #1a1d22",
-                          paddingTop: "6px",
-                          fontSize: "10pt",
-                        }}
-                      >
-                        <div style={{ fontWeight: 500 }}>{company.signatory_2_name}</div>
+                    <td style={css.signatureCellRight}>
+                      <div style={css.signatureRule}>
+                        <div style={css.signatureName}>{company.signatory_2_name}</div>
                         {company.signatory_2_role && (
-                          <div style={{ color: "#6b7178" }}>{company.signatory_2_role}</div>
+                          <div style={css.signatureRole}>{company.signatory_2_role}</div>
                         )}
                       </div>
                     </td>
@@ -332,44 +257,10 @@ export function CertificatePreview({
         {/* Hash-Block (nur bei finalisierten Zeugnissen) – zweispaltig:
             Hash-Text links, QR-Code rechts (konsistent zum PDF) */}
         {hash && (
-          <div
-            style={{
-              marginTop: "48px",
-              paddingTop: "14px",
-              borderTop: "0.5px solid #d4d8dd",
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "flex-start",
-              gap: "16px",
-              fontSize: "8pt",
-              color: "#6b7178",
-              lineHeight: "1.5",
-            }}
-          >
+          <div style={css.hashBlock}>
             <div style={{ flex: 1 }}>
-              <div
-                style={{
-                  fontSize: "7.5pt",
-                  fontWeight: 600,
-                  color: "#0f7a6b",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.06em",
-                  marginBottom: "4px",
-                }}
-              >
-                Echtheitsnachweis (SHA-256)
-              </div>
-              <div
-                style={{
-                  fontFamily: "Menlo, Consolas, monospace",
-                  fontSize: "7.5pt",
-                  color: "#1a1d22",
-                  wordBreak: "break-all",
-                  marginBottom: "6px",
-                }}
-              >
-                {hash}
-              </div>
+              <div style={css.hashLabel}>Echtheitsnachweis (SHA-256)</div>
+              <div style={css.hashValue}>{hash}</div>
               <div>
                 Dieses Arbeitszeugnis wurde mit zeugnix.ch erstellt und mit
                 einem kryptografischen Echtheitsnachweis versehen. Jede
@@ -379,16 +270,7 @@ export function CertificatePreview({
             </div>
             {qrDataUrl && (
               // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={qrDataUrl}
-                alt="QR-Code zur Echtheitsprüfung"
-                style={{
-                  width: "72px",
-                  height: "72px",
-                  flexShrink: 0,
-                  display: "block",
-                }}
-              />
+              <img src={qrDataUrl} alt="QR-Code zur Echtheitsprüfung" style={css.qrCode} />
             )}
           </div>
         )}
