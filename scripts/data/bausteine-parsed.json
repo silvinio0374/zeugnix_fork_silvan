@@ -490,7 +490,7 @@
     },
     {
       "key": "initiativ_fleiss",
-      "label": "Initiativ und Fleiss",
+      "label": "Initiative und Fleiss",
       "core": true,
       "theme": "arbeitsbereitschaft_fachwissen",
       "themeLabel": "Arbeitsbereitschaft und Fachwissen",
@@ -510,7 +510,7 @@
         {
           "rating": "ungenuegend",
           "variant": 3,
-          "text": "{vorname} {nachname} fällt es teilweise schwer Initiative zu entwickeln und sich für seinen Aufgabenbereich zu engagieren."
+          "text": "{vorname} {nachname} fällt es teilweise schwer, Initiative zu entwickeln und sich für seinen Aufgabenbereich zu engagieren."
         },
         {
           "rating": "genuegend",
@@ -596,7 +596,7 @@
         {
           "rating": "gut",
           "variant": 2,
-          "text": "Bereits nach kurzer Einarbeitungszeit erledigt er seine Aufgaben selbstständig. Dank seiner schnellen Auffassungsgabe erkennt er Zusammenhänge und kann sich auf neue Situationen einstellen."
+          "text": "Bereits nach kurzer Einarbeitungszeit erledigt er seine Aufgaben selbständig. Dank seiner schnellen Auffassungsgabe erkennt er Zusammenhänge und kann sich auf neue Situationen einstellen."
         },
         {
           "rating": "sehr_gut",
@@ -606,7 +606,7 @@
         {
           "rating": "sehr_gut",
           "variant": 2,
-          "text": "Bereits nach kurzer Einarbeitungszeit erledigt er sämtliche Aufgaben sehr selbstständig. Er zeichnet sich durch schnelle Auffassungsgabe aus, erkennt relevante Zusammenhänge und kann sich rasch auf neue Situationen einstellen."
+          "text": "Bereits nach kurzer Einarbeitungszeit erledigt er sämtliche Aufgaben sehr selbständig. Er zeichnet sich durch schnelle Auffassungsgabe aus, erkennt relevante Zusammenhänge und kann sich rasch auf neue Situationen einstellen."
         }
       ]
     },
@@ -1033,11 +1033,6 @@
           "rating": "sehr_gut",
           "variant": 3,
           "text": "Er setzt erworbenes Wissen vorbildlich in die Praxis um und findet sich in neuen Aufgaben dank seiner ausgeprägten Auffassungsgabe leicht zurecht."
-        },
-        {
-          "rating": "sehr_gut",
-          "variant": 4,
-          "text": "Auffassungsgabe"
         }
       ]
     },
@@ -1078,7 +1073,7 @@
         {
           "rating": "genuegend",
           "variant": 3,
-          "text": "Ferner ist er interessiert an Neuerungen mitzuwirken."
+          "text": "Ferner ist er interessiert, an Neuerungen mitzuwirken."
         },
         {
           "rating": "gut",
@@ -1337,7 +1332,7 @@
         {
           "rating": "ungenuegend",
           "variant": 3,
-          "text": "{vorname} {nachname} fühlt sich seiner Aufgabe und der Verwaltung nur bedingt verpflichtet."
+          "text": "{vorname} {nachname} fühlt sich seiner Aufgabe und dem Unternehmen nur bedingt verpflichtet."
         },
         {
           "rating": "genuegend",
@@ -1347,7 +1342,7 @@
         {
           "rating": "genuegend",
           "variant": 2,
-          "text": "Wir lernten {vorname} {nachname} als einen zuverlässigen Mitarbeiter kennen, der sich seiner Aufgabe und der Verwaltung verpflichtet fühlt."
+          "text": "Wir lernten {vorname} {nachname} als einen zuverlässigen Mitarbeiter kennen, der sich seiner Aufgabe und dem Unternehmen verpflichtet fühlt."
         },
         {
           "rating": "gut",
@@ -1362,7 +1357,7 @@
         {
           "rating": "gut",
           "variant": 3,
-          "text": "Wir erleben {vorname} {nachname} als einen wertvollen Mitarbeiter, der sich in anerkennenswerter Weise seiner Aufgabe und der Verwaltung verpflichtet fühlt."
+          "text": "Wir erleben {vorname} {nachname} als einen wertvollen Mitarbeiter, der sich in anerkennenswerter Weise seiner Aufgabe und dem Unternehmen verpflichtet fühlt."
         },
         {
           "rating": "sehr_gut",
@@ -1377,7 +1372,7 @@
         {
           "rating": "sehr_gut",
           "variant": 3,
-          "text": "Wir erleben {vorname} {nachname} als einen äusserst wertvollen Mitarbeiter, der sich in unverkennbarer Weise seiner Aufgabe und der Verwaltung verpflichtet fühlt."
+          "text": "Wir erleben {vorname} {nachname} als einen äusserst wertvollen Mitarbeiter, der sich in unverkennbarer Weise seiner Aufgabe und dem Unternehmen verpflichtet fühlt."
         }
       ]
     },
@@ -1398,7 +1393,7 @@
         {
           "rating": "ungenuegend",
           "variant": 2,
-          "text": "Er arbeitet seinen Möglichkeiten entsprechend selbstständig und trifft Entscheidungen nach vorgängigen Abklärungen."
+          "text": "Er arbeitet seinen Möglichkeiten entsprechend selbständig und trifft Entscheidungen nach vorgängigen Abklärungen."
         },
         {
           "rating": "ungenuegend",
@@ -1413,7 +1408,7 @@
         {
           "rating": "genuegend",
           "variant": 2,
-          "text": "Er arbeitet sorgfältig und trifft Entscheidungen grösstenteils selbstständig."
+          "text": "Er arbeitet sorgfältig und trifft Entscheidungen grösstenteils selbständig."
         },
         {
           "rating": "genuegend",
@@ -1428,12 +1423,12 @@
         {
           "rating": "gut",
           "variant": 2,
-          "text": "Er arbeitet effizient und genau. Entscheidungen trifft er selbstständig und mit Sachkenntnis."
+          "text": "Er arbeitet effizient und genau. Entscheidungen trifft er selbständig und mit Sachkenntnis."
         },
         {
           "rating": "gut",
           "variant": 3,
-          "text": "Er trifft Entscheidungen selbstständig und mit viel Sachkenntnis."
+          "text": "Er trifft Entscheidungen selbständig und mit viel Sachkenntnis."
         },
         {
           "rating": "sehr_gut",
@@ -1443,12 +1438,12 @@
         {
           "rating": "sehr_gut",
           "variant": 2,
-          "text": "Er arbeitet sehr effizient und genau. Entscheidungen trifft er situationsgerecht, sehr selbstständig und mit grosser Sachkenntnis."
+          "text": "Er arbeitet sehr effizient und genau. Entscheidungen trifft er situationsgerecht, sehr selbständig und mit grosser Sachkenntnis."
         },
         {
           "rating": "sehr_gut",
           "variant": 3,
-          "text": "Er trifft Entscheidungen sehr selbstständig, vorausschauend und mit grosser Sachkenntnis."
+          "text": "Er trifft Entscheidungen sehr selbständig, vorausschauend und mit grosser Sachkenntnis."
         }
       ]
     },
@@ -1905,7 +1900,7 @@
         {
           "rating": "ungenuegend",
           "variant": 3,
-          "text": "Aus Diskussionen und Auseinandersetzungen hält er sich wo möglich raus oder meidet diese."
+          "text": "Aus Diskussionen und Auseinandersetzungen hält er sich wo möglich heraus oder meidet diese."
         },
         {
           "rating": "ungenuegend",
@@ -1930,7 +1925,7 @@
         {
           "rating": "genuegend",
           "variant": 4,
-          "text": "Mit seinem Verhandlungsgeschick gelingt es ihm auch in angespannten Situationen eine für die Beteiligten annehmbare Lösung zu finden."
+          "text": "Mit seinem Verhandlungsgeschick gelingt es ihm, auch in angespannten Situationen eine für die Beteiligten annehmbare Lösung zu finden."
         },
         {
           "rating": "gut",
@@ -1950,7 +1945,7 @@
         {
           "rating": "gut",
           "variant": 4,
-          "text": "Mit seinem guten Verhandlungsgeschick gelingt es ihm auch in angespannten Situationen eine für alle Beteiligten geeignete Lösung zu finden."
+          "text": "Mit seinem guten Verhandlungsgeschick gelingt es ihm, auch in angespannten Situationen eine für alle Beteiligten geeignete Lösung zu finden."
         },
         {
           "rating": "sehr_gut",
@@ -1965,7 +1960,7 @@
         {
           "rating": "sehr_gut",
           "variant": 3,
-          "text": "Mit seinem beeindruckenden Verhandlungsgeschick gelingt es ihm auch in angespannten Situationen eine konsensfähige Lösung zu finden."
+          "text": "Mit seinem beeindruckenden Verhandlungsgeschick gelingt es ihm, auch in angespannten Situationen eine konsensfähige Lösung zu finden."
         }
       ]
     },
@@ -2117,7 +2112,7 @@
         {
           "rating": "sehr_gut",
           "variant": 1,
-          "text": "Zu seinen Stärken gehören vorbildliche Teamfähigkeit und die Fähigkeit gute, positive Zusammenarbeit aktiv zu unterstützen."
+          "text": "Zu seinen Stärken gehören vorbildliche Teamfähigkeit und die Fähigkeit, gute, positive Zusammenarbeit aktiv zu unterstützen."
         },
         {
           "rating": "sehr_gut",
@@ -2193,7 +2188,7 @@
         {
           "rating": "sehr_gut",
           "variant": 1,
-          "text": "Ausserdem gibt und fördert er konstruktives Feedback, ist jederzeit offen für Anregungen und setzt Vorschläge zielsicher, sowie nutzbringend um."
+          "text": "Ausserdem gibt und fördert er konstruktives Feedback, ist jederzeit offen für Anregungen und setzt Vorschläge zielsicher sowie nutzbringend um."
         },
         {
           "rating": "sehr_gut",
@@ -2305,7 +2300,7 @@
     },
     {
       "key": "synergien_nutzen",
-      "label": "Synergien Nutzen",
+      "label": "Synergien nutzen",
       "core": false,
       "theme": "unternehmertum",
       "themeLabel": "Unternehmertum",
@@ -2360,7 +2355,7 @@
         {
           "rating": "sehr_gut",
           "variant": 1,
-          "text": "{vorname} {nachname} erkennt funktions- und bereichsübergreifende Synergien und kann dank dieser Kompetenz, daraus gewonnenes Wissen optimal zum Nutzen des Unternehmens einsetzen."
+          "text": "{vorname} {nachname} erkennt funktions- und bereichsübergreifende Synergien und kann dank dieser Kompetenz daraus gewonnenes Wissen optimal zum Nutzen des Unternehmens einsetzen."
         },
         {
           "rating": "sehr_gut",
@@ -2527,7 +2522,7 @@
         {
           "rating": "sehr_gut",
           "variant": 3,
-          "text": "Zudem erweist er sich als ein überaus kompetenter, sehr dienstleistungsorientierter Ansprechpartner, welcher die Anliegen der Kunden bzw. verschiedenen Anspruchsgruppen sehr ernst nimmt und deren spezifischen Bedürfnisse präzise erfasst."
+          "text": "Zudem erweist er sich als ein überaus kompetenter, sehr dienstleistungsorientierter Ansprechpartner, welcher die Anliegen der Kunden bzw. verschiedenen Anspruchsgruppen sehr ernst nimmt und deren spezifische Bedürfnisse präzise erfasst."
         },
         {
           "rating": "sehr_gut",

@@ -43,6 +43,13 @@ const OLD_CATEGORIES = [
   "fuehrungsverhalten",
   "verhalten",
 ];
+// Anzeige-Label-Korrekturen. Der Key wird aus dem Original-Header der Quelle
+// abgeleitet und steckt bereits in Prod-Daten (phrase_blocks.category,
+// evaluations) – er darf sich nicht ändern, nur das Label.
+const LABEL_OVERRIDES: Record<string, string> = {
+  initiativ_fleiss: "Initiative und Fleiss",
+};
+
 // Themen-Slugs der neuen Katalog-Bausteine (für idempotenten Re-Run-Delete).
 const THEME_SLUGS = [
   "fuehrung",
@@ -218,12 +225,14 @@ function parse(content: string): ParseResult {
 
     if (nxtIsUngenuegend) {
       const core = line.startsWith("*");
-      const label = line.replace(/^\*/, "").trim();
+      const rawLabel = line.replace(/^\*/, "").trim();
+      const key = slug(rawLabel);
+      const label = LABEL_OVERRIDES[key] ?? rawLabel;
       const theme = employeeType === "fuehrungskraft" ? "fuehrung" : slug(themeLabel ?? "");
       const tLabel = themeLabel ?? "Führung";
       if (!theme) warnings.push(`Skill "${label}" ohne Thema (employeeType=${employeeType}).`);
       current = {
-        key: slug(label),
+        key,
         label,
         core,
         theme,
