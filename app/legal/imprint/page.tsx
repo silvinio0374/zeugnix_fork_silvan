@@ -1,11 +1,10 @@
-import { LegalContent, Placeholder } from "@/components/marketing/legal-content";
+import { LegalContent } from "@/components/marketing/legal-content";
 import { companyInfo } from "@/lib/legal/company-info";
 import { siteConfig } from "@/lib/site-config";
 
 export const metadata = { title: "Impressum" };
 
-// TODO(Patrick): UID-Nummer in lib/legal/company-info.ts ergänzen, danach
-// diese Seite vor Live-Schaltung juristisch prüfen lassen
+// TODO(Patrick): vor Live-Schaltung juristisch prüfen lassen
 // (Impressumspflicht: UWG Art. 3 Abs. 1 lit. s).
 export default function Page() {
   return (
@@ -23,7 +22,7 @@ export default function Page() {
               <br />
               {companyInfo.address.zipCity}, {companyInfo.address.country}
               <br />
-              UID: <Placeholder>{companyInfo.uid}</Placeholder>
+              UID: {companyInfo.uid}
               <br />
               Handelsregister: {companyInfo.commercialRegister}
             </p>
