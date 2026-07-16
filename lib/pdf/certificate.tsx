@@ -88,9 +88,9 @@ function formatConfirmation(iso: string): string {
       hour: "2-digit",
       minute: "2-digit",
     });
-    return "\u2713 Bestaetigt am " + date + " um " + time;
+    return "\u2713 Best\u00e4tigt am " + date + " um " + time;
   } catch {
-    return "\u2713 Bestaetigt";
+    return "\u2713 Best\u00e4tigt";
   }
 }
 
@@ -136,7 +136,7 @@ function CertificateDocument(props: DocProps) {
     .filter((x) => x.length > 0)
     .join(" ");
 
-  const verifyLink = "Echtheit pruefen: " + baseUrl.replace(/^https?:\/\//, "") + "/verify";
+  const verifyLink = "Echtheit prüfen: " + baseUrl.replace(/^https?:\/\//, "") + "/verify";
 
   // Body: formatierter Rich-Text (falls vorhanden), sonst Plain-Text-Fallback.
   const formattedBody = props.formattedContent
@@ -234,8 +234,8 @@ function CertificateDocument(props: DocProps) {
             <Text style={styles.hashValue}>{hash}</Text>
             <Text>
               Dieses Arbeitszeugnis wurde mit zeugnix.ch erstellt und mit einem
-              kryptografischen Echtheitsnachweis versehen. Jede nachtraegliche
-              Veraenderung des Inhalts fuehrt zu einem abweichenden Hash.
+              kryptografischen Echtheitsnachweis versehen. Jede nachträgliche
+              Veränderung des Inhalts führt zu einem abweichenden Hash.
             </Text>
             <Text style={styles.hashLink}>{verifyLink}</Text>
           </View>

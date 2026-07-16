@@ -155,7 +155,7 @@ Arbeitsbereitschaft und Fachwissen
 Ungenügend
 Max Mustermann zeigt Initiative und Fleiss in ausreichendem Masse.
 Max Mustermann erledigt die Arbeiten mehrheitlich auftragsgemäss.
-Max Mustermann fällt es teilweise schwer Initiative zu entwickeln und sich für seinen Aufgabenbereich zu engagieren.
+Max Mustermann fällt es teilweise schwer, Initiative zu entwickeln und sich für seinen Aufgabenbereich zu engagieren.
 
 Genügend
 Max Mustermann zeigt Initiative und Fleiss.
@@ -182,11 +182,11 @@ Nach einer Einarbeitungszeit führt er die übertragenen Arbeiten pflichtbewusst
 
 Gut
 Bereits nach kurzer Einarbeitungszeit arbeitet er sicher und selbständig.
-Bereits nach kurzer Einarbeitungszeit erledigt er seine Aufgaben selbstständig. Dank seiner schnellen Auffassungsgabe erkennt er Zusammenhänge und kann sich auf neue Situationen einstellen.
+Bereits nach kurzer Einarbeitungszeit erledigt er seine Aufgaben selbständig. Dank seiner schnellen Auffassungsgabe erkennt er Zusammenhänge und kann sich auf neue Situationen einstellen.
 
 Sehr gut
 Bereits nach sehr kurzer Einarbeitungszeit erledigt er seine Aufgaben vollkommen selbständig.
-Bereits nach kurzer Einarbeitungszeit erledigt er sämtliche Aufgaben sehr selbstständig. Er zeichnet sich durch schnelle Auffassungsgabe aus, erkennt relevante Zusammenhänge und kann sich rasch auf neue Situationen einstellen.
+Bereits nach kurzer Einarbeitungszeit erledigt er sämtliche Aufgaben sehr selbständig. Er zeichnet sich durch schnelle Auffassungsgabe aus, erkennt relevante Zusammenhänge und kann sich rasch auf neue Situationen einstellen.
 *Motivation und Engagement
 Ungenügend
 Er ist genügend motiviert und arbeitet sich erwartungsgemäss in neue Arbeitsgebiete ein.
@@ -310,7 +310,6 @@ Sehr gut
 Neues vernetzt er sehr schnell mit vorhandenem Wissen, da er komplexe Aufgaben denkbar rasch, gründlich und mit Leichtigkeit erfasst.
 Durch seine äusserst rasche Auffassungsgabe und dank seinem analytischen Denkvermögen findet er auch für schwierige Probleme schnell zu umsetzbaren Lösungen. Zudem besitzt er eine ausgesprochene Stärke im vernetzten Denken sowie im Antizipieren von Entwicklungen.
 Er setzt erworbenes Wissen vorbildlich in die Praxis um und findet sich in neuen Aufgaben dank seiner ausgeprägten Auffassungsgabe leicht zurecht.
-Auffassungsgabe
 Innovation
 Ungenügend
 Ferner überlegt er sich Neuerungen und bringt diese Ideen ein.
@@ -320,7 +319,7 @@ Er wirkt an Neuerungen zum Teil nur zögernd mit.
 Genügend
 Ferner bringt er eigene gute Ideen ein.
 Ferner bringt er Ideen ein.
-Ferner ist er interessiert an Neuerungen mitzuwirken.
+Ferner ist er interessiert, an Neuerungen mitzuwirken.
 
 Gut
 Ferner bringt er frische und umsetzbare Ideen ein.
@@ -397,42 +396,42 @@ Arbeitsweise und Leistung
 Ungenügend
 Max Mustermann ist ein pflichtbewusster Mitarbeitender.
 Max Mustermann ist ein pflichtbewusster Mitarbeitender.
-Max Mustermann fühlt sich seiner Aufgabe und der Verwaltung nur bedingt verpflichtet.
+Max Mustermann fühlt sich seiner Aufgabe und dem Unternehmen nur bedingt verpflichtet.
 
 Genügend
 Max Mustermann ist ein pflichtbewusster und verlässlicher Mitarbeitender.
-Wir lerntenMax Mustermann als einen zuverlässigen Mitarbeiter kennen, der sich seiner Aufgabe und der Verwaltung verpflichtet fühlt.
+Wir lerntenMax Mustermann als einen zuverlässigen Mitarbeiter kennen, der sich seiner Aufgabe und dem Unternehmen verpflichtet fühlt.
 
 
 Gut
 Max Mustermann ist ein sehr konzentrierter, pflichtbewusster und verlässlicher Mitarbeitender.
 Wir schätzenMax Mustermann als einen pflichtbewussten und verlässlichen Mitarbeitenden.
-Wir erlebenMax Mustermann als einen wertvollen Mitarbeiter, der sich in anerkennenswerter Weise seiner Aufgabe und der Verwaltung verpflichtet fühlt.
+Wir erlebenMax Mustermann als einen wertvollen Mitarbeiter, der sich in anerkennenswerter Weise seiner Aufgabe und dem Unternehmen verpflichtet fühlt.
 
 Sehr gut
 Max Mustermann ist ein äusserst konzentrierter, pflichtbewusster und verlässlicher Mitarbeitender.
 Wir schätzenMax Mustermann als einen äusserst pflichtbewussten und verlässlichen Mitarbeitenden.
-Wir erlebenMax Mustermann als einen äusserst wertvollen Mitarbeiter, der sich in unverkennbarer Weise seiner Aufgabe und der Verwaltung verpflichtet fühlt.
+Wir erlebenMax Mustermann als einen äusserst wertvollen Mitarbeiter, der sich in unverkennbarer Weise seiner Aufgabe und dem Unternehmen verpflichtet fühlt.
 *Selbständigkeit, Sorgfalt und Genauigkeit
 Ungenügend
 Er arbeitet seinen Möglichkeiten entsprechend selbständig und findet sich in den gestellten Aufgaben zurecht.
-Er arbeitet seinen Möglichkeiten entsprechend selbstständig und trifft Entscheidungen nach vorgängigen Abklärungen.
+Er arbeitet seinen Möglichkeiten entsprechend selbständig und trifft Entscheidungen nach vorgängigen Abklärungen.
 Er kann Entscheidungen oft nur nach vorgängigen Rückfragen treffen.
 
 Genügend
 Er arbeitet grösstenteils selbständig und findet sich in seinem Arbeitsbereich zurecht. Dabei arbeitet er sorgfältig und genau.
-Er arbeitet sorgfältig und trifft Entscheidungen grösstenteils selbstständig.
+Er arbeitet sorgfältig und trifft Entscheidungen grösstenteils selbständig.
 Er trifft Entscheidungen mit Sachverstand und wenigen Rückfragen.
 
 Gut
 Er arbeitet sicher und selbständig. Dabei trifft er gute Entscheide und arbeitet mit ausserordentlicher Sorgfalt und Genauigkeit.
-Er arbeitet effizient und genau. Entscheidungen trifft er selbstständig und mit Sachkenntnis.
-Er trifft Entscheidungen selbstständig und mit viel Sachkenntnis.
+Er arbeitet effizient und genau. Entscheidungen trifft er selbständig und mit Sachkenntnis.
+Er trifft Entscheidungen selbständig und mit viel Sachkenntnis.
 
 Sehr gut
 Er arbeitet sicher und selbständig. Dabei trifft er stets die richtigen Entscheide und arbeitet mit beispielhafter Sorgfalt und Genauigkeit.
-Er arbeitet sehr effizient und genau. Entscheidungen trifft er situationsgerecht, sehr selbstständig und mit grosser Sachkenntnis.
-Er trifft Entscheidungen sehr selbstständig, vorausschauend und mit grosser Sachkenntnis.
+Er arbeitet sehr effizient und genau. Entscheidungen trifft er situationsgerecht, sehr selbständig und mit grosser Sachkenntnis.
+Er trifft Entscheidungen sehr selbständig, vorausschauend und mit grosser Sachkenntnis.
 Termintreue
 Ungenügend
 Termine hält er grundsätzlich ein.
@@ -562,25 +561,25 @@ Konfliktfähigkeit
 Ungenügend
 Er meistert schwierige Situationen angebracht.
 Er benötigt in schwierigen Situationen Unterstützung, um angemessene Lösungen zu finden.
-Aus Diskussionen und Auseinandersetzungen hält er sich wo möglich raus oder meidet diese.
+Aus Diskussionen und Auseinandersetzungen hält er sich wo möglich heraus oder meidet diese.
 In Verhandlungssituationen benötigt er teilweise Unterstützung, um eine für die Beteiligten annehmbare Lösung zu finden.
 
 Genügend
 Er bleibt auch in schwierigen Situationen sachlich. Darüber hinaus versucht er stets angemessene Lösungen zu finden.
 Er bleibt auch in schwierigen Situationen sachlich und kann angemessene Lösungen finden.
 Bei Diskussionen und Auseinandersetzungen verhält er sich eher zurückhaltend und nimmt meist eine neutrale Haltung ein.
-Mit seinem Verhandlungsgeschick gelingt es ihm auch in angespannten Situationen eine für die Beteiligten annehmbare Lösung zu finden.
+Mit seinem Verhandlungsgeschick gelingt es ihm, auch in angespannten Situationen eine für die Beteiligten annehmbare Lösung zu finden.
 
 Gut
 Er bleibt auch in schwierigen Situationen sachlich und kooperativ. Darüber hinaus versucht er Lösungen zu finden, welche möglichst die Interessen aller Beteiligten berücksichtigen.
 Er bleibt auch in schwierigen Situationen sachlich, kooperativ und lösungsorientiert.
 Bei Diskussionen und Auseinandersetzungen wirkt er bei unterschiedlichen Ansichten ausgleichend.
-Mit seinem guten Verhandlungsgeschick gelingt es ihm auch in angespannten Situationen eine für alle Beteiligten geeignete Lösung zu finden.
+Mit seinem guten Verhandlungsgeschick gelingt es ihm, auch in angespannten Situationen eine für alle Beteiligten geeignete Lösung zu finden.
 
 Sehr gut
 Er bleibt auch in schwierigen Situationen ruhig, sachlich und kooperativ. Darüber hinaus findet er optimale Lösungen, welche die Interessen aller Beteiligten berücksichtigen.
 Bei Diskussionen und Auseinandersetzungen kann er ausgezeichnet zwischen unterschiedlichen Ansichten vermitteln.
-Mit seinem beeindruckenden Verhandlungsgeschick gelingt es ihm auch in angespannten Situationen eine konsensfähige Lösung zu finden.
+Mit seinem beeindruckenden Verhandlungsgeschick gelingt es ihm, auch in angespannten Situationen eine konsensfähige Lösung zu finden.
 Kommunikationsfähigkeit
 Ungenügend
 In Gesprächen kommuniziert er verständlich.
@@ -622,7 +621,7 @@ Er bringt sich ins Team ein, ist integer und unterstützend. Er trägt zu einer 
 Er bringt sich gut ins Team ein und unterstützt die Zusammenarbeit.
 
 Sehr gut
-Zu seinen Stärken gehören vorbildliche Teamfähigkeit und die Fähigkeit gute, positive Zusammenarbeit aktiv zu unterstützen.
+Zu seinen Stärken gehören vorbildliche Teamfähigkeit und die Fähigkeit, gute, positive Zusammenarbeit aktiv zu unterstützen.
 Er bringt sich vorbildlich ins Team ein, ist integer und jederzeit unterstützend. Er trägt aktiv zu einer konstruktiven sowie positiven Zusammenarbeit bei und kann sehr gut mit unterschiedlichen Personen und Situationen umgehen.
 Er bringt sich vorbildlich ins Team ein und unterstützt und fördert die Zusammenarbeit.
 Offenheit für Feedback
@@ -644,7 +643,7 @@ Er ist fähig, die eigenen Handlungen zu reflektieren, ist offen für Anregungen
 
 
 Sehr gut
-Ausserdem gibt und fördert er konstruktives Feedback, ist jederzeit offen für Anregungen und setzt Vorschläge zielsicher, sowie nutzbringend um.
+Ausserdem gibt und fördert er konstruktives Feedback, ist jederzeit offen für Anregungen und setzt Vorschläge zielsicher sowie nutzbringend um.
 Ausserdem gibt und fördert er konstruktives Feedback, reflektiert und ist jederzeit offen für Anregungen. Vorschläge setzt er nutzbringend um.
 Er begrüsst andere Meinungen und begründete Kritik als Anregung, kann gut zuhören und sich problemlos auf die Bedürfnisse der Gesprächspartner einlassen.
 Er reflektiert die eigenen Handlungen konsequent und nutzt Anregungen sowie Empfehlungen von aussen sehr professionell.
@@ -675,7 +674,7 @@ Die Lernenden bildet er mit grossem Engagement und Freude aus, verbunden mit ein
 
 Unternehmertum
 
-Synergien Nutzen
+Synergien nutzen
 Ungenügend
 Max Mustermann erkennt funktions- und bereichsübergreifende Synergien und bespricht daraus gewonnene Ideen mit anderen Fachpersonen.
 Max Mustermann erkennt mit Unterstützung Synergien.
@@ -692,7 +691,7 @@ Max Mustermann erkennt funktions- und bereichsübergreifende Synergien und setzt
 Max Mustermann besitzt ein gutes Sensorium für wirtschaftliche und bereichsübergreifende Zusammenhänge.
 
 Sehr gut
-Max Mustermann erkennt funktions- und bereichsübergreifende Synergien und kann dank dieser Kompetenz, daraus gewonnenes Wissen optimal zum Nutzen des Unternehmens einsetzen.
+Max Mustermann erkennt funktions- und bereichsübergreifende Synergien und kann dank dieser Kompetenz daraus gewonnenes Wissen optimal zum Nutzen des Unternehmens einsetzen.
 Max Mustermann erkennt und nutzt funktions- sowie bereichsübergreifende Synergien und setzt daraus gewonnenes Wissen optimal ein.
 Max Mustermann besitzt ein ausgeprägtes Sensorium für wirtschaftliche und bereichsübergreifende Zusammenhänge.
 Flexibilität
@@ -738,7 +737,7 @@ Er achtet auf eine gründliche und seriöse Beratung der Anspruchsgruppen.
 Sehr gut
 Zudem erweist er sich Kunden gegenüber als überaus kompetenter, sehr dienstleistungsorientierter Ansprechpartner, welcher spezifische Kundenbedürfnisse präzise erfasst und langfristige Kundenbeziehungen mit viel Eigeninitiative entwickelt und pflegt.
 Zudem erweist er sich gegenüber der Kundschaft als überaus kompetenter, dienstleistungsorientierter Ansprechpartner. Spezifische Kundenbedürfnisse erfasst er präzise und pflegt Kundenbeziehungen nachhaltig.
-Zudem erweist er sich als ein überaus kompetenter, sehr dienstleistungsorientierter Ansprechpartner, welcher die Anliegen der Kunden bzw. verschiedenen Anspruchsgruppen sehr ernst nimmt und deren spezifischen Bedürfnisse präzise erfasst.
+Zudem erweist er sich als ein überaus kompetenter, sehr dienstleistungsorientierter Ansprechpartner, welcher die Anliegen der Kunden bzw. verschiedenen Anspruchsgruppen sehr ernst nimmt und deren spezifische Bedürfnisse präzise erfasst.
 Er sorgt für eine fundierte Beratung der Anspruchsgruppen.
 Schlussformulierung
 

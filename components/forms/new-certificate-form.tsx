@@ -382,7 +382,7 @@ export function NewCertificateForm({ companies }: Props) {
           disabled={submitting}
           className="btn-primary disabled:opacity-50"
         >
-          {submitting ? "Wird gespeichert…" : "Weiter zu Beurteilung"}
+          {submitting ? "Wird gespeichert…" : "Weiter zur Beurteilung"}
         </button>
       </div>
 

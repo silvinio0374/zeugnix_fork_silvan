@@ -25,7 +25,7 @@ export const SKILLS: SkillMeta[] = [
   { key: "mitarbeiterfoerderung", label: "Mitarbeiterförderung", theme: "fuehrung", themeLabel: "Führung", employeeType: "fuehrungskraft", core: false, order: 5 },
   { key: "wissensaustausch", label: "Wissensaustausch", theme: "fuehrung", themeLabel: "Führung", employeeType: "fuehrungskraft", core: false, order: 6 },
   { key: "strategieorientierung", label: "Strategieorientierung", theme: "fuehrung", themeLabel: "Führung", employeeType: "fuehrungskraft", core: false, order: 7 },
-  { key: "initiativ_fleiss", label: "Initiativ und Fleiss", theme: "arbeitsbereitschaft_fachwissen", themeLabel: "Arbeitsbereitschaft und Fachwissen", employeeType: "mitarbeiter", core: true, order: 8 },
+  { key: "initiativ_fleiss", label: "Initiative und Fleiss", theme: "arbeitsbereitschaft_fachwissen", themeLabel: "Arbeitsbereitschaft und Fachwissen", employeeType: "mitarbeiter", core: true, order: 8 },
   { key: "selbstaendigkeit_nach_eintritt", label: "Selbständigkeit nach Eintritt", theme: "arbeitsbereitschaft_fachwissen", themeLabel: "Arbeitsbereitschaft und Fachwissen", employeeType: "mitarbeiter", core: false, order: 9 },
   { key: "motivation_engagement", label: "Motivation und Engagement", theme: "arbeitsbereitschaft_fachwissen", themeLabel: "Arbeitsbereitschaft und Fachwissen", employeeType: "mitarbeiter", core: true, order: 10 },
   { key: "unternehmensbeitrag", label: "Unternehmensbeitrag", theme: "arbeitsbereitschaft_fachwissen", themeLabel: "Arbeitsbereitschaft und Fachwissen", employeeType: "mitarbeiter", core: false, order: 11 },
@@ -50,7 +50,7 @@ export const SKILLS: SkillMeta[] = [
   { key: "teamfaehigkeit", label: "Teamfähigkeit", theme: "persoenliches_verhalten", themeLabel: "Persönliches Verhalten", employeeType: "mitarbeiter", core: true, order: 30 },
   { key: "offenheit_fuer_feedback", label: "Offenheit für Feedback", theme: "persoenliches_verhalten", themeLabel: "Persönliches Verhalten", employeeType: "mitarbeiter", core: false, order: 31 },
   { key: "wissen_teilen", label: "Wissen teilen", theme: "persoenliches_verhalten", themeLabel: "Persönliches Verhalten", employeeType: "mitarbeiter", core: false, order: 32 },
-  { key: "synergien_nutzen", label: "Synergien Nutzen", theme: "unternehmertum", themeLabel: "Unternehmertum", employeeType: "mitarbeiter", core: false, order: 33 },
+  { key: "synergien_nutzen", label: "Synergien nutzen", theme: "unternehmertum", themeLabel: "Unternehmertum", employeeType: "mitarbeiter", core: false, order: 33 },
   { key: "flexibilitaet", label: "Flexibilität", theme: "unternehmertum", themeLabel: "Unternehmertum", employeeType: "mitarbeiter", core: false, order: 34 },
   { key: "kundenorientierung", label: "Kundenorientierung", theme: "unternehmertum", themeLabel: "Unternehmertum", employeeType: "mitarbeiter", core: false, order: 35 },
 ];
