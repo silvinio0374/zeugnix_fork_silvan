@@ -37,6 +37,11 @@ export interface PhraseBlock {
   rating: "ungenuegend" | "genuegend" | "gut" | "sehr_gut";
   variant: number;
   text: string;
+  // Grammatikalische Zeitform des Bausteins. Nur die Beurteilungs-Bausteine
+  // (Skill-Katalog) existieren in beiden Formen; Einleitung/Schluss bleiben
+  // 'praesens' (Default), siehe DB-Spalten-Default. Fehlt der Wert (Alt-Daten,
+  // Tests), zählt der Baustein als 'praesens'.
+  tempus?: "praesens" | "praeteritum";
 }
 
 export interface EmployeeData {
@@ -157,8 +162,12 @@ function findPhrase(
   rating: Evaluation["rating"],
   employee: EmployeeData,
   subcategory?: string,
+  tempus?: "praesens" | "praeteritum",
 ): PhraseBlock | null {
   const employeeType = employee.isManager ? "fuehrungskraft" : "mitarbeiter";
+  // Alt-Daten/Einleitung/Schluss ohne tempus-Wert gelten als 'praesens'.
+  const matchesTempus = (b: PhraseBlock) =>
+    !tempus || (b.tempus ?? "praesens") === tempus;
 
   const filter = (gender: "m" | "f" | "d") =>
     blocks.filter(
@@ -167,7 +176,8 @@ function findPhrase(
         b.rating === rating &&
         b.employee_type === employeeType &&
         b.gender === gender &&
-        (subcategory ? b.subcategory === subcategory : true),
+        (subcategory ? b.subcategory === subcategory : true) &&
+        matchesTempus(b),
     );
 
   let candidates = filter(employee.gender);
@@ -181,9 +191,16 @@ function findPhrase(
         b.rating === rating &&
         b.employee_type === "mitarbeiter" &&
         (b.gender === employee.gender || b.gender === "d") &&
-        (subcategory ? b.subcategory === subcategory : true),
+        (subcategory ? b.subcategory === subcategory : true) &&
+        matchesTempus(b),
     );
     candidates = fallback;
+  }
+
+  // Lückenschutz: fehlt eine Präteritum-Variante im Katalog, lieber die
+  // Präsens-Fassung zeigen als gar keinen Baustein.
+  if (candidates.length === 0 && tempus === "praeteritum") {
+    return findPhrase(blocks, category, rating, employee, subcategory, "praesens");
   }
 
   if (candidates.length === 0) return null;
@@ -256,6 +273,11 @@ export function generateCertificate(
   const warnings: string[] = [];
   const sections: string[] = [];
 
+  // Zwischenzeugnis wird während des laufenden Arbeitsverhältnisses ausgestellt
+  // (Gegenwart), alle anderen Typen rückblickend nach Austritt (Vergangenheit).
+  const tempus: "praesens" | "praeteritum" =
+    certificate.type === "zwischen" ? "praesens" : "praeteritum";
+
   // ----- Einleitung -----
   const introCategory = certificate.type === "zwischen" ? "zwischen" : "schluss";
   const intro = findPhrase(
@@ -276,12 +298,13 @@ export function generateCertificate(
 
   // ----- Aufgabenbeschreibung -----
   if (certificate.tasks.length > 0) {
+    const verb = tempus === "praesens" ? "gehören" : "gehörten";
     const taskIntro =
       employee.gender === "m"
-        ? `Zu seinen Hauptaufgaben gehörten:`
+        ? `Zu seinen Hauptaufgaben ${verb}:`
         : employee.gender === "f"
-          ? `Zu ihren Hauptaufgaben gehörten:`
-          : `Zu den Hauptaufgaben gehörten:`;
+          ? `Zu ihren Hauptaufgaben ${verb}:`
+          : `Zu den Hauptaufgaben ${verb}:`;
     sections.push(taskIntro);
     sections.push(certificate.tasks.map((t) => `• ${t}`).join("\n"));
   }
@@ -321,7 +344,7 @@ export function generateCertificate(
       flushTheme();
       currentTheme = meta.theme;
     }
-    const phrase = findPhrase(phraseBlocks, meta.key, ev.rating, employee, meta.theme);
+    const phrase = findPhrase(phraseBlocks, meta.key, ev.rating, employee, meta.theme, tempus);
     if (phrase) {
       let text = substitute(phrase.text, employee, certificate);
       if (ev.freeText) text += " " + ev.freeText.trim();

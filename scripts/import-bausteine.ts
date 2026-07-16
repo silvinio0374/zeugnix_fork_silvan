@@ -29,6 +29,15 @@ import { join } from "path";
 const SOURCE = join(process.cwd(), "scripts/data/bausteine-zwischenzeugnis.txt");
 const DUMP = join(process.cwd(), "scripts/data/bausteine-parsed.json");
 const TOKENIZED = join(process.cwd(), "scripts/data/bausteine-tokenized.json");
+// Präteritum-Fassung der Beurteilungs-Bausteine (für Schluss-/Wechsel-Zeugnisse,
+// rückblickend nach Austritt). Gleiche Keys wie TOKENIZED, von Hand erstellt
+// (nicht Teil von --tokenize, kein zusätzlicher API-Call). Fehlt die Datei,
+// wird das Präteritum-Insert einfach übersprungen – die Engine fällt dann zur
+// Laufzeit auf die Präsens-Fassung zurück (siehe findPhrase in lib/phrases/engine.ts).
+const TOKENIZED_PRAETERITUM = join(
+  process.cwd(),
+  "scripts/data/bausteine-tokenized-praeteritum.json",
+);
 const SQL_OUT = join(process.cwd(), "supabase/009_seed_bausteine.sql");
 const SKILLS_OUT = join(process.cwd(), "lib/phrases/skills.ts");
 
@@ -527,8 +536,16 @@ ${skillLines.join("\n")}
     console.log(`→ SQL übersprungen: ${TOKENIZED} fehlt – erst "--tokenize" laufen lassen.`);
     return;
   }
+  let tokenizedPraeteritum: Record<string, TokenizedEntry> = {};
+  try {
+    tokenizedPraeteritum = JSON.parse(readFileSync(TOKENIZED_PRAETERITUM, "utf-8"));
+  } catch {
+    console.log(`  (Hinweis: ${TOKENIZED_PRAETERITUM} fehlt – nur Präsens-Bausteine werden erzeugt.)`);
+  }
+
   const rows: string[] = [];
   let missing = 0;
+  let missingPraeteritum = 0;
   const sqlEsc = (s: string) => s.replace(/'/g, "''");
   for (const s of result.skills) {
     for (const v of s.variants) {
@@ -537,15 +554,28 @@ ${skillLines.join("\n")}
       if (!entry) missing++;
       const text = entry?.tokenized ?? v.text; // Fallback: normalisiert (männlich)
       rows.push(
-        `('${s.key}', '${s.theme}', '${s.employeeType}', 'd', '${v.rating}', ${v.variant}, '${sqlEsc(text)}')`,
+        `('${s.key}', '${s.theme}', '${s.employeeType}', 'd', '${v.rating}', ${v.variant}, 'praesens', '${sqlEsc(text)}')`,
       );
+
+      const praeteritumEntry = tokenizedPraeteritum[id];
+      if (praeteritumEntry) {
+        rows.push(
+          `('${s.key}', '${s.theme}', '${s.employeeType}', 'd', '${v.rating}', ${v.variant}, 'praeteritum', '${sqlEsc(praeteritumEntry.tokenized)}')`,
+        );
+      } else {
+        missingPraeteritum++;
+      }
     }
   }
 
   const sql = `-- 009_seed_bausteine.sql
 -- AUTO-GENERIERT von scripts/import-bausteine.ts (Quelle: scripts/data/bausteine-zwischenzeugnis.txt
--- + LLM-Geschlechter-Tokenisierung in scripts/data/bausteine-tokenized.json).
+-- + LLM-Geschlechter-Tokenisierung in scripts/data/bausteine-tokenized.json
+-- + Präteritum-Fassung in scripts/data/bausteine-tokenized-praeteritum.json).
 -- ${rows.length} Bausteine, ${result.skills.length} Fähigkeiten. Gender='d' (Tokens {{m|f|d}} im Text).
+-- tempus='praesens' fürs Zwischenzeugnis, 'praeteritum' für alle anderen Typen
+-- (siehe findPhrase() in lib/phrases/engine.ts, inkl. Fallback auf praesens
+-- falls eine Präteritum-Variante fehlt).
 
 begin;
 
@@ -562,13 +592,17 @@ delete from public.phrase_blocks
  where subcategory in (${THEME_SLUGS.map((t) => `'${t}'`).join(", ")});
 
 -- 3) Neue Bausteine einfügen (signal_strength/tonality/warning_level/active = Defaults).
-insert into public.phrase_blocks (category, subcategory, employee_type, gender, rating, variant, text) values
+insert into public.phrase_blocks (category, subcategory, employee_type, gender, rating, variant, tempus, text) values
 ${rows.join(",\n")};
 
 commit;
 `;
   writeFileSync(SQL_OUT, sql, "utf-8");
-  console.log(`→ ${SQL_OUT} (${rows.length} INSERT-Zeilen${missing ? `, ⚠ ${missing} ohne Tokenisierung (Fallback männlich)` : ""})`);
+  console.log(
+    `→ ${SQL_OUT} (${rows.length} INSERT-Zeilen` +
+      `${missing ? `, ⚠ ${missing} ohne Präsens-Tokenisierung (Fallback männlich)` : ""}` +
+      `${missingPraeteritum ? `, ⚠ ${missingPraeteritum} ohne Präteritum-Fassung` : ""})`,
+  );
 }
 
 // ---------------------------------------------------------------- Main
