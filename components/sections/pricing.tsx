@@ -2,7 +2,10 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 // Während der Beta ist die Echtheitsprüfung faktisch kostenlos (Stripe ist noch
-// ein Stub); der reguläre Preis bleibt durchgestrichen als Anker sichtbar.
+// ein Stub). Der reguläre Preis wird als künftiger Preis ausgewiesen, NICHT
+// durchgestrichen neben "Kostenlos" (PBV Art. 16: eine Vergleichspreis-
+// Auszeichnung setzt voraus, dass der höhere Preis tatsächlich verlangt
+// wurde — das war während der unbefristeten Beta nie der Fall).
 // Die Klartext-Analyse ist noch nicht verdrahtet → `comingSoon:true` ("kommt
 // bald"), damit kein nicht-vorhandenes Feature als verfügbar beworben wird.
 // `beta:false` ohne comingSoon = dauerhaft gratis.
@@ -156,10 +159,8 @@ export function PricingSection() {
                       Kostenlos
                     </div>
                     <p className="mt-1 text-[12px] text-ink-500">
-                      <span className="line-through">
-                        statt {tier.regularPrice}
-                      </span>{" "}
-                      · während der Beta
+                      während der Beta · regulär {tier.regularPrice} nach der
+                      Beta
                     </p>
                   </>
                 ) : (
@@ -235,8 +236,8 @@ export function PricingSection() {
               <div className="flex flex-wrap items-baseline gap-x-2 text-[14px] font-medium tracking-tight text-ink-900">
                 Firmenpaket
                 <span className="text-[12px] font-normal text-ink-500">
-                  <span className="line-through">ab CHF 49/Monat</span> ·
-                  während der Beta kostenlos
+                  während der Beta kostenlos · regulär ab CHF 49/Monat nach
+                  der Beta
                 </span>
               </div>
               <div className="mt-0.5 text-[12.5px] text-ink-600">

@@ -47,6 +47,23 @@ export default async function AppLayout({
         {/* Content */}
         <main className="lg:col-span-10">{children}</main>
       </div>
+
+      <footer className="border-t border-ink-200 bg-white">
+        <div className="mx-auto flex w-full max-w-[1500px] flex-col items-start gap-2 px-6 py-6 text-xs text-ink-500 sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-12">
+          <p>© {new Date().getFullYear()} zeugnix. Schweizer Arbeitszeugnis-Plattform.</p>
+          <div className="flex gap-4">
+            <Link href="/legal/imprint" className="hover:text-petrol-700">
+              Impressum
+            </Link>
+            <Link href="/legal/privacy" className="hover:text-petrol-700">
+              Datenschutz
+            </Link>
+            <Link href="/legal/terms" className="hover:text-petrol-700">
+              AGB
+            </Link>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
