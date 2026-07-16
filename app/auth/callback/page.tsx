@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import type { EmailOtpType } from "@supabase/supabase-js";
 import { createClient } from "@/lib/db/supabase-client";
+import { sanitizeNext } from "@/lib/auth/sanitize-next";
 
 /**
  * /auth/callback (Client Component)
@@ -26,7 +27,7 @@ export default function AuthCallbackPage() {
     const url = new URL(window.location.href);
     const query = url.searchParams;
     const hash = new URLSearchParams(url.hash.replace(/^#/, ""));
-    const next = query.get("next") ?? "/app/dashboard";
+    const next = sanitizeNext(query.get("next"));
 
     // Fehler kann in Query ODER Fragment stehen (z.B. abgelaufener Link)
     const urlError =
