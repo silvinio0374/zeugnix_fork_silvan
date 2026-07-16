@@ -129,33 +129,34 @@ export function CertificatePreview({
   const paragraphs = text.split(/\n\n+/).map((p) => p.trim()).filter(Boolean);
 
   return (
-    <div
-      ref={containerRef}
-      className="flex justify-center overflow-hidden rounded-md bg-ink-100 p-4 sm:p-6"
-    >
-      {/* Platzhalter mit skalierter Höhe, damit kein Leerraum entsteht */}
-      <div
-        style={{
-          width: A4_WIDTH * scale,
-          height: naturalHeight * scale,
-          position: "relative",
-        }}
-      >
-        {/* A4-Blatt in Originalgröße (210mm), proportional herunterskaliert */}
+    <div className="overflow-hidden rounded-md bg-ink-100 p-4 sm:p-6">
+      {/* containerRef misst die verfügbare Breite OHNE das eigene Padding
+          dieses Wrappers – sonst rechnet sich die Skalierung zu gross und
+          das A4-Blatt frisst den rechten Rand des grauen Kastens auf. */}
+      <div ref={containerRef} className="flex justify-center">
+        {/* Platzhalter mit skalierter Höhe, damit kein Leerraum entsteht */}
         <div
-          ref={sheetRef}
-          className="bg-white"
           style={{
-            ...css.sheet,
-            position: "absolute",
-            top: 0,
-            left: 0,
-            boxShadow:
-              "0 1px 2px rgba(14, 16, 20, 0.08), 0 8px 24px rgba(14, 16, 20, 0.12)",
-            transform: `scale(${scale})`,
-            transformOrigin: "top left",
+            width: A4_WIDTH * scale,
+            height: naturalHeight * scale,
+            position: "relative",
           }}
         >
+          {/* A4-Blatt in Originalgrösse (210mm), proportional herunterskaliert */}
+          <div
+            ref={sheetRef}
+            className="bg-white"
+            style={{
+              ...css.sheet,
+              position: "absolute",
+              top: 0,
+              left: 0,
+              boxShadow:
+                "0 1px 2px rgba(14, 16, 20, 0.08), 0 8px 24px rgba(14, 16, 20, 0.12)",
+              transform: `scale(${scale})`,
+              transformOrigin: "top left",
+            }}
+          >
         {/* Letterhead */}
         <table style={css.letterhead}>
           <tbody>
@@ -274,6 +275,7 @@ export function CertificatePreview({
             )}
           </div>
         )}
+          </div>
         </div>
       </div>
     </div>
