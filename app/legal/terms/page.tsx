@@ -1,11 +1,10 @@
-import { LegalContent, Placeholder } from "@/components/marketing/legal-content";
+import { LegalContent } from "@/components/marketing/legal-content";
 import { companyInfo } from "@/lib/legal/company-info";
 import { siteConfig } from "@/lib/site-config";
 
 export const metadata = { title: "AGB" };
 
-// TODO(Patrick): Platzhalter in lib/legal/company-info.ts ersetzen, danach
-// vor Live-Schaltung juristisch prüfen lassen.
+// TODO(Patrick): vor Live-Schaltung juristisch prüfen lassen.
 export default function Page() {
   return (
     <LegalContent
@@ -24,8 +23,8 @@ export default function Page() {
           body: (
             <p>
               Diese AGB gelten für alle Verträge zwischen{" "}
-              <Placeholder>{companyInfo.legalName}</Placeholder> (
-              „{siteConfig.name}") und Nutzerinnen und Nutzern von{" "}
+              {companyInfo.legalName} („{siteConfig.name}") und
+              Nutzerinnen und Nutzern von{" "}
               {siteConfig.domain}. Mit der Registrierung akzeptieren Sie
               diese AGB.
             </p>
@@ -138,7 +137,7 @@ export default function Page() {
           body: (
             <p>
               Es gilt Schweizer Recht. Gerichtsstand ist, soweit gesetzlich
-              zulässig, <Placeholder>{companyInfo.jurisdiction}</Placeholder>.
+              zulässig, {companyInfo.jurisdiction}.
             </p>
           ),
         },

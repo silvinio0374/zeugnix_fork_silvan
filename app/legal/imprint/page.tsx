@@ -4,9 +4,9 @@ import { siteConfig } from "@/lib/site-config";
 
 export const metadata = { title: "Impressum" };
 
-// TODO(Patrick): Platzhalter in lib/legal/company-info.ts durch echte
-// Betreiber-Angaben ersetzen, danach diese Seite vor Live-Schaltung
-// juristisch prüfen lassen (Impressumspflicht: UWG Art. 3 Abs. 1 lit. s).
+// TODO(Patrick): UID-Nummer in lib/legal/company-info.ts ergänzen, danach
+// diese Seite vor Live-Schaltung juristisch prüfen lassen
+// (Impressumspflicht: UWG Art. 3 Abs. 1 lit. s).
 export default function Page() {
   return (
     <LegalContent
@@ -17,22 +17,21 @@ export default function Page() {
           heading: "Anbieter",
           body: (
             <p>
-              <Placeholder>{companyInfo.legalName}</Placeholder>
+              {companyInfo.legalName}
               <br />
-              <Placeholder>{companyInfo.address.street}</Placeholder>
+              {companyInfo.address.street}
               <br />
-              <Placeholder>{companyInfo.address.zipCity}</Placeholder>,{" "}
-              {companyInfo.address.country}
+              {companyInfo.address.zipCity}, {companyInfo.address.country}
               <br />
               UID: <Placeholder>{companyInfo.uid}</Placeholder>
               <br />
-              Handelsregister: <Placeholder>{companyInfo.commercialRegister}</Placeholder>
+              Handelsregister: {companyInfo.commercialRegister}
             </p>
           ),
         },
         {
           heading: "Vertreten durch",
-          body: <p><Placeholder>{companyInfo.representedBy}</Placeholder></p>,
+          body: <p>{companyInfo.representedBy}</p>,
         },
         {
           heading: "Kontakt",
@@ -42,8 +41,12 @@ export default function Page() {
               <a href={`mailto:${companyInfo.contactEmail}`} className="underline">
                 {companyInfo.contactEmail}
               </a>
-              <br />
-              Telefon: <Placeholder>{companyInfo.contactPhone}</Placeholder>
+              {companyInfo.contactPhone && (
+                <>
+                  <br />
+                  Telefon: {companyInfo.contactPhone}
+                </>
+              )}
             </p>
           ),
         },

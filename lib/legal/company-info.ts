@@ -1,22 +1,25 @@
 /**
  * Betreiber-Angaben für Impressum, AGB und Datenschutzerklärung.
+ * zeugnix.ch ist ein Produkt der advisori GmbH (Domain und Produktname
+ * bleiben "zeugnix"/"zeugnix.ch").
  *
- * ACHTUNG: Enthält Platzhalter (siehe einzelne Felder). Vor Live-Schaltung
- * mit den echten Angaben des Betreibers ersetzen und die drei Legal-Seiten
- * juristisch prüfen lassen (Impressumspflicht: UWG Art. 3 Abs. 1 lit. s).
+ * ACHTUNG: `uid` ist noch ein Platzhalter (UID-Nummer nicht bekannt/nicht
+ * verifiziert) - vor Live-Schaltung ergänzen. Alle drei Legal-Seiten vor
+ * Live-Schaltung zusätzlich juristisch prüfen lassen (Impressumspflicht:
+ * UWG Art. 3 Abs. 1 lit. s).
  */
 export const companyInfo = {
-  legalName: "[FIRMENNAME AG/GmbH]",
-  legalForm: "[Rechtsform, z.B. GmbH]",
+  legalName: "advisori GmbH",
+  legalForm: "GmbH",
   address: {
-    street: "[Strasse und Hausnummer]",
-    zipCity: "[PLZ Ort]",
+    street: "Neugasse 6",
+    zipCity: "6300 Zug",
     country: "Schweiz",
   },
   uid: "[UID-Nummer, z.B. CHE-123.456.789]",
-  commercialRegister: "[Handelsregisteramt, z.B. Handelsregisteramt des Kantons Zürich]",
-  representedBy: "[Name der vertretungsberechtigten Person]",
-  contactEmail: "kontakt@zeugnix.ch",
-  contactPhone: "[Telefonnummer, optional]",
-  jurisdiction: "[Gerichtsstand, z.B. Zürich]",
+  commercialRegister: "Handelsregisteramt des Kantons Zug",
+  representedBy: "Patrick Hitz, Geschäftsführer",
+  contactEmail: "info@advisori.ch",
+  contactPhone: undefined as string | undefined,
+  jurisdiction: "Zug",
 } as const;

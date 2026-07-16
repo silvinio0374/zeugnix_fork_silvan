@@ -4,9 +4,10 @@ import { siteConfig } from "@/lib/site-config";
 
 export const metadata = { title: "Datenschutz" };
 
-// TODO(Patrick): Platzhalter in lib/legal/company-info.ts ersetzen, Region der
-// Supabase-Instanz im Dashboard prüfen und eintragen, danach vor
-// Live-Schaltung juristisch prüfen lassen (revDSG).
+// TODO(Patrick): Region der Supabase-Instanz im Dashboard prüfen und
+// eintragen, anwendbaren Schutzmechanismus für die Resend-Datenübermittlung
+// in die USA bestätigen, danach vor Live-Schaltung juristisch prüfen lassen
+// (revDSG).
 export default function Page() {
   return (
     <LegalContent
@@ -24,9 +25,8 @@ export default function Page() {
           heading: "1. Verantwortlicher",
           body: (
             <p>
-              <Placeholder>{companyInfo.legalName}</Placeholder>,{" "}
-              <Placeholder>{companyInfo.address.street}</Placeholder>,{" "}
-              <Placeholder>{companyInfo.address.zipCity}</Placeholder>. Kontakt
+              {companyInfo.legalName}, {companyInfo.address.street},{" "}
+              {companyInfo.address.zipCity}. Kontakt
               für Datenschutzanfragen:{" "}
               <a href={`mailto:${companyInfo.contactEmail}`} className="underline">
                 {companyInfo.contactEmail}
