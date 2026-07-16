@@ -36,7 +36,7 @@ const audiences = [
   },
   {
     title: "Treuhänder & HR-Berater",
-    href: "/for-employers#treuhand",
+    href: "/for-employers",
     body: "Treuhandkunden professionell unterstützen – ohne selbst jedes Zeugnis schreiben zu müssen. Compliance-konform und nachvollziehbar.",
     items: [
       "Mandantenfähige Verwaltung",
