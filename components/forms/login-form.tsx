@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import { createOtpClient } from "@/lib/db/supabase-client";
+import { sanitizeNext } from "@/lib/auth/sanitize-next";
 
-export function LoginForm() {
+export function LoginForm({ next }: { next?: string }) {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
     "idle",
@@ -15,11 +16,12 @@ export function LoginForm() {
     setStatus("sending");
     setErrorMsg("");
 
+    const safeNext = sanitizeNext(next);
     const supabase = createOtpClient();
     const { error } = await supabase.auth.signInWithOtp({
       email,
       options: {
-        emailRedirectTo: `${window.location.origin}/auth/callback`,
+        emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(safeNext)}`,
       },
     });
 

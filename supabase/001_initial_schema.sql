@@ -64,6 +64,10 @@ do $$ begin
   create type verify_result as enum ('verified', 'mismatch', 'unknown');
 exception when duplicate_object then null; end $$;
 
+do $$ begin
+  create type tempus_value as enum ('praesens', 'praeteritum');
+exception when duplicate_object then null; end $$;
+
 -- ----------------------------------------------------------------------------
 -- Tabelle: profiles
 -- Spiegel der Supabase auth.users mit Rolle und Stammdaten
@@ -208,6 +212,7 @@ create table if not exists public.phrase_blocks (
   rating rating_value not null,
   variant int not null default 1,
   text text not null,
+  tempus tempus_value not null default 'praesens',
   signal_strength signal_strength not null default 'mittel',
   tonality tonality not null default 'neutral',
   warning_level warning_level not null default 'keine',

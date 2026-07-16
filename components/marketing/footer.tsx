@@ -8,7 +8,7 @@ const groups = [
     links: [
       { href: "/app/certificates/new", label: "Zeugnis erstellen" },
       { href: "/verify", label: "Zeugnis prüfen" },
-      { href: "/verify#analyse", label: "Zeugnis analysieren" },
+      { href: "/verify?tier=analyse", label: "Zeugnis analysieren" },
       { href: "/pricing", label: "Preise" },
       { href: "/how-it-works", label: "So funktioniert's" },
     ],
@@ -19,7 +19,7 @@ const groups = [
       { href: "/for-employers", label: "Arbeitgeber" },
       { href: "/for-candidates", label: "Kandidatinnen & Kandidaten" },
       { href: "/for-recruiters", label: "Recruiter" },
-      { href: "/for-employers#kmu", label: "KMU & Treuhand" },
+      { href: "/for-employers", label: "KMU & Treuhand" },
     ],
   },
   {
@@ -69,7 +69,7 @@ export function Footer() {
               </h4>
               <ul className="mt-4 space-y-2.5">
                 {group.links.map((link) => (
-                  <li key={link.href}>
+                  <li key={link.label}>
                     <Link
                       href={link.href}
                       className="text-[13.5px] text-ink-700 transition-colors hover:text-petrol-700"
