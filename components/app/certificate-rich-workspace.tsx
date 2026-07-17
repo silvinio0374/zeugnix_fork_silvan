@@ -181,9 +181,9 @@ export function CertificateRichWorkspace({
   const tooShort = wordCount > 0 && wordCount < 150;
 
   return (
-    <div className="grid gap-6 lg:grid-cols-5">
+    <div className="grid gap-6 lg:grid-cols-2">
       {/* Editor – linke Spalte */}
-      <div className="space-y-3 lg:col-span-2">
+      <div className="space-y-3">
         <div className="flex items-center justify-between">
           <div className="text-[11px] font-medium uppercase tracking-wider text-ink-500">
             Editor
@@ -241,7 +241,7 @@ export function CertificateRichWorkspace({
       </div>
 
       {/* Vorschau – rechte Spalte (A4, formatiert) */}
-      <div className="space-y-3 lg:col-span-3">
+      <div className="space-y-3">
         <div className="text-[11px] font-medium uppercase tracking-wider text-ink-500">
           Vorschau (so wird das PDF aussehen)
         </div>
