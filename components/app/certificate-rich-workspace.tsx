@@ -7,14 +7,18 @@ import StarterKit from "@tiptap/starter-kit";
 import { TextStyle, Color, FontFamily } from "@tiptap/extension-text-style";
 import { useCertificateWorkspace } from "./certificate-workspace";
 import { CertificatePreview } from "./certificate-preview";
-import { CertificateFormattedBody } from "./certificate-formatted-body";
 import {
   plainTextToTiptap,
   tiptapToPlainText,
   type TiptapDoc,
 } from "@/lib/certificate/tiptap-plaintext";
 import { fontConfig } from "@/lib/pdf/fonts";
-import { resolveTheme } from "@/lib/design/document-tokens";
+import {
+  resolveTheme,
+  BASE_TOKENS as T,
+  cssPt,
+  cssLh,
+} from "@/lib/design/document-tokens";
 
 interface Props {
   certificateId: string;
@@ -105,7 +109,7 @@ export function CertificateRichWorkspace({
     content: initialDoc,
     editorProps: {
       attributes: {
-        class: "zeugnix-prose",
+        class: "zeugnix-doc-editable",
         spellcheck: "true",
         lang: "de-CH",
       },
@@ -181,93 +185,98 @@ export function CertificateRichWorkspace({
   const tooShort = wordCount > 0 && wordCount < 150;
 
   return (
-    <div className="grid gap-6 lg:grid-cols-2">
-      {/* Editor – linke Spalte */}
-      <div className="space-y-3">
-        <div className="flex items-center justify-between">
-          <div className="text-[11px] font-medium uppercase tracking-wider text-ink-500">
-            Editor
-          </div>
-          <div className="text-[12px]">
-            {status === "typing" && <span className="text-ink-400">Tippt…</span>}
-            {status === "saving" && (
-              <span className="text-ink-500">Wird gespeichert…</span>
-            )}
-            {status === "saved" && (
-              <span className="text-petrol-700">✓ Gespeichert</span>
-            )}
-            {status === "error" && (
-              <span className="text-red-700">Fehler: {errorMsg}</span>
-            )}
-          </div>
+    <div className="mx-auto max-w-[900px] space-y-3">
+      <div className="flex items-center justify-between">
+        <div className="text-[11px] font-medium uppercase tracking-wider text-ink-500">
+          {finalized ? "Zeugnis" : "Direkt im Dokument bearbeiten"}
         </div>
-
-        {!finalized && <Toolbar editor={editor} />}
-
-        <div
-          className="rounded-md border border-ink-200 bg-white"
-          style={{
-            fontFamily: editorFont,
-            color: editorColor,
-          }}
-        >
-          <EditorContent editor={editor} />
-        </div>
-
-        <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 text-[11.5px] text-ink-500">
-          <span>
-            {wordCount} {wordCount === 1 ? "Wort" : "Wörter"} · {charCount} Zeichen
-          </span>
-          {tooShort && (
-            <span className="text-amber-700">
-              Eher kurz – je knapper ein Zeugnis, desto zurückhaltender wirkt es.
-            </span>
+        <div className="text-[12px]">
+          {status === "typing" && <span className="text-ink-400">Tippt…</span>}
+          {status === "saving" && (
+            <span className="text-ink-500">Wird gespeichert…</span>
+          )}
+          {status === "saved" && (
+            <span className="text-petrol-700">✓ Gespeichert</span>
+          )}
+          {status === "error" && (
+            <span className="text-red-700">Fehler: {errorMsg}</span>
           )}
         </div>
+      </div>
 
-        {!finalized && (
-          <button
-            onClick={resetToGenerated}
-            className="text-[11.5px] font-medium text-ink-600 underline hover:text-ink-900"
+      {!finalized && <Toolbar editor={editor} />}
+
+      {/* So wird auch das PDF aussehen: Bearbeitung passiert direkt im
+          A4-Blatt statt in einem separaten, andersartig skalierten Feld
+          daneben – ein Rendering, keine zwei Wahrheiten. */}
+      <CertificatePreview
+        company={company}
+        employee={employee}
+        type={type}
+        text={previewText}
+        hash={hash}
+        bodyOverride={
+          <div
+            className="zeugnix-doc-editable-wrap"
+            style={{ fontFamily: editorFont, color: editorColor }}
           >
-            Auf generierten Text zurücksetzen
-          </button>
-        )}
-        {finalized && (
-          <p className="text-[11.5px] text-ink-500">
-            Das Zeugnis ist finalisiert. Bearbeitung nicht mehr möglich.
-          </p>
-        )}
-      </div>
-
-      {/* Vorschau – rechte Spalte (A4, formatiert) */}
-      <div className="space-y-3">
-        <div className="text-[11px] font-medium uppercase tracking-wider text-ink-500">
-          Vorschau (so wird das PDF aussehen)
-        </div>
-        <CertificatePreview
-          company={company}
-          employee={employee}
-          type={type}
-          text={previewText}
-          hash={hash}
-          bodyOverride={<CertificateFormattedBody doc={doc} themeId={themeId} />}
-          themeId={themeId}
-        />
-      </div>
-
-      <style>{`
-        .zeugnix-prose {
-          min-height: 360px;
-          padding: 16px 18px;
-          font-size: 14px;
-          line-height: 1.6;
-          outline: none;
+            <EditorContent editor={editor} />
+          </div>
         }
-        .zeugnix-prose:focus { outline: none; }
-        .zeugnix-prose p { margin: 0 0 10px 0; }
-        .zeugnix-prose ul { margin: 0 0 10px 0; padding-left: 20px; }
-        .zeugnix-prose li { margin: 0 0 3px 0; }
+        themeId={themeId}
+      />
+
+      <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 text-[11.5px] text-ink-500">
+        <span>
+          {wordCount} {wordCount === 1 ? "Wort" : "Wörter"} · {charCount} Zeichen
+        </span>
+        {tooShort && (
+          <span className="text-amber-700">
+            Eher kurz – je knapper ein Zeugnis, desto zurückhaltender wirkt es.
+          </span>
+        )}
+      </div>
+
+      {!finalized && (
+        <button
+          onClick={resetToGenerated}
+          className="text-[11.5px] font-medium text-ink-600 underline hover:text-ink-900"
+        >
+          Auf generierten Text zurücksetzen
+        </button>
+      )}
+      {finalized && (
+        <p className="text-[11.5px] text-ink-500">
+          Das Zeugnis ist finalisiert. Bearbeitung nicht mehr möglich.
+        </p>
+      )}
+
+      {/* Typografie deckungsgleich mit den Druck-Tokens (document-tokens.ts),
+          damit das Editieren im Blatt exakt zeigt, was im PDF landet. */}
+      <style>{`
+        .zeugnix-doc-editable { outline: none; }
+        .zeugnix-doc-editable p {
+          margin: 0 0 ${cssPt(T.space.paragraphMarginBottom)} 0;
+          font-size: ${cssPt(T.fontSize.body)};
+          line-height: ${cssLh(T.lineHeight.body)};
+        }
+        .zeugnix-doc-editable ul {
+          list-style: none;
+          margin: 0 0 ${cssPt(T.space.paragraphMarginBottom)} 0;
+          padding-left: 0;
+        }
+        .zeugnix-doc-editable li {
+          position: relative;
+          margin: 0 0 ${cssPt(T.space.bulletMarginBottom)} 0;
+          padding-left: ${cssPt(T.space.bulletMarginLeft)};
+          font-size: ${cssPt(T.fontSize.body)};
+          line-height: ${cssLh(T.lineHeight.body)};
+        }
+        .zeugnix-doc-editable li::before {
+          content: "•";
+          position: absolute;
+          left: 0;
+        }
       `}</style>
     </div>
   );
