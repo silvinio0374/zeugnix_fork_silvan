@@ -109,19 +109,67 @@ export function pickSchlusssatz(p: SchlusssatzParams): string | null {
   return null;
 }
 
+/** Optionale Person für die Vorschau: echte Gender-/Namensauflösung. */
+export interface SchlusssatzSubject {
+  firstName: string;
+  lastName: string;
+  gender: "m" | "f" | "d";
+}
+
 /**
- * Neutrale Auflösung der Gender-Tokens (3. Wert, z.B. „ihm/ihr") für die
- * Formular-Vorschau; Namensplatzhalter werden lesbar ersetzt.
+ * Schlusssatz-Vorschau. Ohne `subject` neutral (3. Token-Wert „ihm/ihr",
+ * Namensplatzhalter als [Name]). Mit `subject` wird wie in der Engine aufgelöst:
+ * m → 1., f → 2., d → 3. Wert, echte Namen eingesetzt. So zeigt die Vorschau auf
+ * der Detailseite denselben Satz, den „Generieren" später bäckt.
  */
-export function schlusssatzPreview(p: SchlusssatzParams): string | null {
+export function schlusssatzPreview(
+  p: SchlusssatzParams,
+  subject?: SchlusssatzSubject,
+): string | null {
   const tmpl = pickSchlusssatz(p);
   if (!tmpl) return null;
-  return tmpl
-    .replace(/\{\{([^{}]*)\}\}/g, (_m, inner: string) => {
-      const parts = inner.split("|");
-      return (parts[2] ?? parts[0] ?? "").trim();
-    })
+  const genderIdx = subject
+    ? subject.gender === "m"
+      ? 0
+      : subject.gender === "f"
+        ? 1
+        : 2
+    : 2;
+  const resolved = tmpl.replace(/\{\{([^{}]*)\}\}/g, (_m, inner: string) => {
+    const parts = inner.split("|");
+    return (parts[genderIdx] ?? parts[0] ?? "").trim();
+  });
+  if (subject) {
+    return resolved
+      .replace(/\{vorname\}/g, subject.firstName)
+      .replace(/\{nachname\}/g, subject.lastName);
+  }
+  return resolved
     .replace(/\{vorname\}\s*\{nachname\}/g, "[Name]")
     .replace(/\{vorname\}/g, "[Vorname]")
     .replace(/\{nachname\}/g, "[Nachname]");
+}
+
+/**
+ * Leitet den Legacy-`certificates.type` aus Zeugnistyp + Opt-ins ab. EINZIGE
+ * Quelle dieser Ableitung – genutzt beim Anlegen (new-certificate-form) und beim
+ * nachträglichen Ändern der Schlusssatz-Optionen (PATCH .../schlusssatz), damit
+ * beide Wege exakt denselben Typ (und damit Intro/Tempus/Wechsel-Zweig in der
+ * Engine) erzeugen.
+ */
+export function deriveLegacyType(
+  zeugnisTyp: "schluss" | "zwischen" | "arbeitsbestaetigung",
+  optins: {
+    optinReorg?: boolean;
+    optinVorgesetztenwechsel?: boolean;
+    optinInternerWechsel?: boolean;
+  },
+): string {
+  if (zeugnisTyp === "arbeitsbestaetigung") return "arbeitsbestaetigung";
+  if (zeugnisTyp === "zwischen") {
+    if (optins.optinVorgesetztenwechsel) return "vorgesetztenwechsel";
+    if (optins.optinInternerWechsel) return "interner_wechsel";
+    return "zwischen";
+  }
+  return optins.optinReorg ? "reorganisation" : "schluss";
 }

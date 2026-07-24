@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/db/supabase-server";
 import { notFound } from "next/navigation";
 import { CertificateActions } from "@/components/app/certificate-actions";
+import { SchlusssatzControls } from "@/components/forms/schlusssatz-controls";
 import { CertificateRichWorkspace } from "@/components/app/certificate-rich-workspace";
 import { CertificateWorkspace } from "@/components/app/certificate-workspace";
 import { CertificateManage } from "@/components/app/certificate-manage";
@@ -135,6 +136,33 @@ export default async function CertificateDetailPage({ params }: PageProps) {
         evaluationCount={evaluations.length}
         invitationCount={invitations.length}
       />
+
+      {/* Schlusssatz-Leiste: zwischen Aktionen-Panel und Vorschau. Nur für
+          schluss/zwischen (Arbeitsbestätigung hat keinen Schlusssatz; Alt-Zeugnisse
+          ohne zeugnis_typ nutzen weiterhin den Legacy-Schlusszweig). */}
+      {(cert.zeugnis_typ === "schluss" || cert.zeugnis_typ === "zwischen") && (
+        <SchlusssatzControls
+          certificateId={cert.id}
+          zeugnisTyp={cert.zeugnis_typ}
+          finalized={isFinal}
+          subject={{
+            firstName: employee.first_name,
+            lastName: employee.last_name,
+            gender: employee.gender,
+          }}
+          initial={{
+            austrittsgrund: cert.austrittsgrund ?? null,
+            wertschaetzung: cert.wertschaetzungsgrad ?? null,
+            optinBedauern: cert.optin_bedauern ?? false,
+            optinReorg: cert.optin_reorg ?? false,
+            optinVorgesetztenwechsel: cert.optin_vorgesetztenwechsel ?? false,
+            optinInternerWechsel: cert.optin_interner_wechsel ?? false,
+            newFunctionTitle: cert.new_function_title ?? null,
+            newCompanyName: cert.new_company_name ?? null,
+            transitionDate: cert.transition_date ?? null,
+          }}
+        />
+      )}
 
       {/* Editor + Preview Split-View */}
       {hasText && (
