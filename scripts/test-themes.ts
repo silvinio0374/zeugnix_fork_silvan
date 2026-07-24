@@ -17,6 +17,7 @@
  */
 
 import {
+  BRAND_THEMES,
   BUILTIN_THEMES,
   DEFAULT_THEME,
   assertThemeReadable,
@@ -195,7 +196,10 @@ console.log("\nKontrast (WCAG AA gegen Papierweiss)");
   assert("Weiss auf Weiss = 1:1", Math.round(contrastRatio("#ffffff", "#ffffff")) === 1);
   assert("Kontrast ist symmetrisch", contrastRatio("#0f7a6b", "#ffffff") === contrastRatio("#ffffff", "#0f7a6b"));
 
-  for (const theme of Object.values(BUILTIN_THEMES)) {
+  // Öffentliche Standard-Themes UND private Marken-Themes: ein zu blasser
+  // brandAccent in einem Marken-Theme soll den Build genauso brechen.
+  const allThemes = { ...BUILTIN_THEMES, ...BRAND_THEMES };
+  for (const theme of Object.values(allThemes)) {
     let ok = true;
     try {
       assertThemeReadable(theme);
@@ -203,6 +207,11 @@ console.log("\nKontrast (WCAG AA gegen Papierweiss)");
       ok = false;
     }
     assert(`Theme "${theme.id}" erfüllt WCAG AA`, ok);
+  }
+
+  // Marken-Themes lösen über ihre gespeicherte ID auf (Whitelabeling-Provisionierung).
+  for (const theme of Object.values(BRAND_THEMES)) {
+    eq(`Marken-Theme "${theme.id}" auflösbar`, resolveTheme(theme.id).id, theme.id);
   }
 
   // Gegenprobe: ein zu blasses Theme MUSS scheitern.

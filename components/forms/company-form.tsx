@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/db/supabase-client";
 import {
+  BRAND_THEMES,
   BUILTIN_THEMES,
   resolveThemeFromCompany,
 } from "@/lib/design/document-tokens";
@@ -368,18 +369,38 @@ export function CompanyForm({ company, compact = false }: Props) {
             <Field label="Stil">
               {/* Spaltenname bleibt default_certificate_font_family: sie hält
                   jetzt die Theme-ID. resolveTheme() versteht auch die
-                  Alt-Werte helvetica|times|courier – daher keine Migration. */}
-              <select
-                name="default_certificate_font_family"
-                defaultValue={resolveThemeFromCompany(company ?? {}).id}
-                className="input"
-              >
-                {Object.values(BUILTIN_THEMES).map((t) => (
-                  <option key={t.id} value={t.id}>
-                    {t.label}
-                  </option>
-                ))}
-              </select>
+                  Alt-Werte helvetica|times|courier – daher keine Migration.
+
+                  Hat die Firma ein privates Marken-Theme (Whitelabeling, zentral
+                  per SQL gesetzt), erscheint KEIN Picker – die Marken-Themes sind
+                  bewusst nicht öffentlich wählbar. Stattdessen eine gesperrte Zeile
+                  plus Hidden-Input, damit das Speichern des Formulars das
+                  Marken-Theme nicht auf einen Standard-Stil zurücksetzt. */}
+              {resolveThemeFromCompany(company ?? {}).id in BRAND_THEMES ? (
+                <>
+                  <input
+                    type="hidden"
+                    name="default_certificate_font_family"
+                    value={resolveThemeFromCompany(company ?? {}).id}
+                  />
+                  <div className="input flex items-center justify-between gap-2 bg-ink-50/50 text-ink-500">
+                    <span>Individuelles Markendesign</span>
+                    <span className="text-[11px]">zentral verwaltet</span>
+                  </div>
+                </>
+              ) : (
+                <select
+                  name="default_certificate_font_family"
+                  defaultValue={resolveThemeFromCompany(company ?? {}).id}
+                  className="input"
+                >
+                  {Object.values(BUILTIN_THEMES).map((t) => (
+                    <option key={t.id} value={t.id}>
+                      {t.label}
+                    </option>
+                  ))}
+                </select>
+              )}
             </Field>
           </div>
         </div>
