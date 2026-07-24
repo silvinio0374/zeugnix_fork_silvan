@@ -198,6 +198,54 @@ export const BUILTIN_THEMES: Record<string, DocumentTheme> = {
   },
 };
 
+/**
+ * Private Mandanten-Themes (Whitelabeling). BEWUSST NICHT in BUILTIN_THEMES und
+ * damit NICHT im öffentlichen Theme-Picker (company-form.tsx). Eine Firma erhält
+ * ihr Marken-Theme ausschliesslich durch Setzen der Theme-ID in
+ * companies.default_certificate_font_family (manuelles SQL im Prod-Editor) – kein
+ * Self-Service, kein durchstöberbarer Katalog. resolveTheme() liest trotzdem aus
+ * der Vereinigung beider Maps, damit eine gesetzte ID auflöst.
+ *
+ * Jedes Theme erbt BASE_COLORS und überschreibt NUR `brandAccent` (Signatur-
+ * Header, Bestätigungshäkchen, Hash-Label/Verify-Link, QR-Code). Der Fliesstext
+ * bleibt neutral-schwarz für maximale Lesbarkeit. Farbwerte: Christoph Senn,
+ * 2026-07-20; alle ≥ 4.5:1 gegen Papierweiss (WCAG AA, per test-themes.ts geprüft).
+ * Die Schriften bleiben vorerst die eingebauten Basisschriften – Inter-Embedding
+ * ist ein separater Schritt.
+ */
+export const BRAND_THEMES: Record<string, DocumentTheme> = {
+  "brand-first": {
+    id: "brand-first",
+    label: "First Advisory",
+    fonts: { heading: "helvetica", body: "helvetica", mono: "courier" },
+    colors: { ...BASE_COLORS, brandAccent: "#003867" },
+  },
+  "brand-csl": {
+    id: "brand-csl",
+    label: "CSL",
+    fonts: { heading: "helvetica", body: "helvetica", mono: "courier" },
+    colors: { ...BASE_COLORS, brandAccent: "#A44A52" },
+  },
+  "brand-c2g": {
+    id: "brand-c2g",
+    label: "Comply2gether",
+    fonts: { heading: "helvetica", body: "helvetica", mono: "courier" },
+    colors: { ...BASE_COLORS, brandAccent: "#D10800" },
+  },
+  "brand-iab": {
+    id: "brand-iab",
+    label: "IAB",
+    fonts: { heading: "helvetica", body: "helvetica", mono: "courier" },
+    colors: { ...BASE_COLORS, brandAccent: "#002D53" },
+  },
+};
+
+/** Vereinigung: alle auflösbaren Themes (öffentlich + privat). */
+const ALL_THEMES: Record<string, DocumentTheme> = {
+  ...BUILTIN_THEMES,
+  ...BRAND_THEMES,
+};
+
 export const DEFAULT_THEME_ID = "zeugnix-standard";
 export const DEFAULT_THEME: DocumentTheme = BUILTIN_THEMES[DEFAULT_THEME_ID];
 
@@ -216,7 +264,7 @@ const LEGACY_FONT_TO_THEME: Record<string, string> = {
 export function resolveTheme(value?: string | null): DocumentTheme {
   if (!value) return DEFAULT_THEME;
   const legacy = LEGACY_FONT_TO_THEME[value];
-  return BUILTIN_THEMES[value] ?? (legacy ? BUILTIN_THEMES[legacy] : undefined) ?? DEFAULT_THEME;
+  return ALL_THEMES[value] ?? (legacy ? BUILTIN_THEMES[legacy] : undefined) ?? DEFAULT_THEME;
 }
 
 export function resolveThemeFromCompany(company: {

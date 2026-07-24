@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/db/supabase-client";
-import { schlusssatzPreview } from "@/lib/phrases/schlusssaetze";
+import { deriveLegacyType } from "@/lib/phrases/schlusssaetze";
 
 interface Props {
   companies: { id: string; name: string }[];
@@ -14,50 +14,15 @@ export function NewCertificateForm({ companies }: Props) {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
 
-  // Sauber getrenntes Datenmodell (Christoph-Matrix):
-  //   Zeugnistyp × Austrittsgrund + stapelbare Opt-ins.
+  // Schritt 1 wählt nur noch den Zeugnistyp. Austrittsgrund, Opt-ins und
+  // Wertschätzungsgrad (der Schlusssatz-Cluster) werden auf der Detailseite
+  // gesetzt (SchlusssatzControls), damit die A4-Vorschau direkt mitläuft.
   const [zeugnisTyp, setZeugnisTyp] = useState<
     "schluss" | "zwischen" | "arbeitsbestaetigung"
   >("schluss");
-  const [austrittsgrund, setAustrittsgrund] = useState<
-    "wunsch_an" | "wunsch_ag" | "einvernehmen"
-  >("wunsch_an");
-  const [optinBedauern, setOptinBedauern] = useState(false);
-  const [optinReorg, setOptinReorg] = useState(false);
-  const [optinVorgesetztenwechsel, setOptinVorgesetztenwechsel] = useState(false);
-  const [optinInternerWechsel, setOptinInternerWechsel] = useState(false);
-  const [wertschaetzung, setWertschaetzung] = useState<
-    "standard" | "wertschaetzender" | "top"
-  >("standard");
 
-  const showWechselFields = optinVorgesetztenwechsel || optinInternerWechsel;
-
-  // Live-Vorschau des Schlusssatzes (neutrale Form) für die aktuelle Auswahl.
-  const schlusssatzVorschau =
-    zeugnisTyp === "arbeitsbestaetigung"
-      ? null
-      : schlusssatzPreview({
-          zeugnisTyp,
-          austrittsgrund,
-          wertschaetzung,
-          optinBedauern,
-          optinReorg,
-        });
-
-  // Abgeleiteter Legacy-`type`: hält Engine/Vorschau/PDF unverändert lauffähig,
-  // bis diese in späteren Phasen auf die neuen Felder umgestellt sind.
-  const legacyType =
-    zeugnisTyp === "arbeitsbestaetigung"
-      ? "arbeitsbestaetigung"
-      : zeugnisTyp === "zwischen"
-        ? optinVorgesetztenwechsel
-          ? "vorgesetztenwechsel"
-          : optinInternerWechsel
-            ? "interner_wechsel"
-            : "zwischen"
-        : optinReorg
-          ? "reorganisation"
-          : "schluss";
+  // Neu angelegte Zeugnisse starten ohne Opt-ins; der Legacy-`type` folgt daraus.
+  const legacyType = deriveLegacyType(zeugnisTyp, {});
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -113,22 +78,20 @@ export function NewCertificateForm({ companies }: Props) {
         employee_id: employee.id,
         type: legacyType,
         zeugnis_typ: zeugnisTyp,
-        austrittsgrund: zeugnisTyp === "schluss" ? austrittsgrund : null,
-        optin_bedauern: zeugnisTyp === "schluss" ? optinBedauern : false,
-        optin_reorg: optinReorg,
-        optin_vorgesetztenwechsel:
-          zeugnisTyp === "zwischen" ? optinVorgesetztenwechsel : false,
-        optin_interner_wechsel:
-          zeugnisTyp === "zwischen" ? optinInternerWechsel : false,
-        wertschaetzungsgrad:
-          zeugnisTyp === "arbeitsbestaetigung" ? "standard" : wertschaetzung,
+        // Schlusssatz-Defaults; auf der Detailseite anpassbar (SchlusssatzControls).
+        austrittsgrund: zeugnisTyp === "schluss" ? "wunsch_an" : null,
+        optin_bedauern: false,
+        optin_reorg: false,
+        optin_vorgesetztenwechsel: false,
+        optin_interner_wechsel: false,
+        wertschaetzungsgrad: "standard",
         tasks,
         status: "draft",
         // Dank ist im Schlusssatz-Katalog bereits enthalten.
         thank_employee: zeugnisTyp === "schluss",
-        new_function_title: (fd.get("new_function_title") as string) || null,
-        new_company_name: (fd.get("new_company_name") as string) || null,
-        transition_date: (fd.get("transition_date") as string) || null,
+        new_function_title: null,
+        new_company_name: null,
+        transition_date: null,
         created_by_user_id: user.id,
       })
       .select()
@@ -237,126 +200,12 @@ export function NewCertificateForm({ companies }: Props) {
           </p>
         )}
 
-        {zeugnisTyp === "schluss" && (
-          <>
-            <Field label="Austrittsgrund">
-              <select
-                className="input"
-                value={austrittsgrund}
-                onChange={(e) =>
-                  setAustrittsgrund(
-                    e.target.value as "wunsch_an" | "wunsch_ag" | "einvernehmen",
-                  )
-                }
-              >
-                <option value="wunsch_an">Wunsch der/des Mitarbeitenden</option>
-                <option value="wunsch_ag">Wunsch des Arbeitgebers</option>
-                <option value="einvernehmen">Gegenseitiges Einvernehmen</option>
-              </select>
-            </Field>
-            <div className="space-y-2">
-              <span className="block text-[12px] font-medium text-ink-700">
-                Optionale Zusätze im Schlusssatz
-              </span>
-              <label className="flex items-center gap-2 text-[13px]">
-                <input
-                  type="checkbox"
-                  checked={optinBedauern}
-                  onChange={(e) => setOptinBedauern(e.target.checked)}
-                />
-                <span>Bedauern über das Ausscheiden</span>
-              </label>
-              <label className="flex items-center gap-2 text-[13px]">
-                <input
-                  type="checkbox"
-                  checked={optinReorg}
-                  onChange={(e) => setOptinReorg(e.target.checked)}
-                />
-                <span>Reorganisation</span>
-              </label>
-            </div>
-          </>
-        )}
-
-        {zeugnisTyp === "zwischen" && (
-          <div className="space-y-2">
-            <span className="block text-[12px] font-medium text-ink-700">
-              Optionale Zusätze / Anlass
-            </span>
-            <label className="flex items-center gap-2 text-[13px]">
-              <input
-                type="checkbox"
-                checked={optinReorg}
-                onChange={(e) => setOptinReorg(e.target.checked)}
-              />
-              <span>Reorganisation</span>
-            </label>
-            <label className="flex items-center gap-2 text-[13px]">
-              <input
-                type="checkbox"
-                checked={optinVorgesetztenwechsel}
-                onChange={(e) => setOptinVorgesetztenwechsel(e.target.checked)}
-              />
-              <span>Vorgesetztenwechsel</span>
-            </label>
-            <label className="flex items-center gap-2 text-[13px]">
-              <input
-                type="checkbox"
-                checked={optinInternerWechsel}
-                onChange={(e) => setOptinInternerWechsel(e.target.checked)}
-              />
-              <span>Interner Wechsel</span>
-            </label>
-          </div>
-        )}
-
         {zeugnisTyp !== "arbeitsbestaetigung" && (
-          <>
-            <Field label="Wertschätzungsgrad (Schlusssatz)">
-              <select
-                className="input"
-                value={wertschaetzung}
-                onChange={(e) =>
-                  setWertschaetzung(
-                    e.target.value as "standard" | "wertschaetzender" | "top",
-                  )
-                }
-              >
-                <option value="standard">Standard</option>
-                <option value="wertschaetzender">Etwas wertschätzender</option>
-                <option value="top">Top-Mitarbeitende</option>
-              </select>
-            </Field>
-            {schlusssatzVorschau && (
-              <div className="rounded-md border border-ink-200 bg-ink-50/50 p-3">
-                <div className="text-[11px] font-medium uppercase tracking-wider text-ink-500">
-                  Schlusssatz-Vorschau
-                </div>
-                <p className="mt-1.5 text-[13px] leading-relaxed text-ink-700">
-                  {schlusssatzVorschau}
-                </p>
-                <p className="mt-2 text-[11px] leading-relaxed text-ink-400">
-                  Neutrale Form – Name und Anrede werden beim Generieren
-                  eingesetzt. Standardisierte Formulierung, für alle Zeugnisse
-                  einheitlich wiederverwendbar.
-                </p>
-              </div>
-            )}
-          </>
-        )}
-
-        {showWechselFields && (
-          <div className="grid gap-4 sm:grid-cols-3">
-            <Field label="Neue Funktion (optional)">
-              <input name="new_function_title" className="input" />
-            </Field>
-            <Field label="Neue Firma (optional)">
-              <input name="new_company_name" className="input" />
-            </Field>
-            <Field label="Wechseldatum (optional)">
-              <input name="transition_date" type="date" className="input" />
-            </Field>
-          </div>
+          <p className="text-[12px] leading-relaxed text-ink-500">
+            Austrittsgrund, Wertschätzungsgrad und optionale Zusätze im
+            Schlusssatz wählen Sie im nächsten Schritt direkt neben der Vorschau –
+            so sehen Sie sofort, wie sich der Text verändert.
+          </p>
         )}
 
         <Field label="Hauptaufgaben (eine pro Zeile)">
